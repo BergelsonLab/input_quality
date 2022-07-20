@@ -1,0 +1,11 @@
+---
+title: "input_quality_manuscript"
+author: "Erin Campbell & Lillianna Writer"
+date: "7/20/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
