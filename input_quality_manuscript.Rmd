@@ -5,7 +5,26 @@ date: "7/20/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+library(tidyverse)
+single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_july26_no_separate_column.txt", 
+     delim = "\t", escape_double = FALSE, 
+     trim_ws = TRUE,col_names = FALSE) %>%
+  rename(tier=X1,
+         participant=X2,
+         onset_ms=X3,
+         offset_ms=X4,
+         duration=X5,
+         utterance=X6,
+         filename=X7,
+         filepath=X8)
+
+try_wide <- pivot_wider(single_column_with_names, names_from = "tier", values_from = "utterance") %>%
+  unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
+  unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
+  unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "EE1"), remove = TRUE, na.rm = TRUE)
+
+
 ```
+
 
