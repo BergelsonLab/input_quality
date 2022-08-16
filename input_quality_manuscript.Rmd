@@ -6,7 +6,9 @@ output: html_document
 ---
 
 ```{r}
+#read in data that has been mass exported via ELAN; add informative column names
 library(tidyverse)
+library(ggplot2)
 single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_july26_no_separate_column.txt", 
      delim = "\t", escape_double = FALSE, 
      trim_ws = TRUE,col_names = FALSE) %>%
@@ -19,12 +21,96 @@ single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_
          filename=X7,
          filepath=X8)
 
+#wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
 try_wide <- pivot_wider(single_column_with_names, names_from = "tier", values_from = "utterance") %>%
   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
   unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "EE1"), remove = TRUE, na.rm = TRUE)
 
-
 ```
 
 
+```{r}
+### ADS/CDS proportion
+
+#get number of counts per each xds type by file
+CDS_proportion <- try_wide %>%
+  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
+  group_by(filename, xds) %>%
+  summarise(counts=n())
+
+#just wanna check how many utterances total
+mega_total <- sum(CDS_proportion$counts)
+
+#find total number of utterances per file
+CDS_total_input_utterances <- try_wide %>%
+  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
+  group_by(filename) %>%
+  summarise(total_utts=n())
+
+#just checking that the number is the same bc i don't trust myself
+mega_total2 <- sum(CDS_total_input_utterances$total_utts)
+
+#breakdown by addressee all VI kids as a group
+VI_group_props <- try_wide %>%
+  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
+  group_by(xds) %>%
+  summarise(big_number=n())
+
+
+#lets create a function to convert things into percents (I stole this obvi)
+percent <- function(x, digits = 2, format = "f", ...) {      # Create user-defined function
+  paste0(formatC(x * 100, format = format, digits = digits, ...), "%")
+}
+
+#and now a full table with number of utts per addressee category, totaly utts for that file, and what the percent of each cat comes out as for each kid
+proportion_table <- left_join(CDS_proportion, CDS_total_input_utterances)%>%
+  mutate(incidence_percent = percent(counts/total_utts))
+
+#this is just the same as the group props but with percentages
+VI_group_proportion_table <- VI_group_props %>%
+  mutate(group_percent = percent(big_number/mega_total))
+
+
+ggplot(CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
+  geom_bar(position="fill", stat="identity") +
+  ggtitle("Proportion of Addressee by Recording") +
+  xlab("Recording") + ylab ("Proportion, by number of utterances") +
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=9, angle=45))
+
+#I need to rename filenames to something that's not the same as lab-internal subj num
+```
+```{r}
+#Overall VI CDS/ADS proportion graph
+ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
+  geom_bar(position = "stack", stat = "identity") + ggtitle("Proportion by Addressee in Speech heard by VI Children") +
+  geom_text(aes(label=group_percent), position=position_stack(vjust=0.5)) +
+  xlab("All VI children") + ylab ("Proportion, by number of utterances") +
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'))
+```
+
+```{r}
+#we will do the same as above with TD matches (gonna have to do some filtering)
+#and then a z-test to compare proportions of CDS
+
+```
+### Methods by Lilli
+Procedure
+
+Guardians of participating infants received a LENA wearable audio recorder (CITE) and vest. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off (excluding bath and nap times), approximately sixteen hours later. They were also instructed how to pause the recording at any time, but asked to keep these pauses to a minimum. Actual recording length ranged from RANGE (insert mean, SD). 
+
+Processing
+### I don't actually know how these are processed up front so I'll come back to this
+Audio recordings were processed by LENA software (gives you an its? idk). Each recording was then run through an automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the file. The process output a codeable ELAN file (.eaf, CITE). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened (#isn't there one where that's not true??)  Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants (FIND A WAY TO DO MATH WITH # SEGMENTS THAT ARE SILENT) of the 2-minute coding segments contained no speech at all. 
+
+Annotation
+
+Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the Analyzing Child Language Experiences around the World (ACLEW) Daylong Audio Recording of Children's Linguistic Environments (DARCLE) annotation scheme (CITE). Prior to annotating lab data, annotators are trained on previously coded samples of child recordings and are required to reach 95% overall agreement with the gold standard version of the file for three different age ranges: 0-7 months, 8-18 months, and 19-36 months. For more information about this annotation scheme and the larger project, please see the ACLEW homepage (https://sites.google.com/view/aclewdid/home). Following the first pass, all files were checked by a highly-trained "superchecker" (second author on this paper, Lilli "Always Right" Righter) to ensure the consistency of annotations. (are we gonna do reliability? I don't want to lol)
+
+This annotation scheme is designed to capture both utterances by the target child (henceforth referred to as CHI) and speech in the child's environment, including adults, other children, and pre-recorded electronic speech (e.g. toys, television, the radio). Annotators segment the duration of each utterance on a separate coding tier for each unique speaker (exceptions: all electronic speech is coded on the same tier, and some speakers who appear briefly in these files were not easily distinguishable from others by annotators naive to their identities, so they may be concatenated on the same tier). Speech by people other than the target child is transcribed using an adapted version of CHAT transcription style (CITE), dubbed minCHAT for the ACLEW project (CITE). Because the majority of target children in the project are pre-lexical or phonetically immature, CHI utterances are not transcribed. 
+
+Each utterance is coded for additional linguistic properties from a set of pre-determined categories. CHI utterances are coded for vocal maturity, lexical status, and multi-word status. Vocal maturity classifies utterances into the following categories: laughing; crying; canonical syllables that contain a consonant-like and vowel-like sound component, including both babbling and identifiable words; non-canonical syllables, which do not contain both consonant and vowel portions, or which do not transition between them in a speech-like way; and unsure, when the vocalization type is unclear. Each vocalization that contains canonical syllables is then coded for lexical status, either containing an identifiable lexical item or not. Finally, each utterance with a lexical item is coded for multi-word status, whether or not it contains more than one unique word type.
+
+Environmental speech is coded for the addressee of each utterance: speech directed to a child, whether or not it is directed to the target child; adult-directed speech; speech directed to both an adult and a child; speech directed to pets or other animals; unclear addressee; or speech directed towards a recipient that doesn't fit into another category (e.g. voice control of Siri or Alexa, speech to a metaphysical entity). 
+
+Following ACLEW DARCLE style annotation, each file was converted into a CHAT file (CITE) to use the CLAN automated mean length of utterance (MLU) analysis for each speaker. This analysis finds the average number of morphemes per utterance, using the eng MOR grammar dictionary (CITE).
