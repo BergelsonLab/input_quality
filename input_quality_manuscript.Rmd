@@ -5,10 +5,34 @@ date: "7/20/2022"
 output: html_document
 ---
 
-```{r}
-#read in data that has been mass exported via ELAN; add informative column names
+```{r libraries}
 library(tidyverse)
 library(ggplot2)
+```
+# Introduction
+
+The early language skills of blind children are highly variable [@campbell_inprep]. Multiple possible contributors: visual characteristics, SES, etc. Also language input. Reason to believe that language input is even more important for blind children.
+
+Among both typically-developing children and children with developmental differences, language input is an important predictor of language outcomes. Children who are exposed to more speech (or sign @CITE) tend to produce have better language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; ]  Language quantity is important.
+
+Language quality is also important.
+Lexical diversity:
+MLU: 
+
+Language input quantity and quality are also interrelated: parents who talk more also tend to provide more lexical diversity [@hoff2002].
+
+Speakers tailor input. Child-directed speech is one example
+
+Also, other groups of children with disabilities receive simplified, more directive language input, and less interactive input. ex: children with hearing loss [@dirks2019; @yoshinaga-itano2020]
+
+In child-directed speech to a blind infant, communication partners may restrict conversation to things that the child is currently engaged with [@anderson1993]
+
+Might be hard to provide useful input due to differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example,  [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect.
+
+In this study, we examine daylong recordings of naturalistic at-home language interactions between caregivers and their blind or sighted children. 
+
+```{r load-transcripts}
+#read in data that has been mass exported via ELAN; add informative column names
 single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_july26_no_separate_column.txt", 
      delim = "\t", escape_double = FALSE, 
      trim_ws = TRUE,col_names = FALSE) %>%
@@ -80,7 +104,9 @@ ggplot(CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
 
 #I need to rename filenames to something that's not the same as lab-internal subj num
 ```
-```{r}
+
+
+```{r CDS-ADS-props}
 #Overall VI CDS/ADS proportion graph
 ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
   geom_bar(position = "stack", stat = "identity") + ggtitle("Proportion by Addressee in Speech heard by VI Children") +
@@ -94,16 +120,26 @@ ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
 #and then a z-test to compare proportions of CDS
 
 ```
-### Methods by Lilli
-Procedure
 
-Guardians of participating infants received a LENA wearable audio recorder (CITE) and vest. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off (excluding bath and nap times), approximately sixteen hours later. They were also instructed how to pause the recording at any time, but asked to keep these pauses to a minimum. Actual recording length ranged from RANGE (insert mean, SD). 
 
-Processing
-### I don't actually know how these are processed up front so I'll come back to this
+
+## Methods
+
+### Participants
+`r CDS_proportions %>% filter(group=="VI") %>% distinct(filename) %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristics in the preceding order. 
+
+### Surveys
+
+
+### Recording Procedure
+
+Eligible families were asked to complete two surveys and complete a daylong home language recording. For the recording portion of the study, caregivers of participating infants received a LENA wearable audio recorder [@ganek2016] and vest. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off after 16 hours (setting vest nearby during bath, nap, and car times). They were also instructed how to pause the recording at any time, but asked to keep these pauses to a minimum. Actual recording length ranged from RANGE (XXX mean, SD). 
+
+### Processing
+<!-- I don't actually know how these are processed up front so I'll come back to this -->
 Audio recordings were processed by LENA software (gives you an its? idk). Each recording was then run through an automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the file. The process output a codeable ELAN file (.eaf, CITE). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened (#isn't there one where that's not true??)  Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants (FIND A WAY TO DO MATH WITH # SEGMENTS THAT ARE SILENT) of the 2-minute coding segments contained no speech at all. 
 
-Annotation
+### Annotation
 
 Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the Analyzing Child Language Experiences around the World (ACLEW) Daylong Audio Recording of Children's Linguistic Environments (DARCLE) annotation scheme (CITE). Prior to annotating lab data, annotators are trained on previously coded samples of child recordings and are required to reach 95% overall agreement with the gold standard version of the file for three different age ranges: 0-7 months, 8-18 months, and 19-36 months. For more information about this annotation scheme and the larger project, please see the ACLEW homepage (https://sites.google.com/view/aclewdid/home). Following the first pass, all files were checked by a highly-trained "superchecker" (second author on this paper, Lilli "Always Right" Righter) to ensure the consistency of annotations. (are we gonna do reliability? I don't want to lol)
 
