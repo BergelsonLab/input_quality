@@ -5,10 +5,10 @@ date: "7/20/2022"
 output: html_document
 ---
 
-```{r libraries}
+```{r}
+#read in data that has been mass exported via ELAN; add informative column names
 library(tidyverse)
 library(ggplot2)
-library(papaja)
 ```
 # Introduction
 
@@ -32,23 +32,21 @@ Curiously though, these results aren't borne out in the existing literature on i
 
 Better understanding language how perceptual and linguistic input interact and influence children's language outcomes is of clinical and scientific relevance. Based on researchers' interactions with participants' families in the present study, parents are looking for evidence-based guidance to help them support their children's language development. If properties of language input influence the likelihood of language delays among blind infants/toddlers [@campbell_inprep], then communicating this to families could help children reach their full potential. By contrast, if there is no relationship between language input properties and children's language outcomes, then perhaps language input is one fewer worry for caregivers. In the present study, we examine daylong recordings of naturalistic at-home language interactions between caregivers and their blind or sighted children. In order to understand whether parents speak differently to blind children than to sighted children, we first measure input along the dimensions of quantity (adult word count) and quality, split into interactiveness (conversational turn counts, proportion of child-directed vs. adult-directed speech), conceptual features (topic diversity, tense, adjective typicality, sensory modality), and linguistic features (type/token ratio, mean length of utterance). We then link these features of language input to language outcomes, exploring whether the effects of parent language input on child language vary as a function of children's perceptual ability.
 
-## Methods
+# Methods
 
-### Participants
+## Participants
 `r CDS_proportions %>% filter(group=="VI") %>% distinct(filename) %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristics in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI; @fenson1994] within one week of the home language recording. See XXX for sample characteristics.
 
 ```{r participant-characteristics}
 ```
 
-### Recording Procedure
-
+## Recording Procedure
 Eligible families were asked to complete two surveys and complete a daylong home language recording. For the recording portion of the study, caregivers of participating infants received a LENA wearable audio recorder [@ganek2016] and vest. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off after 16 hours (setting vest nearby during bath, nap, and car times). They were also instructed how to pause the recording at any time, but asked to keep these pauses to a minimum. Actual recording length ranged from RANGE (XXX mean, SD). 
 
-### Processing
-<!-- I don't actually know how these are processed up front so I'll come back to this -->
+## Processing
 Audio recordings were processed by LENA software (gives you an its? idk). Each recording was then run through an automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the file. The process output a codeable ELAN file (.eaf, CITE). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened (#isn't there one where that's not true??)  Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants (FIND A WAY TO DO MATH WITH # SEGMENTS THAT ARE SILENT) of the 2-minute coding segments contained no speech at all. 
 
-### Annotation
+## Annotation
 
 Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the Analyzing Child Language Experiences around the World (ACLEW) Daylong Audio Recording of Children's Linguistic Environments (DARCLE) annotation scheme [@soderstrom2021]. Prior to annotating lab data, annotators are trained on previously coded samples of child recordings and are required to reach 95% overall agreement with the gold standard version of the file for three different age ranges: 0-7 months, 8-18 months, and 19-36 months. For more information about this annotation scheme and the larger project, please see the ACLEW homepage (https://sites.google.com/view/aclewdid/home). Following the first pass, all files were checked by a highly-trained "superchecker" (second author on this paper, Lilli "Always Right" Righter) to ensure the consistency of annotations. (are we gonna do reliability? I don't want to lol)
 
@@ -64,7 +62,8 @@ Following ACLEW DARCLE style annotation [@soderstrom2021], each file was convert
 
 ```{r load-transcripts}
 #read in data that has been mass exported via ELAN; add informative column names
-single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_july26_no_separate_column.txt", 
+
+single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Aug24.txt", 
      delim = "\t", escape_double = FALSE, 
      trim_ws = TRUE,col_names = FALSE) %>%
   rename(tier=X1,
@@ -81,7 +80,31 @@ try_wide <- pivot_wider(single_column_with_names, names_from = "tier", values_fr
   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
   unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "EE1"), remove = TRUE, na.rm = TRUE)
+```
 
+
+```{r}
+#we will do the same as above with TD matches (gonna have to do some filtering)
+#read in data that has been mass exported via ELAN; add informative column names
+TD_single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_TD_August24_no_sep.txt", 
+     delim = "\t", escape_double = FALSE, 
+     trim_ws = TRUE,col_names = FALSE) %>%
+  rename(tier=X1,
+         participant=X2,
+         onset_ms=X3,
+         offset_ms=X4,
+         duration=X5,
+         utterance=X6,
+         filename=X7,
+         filepath=X8)
+
+#wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
+TD_wide_unfiltered <- pivot_wider(TD_single_column_with_names, names_from = "tier", values_from = "utterance") %>%
+  unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
+  unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
+  unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE"), remove = TRUE, na.rm = TRUE)
+
+  TD_wide <- filter(TD_wide_unfiltered, !filename  %in% c("TD_419_961.eaf", "TD_420_268.eaf", "TD_421_536.eaf", "TD_422_217.eaf", "TD_424_676.eaf", "TD_431_248.eaf", "TD_426_429.eaf", "TD_423_184.eaf", "TD_430_493.eaf", "TD_425_194.eaf", "TD_433_522.eaf", "TD_429_190.eaf", "TD_437_564.eaf", "TD_428_188.eaf", "TD_438_522.eaf", "TD_439_192.eaf", "TD_442_763.eaf", "TD_440_189.eaf", "TD_451_521.eaf", "TD_450_183.eaf", "TD_453_998.eaf", "TD_452_277.eaf", "TD_462_513.eaf", "TD_461_190.eaf", "TD_455_248.eaf", "TD_441_732.eaf", "TD_434_249.eaf", "TD_457_475.eaf", "TD_459_188.eaf", "TD_435_205.eaf", "TD_454_510.eaf"))
 ```
 
 ## Measuring Properties of Language Input
@@ -94,7 +117,89 @@ compare adult word counts
 
 #### Interactiveness
 
-addressee (how much language input is directed to the child vs. overheard?)
+We compared the proportions of child-directed speech (CDS) and adult-directed speech (ADS) between the blind children and their sighted matches. Each proportion was calculated as the number of utterances produced by someone *other* than the target child (non-CHI utterances) tagged with a child or an adult addressee, respectively, out of the total number of non-CHI utterances for each sensory group. A two-sample test for equality of proportions revealed no significant difference in the overall proportions of CDS to blind children and CDS to sighted children (*X*^2=`r CDS_compare$statistic`, p=`r printp(CDS_compare$p.value)`, CDS-proportion~blind~=`r CDS_compare$estimate[[2]]`, CDS-proportion~sighted~=`r CDS_compare$estimate[[1]]`). Likewise, there was no difference between the proportion of ADS to blind or sighted children (*X*^2=`r ADS_compare$statistic`, p=`r printp(ADS_compare$p.value)`,  ADS-proportion~blind~=`r ADS_compare$estimate[[2]]`, ADS-proportion~sighted~=`r ADS_compare$estimate[[1]]`).
+```{r}
+TD_CDS_proportion <- TD_wide %>%
+  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
+  group_by(filename, xds) %>%
+  summarise(counts=n())
+```
+```{r}
+#just wanna check how many utterances total
+TD_mega_total <- sum(TD_CDS_proportion$counts)
+
+#find total number of utterances per file
+TD_CDS_total_input_utterances <- TD_wide %>%
+  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
+  group_by(filename) %>%
+  summarise(total_utts=n())
+
+#just checking that the number is the same bc i don't trust myself
+TD_mega_total2 <- sum(TD_CDS_total_input_utterances$total_utts)
+
+#breakdown by addressee all TD kids as a group
+TD_group_props <- TD_wide %>%
+  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
+  group_by(xds) %>%
+  summarise(big_number=n())
+
+
+#and now a full table with number of utts per addressee category, totaly utts for that file, and what the percent of each cat comes out as for each kid
+TD_proportion_table <- left_join(TD_CDS_proportion, TD_CDS_total_input_utterances)%>%
+  mutate(incidence_percent = percent(counts/total_utts))
+
+#this is just the same as the group props but with percentages
+TD_group_proportion_table <- TD_group_props %>%
+  mutate(group_percent = percent(big_number/TD_mega_total))
+
+
+ggplot(TD_CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
+  geom_bar(position="fill", stat="identity") +
+  ggtitle("Proportion of Addressee by Recording, TD") +
+  xlab("Recording") + ylab ("Proportion, by number of utterances") +
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=7, angle=0, vjust = 1))
+
+#I need to rename filenames to something that's not the same as lab-internal subj num
+```
+```{r cute-plot}
+#Overall TD CDS/ADS proportion graph
+ggplot(TD_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
+  geom_bar(position = "stack", stat = "identity") + ggtitle("Proportion by Addressee in Speech heard by TD Children") +
+  geom_text(aes(label=group_percent), position=position_stack(vjust=0.5)) +
+  xlab("All TD children") + ylab ("Proportion, by number of utterances") +
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'))
+```
+
+```{r}
+#and then a z-test to compare proportions of CDS
+TD_CDS <- as.numeric(TD_group_proportion_table[3, "big_number"])
+
+VI_CDS <- as.numeric(VI_group_proportion_table[3, "big_number"])
+
+CDS_compare <- prop.test(x=c(TD_CDS, VI_CDS), n=c(TD_mega_total, mega_total))
+CDS_compare
+```
+```{r}
+#and then a z-test to compare proportions of ADS
+TD_ADS <- as.numeric(TD_group_proportion_table[1, "big_number"])
+
+VI_ADS <- as.numeric(VI_group_proportion_table[1, "big_number"])
+
+ADS_compare <- prop.test(x=c(TD_ADS, VI_ADS), n=c(TD_mega_total, mega_total))
+ADS_compare
+```
+
+```{r}
+#and then a z-test to compare proportions of ODS, thinking like electronic speech?
+TD_ODS <- as.numeric(TD_group_proportion_table[4, "big_number"])
+
+VI_ODS <- as.numeric(VI_group_proportion_table[4, "big_number"])
+
+ODS_compare <- prop.test(x=c(TD_ODS, VI_ODS), n=c(TD_mega_total, mega_total))
+ODS_compare
+```
+
+
 ```{r ADS-CDS-props}
 ### ADS/CDS proportion
 
@@ -146,8 +251,8 @@ ggplot(CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
 #I need to rename filenames to something that's not the same as lab-internal subj num
 ```
 
-
 ```{r addressee-prop-graphs}
+
 #Overall VI CDS/ADS proportion graph
 ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
   geom_bar(position = "stack", stat = "identity") + ggtitle("Proportion by Addressee in Speech heard by VI Children") +
@@ -156,11 +261,7 @@ ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
   scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'))
 ```
 
-```{r}
-#we will do the same as above with TD matches (gonna have to do some filtering)
-#and then a z-test to compare proportions of CDS
 
-```
 
 also compare conversational turn counts
 
@@ -181,6 +282,13 @@ MLU
 ## Linking Language Input to Language Outcomes
 Predict: CDI percentile & CVC percentile
 
+
 # Discussion
 Sighted parents may be unfamiliar with blind children's signals of interest and engagement [@perezpereira1999], and as a result, may respond less often to infants' vocalizations and bids for communication [@rowland1984]. Might be hard to provide useful input due to differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example,  [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect.
 
+
+### random notes
+decontextualized speech (not about the here and now)
+-less decontextualized speech to blind kids
+-how do we code this in VIHI?
+less attention shifting? less social engagement? or less flexing of muscle where we learn things through linguistic information alone
