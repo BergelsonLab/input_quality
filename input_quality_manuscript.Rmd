@@ -12,31 +12,55 @@ library(papaja)
 ```
 # Introduction
 
-The early language skills of blind children are highly variable [@campbell_inprep], with some blind children demonstrating age-appropriate vocabulary from the earliest stages of language learning [@landau1985; @CITE], while others experience large and persistent language delays [@CITE]. The causes of this variability remain poorly understood. Clearly, blindness in and of itself, is not a death knell for language development--many blind children are on track, or even ahead! But the higher incidence of severe language delays in this population yields questions about the process of language development in the absence of visual perception: what contributes to language outcomes among young blind children? There are multiple possible contributors, including characteristics of the child (e.g., visual characteristics, comorbid conditions, gender) as well as characteristics of the environment (e.g., access to early intervention services; school setting). Here, we do a deep dive into the characteristics of the language environment of blind children and its influence on language development. 
+The early language skills of blind children are highly variable [@campbell_inprep], with some blind children demonstrating age-appropriate vocabulary from the earliest stages of language learning [@landau1985; @CITE], while others experience large and persistent language delays [@CITE]. The causes of this variability remain poorly understood, but the higher incidence of severe language delays in this population yields questions about the process of language development in the absence of visual perception: what contributes to variable language outcomes among young blind children? There are multiple possible contributors, including characteristics of the child (e.g., visual characteristics, comorbid conditions, gender) as well as characteristics of the environment (e.g., access to early intervention services; school setting). Here, we explore the characteristics of the language environment of blind children and its influence on language development. 
 
-Among both typically-developing children and children with developmental differences, language input is an important predictor of language outcomes [@CITE]. At a coarse level, children who are exposed to more speech (or sign @CITE) tend to have better language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; ]  
+Among both typically-developing children and children with developmental differences, language input is an important predictor of language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021; @rowe2012; @anderson2021; @huttenlocher2010]. There are many ways to operationalize language input, that tend to be grouped into **quantity of language input** and **quality of language input**. Quantity of language input can be operationalized as the number of words or utterances a child is exposed to. At a coarse level, children who are exposed to more speech (or sign @CITE) tend to have better language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021]. However, if only the *amount* of language exposure mattered, then infants should be able to sit in front of the television all day and become fluent language users. Yet young children struggle to learn language from video [e.g., @roseberry2014]
 
-Language quality is also important.
-Lexical diversity: Toddlers who are exposed to greater diversity of words in their language input tend to have larger vocabulary scores [@rowe2012].
-MLU: 
+Language input quality is perhaps even more important [@rowe2012; @hirsh-pasek2015], though somewhat trickier to operationalize. Rowe and Snow [@rowe2020] divide this space into three dimensions of language input quality: interactive features (e.g., parent responsiveness, speech directed *to* child vs. overheard; conversational turn-taking), linguistic features (e.g., lexical diversity, grammatical complexity), and conceptual features (e.g., topic diversity). These features interact with the child's present cogntive, linguistic, and conceptual abilities.
 
-Language input quantity and quality are also interrelated: parents who talk more also tend to provide more lexical diversity [@hoff2002].
+Interactiveness in parent-child communication is an important element: back-and-forth communicative exchanges predict better language learning across infancy [@goldstein2008; @donnellan2020] and toddlerhood [@hirsh-pasek2015; @romeo2018]. Another aspect of interactiveness is attuning to children's cues of attention and interest, like pointing or eye gaze. In infancy, words heard in these contexts are more likely to be learned [@lucca2017; @tomasello1986]. This interacts heavily with conceptual features of the language input. Conceptual supportive features of language input involve the relationship between conversational topics and the child's cognitive level. For example, infants are more likely to learn words when the object is perceptually salient, dominating their field of view [@yu2012]. By contrast, in toddlerhood, parents' decontextualized language use (e.g., past/future events) predicts kindergarten vocabulary [@rowe2012], children's decontextualized language use [@demir2015], and academic achievement in adolescence [@uccelli2019].
 
+In terms of linguistic quality, two common ways to quantify it are lexical diversity (often type/token ratio) and syntactic complexity. Lexical diversity of language input seems to exert different effects as children get older. In early infancy, children who are exposed to more repetitions at 7 months have higher vocabulary at age 2 [@newman2016]. This relationship later flips: toddlers who are exposed to greater diversity of words in their language input tend to have larger vocabulary scores [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001]. Lexical diversity is intertwined with input quantity: parents who talk more also tend to provide more lexical diversity [@hoff2002]. Likewise, the diversity of syntactic constructions in parental language input is associated both with children's vocabulary growth and utterance structure diversity [@hoff2003; @naigles1998; @devilliers1984; @huttenlocher2010; @hadley2017; @huttenlocher2002].
 
-For blind children, language input may play an even more important role [@campbell2022]. In the absence of visual input, language is an important source of information about the world. 
-Linguistic structure also provides cues to word meaning that may be lost without visual cues, such as joint (visual) attention or pointing. All that said, language input may differ for blind children relative to sighted children
+For blind children, language input may play an even more important role [@campbell2022]. In the absence of visual input, language is an important source of information about the world. Linguistic structure provides cues to word meaning that may be lost without visual cues (e.g., such as joint (visual) attention or pointing). All that said, language input may differ for blind children relative to sighted children
 
-Speakers tailor input to communicate efficiently with the listener [@grice1975]. Child-directed speech is one example--whereby parents speak to young children with exaggerated prosody, slower speech rate, and increased vowel clarity [@CITE], which appears to be helpful to the young language learner [@CITE]. Communicative tailoring is also common in language input to children with disabilities, who tend to receive simplified, more directive language input, and less interactive input compared to typically-developing children [@dirks2019; @yoshinaga-itano2020]. 
+Speakers regularly tailor input to communicate efficiently with the listener [@grice1975]. Parents are sensitive to their child's developmental level and tune language input accordingly [@snow1972; @vygotsky1978]. Child-directed speech is one example--whereby parents speak to young children with exaggerated prosody, slower speech rate, and increased vowel clarity [@fernald1989; @bernsteinratner1984], which appears to be helpful to the young language learner [@thiessen2005]. Parents show increased alignment (a tendency to re-use use the conversation partner's expressions) for younger children, that decreases as children get older [@yurovsky2016]. When interacting with infants and toddlers, parents repeat words more often than when interacting with older children or adults [@snow1972]. Communicative tailoring is also common in language input to children with disabilities, who tend to receive simplified, more directive language input, and less interactive input compared to typically-developing children [@dirks2019; @yoshinaga-itano2020]. 
 
-Furthermore, speakers collaborating on a task will also adjust their conversation in accordance with the listener's visual access [@gergle2004; @grigoroglou2016]. Speakers aim to provide the information their listeners need [@grice1975], providing verbally providing visually-absent cues [@jaraettinger2021; @hawkins2021; @rubio-fernandez2019], but avoiding redundant visual description [@ostarek2019].
+In addition to tailoring communication to children's developmental level,  speakers also adjust their conversation in accordance with the listener's and visual access [@gergle2004; @grigoroglou2016]. Speakers aim to provide the information their listeners lack but avoiding redundant visual description [@ostarek2019; @grice1975]. During in-lab tasks with sighted participants, participants tailor their descriptions and requests by verbally providing visually-absent cues when an object is occluded to their partner [@jaraettinger2021; @hawkins2021; @rubio-fernandez2019]. These results suggest that adults and even infants [@senju2013; @ganea2018; @chiesa2015] can flexibly adapt communication to the visual abilities of their partner.
 
+Curiously though, these results aren't borne out in the existing literature on interactions between blind infants and their sighted parents. We might expect parents to verbally compensate for missing visual input, resulting in parents providing more description of the child's environment. Instead, caregivers of blind seem to restrict conversation to things that the blind child is currently engaged with, rather than attempt to redirect their attention to other stimuli [@anderson1993; @campbell2003; @kekelis1984]. In naturalistic settings, parents of blind children use *fewer* declaratives and *more* imperatives and requests for actions/labels than parents of sighted children, suggesting that children might be receiving less description than sighted children [@kekelis1984; @landau1985]. That said, we do see some evidence for parents adapting to their child's visual abilities. @tadic2013 and colleagues find that in a more structured book reading task, parents of blind children provide more descriptive utterances than parents of sighted children. Further, parents of blind children provide more tactile cues to initiate interactions or establish joint attention [@urwin1983; @preisler1991]. These mixed results suggest that parents of blind children might alter language input in some domains but not others.
 
+Better understanding language how perceptual and linguistic input interact and influence children's language outcomes is of clinical and scientific relevance. Based on researchers' interactions with participants' families in the present study, parents are looking for evidence-based guidance to help them support their children's language development. If properties of language input influence the likelihood of language delays among blind infants/toddlers [@campbell_inprep], then communicating this to families could help children reach their full potential. By contrast, if there is no relationship between language input properties and children's language outcomes, then perhaps language input is one fewer worry for caregivers. In the present study, we examine daylong recordings of naturalistic at-home language interactions between caregivers and their blind or sighted children. In order to understand whether parents speak differently to blind children than to sighted children, we first measure input along the dimensions of quantity (adult word count) and quality, split into interactiveness (conversational turn counts, proportion of child-directed vs. adult-directed speech), conceptual features (topic diversity, tense, adjective typicality, sensory modality), and linguistic features (type/token ratio, mean length of utterance). We then link these features of language input to language outcomes, exploring whether the effects of parent language input on child language vary as a function of children's perceptual ability.
 
+## Methods
 
-However, in child-directed speech to a blind infant, communication partners may restrict conversation to things that the child is currently engaged with [@anderson1993].
+### Participants
+`r CDS_proportions %>% filter(group=="VI") %>% distinct(filename) %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristics in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI; @fenson1994] within one week of the home language recording. See XXX for sample characteristics.
 
+```{r participant-characteristics}
+```
 
-In this study, we examine daylong recordings of naturalistic at-home language interactions between caregivers and their blind or sighted children. 
+### Recording Procedure
+
+Eligible families were asked to complete two surveys and complete a daylong home language recording. For the recording portion of the study, caregivers of participating infants received a LENA wearable audio recorder [@ganek2016] and vest. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off after 16 hours (setting vest nearby during bath, nap, and car times). They were also instructed how to pause the recording at any time, but asked to keep these pauses to a minimum. Actual recording length ranged from RANGE (XXX mean, SD). 
+
+### Processing
+<!-- I don't actually know how these are processed up front so I'll come back to this -->
+Audio recordings were processed by LENA software (gives you an its? idk). Each recording was then run through an automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the file. The process output a codeable ELAN file (.eaf, CITE). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened (#isn't there one where that's not true??)  Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants (FIND A WAY TO DO MATH WITH # SEGMENTS THAT ARE SILENT) of the 2-minute coding segments contained no speech at all. 
+
+### Annotation
+
+Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the Analyzing Child Language Experiences around the World (ACLEW) Daylong Audio Recording of Children's Linguistic Environments (DARCLE) annotation scheme [@soderstrom2021]. Prior to annotating lab data, annotators are trained on previously coded samples of child recordings and are required to reach 95% overall agreement with the gold standard version of the file for three different age ranges: 0-7 months, 8-18 months, and 19-36 months. For more information about this annotation scheme and the larger project, please see the ACLEW homepage (https://sites.google.com/view/aclewdid/home). Following the first pass, all files were checked by a highly-trained "superchecker" (second author on this paper, Lilli "Always Right" Righter) to ensure the consistency of annotations. (are we gonna do reliability? I don't want to lol)
+
+This annotation scheme is designed to capture both utterances by the target child (henceforth referred to as CHI) and speech in the child's environment, including adults, other children, and pre-recorded electronic speech (e.g. toys, television, the radio). Annotators segment the duration of each utterance on a separate coding tier for each unique speaker (exceptions: all electronic speech is coded on the same tier, and some speakers who appear briefly in these files were not easily distinguishable from others by annotators naive to their identities, so they may be concatenated on the same tier). Speech by people other than the target child is transcribed using an adapted version of CHAT transcription style [@macwhinney2019], dubbed minCHAT for the ACLEW project [@soderstrom2021]. Because the majority of target children in the project are pre-lexical or phonetically immature, CHI utterances are not transcribed. 
+
+Each utterance is coded for additional linguistic properties from a set of pre-determined categories. CHI utterances are coded for vocal maturity, lexical status, and multi-word status. Vocal maturity classifies utterances into the following categories: laughing; crying; canonical syllables that contain a consonant-like and vowel-like sound component, including both babbling and identifiable words; non-canonical syllables, which do not contain both consonant and vowel portions, or which do not transition between them in a speech-like way; and unsure, when the vocalization type is unclear. Each vocalization that contains canonical syllables is then coded for lexical status, either containing an identifiable lexical item or not. Finally, each utterance with a lexical item is coded for multi-word status, whether or not it contains more than one unique word type.
+
+Environmental speech is coded for the addressee of each utterance: speech directed to a child, whether or not it is directed to the target child; adult-directed speech; speech directed to both an adult and a child; speech directed to pets or other animals; unclear addressee; or speech directed towards a recipient that doesn't fit into another category (e.g. voice control of Siri or Alexa, speech to a metaphysical entity). 
+
+Following ACLEW DARCLE style annotation [@soderstrom2021], each file was converted into a CHAT file [@macwhinney2018] to use the CLAN automated mean length of utterance (MLU) analysis for each speaker. This analysis finds the average number of morphemes per utterance, using the eng MOR grammar dictionary [@macwhinney2018].
+
+# Results
 
 ```{r load-transcripts}
 #read in data that has been mass exported via ELAN; add informative column names
@@ -60,8 +84,18 @@ try_wide <- pivot_wider(single_column_with_names, names_from = "tier", values_fr
 
 ```
 
+## Measuring Properties of Language Input
 
-```{r}
+### Language Input Quantity
+
+compare adult word counts
+
+### Language Input Quality
+
+#### Interactiveness
+
+addressee (how much language input is directed to the child vs. overheard?)
+```{r ADS-CDS-props}
 ### ADS/CDS proportion
 
 #get number of counts per each xds type by file
@@ -113,7 +147,7 @@ ggplot(CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
 ```
 
 
-```{r CDS-ADS-props}
+```{r addressee-prop-graphs}
 #Overall VI CDS/ADS proportion graph
 ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
   geom_bar(position = "stack", stat = "identity") + ggtitle("Proportion by Addressee in Speech heard by VI Children") +
@@ -128,36 +162,25 @@ ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
 
 ```
 
+also compare conversational turn counts
+
+#### Conceptual Features
+
+topic diversity
+adjective typicality
+sensory modality
+tense
+
+#### Linguistic Features
+
+type/token ratio
+MLU
 
 
-## Methods
 
-### Participants
-`r CDS_proportions %>% filter(group=="VI") %>% distinct(filename) %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristics in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI; @fenson1994] within one week of the home language recording. See XXX for sample characteristics.
-
-```{r participant-characteristics}
-```
-
-### Recording Procedure
-
-Eligible families were asked to complete two surveys and complete a daylong home language recording. For the recording portion of the study, caregivers of participating infants received a LENA wearable audio recorder [@ganek2016] and vest. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off after 16 hours (setting vest nearby during bath, nap, and car times). They were also instructed how to pause the recording at any time, but asked to keep these pauses to a minimum. Actual recording length ranged from RANGE (XXX mean, SD). 
-
-### Processing
-<!-- I don't actually know how these are processed up front so I'll come back to this -->
-Audio recordings were processed by LENA software (gives you an its? idk). Each recording was then run through an automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the file. The process output a codeable ELAN file (.eaf, CITE). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened (#isn't there one where that's not true??)  Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants (FIND A WAY TO DO MATH WITH # SEGMENTS THAT ARE SILENT) of the 2-minute coding segments contained no speech at all. 
-
-### Annotation
-
-Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the Analyzing Child Language Experiences around the World (ACLEW) Daylong Audio Recording of Children's Linguistic Environments (DARCLE) annotation scheme [@soderstrom2021]. Prior to annotating lab data, annotators are trained on previously coded samples of child recordings and are required to reach 95% overall agreement with the gold standard version of the file for three different age ranges: 0-7 months, 8-18 months, and 19-36 months. For more information about this annotation scheme and the larger project, please see the ACLEW homepage (https://sites.google.com/view/aclewdid/home). Following the first pass, all files were checked by a highly-trained "superchecker" (second author on this paper, Lilli "Always Right" Righter) to ensure the consistency of annotations. (are we gonna do reliability? I don't want to lol)
-
-This annotation scheme is designed to capture both utterances by the target child (henceforth referred to as CHI) and speech in the child's environment, including adults, other children, and pre-recorded electronic speech (e.g. toys, television, the radio). Annotators segment the duration of each utterance on a separate coding tier for each unique speaker (exceptions: all electronic speech is coded on the same tier, and some speakers who appear briefly in these files were not easily distinguishable from others by annotators naive to their identities, so they may be concatenated on the same tier). Speech by people other than the target child is transcribed using an adapted version of CHAT transcription style [@macwhinney2019], dubbed minCHAT for the ACLEW project [@soderstrom2021]. Because the majority of target children in the project are pre-lexical or phonetically immature, CHI utterances are not transcribed. 
-
-Each utterance is coded for additional linguistic properties from a set of pre-determined categories. CHI utterances are coded for vocal maturity, lexical status, and multi-word status. Vocal maturity classifies utterances into the following categories: laughing; crying; canonical syllables that contain a consonant-like and vowel-like sound component, including both babbling and identifiable words; non-canonical syllables, which do not contain both consonant and vowel portions, or which do not transition between them in a speech-like way; and unsure, when the vocalization type is unclear. Each vocalization that contains canonical syllables is then coded for lexical status, either containing an identifiable lexical item or not. Finally, each utterance with a lexical item is coded for multi-word status, whether or not it contains more than one unique word type.
-
-Environmental speech is coded for the addressee of each utterance: speech directed to a child, whether or not it is directed to the target child; adult-directed speech; speech directed to both an adult and a child; speech directed to pets or other animals; unclear addressee; or speech directed towards a recipient that doesn't fit into another category (e.g. voice control of Siri or Alexa, speech to a metaphysical entity). 
-
-Following ACLEW DARCLE style annotation [@soderstrom2021], each file was converted into a CHAT file [@macwhinney2018] to use the CLAN automated mean length of utterance (MLU) analysis for each speaker. This analysis finds the average number of morphemes per utterance, using the eng MOR grammar dictionary [@macwhinney2018].
+## Linking Language Input to Language Outcomes
+Predict: CDI percentile & CVC percentile
 
 # Discussion
-Might be hard to provide useful input due to differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example,  [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect.
+Sighted parents may be unfamiliar with blind children's signals of interest and engagement [@perezpereira1999], and as a result, may respond less often to infants' vocalizations and bids for communication [@rowland1984]. Might be hard to provide useful input due to differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example,  [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect.
 
