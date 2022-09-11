@@ -5,10 +5,22 @@ date: "7/20/2022"
 output: html_document
 ---
 
-```{r}
-#read in data that has been mass exported via ELAN; add informative column names
+```{r libraries}
+
 library(tidyverse)
 library(ggplot2)
+library(plotrix)
+library(papaja)
+
+#lets create a function to convert things into percents (I stole this obvi)
+percent <- function(x, digits = 2, format = "f", ...) {      # Create user-defined function
+  paste0(formatC(x * 100, format = format, digits = digits, ...), "%")
+}
+```
+
+```{r get-data}
+LENA_counts <- read_csv("/Volumes/pn-opus/VIHI/Scripts/LENA_Scripts/data/VIHI_its_details.csv") %>%
+  filter(group == "VI" | match_type == "VI")
 ```
 # Introduction
 
@@ -35,7 +47,7 @@ Better understanding language how perceptual and linguistic input interact and i
 # Methods
 
 ## Participants
-`r CDS_proportions %>% filter(group=="VI") %>% distinct(filename) %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristics in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI; @fenson1994] within one week of the home language recording. See XXX for sample characteristics.
+`r LENA_counts %>% filter(group=="VI") %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristics in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI; @fenson1994] within one week of the home language recording. See XXX for sample characteristics.
 
 ```{r participant-characteristics}
 ```
@@ -111,13 +123,99 @@ TD_wide_unfiltered <- pivot_wider(TD_single_column_with_names, names_from = "tie
 
 ### Language Input Quantity
 
-compare adult word counts
+```{r AWC}
+AWC_plot <-
+  ggplot(data = LENA_counts, aes(
+    x = match_type,
+    y = AWC,
+    color = group,
+    fill = group)) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  geom_jitter(width = 0.2, height = 0) +
+  theme_classic() +
+  labs(y = "Adult Word Count", x = NULL, element_text(size = 14)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Typically-\nDeveloping", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(AWC) - std.error(AWC)),
+    ymax = (mean(AWC) - std.error(AWC)))) +
+  stat_summary(fun.data = "mean_cl_boot", color = 'black') +
+  scale_x_discrete(
+    labels = c(
+      "VI" = "Blind",
+      "TD" = "Sighted")) +
+  coord_cartesian(ylim = c(0, (max(LENA_counts$AWC * 1.1)))) +
+  theme( axis.text = element_text(size = 14),
+    axis.title.y = element_text(size = 18),
+    strip.text.x = element_text(size = 14)) +
+  labs(caption = "Adult word counts from daylong audio recordings; each dot represents one recording.\nData source: LENAs (VIHI, Seedlings, Warlaumont, & Cougar)")
+AWC_plot
+```
 
 ### Language Input Quality
 
 #### Interactiveness
 
-We compared the proportions of child-directed speech (CDS) and adult-directed speech (ADS) between the blind children and their sighted matches. Each proportion was calculated as the number of utterances produced by someone *other* than the target child (non-CHI utterances) tagged with a child or an adult addressee, respectively, out of the total number of non-CHI utterances for each sensory group. A two-sample test for equality of proportions revealed no significant difference in the overall proportions of CDS to blind children and CDS to sighted children (*X*^2=`r CDS_compare$statistic`, p=`r printp(CDS_compare$p.value)`, CDS-proportion~blind~=`r CDS_compare$estimate[[2]]`, CDS-proportion~sighted~=`r CDS_compare$estimate[[1]]`). Likewise, there was no difference between the proportion of ADS to blind or sighted children (*X*^2=`r ADS_compare$statistic`, p=`r printp(ADS_compare$p.value)`,  ADS-proportion~blind~=`r ADS_compare$estimate[[2]]`, ADS-proportion~sighted~=`r ADS_compare$estimate[[1]]`).
+```{r ADS-CDS-props}
+### ADS/CDS proportion
+
+#get number of counts per each xds type by file
+CDS_proportion <- try_wide %>%
+  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
+  group_by(filename, xds) %>%
+  summarise(counts=n())
+
+#just wanna check how many utterances total
+mega_total <- sum(CDS_proportion$counts)
+
+#find total number of utterances per file
+CDS_total_input_utterances <- try_wide %>%
+  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
+  group_by(filename) %>%
+  summarise(total_utts=n())
+
+#just checking that the number is the same bc i don't trust myself
+mega_total2 <- sum(CDS_total_input_utterances$total_utts)
+
+#breakdown by addressee all VI kids as a group
+VI_group_props <- try_wide %>%
+  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
+  group_by(xds) %>%
+  summarise(big_number=n())
+
+#and now a full table with number of utts per addressee category, totaly utts for that file, and what the percent of each cat comes out as for each kid
+proportion_table <- left_join(CDS_proportion, CDS_total_input_utterances)%>%
+  mutate(incidence_percent = percent(counts/total_utts))
+
+#this is just the same as the group props but with percentages
+VI_group_proportion_table <- VI_group_props %>%
+  mutate(group_percent = percent(big_number/mega_total))
+
+
+ggplot(CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
+  geom_bar(position="fill", stat="identity") +
+  ggtitle("Proportion of Addressee by Recording") +
+  xlab("Recording") + ylab ("Proportion, by number of utterances") +
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=9, angle=45))
+
+#I need to rename filenames to something that's not the same as lab-internal subj num
+```
+
 ```{r}
 TD_CDS_proportion <- TD_wide %>%
   filter(xds %in% c("C","A","B","P", "O", "U"))%>%
@@ -199,58 +297,6 @@ ODS_compare <- prop.test(x=c(TD_ODS, VI_ODS), n=c(TD_mega_total, mega_total))
 ODS_compare
 ```
 
-
-```{r ADS-CDS-props}
-### ADS/CDS proportion
-
-#get number of counts per each xds type by file
-CDS_proportion <- try_wide %>%
-  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
-  group_by(filename, xds) %>%
-  summarise(counts=n())
-
-#just wanna check how many utterances total
-mega_total <- sum(CDS_proportion$counts)
-
-#find total number of utterances per file
-CDS_total_input_utterances <- try_wide %>%
-  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
-  group_by(filename) %>%
-  summarise(total_utts=n())
-
-#just checking that the number is the same bc i don't trust myself
-mega_total2 <- sum(CDS_total_input_utterances$total_utts)
-
-#breakdown by addressee all VI kids as a group
-VI_group_props <- try_wide %>%
-  filter(xds %in% c("C","A","B","P", "O", "U"))%>%
-  group_by(xds) %>%
-  summarise(big_number=n())
-
-
-#lets create a function to convert things into percents (I stole this obvi)
-percent <- function(x, digits = 2, format = "f", ...) {      # Create user-defined function
-  paste0(formatC(x * 100, format = format, digits = digits, ...), "%")
-}
-
-#and now a full table with number of utts per addressee category, totaly utts for that file, and what the percent of each cat comes out as for each kid
-proportion_table <- left_join(CDS_proportion, CDS_total_input_utterances)%>%
-  mutate(incidence_percent = percent(counts/total_utts))
-
-#this is just the same as the group props but with percentages
-VI_group_proportion_table <- VI_group_props %>%
-  mutate(group_percent = percent(big_number/mega_total))
-
-
-ggplot(CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
-  geom_bar(position="fill", stat="identity") +
-  ggtitle("Proportion of Addressee by Recording") +
-  xlab("Recording") + ylab ("Proportion, by number of utterances") +
-  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=9, angle=45))
-
-#I need to rename filenames to something that's not the same as lab-internal subj num
-```
-
 ```{r addressee-prop-graphs}
 
 #Overall VI CDS/ADS proportion graph
@@ -261,7 +307,7 @@ ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
   scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'))
 ```
 
-
+We compared the proportions of child-directed speech (CDS) and adult-directed speech (ADS) between the blind children and their sighted matches. Each proportion was calculated as the number of utterances produced by someone *other* than the target child (non-CHI utterances) tagged with a child or an adult addressee, respectively, out of the total number of non-CHI utterances for each sensory group. A two-sample test for equality of proportions revealed no significant difference in the overall proportions of CDS to blind children and CDS to sighted children (*X*^2=`r CDS_compare$statistic`, p=`r printp(CDS_compare$p.value)`, CDS-proportion~blind~=`r CDS_compare$estimate[[2]]`, CDS-proportion~sighted~=`r CDS_compare$estimate[[1]]`). Likewise, there was no difference between the proportion of ADS to blind or sighted children (*X*^2=`r ADS_compare$statistic`, p=`r printp(ADS_compare$p.value)`,  ADS-proportion~blind~=`r ADS_compare$estimate[[2]]`, ADS-proportion~sighted~=`r ADS_compare$estimate[[1]]`).
 
 also compare conversational turn counts
 
