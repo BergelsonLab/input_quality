@@ -1,12 +1,47 @@
 ---
-title: "input_quality_manuscript"
-author: "Erin Campbell & Lillianna Writer"
-date: "7/20/2022"
-output: html_document
+title             : "Language Input to Blind Infants/Toddlers"
+shorttitle        : "Language Input to Blind Infants/Toddlers"
+
+
+author: 
+  - name          : "Erin Campbell"
+    affiliation   : "1"
+    corresponding : yes    
+    email         : "erin.e.campbell@duke.edu"
+    address       : "417 Chapel Drive, Box 90086, Durham, NC 27708"
+  - name          : "Lillianna Writer"
+    affiliation   : "1"
+  - name          : "Elika Bergelson"
+    affiliation   : "1"
+
+affiliation:
+  - id            : "1"
+    institution   : "Department of Psychology & Neuroscience, Duke University, Durham, NC"
+
+note: | 
+  **Conflicts of Interest**: The authors have no conflicts of interest to report.
+  **Funding**: This work was supported by the National Science Foundation CAREER grant (BCS-1844710) to EB and Graduate Research Fellowship (2019274952) to EC. 
+
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["VI_InputQuality.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
 ---
 
-```{r libraries}
-
+```{r libraries, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(tidyverse)
 library(ggplot2)
 library(plotrix)
@@ -122,11 +157,19 @@ TD_wide_unfiltered <- pivot_wider(TD_single_column_with_names, names_from = "tie
 ## Measuring Properties of Language Input
 
 ### Language Input Quantity
-
-```{r AWC}
+```{r compare-AWC}
+compare_AWC <- wilcox.test(LENA_counts$AWC ~ LENA_counts$group)
+AWC_stats <- LENA_counts %>% 
+  group_by(group) %>%
+  summarise(min = min(AWC),
+            max = max(AWC),
+            mean = mean(AWC))
+```
+We first compare the quantity of language input to blind and sighted children, using LENA's automated Adult Word Count measure. A wilcoxon rank sum test shows that despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in language input quantity (W = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`).
+```{r AWC-plot, fig.cap="Comparing LENA-generated adult word counts to blind and sighted children. Each dot represents the estimated number of words in one child's recording."}
 AWC_plot <-
   ggplot(data = LENA_counts, aes(
-    x = match_type,
+    x = group,
     y = AWC,
     color = group,
     fill = group)) +
@@ -309,7 +352,59 @@ ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
 
 We compared the proportions of child-directed speech (CDS) and adult-directed speech (ADS) between the blind children and their sighted matches. Each proportion was calculated as the number of utterances produced by someone *other* than the target child (non-CHI utterances) tagged with a child or an adult addressee, respectively, out of the total number of non-CHI utterances for each sensory group. A two-sample test for equality of proportions revealed no significant difference in the overall proportions of CDS to blind children and CDS to sighted children (*X*^2=`r CDS_compare$statistic`, p=`r printp(CDS_compare$p.value)`, CDS-proportion~blind~=`r CDS_compare$estimate[[2]]`, CDS-proportion~sighted~=`r CDS_compare$estimate[[1]]`). Likewise, there was no difference between the proportion of ADS to blind or sighted children (*X*^2=`r ADS_compare$statistic`, p=`r printp(ADS_compare$p.value)`,  ADS-proportion~blind~=`r ADS_compare$estimate[[2]]`, ADS-proportion~sighted~=`r ADS_compare$estimate[[1]]`).
 
-also compare conversational turn counts
+```{r compare-CTC}
+compare_CTC <- wilcox.test(LENA_counts$CTC ~ LENA_counts$group)
+CTC_stats <- LENA_counts %>% 
+  group_by(group) %>%
+  summarise(min = min(CTC),
+            max = max(CTC),
+            mean = mean(CTC))
+```
+We next compare the number of conversational turn counts for blind and sighted children, using LENA's automated Conversational Turn Count measure. A wilcoxon rank sum test shows that despite wide variability in the number conversational turns (`r round((CTC_stats %>% filter(group=="VI"))$min)`--`r round((CTC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((CTC_stats %>% filter(group=="TD"))$min)`--`r round((CTC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in the number of conversational turns (W = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
+
+```{r CTC}
+CTC_plot <-
+  ggplot(data = LENA_counts, aes(
+    x = group,
+    y = CTC,
+    color = group,
+    fill = group)) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  geom_jitter(width = 0.2, height = 0) +
+  theme_classic() +
+  labs(y = "Conversational Turn Count", x = NULL, element_text(size = 14)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Typically-\nDeveloping", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(CTC) - std.error(CTC)),
+    ymax = (mean(CTC) - std.error(CTC)))) +
+  stat_summary(fun.data = "mean_cl_boot", color = 'black') +
+  scale_x_discrete(
+    labels = c(
+      "VI" = "Blind",
+      "TD" = "Sighted")) +
+  coord_cartesian(ylim = c(0, (max(LENA_counts$CTC * 1.1)))) +
+  theme( axis.text = element_text(size = 14),
+    axis.title.y = element_text(size = 18),
+    strip.text.x = element_text(size = 14)) +
+  labs(caption = "Conversational turn counts from daylong audio recordings; each dot represents one recording.\nData source: LENAs (VIHI, Seedlings, Warlaumont, & Cougar)")
+CTC_plot
+```
 
 #### Conceptual Features
 
@@ -330,11 +425,9 @@ Predict: CDI percentile & CVC percentile
 
 
 # Discussion
-Sighted parents may be unfamiliar with blind children's signals of interest and engagement [@perezpereira1999], and as a result, may respond less often to infants' vocalizations and bids for communication [@rowland1984]. Might be hard to provide useful input due to differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example,  [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect.
+Sighted parents may be unfamiliar with blind children's signals of interest and engagement [@perezpereira1999], and as a result, may respond less often to infants' vocalizations and bids for communication [@rowland1984]. Might be hard to provide useful input due to differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example, [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect.
+
+\pagebreak
+# References
 
 
-### random notes
-decontextualized speech (not about the here and now)
--less decontextualized speech to blind kids
--how do we code this in VIHI?
-less attention shifting? less social engagement? or less flexing of muscle where we learn things through linguistic information alone
