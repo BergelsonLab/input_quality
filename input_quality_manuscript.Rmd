@@ -46,6 +46,8 @@ library(tidyverse)
 library(ggplot2)
 library(plotrix)
 library(papaja)
+library(dplyr)
+library(stringr)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 2, format = "f", ...) {      # Create user-defined function
@@ -156,7 +158,7 @@ TD_wide_unfiltered <- pivot_wider(TD_single_column_with_names, names_from = "tie
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
   unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE"), remove = TRUE, na.rm = TRUE)
 
-  TD_wide <- filter(TD_wide_unfiltered, !filename  %in% c("TD_419_961.eaf", "TD_420_268.eaf", "TD_421_536.eaf", "TD_422_217.eaf", "TD_424_676.eaf", "TD_431_248.eaf", "TD_426_429.eaf", "TD_423_184.eaf", "TD_430_493.eaf", "TD_425_194.eaf", "TD_433_522.eaf", "TD_429_190.eaf", "TD_437_564.eaf", "TD_428_188.eaf", "TD_438_522.eaf", "TD_439_192.eaf", "TD_442_763.eaf", "TD_440_189.eaf", "TD_451_521.eaf", "TD_450_183.eaf", "TD_453_998.eaf", "TD_452_277.eaf", "TD_462_513.eaf", "TD_461_190.eaf", "TD_455_248.eaf", "TD_441_732.eaf", "TD_434_249.eaf", "TD_457_475.eaf", "TD_459_188.eaf", "TD_435_205.eaf", "TD_454_510.eaf"))
+  TD_wide <- filter(TD_wide_unfiltered, !filename  %in% c("TD_419_961.eaf", "TD_420_268.eaf", "TD_421_536.eaf", "TD_422_217.eaf", "TD_424_676.eaf", "TD_431_248.eaf", "TD_426_429.eaf", "TD_423_184.eaf", "TD_430_493.eaf", "TD_425_194.eaf", "TD_433_522.eaf", "TD_429_190.eaf", "TD_437_564.eaf", "TD_428_188.eaf", "TD_438_522.eaf", "TD_439_192.eaf", "TD_442_763.eaf", "TD_440_189.eaf", "TD_451_521.eaf", "TD_450_183.eaf", "TD_453_998.eaf", "TD_452_277.eaf", "TD_457_475.eaf", "TD_459_188", "TD_462_513.eaf", "TD_461_190.eaf", "TD_468_758.eaf", "TD_455_248.eaf", "TD_441_732.eaf", "TD_434_249.eaf", "TD_457_475.eaf", "TD_459_188.eaf", "TD_435_205.eaf", "TD_454_510.eaf", "TD_469_748.eaf", "TD_470_759.eaf"))
 ```
 
 ## Measuring Properties of Language Input
@@ -316,7 +318,7 @@ ggplot(TD_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
   scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'))
 ```
 
-```{r}
+```{r CDS-prop-ztest}
 #and then a z-test to compare proportions of CDS
 TD_CDS <- as.numeric(TD_group_proportion_table[3, "big_number"])
 
@@ -325,7 +327,7 @@ VI_CDS <- as.numeric(VI_group_proportion_table[3, "big_number"])
 CDS_compare <- prop.test(x=c(TD_CDS, VI_CDS), n=c(TD_mega_total, mega_total))
 CDS_compare
 ```
-```{r}
+```{r ADS-prop-ztest}
 #and then a z-test to compare proportions of ADS
 TD_ADS <- as.numeric(TD_group_proportion_table[1, "big_number"])
 
@@ -422,7 +424,15 @@ tense
 
 type/token ratio
 MLU
+```{r MLU}
+utterances_only_VI<-try_wide%>%
+  filter(participant!="EE1", participant!="CHI")%>%
+  unite("person", "participant","filename")
 
+utterances_only_TD<-TD_wide%>%
+  filter(participant!="EE1", participant!="CHI")%>%
+  unite("person", "participant","filename")
+```
 
 
 ## Linking Language Input to Language Outcomes
