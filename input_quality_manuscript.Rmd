@@ -48,6 +48,7 @@ library(plotrix)
 library(papaja)
 library(dplyr)
 library(stringr)
+library(morphemepiece)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 2, format = "f", ...) {      # Create user-defined function
@@ -117,7 +118,7 @@ Environmental speech from everyone else is coded for the addressee of each utter
 ```{r load-transcripts}
 #read in data that has been mass exported via ELAN; add informative column names
 
-single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Aug24.txt", 
+single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Oct19.txt", 
      delim = "\t", escape_double = FALSE, 
      trim_ws = TRUE,col_names = FALSE) %>%
   rename(tier=X1,
@@ -140,7 +141,7 @@ try_wide <- pivot_wider(single_column_with_names, names_from = "tier", values_fr
 ```{r}
 #we will do the same as above with TD matches (gonna have to do some filtering)
 #read in data that has been mass exported via ELAN; add informative column names
-TD_single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_TD_August24_no_sep.txt", 
+TD_single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_TD_Oct19_no_sep.txt", 
      delim = "\t", escape_double = FALSE, 
      trim_ws = TRUE,col_names = FALSE) %>%
   rename(tier=X1,
@@ -428,6 +429,14 @@ MLU
 utterances_only_VI<-try_wide%>%
   filter(participant!="EE1", participant!="CHI")%>%
   unite("person", "participant","filename")
+
+tokenized_VI <- morphemepiece_tokenize(utterances_only_VI$utterance, vocab = morphemepiece_vocab(),
+      lookup = morphemepiece_lookup(),
+      unk_token = "[UNK]",
+      max_chars = 100)
+df_tokenized_VI <-as.data.frame((prepare_vocab(token_list = tokenized_VI)), col.names=c("morphemelist"))
+
+utterances_only_VI$morpheme_count<-df_tokenized_VI$morphemelist
 
 utterances_only_TD<-TD_wide%>%
   filter(participant!="EE1", participant!="CHI")%>%
