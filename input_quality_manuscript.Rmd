@@ -49,6 +49,7 @@ library(papaja)
 library(dplyr)
 library(stringr)
 library(morphemepiece)
+library(plyr)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 2, format = "f", ...) {      # Create user-defined function
@@ -159,7 +160,7 @@ TD_wide_unfiltered <- pivot_wider(TD_single_column_with_names, names_from = "tie
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
   unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE"), remove = TRUE, na.rm = TRUE)
 
-  TD_wide <- filter(TD_wide_unfiltered, !filename  %in% c("TD_419_961.eaf", "TD_420_268.eaf", "TD_421_536.eaf", "TD_422_217.eaf", "TD_424_676.eaf", "TD_431_248.eaf", "TD_426_429.eaf", "TD_423_184.eaf", "TD_430_493.eaf", "TD_425_194.eaf", "TD_433_522.eaf", "TD_429_190.eaf", "TD_437_564.eaf", "TD_428_188.eaf", "TD_438_522.eaf", "TD_439_192.eaf", "TD_442_763.eaf", "TD_440_189.eaf", "TD_451_521.eaf", "TD_450_183.eaf", "TD_453_998.eaf", "TD_452_277.eaf", "TD_457_475.eaf", "TD_459_188", "TD_462_513.eaf", "TD_461_190.eaf", "TD_468_758.eaf", "TD_455_248.eaf", "TD_441_732.eaf", "TD_434_249.eaf", "TD_457_475.eaf", "TD_459_188.eaf", "TD_435_205.eaf", "TD_454_510.eaf", "TD_469_748.eaf", "TD_470_759.eaf"))
+  TD_wide <- filter(TD_wide_unfiltered, !filename  %in% c("TD_419_961.eaf", "TD_420_268.eaf", "TD_421_536.eaf", "TD_422_217.eaf", "TD_424_676.eaf", "TD_431_248.eaf", "TD_426_429.eaf", "TD_423_184.eaf", "TD_430_493.eaf", "TD_425_194.eaf", "TD_433_522.eaf", "TD_429_190.eaf", "TD_437_564.eaf", "TD_428_188.eaf", "TD_438_522.eaf", "TD_439_192.eaf", "TD_442_763.eaf", "TD_440_189.eaf", "TD_451_521.eaf", "TD_450_183.eaf", "TD_453_998.eaf", "TD_452_277.eaf", "TD_457_475.eaf", "TD_459_188.eaf", "TD_462_513.eaf", "TD_461_190.eaf", "TD_468_758.eaf", "TD_455_248.eaf", "TD_441_732.eaf", "TD_434_249.eaf", "TD_457_475.eaf", "TD_459_188.eaf", "TD_435_205.eaf", "TD_454_510.eaf", "TD_469_748.eaf", "TD_470_759.eaf"))
 ```
 
 ## Measuring Properties of Language Input
@@ -426,6 +427,7 @@ tense
 type/token ratio
 MLU
 ```{r MLU}
+#get the morpheme counts for VI
 utterances_only_VI<-try_wide%>%
   filter(participant!="EE1", participant!="CHI")%>%
   unite("person", "participant","filename")
@@ -434,13 +436,46 @@ tokenized_VI <- morphemepiece_tokenize(utterances_only_VI$utterance, vocab = mor
       lookup = morphemepiece_lookup(),
       unk_token = "[UNK]",
       max_chars = 100)
-df_tokenized_VI <-as.data.frame((prepare_vocab(token_list = tokenized_VI)), col.names=c("morphemelist"))
 
-utterances_only_VI$morpheme_count<-df_tokenized_VI$morphemelist
+df_tokenized_VI <- tokenized_VI %>%
+  plyr::ldply(rbind)
+  
+df_morphemes_VI<- data.frame(ifelse(is.na(df_tokenized_VI),0,1))
+df_morphemes_VI$morphemecount<-rowSums(df_morphemes_VI)
+utterances_only_VI$morphemecount<-df_morphemes_VI$morphemecount
 
+forMLU_VI_utterances <-utterances_only_VI%>%
+  filter(!utterance==c("xxx."))%>%
+  group_by(person)%>%
+  summarise(
+    n_utterances= count(utterances_only_VI),
+    totalmorphemes=sum(morphemecount))
+    
+    
+    #group_by(person), sum(morphemecount))%>%
+  #add_count(person)%>%
+  
+#  group_by(person)%>%
+#  summarise(sum(morphemecount))
+
+
+
+#get the morpheme counts for TD
 utterances_only_TD<-TD_wide%>%
   filter(participant!="EE1", participant!="CHI")%>%
   unite("person", "participant","filename")
+
+tokenized_TD <- morphemepiece_tokenize(utterances_only_TD$utterance, vocab = morphemepiece_vocab(),
+      lookup = morphemepiece_lookup(),
+      unk_token = "[UNK]",
+      max_chars = 100)
+
+df_tokenized_TD <- tokenized_TD %>%
+  plyr::ldply(rbind)
+  
+df_morphemes_TD<- data.frame(ifelse(is.na(df_tokenized_TD),0,1))
+df_morphemes_TD$morphemecount<-rowSums(df_morphemes_TD)
+utterances_only_TD$morphemecount<-df_morphemes_TD$morphemecount
 ```
 
 
