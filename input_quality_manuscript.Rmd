@@ -133,7 +133,7 @@ single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_
 try_wide <- pivot_wider(single_column_with_names, names_from = "tier", values_from = "utterance") %>%
   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-  unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "EE1"), remove = TRUE, na.rm = TRUE)
+  unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FA6", "FA7", "FA8", "FA9", "F10", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "FC2", "EE1"), remove = TRUE, na.rm = TRUE)
 ```
 
 
@@ -156,7 +156,7 @@ TD_single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fa
 TD_wide_unfiltered <- pivot_wider(TD_single_column_with_names, names_from = "tier", values_from = "utterance") %>%
   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-  unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE"), remove = TRUE, na.rm = TRUE)
+  unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE", "UCI", "MAE"), remove = TRUE, na.rm = TRUE)
 
   TD_wide <- filter(TD_wide_unfiltered, !filename  %in% c("TD_419_961.eaf", "TD_420_268.eaf", "TD_421_536.eaf", "TD_422_217.eaf", "TD_424_676.eaf", "TD_431_248.eaf", "TD_426_429.eaf", "TD_423_184.eaf", "TD_430_493.eaf", "TD_425_194.eaf", "TD_433_522.eaf", "TD_429_190.eaf", "TD_437_564.eaf", "TD_428_188.eaf", "TD_438_522.eaf", "TD_439_192.eaf", "TD_442_763.eaf", "TD_440_189.eaf", "TD_451_521.eaf", "TD_450_183.eaf", "TD_453_998.eaf", "TD_452_277.eaf", "TD_457_475.eaf", "TD_459_188.eaf", "TD_462_513.eaf", "TD_461_190.eaf", "TD_468_758.eaf", "TD_455_248.eaf", "TD_441_732.eaf", "TD_434_249.eaf", "TD_457_475.eaf", "TD_459_188.eaf", "TD_435_205.eaf", "TD_454_510.eaf", "TD_469_748.eaf", "TD_470_759.eaf"))
 ```
@@ -424,7 +424,7 @@ tense
 
 type/token ratio
 MLU
-```{r VI_MLU}
+```{r VI-MLU}
 #get the morpheme counts for VI
 utterances_only_VI<-try_wide%>%
   filter(participant!="EE1", participant!="CHI")%>%
@@ -459,7 +459,7 @@ average_VI_input_MLU <-mean(final_forMLU_VI$MLU_rough)
 average_VI_input_MLU
 ```
 
-```{r TD_MLU}
+```{r TD-MLU}
 #get the morpheme counts for TD
 utterances_only_TD<-TD_wide%>%
   filter(participant!="EE1", participant!="CHI")%>%
@@ -493,8 +493,52 @@ final_forMLU_TD$MLU_rough <-(final_forMLU_TD$totalmorphemes/final_forMLU_TD$n)
 average_TD_input_MLU <-mean(final_forMLU_TD$MLU_rough)
 average_TD_input_MLU
 ```
+```{r MLU-plot}
 
+MLU_for_plot <-bind_rows(final_forMLU_TD, final_forMLU_VI, .id = 'group')
 
+MLU_plot <-
+  ggplot(data = MLU_for_plot, aes(
+    x = group,
+    y = MLU_rough,
+    color = group,
+    fill = group)) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  geom_jitter(width = 0.2, height = 0) +
+  theme_classic() +
+  labs(y = "Average Mean Length of Utterance", x = NULL, element_text(size = 14)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(
+    breaks = c("1", "2"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("1", "2"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(MLU_rough) - std.error(MLU_rough)),
+    ymax = (mean(MLU_rough) - std.error(MLU_rough)))) +
+  stat_summary(fun.data = "mean_cl_boot", color = 'black') +
+  scale_x_discrete(
+    labels = c(
+      "1" = "Sighted",
+      "2" = "Blind")) +
+  coord_cartesian(ylim = c(0, (max(MLU_for_plot$MLU_rough * 1.1)))) +
+  theme( axis.text = element_text(size = 14),
+    axis.title.y = element_text(size = 14),
+    strip.text.x = element_text(size = 14)) +
+  labs(caption = "Average MLU from daylong audio recordings; each dot represents one speaker in a recording.\nData source: LENAs (VIHI, Seedlings, Warlaumont, & Cougar)")
+MLU_plot
+```
 ## Linking Language Input to Language Outcomes
 Predict: CDI percentile & CVC percentile
 
