@@ -46,10 +46,8 @@ library(tidyverse)
 library(ggplot2)
 library(plotrix)
 library(papaja)
-library(dplyr)
 library(stringr)
 library(morphemepiece)
-library(plyr)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 2, format = "f", ...) {      # Create user-defined function
@@ -307,7 +305,7 @@ ggplot(TD_CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
   geom_bar(position="fill", stat="identity") +
   ggtitle("Proportion of Addressee by Recording, TD") +
   xlab("Recording") + ylab ("Proportion, by number of utterances") +
-  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=7, angle=0, vjust = 1))
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=7, angle=45, vjust = 1))
 
 #I need to rename filenames to something that's not the same as lab-internal subj num
 ```
@@ -426,7 +424,7 @@ tense
 
 type/token ratio
 MLU
-```{r MLU}
+```{r VI_MLU}
 #get the morpheme counts for VI
 utterances_only_VI<-try_wide%>%
   filter(participant!="EE1", participant!="CHI")%>%
@@ -444,22 +442,24 @@ df_morphemes_VI<- data.frame(ifelse(is.na(df_tokenized_VI),0,1))
 df_morphemes_VI$morphemecount<-rowSums(df_morphemes_VI)
 utterances_only_VI$morphemecount<-df_morphemes_VI$morphemecount
 
-forMLU_VI_utterances <-utterances_only_VI%>%
+for_MLU_VI_morphemes<-utterances_only_VI%>%
   filter(!utterance==c("xxx."))%>%
   group_by(person)%>%
   summarise(
-    n_utterances= count(utterances_only_VI),
-    totalmorphemes=sum(morphemecount))
-    
-    
-    #group_by(person), sum(morphemecount))%>%
-  #add_count(person)%>%
-  
-#  group_by(person)%>%
-#  summarise(sum(morphemecount))
+  totalmorphemes=sum(morphemecount))
 
+forMLU_VI_utterances <-utterances_only_VI%>%
+  filter(!utterance==c("xxx."))%>%
+  count(person)
 
+final_forMLU_VI <- merge(forMLU_VI_utterances, for_MLU_VI_morphemes, by="person", all = TRUE)
+final_forMLU_VI$MLU_rough <-(final_forMLU_VI$totalmorphemes/final_forMLU_VI$n)
 
+average_VI_input_MLU <-mean(final_forMLU_VI$MLU_rough)
+average_VI_input_MLU
+```
+
+```{r TD_MLU}
 #get the morpheme counts for TD
 utterances_only_TD<-TD_wide%>%
   filter(participant!="EE1", participant!="CHI")%>%
@@ -476,6 +476,22 @@ df_tokenized_TD <- tokenized_TD %>%
 df_morphemes_TD<- data.frame(ifelse(is.na(df_tokenized_TD),0,1))
 df_morphemes_TD$morphemecount<-rowSums(df_morphemes_TD)
 utterances_only_TD$morphemecount<-df_morphemes_TD$morphemecount
+
+for_MLU_TD_morphemes<-utterances_only_TD%>%
+  filter(!utterance==c("xxx."))%>%
+  group_by(person)%>%
+  summarise(
+  totalmorphemes=sum(morphemecount))
+
+forMLU_TD_utterances <-utterances_only_TD%>%
+  filter(!utterance==c("xxx."))%>%
+  count(person)
+
+final_forMLU_TD <- merge(forMLU_TD_utterances, for_MLU_TD_morphemes, by="person", all = TRUE)
+final_forMLU_TD$MLU_rough <-(final_forMLU_TD$totalmorphemes/final_forMLU_TD$n)
+
+average_TD_input_MLU <-mean(final_forMLU_TD$MLU_rough)
+average_TD_input_MLU
 ```
 
 
