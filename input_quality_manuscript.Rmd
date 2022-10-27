@@ -456,7 +456,15 @@ final_forMLU_VI <- merge(forMLU_VI_utterances, for_MLU_VI_morphemes, by="person"
 final_forMLU_VI$MLU_rough <-(final_forMLU_VI$totalmorphemes/final_forMLU_VI$n)
 
 average_VI_input_MLU <-mean(final_forMLU_VI$MLU_rough)
+
+
+MLU_variance_VI <-(var(final_forMLU_VI$MLU_rough))
+
+
+MLU_SD_VI <-sqrt(var(final_forMLU_VI$MLU_rough))
 average_VI_input_MLU
+MLU_variance_VI 
+MLU_SD_VI
 ```
 
 ```{r TD-MLU}
@@ -491,14 +499,21 @@ final_forMLU_TD <- merge(forMLU_TD_utterances, for_MLU_TD_morphemes, by="person"
 final_forMLU_TD$MLU_rough <-(final_forMLU_TD$totalmorphemes/final_forMLU_TD$n)
 
 average_TD_input_MLU <-mean(final_forMLU_TD$MLU_rough)
+
+MLU_variance_TD <-(var(final_forMLU_TD$MLU_rough))
+
+
+MLU_SD_TD <-sqrt(var(final_forMLU_TD$MLU_rough))
 average_TD_input_MLU
+MLU_variance_TD 
+MLU_SD_TD
 ```
 ```{r MLU-plot}
 
 MLU_for_plot <-bind_rows(final_forMLU_TD, final_forMLU_VI, .id = 'group')
 
 MLU_plot <-
-  ggplot(data = MLU_for_plot, aes(
+  ggplot(data = (MLU_for_plot %>% filter(MLU_rough>0)), aes(
     x = group,
     y = MLU_rough,
     color = group,
@@ -536,9 +551,17 @@ MLU_plot <-
   theme( axis.text = element_text(size = 14),
     axis.title.y = element_text(size = 14),
     strip.text.x = element_text(size = 14)) +
-  labs(caption = "Average MLU from daylong audio recordings; each dot represents one speaker in a recording.\nData source: LENAs (VIHI, Seedlings, Warlaumont, & Cougar)")
+  labs(caption = "Average MLU from daylong audio recordings; each dot represents one speaker in a recording.\nData source: LENAs (VIHI, Seedlings, Warlaumont, & Cougar)") 
 MLU_plot
 ```
+```{r MLU-ttest}
+MLU_compare<-wilcox.test(MLU_for_plot$MLU_rough~MLU_for_plot$group, paired=FALSE)
+MLU_compare
+```
+
+## MLU Analysis and results
+For our second linguistic feature, we analyzed the mean length of utterance (MLU) in the input speech to each group of children. We computed MLU on a morpheme level as a proximate measure of syntactic complexity. Each utterance by a non-CHI speaker was tokenized into morphemes using the 'morphemepiece' R package (CITE). We then calculated the mean MLU per speaker from each audio recording, and then compared the mean MLU of environmental speech to blind children (M=`r average_VI_input_MLU`, SD=`r MLU_SD_VI`) to that of sighted children (M=`r average_TD_input_MLU`, SD=`r MLU_SD_TD`). A Wilcoxon rank sum test revealed that the MLU was higher in speech to blind children than to their sighted peers (w=`r MLU_compare$w.value`, p=`r MLU_compare$p.value`).
+
 ## Linking Language Input to Language Outcomes
 Predict: CDI percentile & CVC percentile
 
