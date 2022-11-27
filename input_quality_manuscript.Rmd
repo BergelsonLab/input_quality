@@ -48,7 +48,7 @@ library(plotrix)
 library(papaja)
 
 #lets create a function to convert things into percents (I stole this obvi)
-percent <- function(x, digits = 2, format = "f", ...) {      # Create user-defined function
+percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
   paste0(formatC(x * 100, format = format, digits = digits, ...), "%")
 }
 ```
@@ -72,10 +72,8 @@ One important feature of the language environment is the amount of interactivity
 Conceptual features of language input involve the relationship between conversational topics, referents in the world around them, and how children represent these things in their mind, depending on their cognitive level. For example, young infants are more likely to learn words when the object is perceptually salient, dominating their field of view [@yu2012]. Parents responding to a child's point and labeling the object of interest might boost learning in that instance. By contrast, *decontextualized* language use-- that is, talking about past and future events, or people and items that are not currently present in the environment-- may be beneficial at later stages of development [@rowe_decontextualized_2013]. In toddlerhood, parents' decontextualized language use predicts kindergarten vocabulary [@rowe2012], children's own decontextualized language use [@demir2015], and academic achievement in adolescence [@uccelli2019]. Decontextualized language may be helpful because it provides an opportunity to discuss a broader range of topics and reflects typical adult language usage, which is often abstract [@CITE]. It also provides the opportunity for more lexical and syntactic diversity, both of which are important features of linguistic input quality.
 
 Lexical diversity is often calculated as a word type/token ratio, and syntactic complexity often uses mean length of utterance as a proxy. Lexical diversity of language input seems to exert different effects as children get older. In early infancy, children who are exposed to more repetitions (and therefore less lexical diversity) at 7 months have higher vocabulary at age 2 [@newman2016], which suggests that less lexical diversity may be beneficial in early stages of language learning. This relationship later flips: toddlers and preschool-aged children who are exposed to greater diversity of words in their language input tend to have larger vocabulary scores [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001]. Lexical diversity is also intertwined with input quantity: parents who talk more also tend to provide more lexical diversity [@hoff2002], and thus these measures are difficult to untangle. Likewise, the diversity of syntactic constructions in parental language input is associated both with children's vocabulary growth and the structural diversity of their own productions [@hoff2003; @naigles1998; @devilliers1984; @huttenlocher2010; @hadley2017; @huttenlocher2002].
->>>>>>> refs/remotes/origin/master
 
 For blind children, their language input may constitute the brunt of available clues for learning in proportion to other parts of the environment [@campbell2022], starting from early on and as they grow up. In the absence of visual input, language is an important source of information about the world. Linguistic structure provides cues to word meaning that may be lost without visual cues. In our review so far, we have presented a pattern wherein the features of the input that are most helpful for language learning change over the course of children's development: early on, many of these cues require visual access (such as parental gaze, shared visual attention, pointing to remote object and the presence of salient objects in the visual field) and later become more abstract. This may be part of the reason why language delays are more common in blind children, but are often recovered in older blind children. It may take longer to gain enough environmental experience to make early language learning strides, but once they are able to use more abstract and linguistic features as cues, learning proceeds rapidly [@CITE or rephrase or take out this last sentence?]. All that said, we cannot assume that the *only* difference in the language learning experiences for blind and sighted the children is their access to visual experience. The language input itself may very well differ for blind children relative to sighted children, for a variety of reasons.
-
 
 First, speakers regularly tailor input to communicate efficiently with the listener [@grice1975]. Parents are sensitive to their child's developmental level and tune language input accordingly [@snow1972; @vygotsky1978]. Child-directed speech is one example--whereby parents speak to young children with exaggerated prosody, slower speech rate, and increased vowel clarity [@fernald1989; @bernsteinratner1984], which appears to be helpful to the young language learner [@thiessen2005]. Parents show increased alignment (a tendency to re-use use the conversation partner's expressions) for younger children, that decreases as children get older [@yurovsky2016]. When interacting with infants and toddlers, parents repeat words more often than when interacting with older children or adults [@snow1972]. Communicative tailoring is also common in language input to children with disabilities, who tend to receive simplified, more directive language input, and less interactive input compared to typically-developing children [@dirks2019; @yoshinaga-itano2020]. 
 
@@ -128,10 +126,11 @@ single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_
          filepath=X8)
 
 #wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
-try_wide <- pivot_wider(single_column_with_names, names_from = "tier", values_from = "utterance") %>%
+wide_transcripts <- pivot_wider(single_column_with_names, names_from = "tier", values_from = "utterance") %>%
   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-  unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "EE1"), remove = TRUE, na.rm = TRUE)
+  unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "EE1"), remove = TRUE, na.rm = TRUE) %>%
+  mutate(VIHI_ID = str_sub(filename, 1,10))
 ```
 
 
@@ -151,12 +150,14 @@ TD_single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fa
          filepath=X8)
 
 #wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
-TD_wide_unfiltered <- pivot_wider(TD_single_column_with_names, names_from = "tier", values_from = "utterance") %>%
+TD_wide <- pivot_wider(TD_single_column_with_names, names_from = "tier", values_from = "utterance") %>%
   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-  unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE"), remove = TRUE, na.rm = TRUE)
+  unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE"), remove = TRUE, na.rm = TRUE) %>%
+  mutate(VIHI_ID = str_sub(filename, 1,10))
 
-  TD_wide <- filter(TD_wide_unfiltered, !filename  %in% c("TD_419_961.eaf", "TD_420_268.eaf", "TD_421_536.eaf", "TD_422_217.eaf", "TD_424_676.eaf", "TD_431_248.eaf", "TD_426_429.eaf", "TD_423_184.eaf", "TD_430_493.eaf", "TD_425_194.eaf", "TD_433_522.eaf", "TD_429_190.eaf", "TD_437_564.eaf", "TD_428_188.eaf", "TD_438_522.eaf", "TD_439_192.eaf", "TD_442_763.eaf", "TD_440_189.eaf", "TD_451_521.eaf", "TD_450_183.eaf", "TD_453_998.eaf", "TD_452_277.eaf", "TD_462_513.eaf", "TD_461_190.eaf", "TD_455_248.eaf", "TD_441_732.eaf", "TD_434_249.eaf", "TD_457_475.eaf", "TD_459_188.eaf", "TD_435_205.eaf", "TD_454_510.eaf"))
+ 
+    
 ```
 
 ## Measuring Properties of Language Input
@@ -223,18 +224,18 @@ AWC_plot
 ### ADS/CDS proportion
 
 #get number of counts per each xds type by file
-CDS_proportion <- try_wide %>%
+CDS_proportion <- wide_transcripts %>%
   filter(xds %in% c("C","A","B","P", "O", "U"))%>%
-  group_by(filename, xds) %>%
+  group_by(VIHI_ID, xds) %>%
   summarise(counts=n())
 
 #just wanna check how many utterances total
 mega_total <- sum(CDS_proportion$counts)
 
 #find total number of utterances per file
-CDS_total_input_utterances <- try_wide %>%
+CDS_total_input_utterances <- wide_transcripts %>%
   filter(xds %in% c("C","A","B","P", "O", "U"))%>%
-  group_by(filename) %>%
+  group_by(VIHI_ID) %>%
   summarise(total_utts=n())
 
 #just checking that the number is the same bc i don't trust myself
@@ -252,14 +253,17 @@ proportion_table <- left_join(CDS_proportion, CDS_total_input_utterances)%>%
 
 #this is just the same as the group props but with percentages
 VI_group_proportion_table <- VI_group_props %>%
-  mutate(group_percent = percent(big_number/mega_total))
+  mutate(group_percent = percent(big_number/mega_total),
+         group_prop = big_number/mega_total,
+         group = "Blind")
 
 
-ggplot(CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
+ggplot(CDS_proportion, aes(fill = xds, y=counts, x=VIHI_ID)) +
   geom_bar(position="fill", stat="identity") +
+  theme_classic() +
   ggtitle("Proportion of Addressee by Recording") +
   xlab("Recording") + ylab ("Proportion, by number of utterances") +
-  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=9, angle=45))
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=9, angle=90))
 
 #I need to rename filenames to something that's not the same as lab-internal subj num
 ```
@@ -267,7 +271,7 @@ ggplot(CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
 ```{r}
 TD_CDS_proportion <- TD_wide %>%
   filter(xds %in% c("C","A","B","P", "O", "U"))%>%
-  group_by(filename, xds) %>%
+  group_by(VIHI_ID, xds) %>%
   summarise(counts=n())
 ```
 ```{r}
@@ -277,7 +281,7 @@ TD_mega_total <- sum(TD_CDS_proportion$counts)
 #find total number of utterances per file
 TD_CDS_total_input_utterances <- TD_wide %>%
   filter(xds %in% c("C","A","B","P", "O", "U"))%>%
-  group_by(filename) %>%
+  group_by(VIHI_ID) %>%
   summarise(total_utts=n())
 
 #just checking that the number is the same bc i don't trust myself
@@ -296,24 +300,34 @@ TD_proportion_table <- left_join(TD_CDS_proportion, TD_CDS_total_input_utterance
 
 #this is just the same as the group props but with percentages
 TD_group_proportion_table <- TD_group_props %>%
-  mutate(group_percent = percent(big_number/TD_mega_total))
+  mutate(group_prop = big_number/TD_mega_total,
+         group_percent = percent(big_number/TD_mega_total),
+         group="Sighted")
 
 
-ggplot(TD_CDS_proportion, aes(fill = xds, y=counts, x=filename)) +
+ggplot(TD_CDS_proportion, aes(fill = xds, y=counts, x=VIHI_ID)) +
   geom_bar(position="fill", stat="identity") +
   ggtitle("Proportion of Addressee by Recording, TD") +
   xlab("Recording") + ylab ("Proportion, by number of utterances") +
-  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=7, angle=0, vjust = 1))
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=7, angle=90, vjust = 1))
 
 #I need to rename filenames to something that's not the same as lab-internal subj num
 ```
+
 ```{r cute-plot}
 #Overall TD CDS/ADS proportion graph
-ggplot(TD_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
-  geom_bar(position = "stack", stat = "identity") + ggtitle("Proportion by Addressee in Speech heard by TD Children") +
+
+all_proportion_table <- bind_rows(VI_group_proportion_table, TD_group_proportion_table)
+
+
+
+ggplot(all_proportion_table, aes(fill = xds, y= group_prop, x = group)) +
+  geom_bar(position = "stack", stat = "identity")  +
   geom_text(aes(label=group_percent), position=position_stack(vjust=0.5)) +
-  xlab("All TD children") + ylab ("Proportion, by number of utterances") +
-  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'))
+  xlab("Group") + ylab ("Proportion, by number of utterances") +
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'), name="Addressee")+
+  theme_classic()+
+  theme(text=element_text(size=10))
 ```
 
 ```{r}
@@ -349,10 +363,11 @@ ODS_compare
 
 #Overall VI CDS/ADS proportion graph
 ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
-  geom_bar(position = "stack", stat = "identity") + ggtitle("Proportion by Addressee in Speech heard by VI Children") +
-  geom_text(aes(label=group_percent), position=position_stack(vjust=0.5)) +
+  geom_bar(position = "stack", stat = "identity") + ggtitle("Proportion by Addressee in Speech heard by Blind Children") +
+  geom_text(aes(label=group_percent), position=position_stack(vjust=0.5), size=2) +
   xlab("All VI children") + ylab ("Proportion, by number of utterances") +
-  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'))
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) +
+  theme_classic()
 ```
 
 We compared the proportions of child-directed speech (CDS) and adult-directed speech (ADS) between the blind children and their sighted matches. Each proportion was calculated as the number of utterances produced by someone *other* than the target child (non-CHI utterances) tagged with a child or an adult addressee, respectively, out of the total number of non-CHI utterances for each sensory group. A two-sample test for equality of proportions revealed no significant difference in the overall proportions of CDS to blind children and CDS to sighted children (*X*^2=`r CDS_compare$statistic`, p=`r printp(CDS_compare$p.value)`, CDS-proportion~blind~=`r CDS_compare$estimate[[2]]`, CDS-proportion~sighted~=`r CDS_compare$estimate[[1]]`). Likewise, there was no difference between the proportion of ADS to blind or sighted children (*X*^2=`r ADS_compare$statistic`, p=`r printp(ADS_compare$p.value)`,  ADS-proportion~blind~=`r ADS_compare$estimate[[2]]`, ADS-proportion~sighted~=`r ADS_compare$estimate[[1]]`).
@@ -413,13 +428,12 @@ CTC_plot
 
 #### Conceptual Features
 
-topic diversity
+topic diversity - https://github.com/mind-Lab/octis
 adjective typicality
 sensory modality
 tense
 
 #### Linguistic Features
-
 type/token ratio
 MLU
 
