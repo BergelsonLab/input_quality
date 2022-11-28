@@ -46,6 +46,9 @@ library(tidyverse)
 library(ggplot2)
 library(plotrix)
 library(papaja)
+library(stringr)
+library(morphemepiece)
+library(tidytext)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
@@ -56,6 +59,9 @@ percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defin
 ```{r get-data}
 LENA_counts <- read_csv("/Volumes/pn-opus/VIHI/Scripts/LENA_Scripts/data/VIHI_its_details.csv") %>%
   filter(group == "VI" | match_type == "VI")
+
+lancaster_norms <- read.csv("data/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
+  mutate(Word = tolower(Word))
 ```
 # Introduction
 
@@ -113,7 +119,7 @@ Environmental speech from everyone else is coded for the addressee of each utter
 ```{r load-transcripts}
 #read in data that has been mass exported via ELAN; add informative column names
 
-single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Aug24.txt", 
+single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Oct19.txt", 
      delim = "\t", escape_double = FALSE, 
      trim_ws = TRUE,col_names = FALSE) %>%
   rename(tier=X1,
@@ -129,15 +135,115 @@ single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_
 wide_transcripts <- pivot_wider(single_column_with_names, names_from = "tier", values_from = "utterance") %>%
   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-  unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "EE1"), remove = TRUE, na.rm = TRUE) %>%
+  unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FA6", "FA7", "FA8", "FA9", "F10", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "FC2", "EE1"), remove = TRUE, na.rm = TRUE) %>%
   mutate(VIHI_ID = str_sub(filename, 1,10))
+
 ```
 
+```{r transcripts-to-words}
+
+# # find + list all LENA transcripts on pn-opus
+LENA_files <- list.files("/Volumes/pn-opus/VIHI/SubjectFiles/LENA", pattern="*_lena.txt", full.names=TRUE, recursive = TRUE)
+
+# # read in LENA transcripts
+# # ek2ec, suggestion: readr::read_delim should be able to read a list of files. If you have an older readr version that can't do that, another options is to use `map_dfr`.
+# VIHI_LENA_transcripts <- data.frame() # create an empty dataframe
+# for (filename in LENA_files) {
+#   #for each file found
+#   print(filename) #print which one we're working on
+#   new <-
+#     read_delim(
+#       filename,
+#       "\t",
+#       escape_double = FALSE,
+#       col_names = FALSE,
+#       trim_ws = TRUE,
+#       col_types = cols(.default = "c")
+#     ) %>% #read in file
+#     
+#     mutate(VIHI_ID = str_sub(filename, -19,-10),
+#            group = str_sub(VIHI_ID, 1, 2)) # using the filepath, create column with subject ID and column with group
+#   VIHI_LENA_transcripts <-
+#     bind_rows(VIHI_LENA_transcripts, new) #bind this to the (formerly) empty dataframe
+# }
+# 
+# VIHI_LENA_transcripts <-
+#   VIHI_LENA_transcripts %>% 
+#   dplyr::rename(
+#     Speaker = X1,
+#     OnsetTime = X2,
+#     OffsetTime = X3,
+#     Duration = X4,
+#     Utterance = X5,
+#     Addressee = X6
+#   ) %>%
+#   filter(Speaker != 'CHI') #filter out child utterances, since we're only interested in input
+# 
+
+
+
+all_lena <- read_delim("data/all_lena.txt", 
+    delim = "\t", escape_double = FALSE, 
+    col_names = FALSE, trim_ws = TRUE) %>%
+  dplyr::rename(
+    Speaker = X1,
+    OnsetTime = X2,
+    OffsetTime = X3,
+    Duration = X4,
+    Utterance = X5,
+    filename = X6,
+    filepath = X7,
+    
+  )   %>%
+  mutate(VIHI_ID = str_sub(filename, 1,10),
+         group = as.factor(str_sub(filename, 1,2)))%>%
+  filter(Speaker != 'CHI' & Speaker != 'code' & Speaker != 'sampling_type')
+
+VIHI_LENA_utterances <- all_lena %>%
+   mutate(utterance_clean = str_remove_all(Utterance, pattern = ("\\[.*?<>"))) %>%
+  separate(utterance_clean,
+           into = paste0("Word", 1:46),
+           sep = " ") #separate utterances into columns with 1 column per word
+
+VIHI_LENA_words <- VIHI_LENA_utterances %>%
+  mutate(uttnum = seq(1, nrow(VIHI_LENA_utterances), 1)) %>% #give each utterance a unique number
+  pivot_longer(cols = Word1:Word46,
+               #pivot the word columns into a single Word column
+               names_to = "utt_loc",
+               #create another column that gives the location within utterance (ex:Word2)
+               values_to = "Word") %>%
+  select(VIHI_ID, group, uttnum, utt_loc, Word) %>%
+  filter(!is.na(Word)) %>% #filter out blank rows
+  left_join(lancaster_norms) %>% # join with lancaster norms
+  filter(!is.na(Auditory.mean)) %>%
+  select(Word,
+         VIHI_ID,
+         group,
+         Auditory.mean:Dominant.sensorimotor,
+         utt_loc,
+         uttnum) #remove unwanted columns
+
+manual_word_types <- VIHI_LENA_words %>% 
+  group_by(VIHI_ID) %>%
+  distinct(Word, .keep_all=TRUE) %>%
+  summarise(types = n())
+manual_word_tokens <- VIHI_LENA_words %>% 
+  group_by(VIHI_ID) %>%
+  summarise(tokens = n())
+manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
+  mutate(TTR = types/tokens,
+         group = as.factor(str_sub(VIHI_ID, 1,2)))  %>%
+  filter(group!="HI")
+  
+
+
+  
+```
 
 ```{r}
 #we will do the same as above with TD matches (gonna have to do some filtering)
 #read in data that has been mass exported via ELAN; add informative column names
-TD_single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_TD_August24_no_sep.txt", 
+TD_single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_TD_Oct19_no_sep.txt", 
      delim = "\t", escape_double = FALSE, 
      trim_ws = TRUE,col_names = FALSE) %>%
   rename(tier=X1,
@@ -153,11 +259,10 @@ TD_single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fa
 TD_wide <- pivot_wider(TD_single_column_with_names, names_from = "tier", values_from = "utterance") %>%
   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-  unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE"), remove = TRUE, na.rm = TRUE) %>%
-  mutate(VIHI_ID = str_sub(filename, 1,10))
+unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE", "UCI", "MAE"), remove = TRUE, na.rm = TRUE) %>%  mutate(VIHI_ID = str_sub(filename, 1,10))
 
- 
-    
+  
+
 ```
 
 ## Measuring Properties of Language Input
@@ -211,9 +316,50 @@ AWC_plot <-
   coord_cartesian(ylim = c(0, (max(LENA_counts$AWC * 1.1)))) +
   theme( axis.text = element_text(size = 14),
     axis.title.y = element_text(size = 18),
-    strip.text.x = element_text(size = 14)) +
-  labs(caption = "Adult word counts from daylong audio recordings; each dot represents one recording.\nData source: LENAs (VIHI, Seedlings, Warlaumont, & Cougar)")
+    strip.text.x = element_text(size = 14)) 
 AWC_plot
+
+manual_word_count_plot <-  ggplot(data = (manual_word_TTR %>% filter(group!="HI")), aes(
+    x = group,
+    y = tokens,
+    color = group,
+    fill = group)) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  geom_jitter(width = 0.2, height = 0) +
+  theme_classic() +
+  labs(y = "Manual Word Counts", x = NULL, element_text(size = 14)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Typically-\nDeveloping", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(tokens) - std.error(tokens)),
+    ymax = (mean(tokens) - std.error(tokens)))) +
+  stat_summary(fun.data = "mean_cl_boot", color = 'black') +
+  scale_x_discrete(
+    labels = c(
+      "VI" = "Blind",
+      "TD" = "Sighted")) +
+  coord_cartesian(ylim = c(0, (max(manual_word_TTR$tokens * 1.1)))) +
+  theme( axis.text = element_text(size = 14),
+    axis.title.y = element_text(size = 18),
+    strip.text.x = element_text(size = 14)) 
+manual_word_count_plot
+
+
 ```
 
 ### Language Input Quality
@@ -262,8 +408,10 @@ ggplot(CDS_proportion, aes(fill = xds, y=counts, x=VIHI_ID)) +
   geom_bar(position="fill", stat="identity") +
   theme_classic() +
   ggtitle("Proportion of Addressee by Recording") +
-  xlab("Recording") + ylab ("Proportion, by number of utterances") +
-  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=9, angle=90))
+  xlab("Recording") + 
+  ylab ("Proportion, by number of utterances") +
+  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + 
+  theme(axis.text.x = element_text(face="bold", color="#000000", size=9, angle=90))
 
 #I need to rename filenames to something that's not the same as lab-internal subj num
 ```
@@ -311,6 +459,7 @@ ggplot(TD_CDS_proportion, aes(fill = xds, y=counts, x=VIHI_ID)) +
   xlab("Recording") + ylab ("Proportion, by number of utterances") +
   scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) + theme(axis.text.x = element_text(face="bold", color="#000000", size=7, angle=90, vjust = 1))
 
+
 #I need to rename filenames to something that's not the same as lab-internal subj num
 ```
 
@@ -323,14 +472,15 @@ all_proportion_table <- bind_rows(VI_group_proportion_table, TD_group_proportion
 
 ggplot(all_proportion_table, aes(fill = xds, y= group_prop, x = group)) +
   geom_bar(position = "stack", stat = "identity")  +
-  geom_text(aes(label=group_percent), position=position_stack(vjust=0.5)) +
-  xlab("Group") + ylab ("Proportion, by number of utterances") +
+  geom_text(aes(label=case_when(group_prop>.03~group_percent,TRUE~" ")), position=position_stack(vjust=0.5)) +
+  xlab("Group") + 
+  ylab ("Proportion, by number of utterances") +
   scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'), name="Addressee")+
   theme_classic()+
-  theme(text=element_text(size=10))
+  theme(text=element_text(size=14))
 ```
 
-```{r}
+```{r CDS-prop-ztest}
 #and then a z-test to compare proportions of CDS
 TD_CDS <- as.numeric(TD_group_proportion_table[3, "big_number"])
 
@@ -339,7 +489,7 @@ VI_CDS <- as.numeric(VI_group_proportion_table[3, "big_number"])
 CDS_compare <- prop.test(x=c(TD_CDS, VI_CDS), n=c(TD_mega_total, mega_total))
 CDS_compare
 ```
-```{r}
+```{r ADS-prop-ztest}
 #and then a z-test to compare proportions of ADS
 TD_ADS <- as.numeric(TD_group_proportion_table[1, "big_number"])
 
@@ -421,10 +571,14 @@ CTC_plot <-
   coord_cartesian(ylim = c(0, (max(LENA_counts$CTC * 1.1)))) +
   theme( axis.text = element_text(size = 14),
     axis.title.y = element_text(size = 18),
-    strip.text.x = element_text(size = 14)) +
-  labs(caption = "Conversational turn counts from daylong audio recordings; each dot represents one recording.\nData source: LENAs (VIHI, Seedlings, Warlaumont, & Cougar)")
+    strip.text.x = element_text(size = 14)) 
 CTC_plot
 ```
+
+
+
+
+
 
 #### Conceptual Features
 
@@ -433,11 +587,266 @@ adjective typicality
 sensory modality
 tense
 
+```{r sensory-modality}
+sensory_words <- VIHI_LENA_words %>% 
+  filter(group!="HI") %>%
+  anti_join(stop_words, by= c("Word" = "word"))
+
+sensory_words_totals <- sensory_words %>% 
+   filter(!is.na(Dominant.perceptual)) %>%
+   group_by(group, VIHI_ID) %>%
+  summarise(total = n()) 
+
+sensory_words_by_modality_long <- sensory_words%>% 
+  group_by(group, VIHI_ID, Dominant.perceptual) %>%
+  summarise(by_modality = n()) %>%
+  left_join(sensory_words_totals) %>%
+  mutate(by_modality = replace_na(by_modality,0),
+         prop = by_modality/total)
+  
+sensory_words_by_modality_wide <- sensory_words_by_modality_long%>% 
+  pivot_wider(names_from = Dominant.perceptual, values_from=prop)%>%
+  left_join(sensory_words_by_modality_long) 
+
+strong_sensory_words_totals <- sensory_words %>% 
+    filter(Max_strength.perceptual>4) %>%
+   filter(!is.na(Dominant.perceptual)) %>%
+   group_by(group, VIHI_ID) %>%
+  summarise(total = n()) 
+
+strong_sensory_words_by_modality_long <- sensory_words%>% 
+  filter(Max_strength.perceptual>4) %>%
+  group_by(group, VIHI_ID, Dominant.perceptual) %>%
+  summarise(by_modality = n()) %>%
+  left_join(strong_sensory_words_totals) %>%
+  mutate(by_modality = replace_na(by_modality,0),
+         prop = by_modality/total)
+  
+strong_sensory_words_by_modality_wide <- sensory_words_by_modality_long%>% 
+  pivot_wider(names_from = Dominant.perceptual, values_from=prop)%>%
+  left_join(sensory_words_by_modality_long) 
+
+ggplot((sensory_words_by_modality_long %>% group_by(group, Dominant.perceptual) %>% summarise(mean_prop=mean(prop))), aes(fill = Dominant.perceptual, y= mean_prop, x = group)) +
+  geom_bar(position = "stack", stat = "identity")  +
+  geom_text(aes(label=round(mean_prop,2)), position=position_stack(vjust=0.5)) +
+  xlab("Group") + 
+  ylab ("Proportion of words by sensory modality") +
+  theme_classic()+
+  theme(text=element_text(size=10)) + scale_x_discrete(labels=c("VI" = "Blind", "TD" = "Sighted"))
+
+ggplot((strong_sensory_words_by_modality_long %>% group_by(group, Dominant.perceptual) %>% summarise(mean_prop=mean(prop))), aes(fill = Dominant.perceptual, y= mean_prop, x = group)) +
+  geom_bar(position = "stack", stat = "identity")  +
+  geom_text(aes(label=round(mean_prop,2)), position=position_stack(vjust=0.5)) +
+  xlab("Group") + 
+  ylab ("Proportion of words by sensory modality") +
+  theme_classic()+
+  theme(text=element_text(size=10), legend.position="none") +
+  scale_x_discrete(labels=c("VI" = "Blind", "TD" = "Sighted"))
+```
+```{r load-word2vec}
+# http://vectors.nlpl.eu/repository/
+#English Wikipedia Dump of February 2017
+# vocabulary size=296630
+# algorithm = Gensim Continuous Skipgram
+# Lemmatization = True
+
+
+```
+
 #### Linguistic Features
 type/token ratio
 MLU
+```{r VI-MLU}
+#get the morpheme counts for VI
+utterances_only_VI<-wide_transcripts%>%
+  filter(participant!="EE1", participant!="CHI")%>%
+  unite("person", "participant","filename")
+
+tokenized_VI <- morphemepiece_tokenize(utterances_only_VI$utterance, vocab = morphemepiece_vocab(),
+      lookup = morphemepiece_lookup(),
+      unk_token = "[UNK]",
+      max_chars = 100)
+
+df_tokenized_VI <- tokenized_VI %>%
+  plyr::ldply(rbind)
+  
+df_morphemes_VI<- data.frame(ifelse(is.na(df_tokenized_VI),0,1))
+df_morphemes_VI$morphemecount<-rowSums(df_morphemes_VI)
+utterances_only_VI$morphemecount<-df_morphemes_VI$morphemecount
+
+for_MLU_VI_morphemes<-utterances_only_VI%>%
+  filter(!utterance==c("xxx."))%>%
+  group_by(person)%>%
+  summarise(
+  totalmorphemes=sum(morphemecount))
+
+forMLU_VI_utterances <-utterances_only_VI%>%
+  filter(!utterance==c("xxx."))%>%
+  count(person)
+
+final_forMLU_VI <- merge(forMLU_VI_utterances, for_MLU_VI_morphemes, by="person", all = TRUE)
+final_forMLU_VI$MLU_rough <-(final_forMLU_VI$totalmorphemes/final_forMLU_VI$n)
+
+average_VI_input_MLU <-mean(final_forMLU_VI$MLU_rough)
 
 
+MLU_variance_VI <-(var(final_forMLU_VI$MLU_rough))
+
+
+MLU_SD_VI <-sqrt(var(final_forMLU_VI$MLU_rough))
+average_VI_input_MLU
+MLU_variance_VI 
+MLU_SD_VI
+```
+
+```{r TD-MLU}
+#get the morpheme counts for TD
+utterances_only_TD<-TD_wide%>%
+  filter(participant!="EE1", participant!="CHI")%>%
+  unite("person", "participant","filename")
+
+tokenized_TD <- morphemepiece_tokenize(utterances_only_TD$utterance, vocab = morphemepiece_vocab(),
+      lookup = morphemepiece_lookup(),
+      unk_token = "[UNK]",
+      max_chars = 100)
+
+df_tokenized_TD <- tokenized_TD %>%
+  plyr::ldply(rbind)
+  
+df_morphemes_TD<- data.frame(ifelse(is.na(df_tokenized_TD),0,1))
+df_morphemes_TD$morphemecount<-rowSums(df_morphemes_TD)
+utterances_only_TD$morphemecount<-df_morphemes_TD$morphemecount
+
+for_MLU_TD_morphemes<-utterances_only_TD%>%
+  filter(!utterance==c("xxx."))%>%
+  group_by(person)%>%
+  summarise(
+  totalmorphemes=sum(morphemecount))
+
+forMLU_TD_utterances <-utterances_only_TD%>%
+  filter(!utterance==c("xxx."))%>%
+  count(person)
+
+final_forMLU_TD <- merge(forMLU_TD_utterances, for_MLU_TD_morphemes, by="person", all = TRUE)
+final_forMLU_TD$MLU_rough <-(final_forMLU_TD$totalmorphemes/final_forMLU_TD$n)
+
+average_TD_input_MLU <-mean(final_forMLU_TD$MLU_rough)
+
+MLU_variance_TD <-(var(final_forMLU_TD$MLU_rough))
+
+
+MLU_SD_TD <-sqrt(var(final_forMLU_TD$MLU_rough))
+average_TD_input_MLU
+MLU_variance_TD 
+MLU_SD_TD
+```
+```{r MLU-plot}
+
+MLU_for_plot <-bind_rows(final_forMLU_TD, final_forMLU_VI, .id = 'group')
+
+MLU_for_plot %>% group_by(group) %>%
+  summarise(mean=mean(MLU_rough),
+            SE = std.error(MLU_rough))
+
+t.test(MLU_for_plot$MLU_rough ~ MLU_for_plot$group)
+
+MLU_plot <-
+  ggplot(data = (MLU_for_plot %>% filter(MLU_rough>0)), aes(
+    x = group,
+    y = MLU_rough,
+    color = group,
+    fill = group)) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  geom_jitter(width = 0.2, height = 0) +
+  theme_classic() +
+  labs(y = "Mean Length of Utterance\n
+  (morphemes)", x = NULL, element_text(size = 14)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none") +
+  scale_color_manual(
+    breaks = c("1", "2"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("1", "2"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(MLU_rough) - std.error(MLU_rough)),
+    ymax = (mean(MLU_rough) - std.error(MLU_rough))), color="black")+
+  scale_x_discrete(
+    labels = c(
+      "1" = "Sighted",
+      "2" = "Blind")) +
+  coord_cartesian(ylim = c(0, (max(MLU_for_plot$MLU_rough * 1.1)))) +
+  theme( axis.text = element_text(size = 14),
+    axis.title.y = element_text(size = 14),
+    strip.text.x = element_text(size = 14)) 
+MLU_plot
+
+
+
+#Average MLU from daylong audio recordings; each dot represents one speaker in a recording.\nData source: LENAs (VIHI, Seedlings, Warlaumont, & Cougar)
+```
+```{r MLU-ttest}
+MLU_compare<-wilcox.test(MLU_for_plot$MLU_rough~MLU_for_plot$group, paired=FALSE)
+MLU_compare
+```
+
+```{r TTR}
+TTR_plot <-  ggplot(data = (manual_word_TTR %>% filter(group!="HI")), aes(
+    x = group,
+    y = TTR,
+    color = group,
+    fill = group)) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  geom_jitter(width = 0.2, height = 0) +
+  theme_classic() +
+  labs(y = "Unique Words /\nTotal Words", x = NULL, element_text(size = 14)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Typically-\nDeveloping", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(TTR) - std.error(TTR)),
+    ymax = (mean(TTR) - std.error(TTR)))) +
+  stat_summary(fun.data = "mean_cl_boot", color = 'black') +
+  scale_x_discrete(
+    labels = c(
+      "VI" = "Blind",
+      "TD" = "Sighted")) +
+  coord_cartesian(ylim = c(0, (max(manual_word_TTR$TTR * 1.1)))) +
+  theme( axis.text = element_text(size = 14),
+    axis.title.y = element_text(size = 18),
+    strip.text.x = element_text(size = 14)) 
+TTR_plot
+
+t.test(manual_word_TTR$TTR~manual_word_TTR$group)
+```
+
+
+
+## MLU Analysis and results
+For our second linguistic feature, we analyzed the mean length of utterance (MLU) in the input speech to each group of children. We computed MLU on a morpheme level as a proximate measure of syntactic complexity. Each utterance by a non-CHI speaker was tokenized into morphemes using the 'morphemepiece' R package (CITE). We then calculated the mean MLU per speaker from each audio recording, and then compared the mean MLU of environmental speech to blind children (M=`r average_VI_input_MLU`, SD=`r MLU_SD_VI`) to that of sighted children (M=`r average_TD_input_MLU`, SD=`r MLU_SD_TD`). A Wilcoxon rank sum test revealed that the MLU was higher in speech to blind children than to their sighted peers (w=`r MLU_compare$w.value`, p=`r MLU_compare$p.value`).
 
 ## Linking Language Input to Language Outcomes
 Predict: CDI percentile & CVC percentile
