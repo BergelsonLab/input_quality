@@ -49,6 +49,9 @@ library(papaja)
 library(stringr)
 library(morphemepiece)
 library(tidytext)
+library(wordbankr)
+library(reshape2)
+library(profileR)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
@@ -58,7 +61,7 @@ percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defin
 
 ```{r get-data}
 LENA_counts <- read_csv("/Volumes/pn-opus/VIHI/Scripts/LENA_Scripts/data/VIHI_its_details.csv") %>%
-  filter(group == "VI" | match_type == "VI")
+  filter(group == "VI" | group == "TD")
 
 lancaster_norms <- read.csv("data/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
   mutate(Word = tolower(Word))
@@ -117,33 +120,12 @@ Environmental speech from everyone else is coded for the addressee of each utter
 # Results
 
 ```{r load-transcripts}
-#read in data that has been mass exported via ELAN; add informative column names
 
-single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Oct19.txt", 
-     delim = "\t", escape_double = FALSE, 
-     trim_ws = TRUE,col_names = FALSE) %>%
-  rename(tier=X1,
-         participant=X2,
-         onset_ms=X3,
-         offset_ms=X4,
-         duration=X5,
-         utterance=X6,
-         filename=X7,
-         filepath=X8)
-
-#wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
-wide_transcripts <- pivot_wider(single_column_with_names, names_from = "tier", values_from = "utterance") %>%
-  unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
-  unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-  unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FA6", "FA7", "FA8", "FA9", "F10", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "FC2", "EE1"), remove = TRUE, na.rm = TRUE) %>%
-  mutate(VIHI_ID = str_sub(filename, 1,10))
 
 ```
 
 ```{r transcripts-to-words}
 
-# # find + list all LENA transcripts on pn-opus
-LENA_files <- list.files("/Volumes/pn-opus/VIHI/SubjectFiles/LENA", pattern="*_lena.txt", full.names=TRUE, recursive = TRUE)
 
 # # read in LENA transcripts
 # # ek2ec, suggestion: readr::read_delim should be able to read a list of files. If you have an older readr version that can't do that, another options is to use `map_dfr`.
@@ -181,63 +163,6 @@ LENA_files <- list.files("/Volumes/pn-opus/VIHI/SubjectFiles/LENA", pattern="*_l
 # 
 
 
-
-all_lena <- read_delim("data/all_lena.txt", 
-    delim = "\t", escape_double = FALSE, 
-    col_names = FALSE, trim_ws = TRUE) %>%
-  dplyr::rename(
-    Speaker = X1,
-    OnsetTime = X2,
-    OffsetTime = X3,
-    Duration = X4,
-    Utterance = X5,
-    filename = X6,
-    filepath = X7,
-    
-  )   %>%
-  mutate(VIHI_ID = str_sub(filename, 1,10),
-         group = as.factor(str_sub(filename, 1,2)))%>%
-  filter(Speaker != 'CHI' & Speaker != 'code' & Speaker != 'sampling_type')
-
-VIHI_LENA_utterances <- all_lena %>%
-   mutate(utterance_clean = str_remove_all(Utterance, pattern = ("\\[.*?<>"))) %>%
-  separate(utterance_clean,
-           into = paste0("Word", 1:46),
-           sep = " ") #separate utterances into columns with 1 column per word
-
-VIHI_LENA_words <- VIHI_LENA_utterances %>%
-  mutate(uttnum = seq(1, nrow(VIHI_LENA_utterances), 1)) %>% #give each utterance a unique number
-  pivot_longer(cols = Word1:Word46,
-               #pivot the word columns into a single Word column
-               names_to = "utt_loc",
-               #create another column that gives the location within utterance (ex:Word2)
-               values_to = "Word") %>%
-  select(VIHI_ID, group, uttnum, utt_loc, Word) %>%
-  filter(!is.na(Word)) %>% #filter out blank rows
-  left_join(lancaster_norms) %>% # join with lancaster norms
-  filter(!is.na(Auditory.mean)) %>%
-  select(Word,
-         VIHI_ID,
-         group,
-         Auditory.mean:Dominant.sensorimotor,
-         utt_loc,
-         uttnum) #remove unwanted columns
-
-manual_word_types <- VIHI_LENA_words %>% 
-  group_by(VIHI_ID) %>%
-  distinct(Word, .keep_all=TRUE) %>%
-  summarise(types = n())
-manual_word_tokens <- VIHI_LENA_words %>% 
-  group_by(VIHI_ID) %>%
-  summarise(tokens = n())
-manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
-  mutate(TTR = types/tokens,
-         group = as.factor(str_sub(VIHI_ID, 1,2)))  %>%
-  filter(group!="HI")
-  
-
-
-  
 ```
 
 ```{r}
@@ -276,7 +201,7 @@ AWC_stats <- LENA_counts %>%
             max = max(AWC),
             mean = mean(AWC))
 ```
-We first compare the quantity of language input to blind and sighted children, using LENA's automated Adult Word Count measure. A wilcoxon rank sum test shows that despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in language input quantity (W = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`).
+We first compare the quantity of language input to blind and sighted children, using LENA's automated Adult Word Count measure. A wilcoxon rank-sum test shows that despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in language input quantity (W = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`).
 ```{r AWC-plot, fig.cap="Comparing LENA-generated adult word counts to blind and sighted children. Each dot represents the estimated number of words in one child's recording."}
 AWC_plot <-
   ggplot(data = LENA_counts, aes(
@@ -298,7 +223,7 @@ AWC_plot <-
     values = c("#b16fff", "#ade7f5")) +
   scale_fill_manual(
     breaks = c("TD", "VI"),
-    labels = c("Typically-\nDeveloping", "Blind"),
+    labels = c("Sighted", "Blind"),
     values = c("#b16fff", "#ade7f5")) +
   stat_summary(
     fun = mean,
@@ -338,7 +263,7 @@ manual_word_count_plot <-  ggplot(data = (manual_word_TTR %>% filter(group!="HI"
     values = c("#b16fff", "#ade7f5")) +
   scale_fill_manual(
     breaks = c("TD", "VI"),
-    labels = c("Typically-\nDeveloping", "Blind"),
+    labels = c("Sighted", "Blind"),
     values = c("#b16fff", "#ade7f5")) +
   stat_summary(
     fun = mean,
@@ -388,14 +313,15 @@ CDS_total_input_utterances <- wide_transcripts %>%
 mega_total2 <- sum(CDS_total_input_utterances$total_utts)
 
 #breakdown by addressee all VI kids as a group
-VI_group_props <- try_wide %>%
+VI_group_props <- wide_transcripts %>%
   filter(xds %in% c("C","A","B","P", "O", "U"))%>%
   group_by(xds) %>%
   summarise(big_number=n())
 
 #and now a full table with number of utts per addressee category, totaly utts for that file, and what the percent of each cat comes out as for each kid
 proportion_table <- left_join(CDS_proportion, CDS_total_input_utterances)%>%
-  mutate(incidence_percent = percent(counts/total_utts))
+  mutate(incidence_percent = percent(counts/total_utts),
+         xds_prop = counts/total_utts)
 
 #this is just the same as the group props but with percentages
 VI_group_proportion_table <- VI_group_props %>%
@@ -444,7 +370,8 @@ TD_group_props <- TD_wide %>%
 
 #and now a full table with number of utts per addressee category, totaly utts for that file, and what the percent of each cat comes out as for each kid
 TD_proportion_table <- left_join(TD_CDS_proportion, TD_CDS_total_input_utterances)%>%
-  mutate(incidence_percent = percent(counts/total_utts))
+  mutate(incidence_percent = percent(counts/total_utts),
+         xds_prop = counts/total_utts)
 
 #this is just the same as the group props but with percentages
 TD_group_proportion_table <- TD_group_props %>%
@@ -463,11 +390,22 @@ ggplot(TD_CDS_proportion, aes(fill = xds, y=counts, x=VIHI_ID)) +
 #I need to rename filenames to something that's not the same as lab-internal subj num
 ```
 
-```{r cute-plot}
-#Overall TD CDS/ADS proportion graph
+```{r CDS-prop-compare}
+group_proportion_table_long <- bind_rows(VI_group_proportion_table, TD_group_proportion_table)
 
-all_proportion_table <- bind_rows(VI_group_proportion_table, TD_group_proportion_table)
-
+proportion_table_subject_level <- bind_rows(proportion_table, TD_proportion_table) %>%
+  dplyr::select(-incidence_percent, -counts) %>%
+  pivot_wider(names_from = xds,
+              values_from = xds_prop) %>% 
+    mutate_at(3:8, ~replace_na(.,0)) %>%
+  rename_at(3:8, ~ paste(., "DS_prop", sep = "")) %>%
+  mutate(group=as.factor(str_sub(VIHI_ID, 1, 2)),
+         ADS_counts = ADS_prop*total_utts,
+         CDS_counts = CDS_prop*total_utts,
+         ODS_counts = ODS_prop*total_utts,
+         BDS_counts = BDS_prop*total_utts,
+         UDS_counts = UDS_prop*total_utts,
+         PDS_counts = PDS_prop*total_utts)
 
 
 ggplot(all_proportion_table, aes(fill = xds, y= group_prop, x = group)) +
@@ -478,51 +416,20 @@ ggplot(all_proportion_table, aes(fill = xds, y= group_prop, x = group)) +
   scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'), name="Addressee")+
   theme_classic()+
   theme(text=element_text(size=14))
-```
 
-```{r CDS-prop-ztest}
-#and then a z-test to compare proportions of CDS
-TD_CDS <- as.numeric(TD_group_proportion_table[3, "big_number"])
+# analyze whether proportion of CDS is different across groups
+shapiro.test(proportion_table_subject_level$CDS_prop)
+CDS_compare <- t.test(proportion_table_subject_level$CDS_prop ~ proportion_table_subject_level$group)
 
-VI_CDS <- as.numeric(VI_group_proportion_table[3, "big_number"])
-
-CDS_compare <- prop.test(x=c(TD_CDS, VI_CDS), n=c(TD_mega_total, mega_total))
-CDS_compare
-```
-```{r ADS-prop-ztest}
-#and then a z-test to compare proportions of ADS
-TD_ADS <- as.numeric(TD_group_proportion_table[1, "big_number"])
-
-VI_ADS <- as.numeric(VI_group_proportion_table[1, "big_number"])
-
-ADS_compare <- prop.test(x=c(TD_ADS, VI_ADS), n=c(TD_mega_total, mega_total))
-ADS_compare
-```
-
-```{r}
-#and then a z-test to compare proportions of ODS, thinking like electronic speech?
-TD_ODS <- as.numeric(TD_group_proportion_table[4, "big_number"])
-
-VI_ODS <- as.numeric(VI_group_proportion_table[4, "big_number"])
-
-ODS_compare <- prop.test(x=c(TD_ODS, VI_ODS), n=c(TD_mega_total, mega_total))
-ODS_compare
-```
-
-```{r addressee-prop-graphs}
-
-#Overall VI CDS/ADS proportion graph
-ggplot(VI_group_proportion_table, aes(fill = xds, y= big_number, x = "")) +
-  geom_bar(position = "stack", stat = "identity") + ggtitle("Proportion by Addressee in Speech heard by Blind Children") +
-  geom_text(aes(label=group_percent), position=position_stack(vjust=0.5), size=2) +
-  xlab("All VI children") + ylab ("Proportion, by number of utterances") +
-  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure')) +
-  theme_classic()
+# analyze whether distribution is different across groups
+xds_profile_analysis <- pbg(proportion_table_subject_level[,10:15], proportion_table_subject_level$group, profile.plot = TRUE)
+summary(xds_profile_analysis)
 ```
 
 We compared the proportions of child-directed speech (CDS) and adult-directed speech (ADS) between the blind children and their sighted matches. Each proportion was calculated as the number of utterances produced by someone *other* than the target child (non-CHI utterances) tagged with a child or an adult addressee, respectively, out of the total number of non-CHI utterances for each sensory group. A two-sample test for equality of proportions revealed no significant difference in the overall proportions of CDS to blind children and CDS to sighted children (*X*^2=`r CDS_compare$statistic`, p=`r printp(CDS_compare$p.value)`, CDS-proportion~blind~=`r CDS_compare$estimate[[2]]`, CDS-proportion~sighted~=`r CDS_compare$estimate[[1]]`). Likewise, there was no difference between the proportion of ADS to blind or sighted children (*X*^2=`r ADS_compare$statistic`, p=`r printp(ADS_compare$p.value)`,  ADS-proportion~blind~=`r ADS_compare$estimate[[2]]`, ADS-proportion~sighted~=`r ADS_compare$estimate[[1]]`).
 
 ```{r compare-CTC}
+shapiro.test(LENA_counts$CTC)
 compare_CTC <- wilcox.test(LENA_counts$CTC ~ LENA_counts$group)
 CTC_stats <- LENA_counts %>% 
   group_by(group) %>%
@@ -530,7 +437,7 @@ CTC_stats <- LENA_counts %>%
             max = max(CTC),
             mean = mean(CTC))
 ```
-We next compare the number of conversational turn counts for blind and sighted children, using LENA's automated Conversational Turn Count measure. A wilcoxon rank sum test shows that despite wide variability in the number conversational turns (`r round((CTC_stats %>% filter(group=="VI"))$min)`--`r round((CTC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((CTC_stats %>% filter(group=="TD"))$min)`--`r round((CTC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in the number of conversational turns (W = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
+We next compare the number of conversational turn counts for blind and sighted children, using LENA's automated Conversational Turn Count measure. A Wilcoxon rank-sum test shows that despite wide variability in the number conversational turns (`r round((CTC_stats %>% filter(group=="VI"))$min)`--`r round((CTC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((CTC_stats %>% filter(group=="TD"))$min)`--`r round((CTC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in the number of conversational turns (W = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
 
 ```{r CTC}
 CTC_plot <-
@@ -603,8 +510,18 @@ sensory_words_by_modality_long <- sensory_words%>%
   left_join(sensory_words_totals) %>%
   mutate(by_modality = replace_na(by_modality,0),
          prop = by_modality/total)
-  
 sensory_words_by_modality_wide <- sensory_words_by_modality_long%>% 
+  pivot_wider(names_from = Dominant.perceptual, values_from=prop)%>%
+  left_join(sensory_words_by_modality_long)
+
+sensory_words_by_modality_xds_long <- sensory_words%>% 
+  group_by(group, VIHI_ID, Dominant.perceptual, xds) %>%
+  summarise(by_modality = n()) %>%
+  left_join(sensory_words_totals) %>%
+  mutate(by_modality = replace_na(by_modality,0),
+         prop = by_modality/total)
+  
+sensory_words_by_modality_xds_wide <- sensory_words_by_modality_long%>% 
   pivot_wider(names_from = Dominant.perceptual, values_from=prop)%>%
   left_join(sensory_words_by_modality_long) 
 
@@ -654,56 +571,58 @@ ggplot((strong_sensory_words_by_modality_long %>% group_by(group, Dominant.perce
 ```
 
 #### Linguistic Features
-type/token ratio
-MLU
-```{r VI-MLU}
-#get the morpheme counts for VI
-utterances_only_VI<-wide_transcripts%>%
-  filter(participant!="EE1", participant!="CHI")%>%
-  unite("person", "participant","filename")
 
-tokenized_VI <- morphemepiece_tokenize(utterances_only_VI$utterance, vocab = morphemepiece_vocab(),
-      lookup = morphemepiece_lookup(),
-      unk_token = "[UNK]",
-      max_chars = 100)
+```{r TTR}
+TTR_plot <-  ggplot(data = (manual_word_TTR %>% filter(group!="HI")), aes(
+    x = group,
+    y = TTR,
+    color = group,
+    fill = group)) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  geom_jitter(width = 0.2, height = 0) +
+  theme_classic() +
+  labs(y = "Unique Words /\nTotal Words", x = NULL, element_text(size = 14)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Typically-\nDeveloping", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(TTR) - std.error(TTR)),
+    ymax = (mean(TTR) - std.error(TTR)))) +
+  stat_summary(fun.data = "mean_cl_boot", color = 'black') +
+  scale_x_discrete(
+    labels = c(
+      "VI" = "Blind",
+      "TD" = "Sighted")) +
+  coord_cartesian(ylim = c(0, (max(manual_word_TTR$TTR * 1.1)))) +
+  theme( axis.text = element_text(size = 14),
+    axis.title.y = element_text(size = 18),
+    strip.text.x = element_text(size = 14)) 
+TTR_plot
 
-df_tokenized_VI <- tokenized_VI %>%
-  plyr::ldply(rbind)
-  
-df_morphemes_VI<- data.frame(ifelse(is.na(df_tokenized_VI),0,1))
-df_morphemes_VI$morphemecount<-rowSums(df_morphemes_VI)
-utterances_only_VI$morphemecount<-df_morphemes_VI$morphemecount
-
-for_MLU_VI_morphemes<-utterances_only_VI%>%
-  filter(!utterance==c("xxx."))%>%
-  group_by(person)%>%
-  summarise(
-  totalmorphemes=sum(morphemecount))
-
-forMLU_VI_utterances <-utterances_only_VI%>%
-  filter(!utterance==c("xxx."))%>%
-  count(person)
-
-final_forMLU_VI <- merge(forMLU_VI_utterances, for_MLU_VI_morphemes, by="person", all = TRUE)
-final_forMLU_VI$MLU_rough <-(final_forMLU_VI$totalmorphemes/final_forMLU_VI$n)
-
-average_VI_input_MLU <-mean(final_forMLU_VI$MLU_rough)
-
-
-MLU_variance_VI <-(var(final_forMLU_VI$MLU_rough))
-
-
-MLU_SD_VI <-sqrt(var(final_forMLU_VI$MLU_rough))
-average_VI_input_MLU
-MLU_variance_VI 
-MLU_SD_VI
+TTR_test <- wilcox.test(manual_word_TTR$TTR~manual_word_TTR$group)
 ```
+
+For linguistic features, we first measure proportion of unique words divided by the number of total words in the input, or type-token ratio, from the manual annotations. In order to compare the type-token ratio between blind and sighted children, we performed a Wilcoxon signed-rank test. The results of the Wilcoxon test indicated that there was no significant difference in the type-token ratio between the two groups (W = `r TTR_test$statistic`, p `r papaja::printp(TTR_test$p.value, add_equals=TRUE)`). This suggests that, on average, the type-token ratio is similar for blind (M: `r mean((manual_word_TTR%>%filter(group=="VI"))$TTR)`) and sighted (M: `r mean((manual_word_TTR%>%filter(group=="TD"))$TTR)`) children (see Figure \@ref(fig:TTR)). These results provide evidence that the variety of words in the input is not affected by children's vision.
+
 
 ```{r TD-MLU}
 #get the morpheme counts for TD
 utterances_only_TD<-TD_wide%>%
-  filter(participant!="EE1", participant!="CHI")%>%
-  unite("person", "participant","filename")
+  filter(participant!="EE1", participant!="CHI")
 
 tokenized_TD <- morphemepiece_tokenize(utterances_only_TD$utterance, vocab = morphemepiece_vocab(),
       lookup = morphemepiece_lookup(),
@@ -719,15 +638,15 @@ utterances_only_TD$morphemecount<-df_morphemes_TD$morphemecount
 
 for_MLU_TD_morphemes<-utterances_only_TD%>%
   filter(!utterance==c("xxx."))%>%
-  group_by(person)%>%
+  group_by(VIHI_ID)%>%
   summarise(
   totalmorphemes=sum(morphemecount))
 
 forMLU_TD_utterances <-utterances_only_TD%>%
   filter(!utterance==c("xxx."))%>%
-  count(person)
+  count(VIHI_ID)
 
-final_forMLU_TD <- merge(forMLU_TD_utterances, for_MLU_TD_morphemes, by="person", all = TRUE)
+final_forMLU_TD <- merge(forMLU_TD_utterances, for_MLU_TD_morphemes, by="VIHI_ID", all = TRUE)
 final_forMLU_TD$MLU_rough <-(final_forMLU_TD$totalmorphemes/final_forMLU_TD$n)
 
 average_TD_input_MLU <-mean(final_forMLU_TD$MLU_rough)
@@ -742,7 +661,8 @@ MLU_SD_TD
 ```
 ```{r MLU-plot}
 
-MLU_for_plot <-bind_rows(final_forMLU_TD, final_forMLU_VI, .id = 'group')
+MLU_for_plot <-bind_rows(final_forMLU_TD, final_forMLU_VI, .id = 'group') %>%
+  filter(MLU_rough>0)
 
 MLU_for_plot %>% group_by(group) %>%
   summarise(mean=mean(MLU_rough),
@@ -799,58 +719,58 @@ MLU_compare<-wilcox.test(MLU_for_plot$MLU_rough~MLU_for_plot$group, paired=FALSE
 MLU_compare
 ```
 
-```{r TTR}
-TTR_plot <-  ggplot(data = (manual_word_TTR %>% filter(group!="HI")), aes(
-    x = group,
-    y = TTR,
-    color = group,
-    fill = group)) +
-  geom_violin(alpha = .5, trim = FALSE) +
-  geom_jitter(width = 0.2, height = 0) +
-  theme_classic() +
-  labs(y = "Unique Words /\nTotal Words", x = NULL, element_text(size = 14)) +
-  theme(
-    legend.title = element_blank(),
-    legend.position = "none",
-    axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_color_manual(
-    breaks = c("TD", "VI"),
-    labels = c("Sighted", "Blind"),
-    values = c("#b16fff", "#ade7f5")) +
-  scale_fill_manual(
-    breaks = c("TD", "VI"),
-    labels = c("Typically-\nDeveloping", "Blind"),
-    values = c("#b16fff", "#ade7f5")) +
-  stat_summary(
-    fun = mean,
-    geom = "point",
-    color = 'black',
-    alpha = 0.8) +
-  geom_linerange(aes(
-    ymin = (mean(TTR) - std.error(TTR)),
-    ymax = (mean(TTR) - std.error(TTR)))) +
-  stat_summary(fun.data = "mean_cl_boot", color = 'black') +
-  scale_x_discrete(
-    labels = c(
-      "VI" = "Blind",
-      "TD" = "Sighted")) +
-  coord_cartesian(ylim = c(0, (max(manual_word_TTR$TTR * 1.1)))) +
-  theme( axis.text = element_text(size = 14),
-    axis.title.y = element_text(size = 18),
-    strip.text.x = element_text(size = 14)) 
-TTR_plot
-
-t.test(manual_word_TTR$TTR~manual_word_TTR$group)
-```
 
 
 
-## MLU Analysis and results
-For our second linguistic feature, we analyzed the mean length of utterance (MLU) in the input speech to each group of children. We computed MLU on a morpheme level as a proximate measure of syntactic complexity. Each utterance by a non-CHI speaker was tokenized into morphemes using the 'morphemepiece' R package (CITE). We then calculated the mean MLU per speaker from each audio recording, and then compared the mean MLU of environmental speech to blind children (M=`r average_VI_input_MLU`, SD=`r MLU_SD_VI`) to that of sighted children (M=`r average_TD_input_MLU`, SD=`r MLU_SD_TD`). A Wilcoxon rank sum test revealed that the MLU was higher in speech to blind children than to their sighted peers (w=`r MLU_compare$w.value`, p=`r MLU_compare$p.value`).
+
+##### MLU Analysis and results
+For our second linguistic feature, we analyzed the mean length of utterance (MLU) in the input speech to each group of children. We computed MLU on a morpheme level as a proximate measure of syntactic complexity. Each utterance by a non-CHI speaker was tokenized into morphemes using the 'morphemepiece' R package (CITE). We then calculated the mean MLU per speaker from each audio recording, and then compared the mean MLU of environmental speech to blind children (M(SD) = `r average_VI_input_MLU` (`r MLU_SD_VI`)) to that of sighted children (M(SD) = `r average_TD_input_MLU` (`r MLU_SD_TD`)). A Wilcoxon rank-sum test revealed that the MLU was slightly but significantly higher in speech to blind children than to their sighted peers (W = `r MLU_compare$w.value`, *p* = `r printp(MLU_compare$p.value)`).
 
 ## Linking Language Input to Language Outcomes
 Predict: CDI percentile & CVC percentile
 
+```{r predicting}
+VIHI_CDI <- read.csv("/Users/eec35/Desktop/Git/LENA/input_quality/data/CDI/Wordbank/VIHI_CDI.csv") %>% 
+dplyr::rename(CDI_age_in_days=age)
+
+lotta_data <- LENA_counts %>%
+  left_join(MLU_for_plot, by="VIHI_ID")  %>%
+  left_join(manual_word_TTR) %>%
+  left_join(proportion_table_subject_level) %>% 
+  mutate(ParticipantNumber = as.factor(str_sub(VIHI_ID, 1, 6))) %>%
+  mutate(LENA_age_in_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID)))) %>%
+  left_join(VIHI_CDI, by=c("group", "ParticipantNumber")) %>%
+  mutate(CDI_LENA_days_apart = abs(CDI_age_in_days - LENA_age_in_days)) %>%
+  arrange(CDI_LENA_days_apart) %>%
+  distinct(ParticipantNumber, .keep_all=TRUE)
+
+predict_CDI <- lm(diff_age_from_expected ~ CDI_age_in_days+group+ AWC + TTR + CTC + CDS_prop + MLU_rough,data = lotta_data)
+summary(predict_CDI)
+
+predict_CVC <- lm(CVC ~ group+ AWC + TTR + CTC + CDS_prop + MLU_rough,data = lotta_data)
+summary(predict_CVC)
+
+ggplot((lotta_data %>% filter(!is.na(group))), aes(x=AWC, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  theme_classic()
+ggplot((lotta_data %>% filter(!is.na(group))), aes(x=TTR, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  theme_classic()
+ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CTC, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  theme_classic()
+ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CDS_prop, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  theme_classic()
+ggplot((lotta_data %>% filter(!is.na(group))), aes(x=MLU_rough, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  theme_classic()
+```
 
 # Discussion
 Sighted parents may be unfamiliar with blind children's signals of interest and engagement [@perez-pereira1999], and as a result, may respond less often to infants' vocalizations and bids for communication [@rowland1984]. Might be hard to provide useful input due to differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example, [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect.
