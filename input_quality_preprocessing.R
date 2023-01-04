@@ -4,7 +4,7 @@
 
 ###read in data that has been mass exported via ELAN; add informative column names
 
-single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Oct19.txt", 
+VI_transcripts <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Oct19.txt", 
                                        delim = "\t", escape_double = FALSE, 
                                        trim_ws = TRUE,col_names = FALSE) %>%
   rename(tier=X1,
@@ -16,12 +16,33 @@ single_column_with_names <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_
          filename=X7,
          filepath=X8)
 
+TD_transcripts <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_TD_Oct19_no_sep.txt", 
+                                          delim = "\t", escape_double = FALSE, 
+                                          trim_ws = TRUE,col_names = FALSE) %>%
+  rename(tier=X1,
+         participant=X2,
+         onset_ms=X3,
+         offset_ms=X4,
+         duration=X5,
+         utterance=X6,
+         filename=X7,
+         filepath=X8)
+
+#wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
+
 ### wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
-wide_transcripts <- pivot_wider(single_column_with_names, names_from = "tier", values_from = "utterance") %>%
+VI_wide_transcripts <- pivot_wider(VI_transcripts, names_from = "tier", values_from = "utterance") %>%
   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
   unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FA6", "FA7", "FA8", "FA9", "F10", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "FC2", "EE1"), remove = TRUE, na.rm = TRUE) %>%
   mutate(VIHI_ID = str_sub(filename, 1,10))
+
+TD_wide_transcripts <- pivot_wider(TD_single_column_with_names, names_from = "tier", values_from = "utterance") %>%
+  unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
+  unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
+  unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE", "UCI", "MAE"), remove = TRUE, na.rm = TRUE) %>%  
+  mutate(VIHI_ID = str_sub(filename, 1,10))
+
 
 ### find + list all LENA transcripts on pn-opus
 LENA_files_list <- list.files("/Volumes/pn-opus/VIHI/SubjectFiles/LENA", pattern="*_lena.txt", full.names=TRUE, recursive = TRUE)
@@ -84,45 +105,55 @@ manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
 
 
 #get the morpheme counts for VI
-utterances_only_VI<-wide_transcripts%>%
-  filter(participant!="EE1", participant!="CHI")
-
+utterances_only_VI<-VI_wide_transcripts %>% 
+  filter(participant!="EE1", participant!="CHI") %>% # remove CHI utts and electronic noise
+  filter(!utterance==c("xxx.")) %>% #remove unintelligible utterances
+  mutate(utterance = str_remove_all(utterance, pattern = "[[:punct:]]"),# remove punctuation from utterances
+         utt_num = 1:nrow(.)) 
 tokenized_VI <- morphemepiece_tokenize(utterances_only_VI$utterance, vocab = morphemepiece_vocab(),
                                        lookup = morphemepiece_lookup(),
                                        unk_token = "[UNK]",
-                                       max_chars = 100)
+                                       max_chars = 100)%>% #split utterances into morphemes (based on entries in the morphemepiece "dictionary"). each listing has its own number
+  plyr::ldply(rbind)%>% # split each tokenized_VI, then bind each as rows in a dataframe
+  mutate_all(funs(ifelse(is.na(.), 0, 1))) %>%
+  mutate(morphemecount = rowSums(.,na.rm=TRUE),
+         utt_num = 1:nrow(.)) %>% 
+  left_join(utterances_only_VI)
+simple_counts_VI <- tokenized_VI %>% 
+  select(VIHI_ID, utt_num, participant, xds, utterance, morphemecount)
 
-df_tokenized_VI <- tokenized_VI %>%
-  plyr::ldply(rbind)
+#get the morpheme counts for TD
+utterances_only_TD<-TD_wide_transcripts %>% 
+  filter(participant!="EE1", participant!="CHI") %>% # remove CHI utts and electronic noise
+  filter(!utterance==c("xxx.")) %>% #remove unintelligible utterances
+  mutate(utterance = str_remove_all(utterance, pattern = "[[:punct:]]"),# remove punctuation from utterances
+         utt_num = 1:nrow(.)) 
+tokenized_TD <- morphemepiece_tokenize(utterances_only_TD$utterance, vocab = morphemepiece_vocab(),
+                                       lookup = morphemepiece_lookup(),
+                                       unk_token = "[UNK]",
+                                       max_chars = 100)%>% #split utterances into morphemes (based on entries in the morphemepiece "dictionary"). each listing has its own number
+  plyr::ldply(rbind)%>% # split each tokenized_VI, then bind each as rows in a dataframe
+  mutate_all(funs(ifelse(is.na(.), 0, 1))) %>%
+  mutate(morphemecount = rowSums(.,na.rm=TRUE),
+         utt_num = 1:nrow(.)) %>% 
+  left_join(utterances_only_TD)
+simple_counts_TD <- tokenized_TD %>% 
+  select(VIHI_ID, utt_num, participant, xds, utterance, morphemecount)
 
-df_morphemes_VI<- data.frame(ifelse(is.na(df_tokenized_VI),0,1))
-df_morphemes_VI$morphemecount<-rowSums(df_morphemes_VI)
-utterances_only_VI$morphemecount<-df_morphemes_VI$morphemecount
+# MLUs for both groups
 
-for_MLU_VI_morphemes<-utterances_only_VI%>%
-  filter(!utterance==c("xxx."))%>%
-  group_by(VIHI_ID)%>%
-  summarise(
-    totalmorphemes=sum(morphemecount))
+tokenized_transcripts <- bind_rows(simple_counts_VI, simple_counts_TD) %>%
+  mutate(group = as.factor(str_sub(VIHI_ID,1,2)))
 
-forMLU_VI_utterances <-utterances_only_VI%>%
-  filter(!utterance==c("xxx."))%>%
-  count(VIHI_ID)
-
-final_forMLU_VI <- merge(forMLU_VI_utterances, for_MLU_VI_morphemes, by="VIHI_ID", all = TRUE)
-final_forMLU_VI$MLU_rough <-(final_forMLU_VI$totalmorphemes/final_forMLU_VI$n)
-
-average_VI_input_MLU <-mean(final_forMLU_VI$MLU_rough)
-
-
-MLU_variance_VI <-(var(final_forMLU_VI$MLU_rough))
-
-
-MLU_SD_VI <-sqrt(var(final_forMLU_VI$MLU_rough))
-average_VI_input_MLU
-MLU_variance_VI 
-MLU_SD_VI
-
+MLUs <- tokenized_transcripts %>% 
+  group_by(group, VIHI_ID) %>%
+  summarise(MLU= mean(morphemecount))
+MLUs_by_xds <- tokenized_transcripts %>% 
+  group_by(group, xds) %>%
+  summarise(MLU=mean(morphemecount))
+MLUs_by_speaker <- tokenized_transcripts %>% 
+  group_by(group, VIHI_ID, xds) %>%
+  summarise(MLU=mean(morphemecount))
 
 
 
