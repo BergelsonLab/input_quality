@@ -64,9 +64,23 @@ seconds_to_length <- function(seconds, format = "f", ...) {
 ```
 
 ```{r get-data}
+TD_matches <- c("TD_443_341", "TD_444_402", "TD_445_217", "TD_447_448", "TD_449_716",
+                "TD_463_254", "TD_464_188", "TD_465_541", "TD_466_433", "TD_467_433",
+                "TD_472_829", "TD_473_844", "TD_474_966", "TD_475_481", "TD_477_217")
+
 LENA_counts <- read_csv("/Volumes/pn-opus/VIHI/Scripts/LENA_Scripts/data/VIHI_its_details.csv") %>%
-  filter(group == "VI" | group == "TD") 
+  filter(group == "VI" | VIHI_ID %in% TD_matches) %>%
+  mutate(Age_days = as.numeric(str_sub(VIHI_ID,8,-1L))) %>%
+  mutate(Age_months = Age_days*0.0328767) %>%
+  distinct(VIHI_ID,.keep_all=TRUE)
     
+participant_summary <- LENA_counts %>%
+  group_by(group) %>%
+  summarize(age = mean(Age_months,na.rm=TRUE),
+            min_age = min(Age_months),
+          max_age = max(Age_months),
+          N=n())
+            
   
 
 lancaster_norms <- read.csv("data/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
@@ -109,11 +123,6 @@ Better understanding how perceptual and linguistic input interact and influence 
 
 ```
 
-| Col1 | Col2      | Col3      |
-|------|-----------|-----------|
-| 3    | \`r 3-4\` | roadblock |
-|      |           |           |
-|      |           |           |
 
 : Demographic characteristics of participants in the sample
 

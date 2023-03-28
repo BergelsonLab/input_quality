@@ -1,93 +1,92 @@
 # Input Quality Preprocessing 
+library(tidyverse)
+library(ggplot2)
+library(plotrix)
+library(papaja)
+library(stringr)
+library(morphemepiece)
+library(tidytext)
+library(wordbankr)
+library(reshape2)
+library(profileR)
+library(lubridate)
+library(morphemepiece)
+
+
 
 ## Load in transcripts
 
-###read in data that has been mass exported via ELAN; add informative column names
-
-VI_transcripts <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Oct19.txt", 
-                                       delim = "\t", escape_double = FALSE, 
-                                       trim_ws = TRUE,col_names = FALSE) %>%
-  rename(tier=X1,
-         participant=X2,
-         onset_ms=X3,
-         offset_ms=X4,
-         duration=X5,
-         utterance=X6,
-         filename=X7,
-         filepath=X8)
-
-TD_transcripts <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_TD_Oct19_no_sep.txt", 
-                                          delim = "\t", escape_double = FALSE, 
-                                          trim_ws = TRUE,col_names = FALSE) %>%
-  rename(tier=X1,
-         participant=X2,
-         onset_ms=X3,
-         offset_ms=X4,
-         duration=X5,
-         utterance=X6,
-         filename=X7,
-         filepath=X8)
-
-#wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
-
-### wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
-VI_wide_transcripts <- pivot_wider(VI_transcripts, names_from = "tier", values_from = "utterance") %>%
-  unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
-  unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-  unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FA6", "FA7", "FA8", "FA9", "F10", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "FC2", "EE1"), remove = TRUE, na.rm = TRUE) %>%
-  mutate(VIHI_ID = str_sub(filename, 1,10))
-
-TD_wide_transcripts <- pivot_wider(TD_single_column_with_names, names_from = "tier", values_from = "utterance") %>%
-  unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
-  unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-  unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE", "UCI", "MAE"), remove = TRUE, na.rm = TRUE) %>%  
-  mutate(VIHI_ID = str_sub(filename, 1,10))
-
+# ###read in data that has been mass exported via ELAN; add informative column names
+# 
+# VI_transcripts <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Oct19.txt", 
+#                                        delim = "\t", escape_double = FALSE, 
+#                                        trim_ws = TRUE,col_names = FALSE) %>%
+#   rename(tier=X1,
+#          participant=X2,
+#          onset_ms=X3,
+#          offset_ms=X4,
+#          duration=X5,
+#          utterance=X6,
+#          filename=X7,
+#          filepath=X8)
+# 
+# TD_transcripts <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_TD_Oct19_no_sep.txt", 
+#                                           delim = "\t", escape_double = FALSE, 
+#                                           trim_ws = TRUE,col_names = FALSE) %>%
+#   rename(tier=X1,
+#          participant=X2,
+#          onset_ms=X3,
+#          offset_ms=X4,
+#          duration=X5,
+#          utterance=X6,
+#          filename=X7,
+#          filepath=X8)
+# 
+# #wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
+# 
+# ### wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
+# VI_wide_transcripts <- pivot_wider(VI_transcripts, names_from = "tier", values_from = "utterance") %>%
+#   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
+#   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
+#   unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FA6", "FA7", "FA8", "FA9", "F10", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "FC2", "EE1"), remove = TRUE, na.rm = TRUE) %>%
+#   mutate(VIHI_ID = str_sub(filename, 1,10))
+# 
+# TD_wide_transcripts <- pivot_wider(TD_single_column_with_names, names_from = "tier", values_from = "utterance") %>%
+#   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
+#   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
+#   unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE", "UCI", "MAE"), remove = TRUE, na.rm = TRUE) %>%  
+#   mutate(VIHI_ID = str_sub(filename, 1,10))
+# 
 
 ### find + list all LENA transcripts on pn-opus
 LENA_files_list <- list.files("/Volumes/pn-opus/VIHI/SubjectFiles/LENA", pattern="*_lena.txt", full.names=TRUE, recursive = TRUE)
+VIHI_transcripts <- read.csv("data/VIHI_LENA_transcripts2023-03-23.csv")
 
-all_lena <- read_delim("data/all_lena.txt", 
-                       delim = "\t", escape_double = FALSE, 
-                       col_names = FALSE, trim_ws = TRUE) %>%
-  dplyr::rename(
-    Speaker = X1,
-    OnsetTime = X2,
-    OffsetTime = X3,
-    Duration = X4,
-    Utterance = X5,
-    filename = X6,
-    filepath = X7,
-    
-  )   %>%
-  mutate(VIHI_ID = str_sub(filename, 1,10),
-         group = as.factor(str_sub(filename, 1,2)))%>%
-  filter(Speaker != 'CHI' & Speaker != 'code' & Speaker != 'sampling_type')
 
-VIHI_LENA_utterances <- all_lena %>%
-  mutate(utterance_clean = str_remove_all(Utterance, pattern = ("\\[.*?<>"))) %>% # remove punctuation from utterances
+VIHI_LENA_utterances_split <- VIHI_transcripts %>%
+  mutate(utterance_clean = str_remove_all(utterance, pattern = ("\\[.*?<>"))) %>% # remove punctuation from utterances
   separate(utterance_clean,
-           into = paste0("Word", 1:46),
+           into = paste0("Word", 1:70),
            sep = " ") #separate utterances into columns with 1 column per word
 
-VIHI_LENA_words <- VIHI_LENA_utterances %>%
-  mutate(uttnum = seq(1, nrow(VIHI_LENA_utterances), 1)) %>% #give each utterance a unique number
+VIHI_LENA_words <- VIHI_LENA_utterances_split %>%
+  mutate(uttnum = seq(1, nrow(VIHI_LENA_utterances_split), 1)) %>% #give each utterance a unique number
   pivot_longer(cols = Word1:Word46,
                #pivot the word columns into a single Word column
                names_to = "utt_loc",
                #create another column that gives the location within utterance (ex:Word2)
                values_to = "Word") %>%
-  select(VIHI_ID, group, uttnum, utt_loc, Word) %>%
-  filter(!is.na(Word)) %>% #filter out blank rows
-  left_join(lancaster_norms) %>% # join with lancaster norms
-  filter(!is.na(Auditory.mean)) %>% # filter out words that don't have a perceptual rating
-  select(Word,
-         VIHI_ID,
-         group,
-         Auditory.mean:Dominant.sensorimotor,
-         utt_loc,
-         uttnum) #remove unwanted columns
-
+  select(VIHI_ID, group, speaker, xds, uttnum, utt_loc, Word) %>%
+  filter(!is.na(Word)) %>%#filter out blank rows
+  # left_join(lancaster_norms) %>% # join with lancaster norms
+  # filter(!is.na(Auditory.mean))  # filter out words that don't have a perceptual rating
+  # select(Word,
+  #        VIHI_ID,
+  #        group,
+  #        # Auditory.mean:Dominant.sensorimotor,
+  #        utt_loc,
+  #        uttnum) #remove unwanted columns
+  filter(group!="HI" & speaker!="CHI")
 # count word types in annotations
 manual_word_types <- VIHI_LENA_words %>% 
   group_by(VIHI_ID) %>%
@@ -105,6 +104,29 @@ manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
 
 
 #get the morpheme counts for VI
+utterances_only<-VIHI_transcripts %>% 
+  filter(speaker!="EE1", speaker!="CHI") %>% # remove CHI utts and electronic noise
+  filter(!utterance==c("xxx.")) %>% #remove unintelligible utterances
+  mutate(utterance = str_remove_all(utterance, pattern = "[[:punct:]]"),# remove punctuation from utterances
+         utt_num = 1:nrow(.)) 
+tokenized_VIHI_transcripts <- morphemepiece_tokenize(utterances_only$utterance, vocab = morphemepiece_vocab(),
+                                       lookup = morphemepiece_lookup(),
+                                       unk_token = "[UNK]",
+                                       max_chars = 100)%>% #split utterances into morphemes (based on entries in the morphemepiece "dictionary"). each listing has its own number
+  plyr::ldply(rbind)%>% # split each tokenized_VI, then bind each as rows in a dataframe
+  mutate_all(funs(ifelse(is.na(.), 0, 1)))
+
+tokenized_VIHI_transcripts_with_counts <- tokenized_VIHI_transcripts %>%
+  mutate(morphemecount = rowSums(tokenized_VIHI_transcripts)) %>%
+  mutate(utt_num = 1:nrow(tokenized_VIHI_transcripts))
+
+
+
+simple_morpheme_counts <- tokenized_VIHI_transcripts_with_counts %>% 
+  select(-group, -code) %>%
+  left_join(utterances_only) %>%
+  select(VIHI_ID, utt_num, speaker, xds, utterance, morphemecount)
+
 utterances_only_VI<-VI_wide_transcripts %>% 
   filter(participant!="EE1", participant!="CHI") %>% # remove CHI utts and electronic noise
   filter(!utterance==c("xxx.")) %>% #remove unintelligible utterances
@@ -120,7 +142,9 @@ tokenized_VI <- morphemepiece_tokenize(utterances_only_VI$utterance, vocab = mor
          utt_num = 1:nrow(.)) %>% 
   left_join(utterances_only_VI)
 simple_counts_VI <- tokenized_VI %>% 
-  select(VIHI_ID, utt_num, participant, xds, utterance, morphemecount)
+  select(VIHI_ID, utt_num, participant, xds, utterance, morphemecount) %>%
+  mutate(group = as.factor(str_sub(VIHI_ID,1,2)))
+
 
 #get the morpheme counts for TD
 utterances_only_TD<-TD_wide_transcripts %>% 
@@ -142,8 +166,7 @@ simple_counts_TD <- tokenized_TD %>%
 
 # MLUs for both groups
 
-tokenized_transcripts <- bind_rows(simple_counts_VI, simple_counts_TD) %>%
-  mutate(group = as.factor(str_sub(VIHI_ID,1,2)))
+tokenized_transcripts <- bind_rows(simple_counts_VI, simple_counts_TD) 
 
 MLUs <- tokenized_transcripts %>% 
   group_by(group, VIHI_ID) %>%
