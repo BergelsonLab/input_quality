@@ -12,65 +12,37 @@ library(profileR)
 library(lubridate)
 library(morphemepiece)
 
-
-
-## Load in transcripts
-
-# ###read in data that has been mass exported via ELAN; add informative column names
-# 
-# VI_transcripts <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_VI_Oct19.txt", 
-#                                        delim = "\t", escape_double = FALSE, 
-#                                        trim_ws = TRUE,col_names = FALSE) %>%
-#   rename(tier=X1,
-#          participant=X2,
-#          onset_ms=X3,
-#          offset_ms=X4,
-#          duration=X5,
-#          utterance=X6,
-#          filename=X7,
-#          filepath=X8)
-# 
-# TD_transcripts <- read_delim("/Volumes/pn-opus/VIHI/WorkingFiles/fake_TD_Oct19_no_sep.txt", 
-#                                           delim = "\t", escape_double = FALSE, 
-#                                           trim_ws = TRUE,col_names = FALSE) %>%
-#   rename(tier=X1,
-#          participant=X2,
-#          onset_ms=X3,
-#          offset_ms=X4,
-#          duration=X5,
-#          utterance=X6,
-#          filename=X7,
-#          filepath=X8)
-# 
-# #wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
-# 
-# ### wrangle data so that each utterance has a single row, all participant labels appear in a single column, all utterance transcriptions in a single column, xds annotations appear in a single column, all PI annotations appear in a single column)
-# VI_wide_transcripts <- pivot_wider(VI_transcripts, names_from = "tier", values_from = "utterance") %>%
-#   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
-#   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-#   unite("utterance", c("CHI","UC1","FA1", "FA2", "FA3","FA4","FA5", "FA6", "FA7", "FA8", "FA9", "F10", "FAE", "MA1", "MA2","MA3", "MC1", "FC1", "FC2", "EE1"), remove = TRUE, na.rm = TRUE) %>%
-#   mutate(VIHI_ID = str_sub(filename, 1,10))
-# 
-# TD_wide_transcripts <- pivot_wider(TD_single_column_with_names, names_from = "tier", values_from = "utterance") %>%
-#   unite("xds", contains("xds@"), remove = TRUE, na.rm = TRUE) %>%
-#   unite("PI", contains("PI"), remove = TRUE, na.rm = TRUE) %>%
-#   unite("utterance", c("CHI","UC1","UC2","UC3", "UC4", "UC5", "UC6","UC7", "FA1", "FA2", "FA3","FA4","FA5", "FAE", "MA1", "MA2","MA3", "MA4", "MA5", "MA6", "MC1", "MC2", "FC1", "EE1", "FC2", "FA6", "FA7", "FAE", "UCI", "MAE"), remove = TRUE, na.rm = TRUE) %>%  
-#   mutate(VIHI_ID = str_sub(filename, 1,10))
-# 
+lancaster_norms <- read.csv("data/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
+  mutate(Word = tolower(Word))
 
 ### find + list all LENA transcripts on pn-opus
 LENA_files_list <- list.files("/Volumes/pn-opus/VIHI/SubjectFiles/LENA", pattern="*_lena.txt", full.names=TRUE, recursive = TRUE)
-VIHI_transcripts <- read.csv("data/VIHI_LENA_transcripts2023-03-23.csv")
+TD_matches <- c("TD_443_341", "TD_444_402", "TD_445_217", "TD_447_448", "TD_449_716",
+                "TD_463_254", "TD_464_188", "TD_465_541", "TD_466_433", "TD_467_433",
+                "TD_472_829", "TD_473_844", "TD_474_966", "TD_475_481", "TD_477_217")
 
 
-VIHI_LENA_utterances_split <- VIHI_transcripts %>%
+LENA_counts <- read.csv("data/LENA/Automated/VIHI_its_details.csv") %>% 
+  filter(match_type == "VI"|
+           match_type == "VI_age")
+write.csv(LENA_counts,"data/LENA/Automated/LENA_counts.csv")  
+
+
+## Load in transcripts and automated metrics
+
+###read in data that has been mass exported via ELAN; add informative column names
+
+VITD_transcripts <- read.csv("data/VI_LENA_and_TD_matches_03-28-20232023-03-28.csv") %>% #need to re-generate transcripts
+  mutate(VIHI_ID = as.factor(str_sub(VIHI_ID,1,10))) 
+
+VITD_LENA_utterances_split <- VITD_transcripts %>%
   mutate(utterance_clean = str_remove_all(utterance, pattern = ("\\[.*?<>"))) %>% # remove punctuation from utterances
   separate(utterance_clean,
            into = paste0("Word", 1:70),
            sep = " ") #separate utterances into columns with 1 column per word
 
-VIHI_LENA_words <- VIHI_LENA_utterances_split %>%
-  mutate(uttnum = seq(1, nrow(VIHI_LENA_utterances_split), 1)) %>% #give each utterance a unique number
+VITD_LENA_words <- VITD_LENA_utterances_split %>%
+  mutate(uttnum = seq(1, nrow(VITD_LENA_utterances_split), 1)) %>% #give each utterance a unique number
   pivot_longer(cols = Word1:Word46,
                #pivot the word columns into a single Word column
                names_to = "utt_loc",
@@ -78,112 +50,119 @@ VIHI_LENA_words <- VIHI_LENA_utterances_split %>%
                values_to = "Word") %>%
   select(VIHI_ID, group, speaker, xds, uttnum, utt_loc, Word) %>%
   filter(!is.na(Word)) %>%#filter out blank rows
-  # left_join(lancaster_norms) %>% # join with lancaster norms
-  # filter(!is.na(Auditory.mean))  # filter out words that don't have a perceptual rating
-  # select(Word,
-  #        VIHI_ID,
-  #        group,
-  #        # Auditory.mean:Dominant.sensorimotor,
-  #        utt_loc,
-  #        uttnum) #remove unwanted columns
+  left_join(lancaster_norms) %>% # join with lancaster norms
+  select(Word,
+         VIHI_ID,
+         group,
+         Auditory.mean:Dominant.sensorimotor,
+         utt_loc,
+         uttnum,
+         xds,
+         speaker) %>% #remove unwanted columns
   filter(group!="HI" & speaker!="CHI")
-# count word types in annotations
-manual_word_types <- VIHI_LENA_words %>% 
-  group_by(VIHI_ID) %>%
-  distinct(Word, .keep_all=TRUE) %>%
-  summarise(types = n())
-# count word tokens in annotations
-manual_word_tokens <- VIHI_LENA_words %>% 
-  group_by(VIHI_ID) %>%
-  summarise(tokens = n())
-# calculate type-token ratio in annotations
-manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
-  mutate(TTR = types/tokens,
-         group = as.factor(str_sub(VIHI_ID, 1,2)))  %>%
-  filter(group!="HI")
 
-
-#get the morpheme counts for VI
-utterances_only<-VIHI_transcripts %>% 
+utterances_only<-VITD_transcripts %>% 
   filter(speaker!="EE1", speaker!="CHI") %>% # remove CHI utts and electronic noise
   filter(!utterance==c("xxx.")) %>% #remove unintelligible utterances
   mutate(utterance = str_remove_all(utterance, pattern = "[[:punct:]]"),# remove punctuation from utterances
          utt_num = 1:nrow(.)) 
-tokenized_VIHI_transcripts <- morphemepiece_tokenize(utterances_only$utterance, vocab = morphemepiece_vocab(),
-                                       lookup = morphemepiece_lookup(),
-                                       unk_token = "[UNK]",
-                                       max_chars = 100)%>% #split utterances into morphemes (based on entries in the morphemepiece "dictionary"). each listing has its own number
+
+
+# quantity ----
+
+
+
+
+
+# count word types in annotations
+manual_word_types <- VITD_LENA_words %>% 
+  group_by(VIHI_ID) %>%
+  distinct(Word, .keep_all=TRUE) %>%
+  summarise(types = n())
+# count word tokens in annotations
+manual_word_tokens <- VITD_LENA_words %>% 
+  group_by(VIHI_ID) %>%
+  summarise(tokens = n())
+
+# interactiveness quality ----
+## CTC----
+## child-directed----
+xds_props_wide <- utterances_only %>%
+  group_by(group,VIHI_ID) %>% 
+  summarise(total = n(),
+            prop_ADS = sum(xds=="A")/total,
+            prop_CDS = sum(xds=="C")/total,
+            prop_BDS = sum(xds=="B")/total,
+            prop_TDS = sum(xds=="T")/total,
+            prop_ODS = sum(xds=="O")/total,
+            prop_UDS = sum(xds=="U")/total,
+            prop_PDS = sum(xds=="P")/total) 
+xds_props <- xds_props_wide%>%
+  pivot_longer(cols = prop_ADS:prop_PDS,
+               names_to = "addressee",
+               names_prefix = "prop_",
+               values_to = "prop")
+write.csv(xds_props, "data/derived/xds_props.csv")
+# linguistic quality ----
+## TTR ----
+### calculate type-token ratio in annotations
+manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
+  mutate(TTR = types/tokens,
+         group = as.factor(str_sub(VIHI_ID, 1,2)))  %>%
+  filter(group!="HI")
+write.csv(manual_word_TTR, "data/derived/manual_word_TTR.csv")
+
+## MLU ----
+### get the morpheme counts for VI ----
+
+tokenized_VITD_transcripts <- morphemepiece_tokenize(utterances_only$utterance, vocab = morphemepiece_vocab(),
+                                                     lookup = morphemepiece_lookup(),
+                                                     unk_token = "[UNK]",
+                                                     max_chars = 100)%>% #split utterances into morphemes (based on entries in the morphemepiece "dictionary"). each listing has its own number
   plyr::ldply(rbind)%>% # split each tokenized_VI, then bind each as rows in a dataframe
   mutate_all(funs(ifelse(is.na(.), 0, 1)))
 
-tokenized_VIHI_transcripts_with_counts <- tokenized_VIHI_transcripts %>%
-  mutate(morphemecount = rowSums(tokenized_VIHI_transcripts)) %>%
-  mutate(utt_num = 1:nrow(tokenized_VIHI_transcripts))
+tokenized_VITD_transcripts_with_counts <- tokenized_VITD_transcripts %>%
+  mutate(morphemecount = rowSums(tokenized_VITD_transcripts)) %>%
+  mutate(utt_num = 1:nrow(tokenized_VITD_transcripts))
 
-
-
-simple_morpheme_counts <- tokenized_VIHI_transcripts_with_counts %>% 
+simple_morpheme_counts <- tokenized_VITD_transcripts_with_counts %>% 
   select(-group, -code) %>%
   left_join(utterances_only) %>%
-  select(VIHI_ID, utt_num, speaker, xds, utterance, morphemecount)
+  select(VIHI_ID, utt_num, speaker, xds, utterance, morphemecount) %>%
+  mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
 
-utterances_only_VI<-VI_wide_transcripts %>% 
-  filter(participant!="EE1", participant!="CHI") %>% # remove CHI utts and electronic noise
-  filter(!utterance==c("xxx.")) %>% #remove unintelligible utterances
-  mutate(utterance = str_remove_all(utterance, pattern = "[[:punct:]]"),# remove punctuation from utterances
-         utt_num = 1:nrow(.)) 
-tokenized_VI <- morphemepiece_tokenize(utterances_only_VI$utterance, vocab = morphemepiece_vocab(),
-                                       lookup = morphemepiece_lookup(),
-                                       unk_token = "[UNK]",
-                                       max_chars = 100)%>% #split utterances into morphemes (based on entries in the morphemepiece "dictionary"). each listing has its own number
-  plyr::ldply(rbind)%>% # split each tokenized_VI, then bind each as rows in a dataframe
-  mutate_all(funs(ifelse(is.na(.), 0, 1))) %>%
-  mutate(morphemecount = rowSums(.,na.rm=TRUE),
-         utt_num = 1:nrow(.)) %>% 
-  left_join(utterances_only_VI)
-simple_counts_VI <- tokenized_VI %>% 
-  select(VIHI_ID, utt_num, participant, xds, utterance, morphemecount) %>%
-  mutate(group = as.factor(str_sub(VIHI_ID,1,2)))
-
-
-#get the morpheme counts for TD
-utterances_only_TD<-TD_wide_transcripts %>% 
-  filter(participant!="EE1", participant!="CHI") %>% # remove CHI utts and electronic noise
-  filter(!utterance==c("xxx.")) %>% #remove unintelligible utterances
-  mutate(utterance = str_remove_all(utterance, pattern = "[[:punct:]]"),# remove punctuation from utterances
-         utt_num = 1:nrow(.)) 
-tokenized_TD <- morphemepiece_tokenize(utterances_only_TD$utterance, vocab = morphemepiece_vocab(),
-                                       lookup = morphemepiece_lookup(),
-                                       unk_token = "[UNK]",
-                                       max_chars = 100)%>% #split utterances into morphemes (based on entries in the morphemepiece "dictionary"). each listing has its own number
-  plyr::ldply(rbind)%>% # split each tokenized_VI, then bind each as rows in a dataframe
-  mutate_all(funs(ifelse(is.na(.), 0, 1))) %>%
-  mutate(morphemecount = rowSums(.,na.rm=TRUE),
-         utt_num = 1:nrow(.)) %>% 
-  left_join(utterances_only_TD)
-simple_counts_TD <- tokenized_TD %>% 
-  select(VIHI_ID, utt_num, participant, xds, utterance, morphemecount)
-
-# MLUs for both groups
-
-tokenized_transcripts <- bind_rows(simple_counts_VI, simple_counts_TD) 
-
-MLUs <- tokenized_transcripts %>% 
+MLUs <- simple_morpheme_counts %>% 
   group_by(group, VIHI_ID) %>%
   summarise(MLU= mean(morphemecount))
-MLUs_by_xds <- tokenized_transcripts %>% 
-  group_by(group, xds) %>%
-  summarise(MLU=mean(morphemecount))
-MLUs_by_speaker <- tokenized_transcripts %>% 
-  group_by(group, VIHI_ID, xds) %>%
-  summarise(MLU=mean(morphemecount))
+write.csv(MLUs,"data/derived/MLUs.csv")
+
+# conceptual quality ----
+## sensory word props ----
+sensory_props <- VITD_LENA_words %>% 
+  anti_join(stop_words, by= c("Word" = "word")) %>%
+  filter(!is.na(Auditory.mean))  %>% # filter out words that don't have a perceptual rating
+  mutate(Modality = case_when(Max_strength.perceptual<2.5 ~ "Amodal",
+                              Exclusivity.perceptual <= .5 ~ "Multimodal",
+                              TRUE~Dominant.perceptual)) %>%
+  group_by(group,VIHI_ID,xds) %>% 
+  summarise(total = n(),
+    prop_Auditory = sum(Modality=="Auditory")/total,
+    prop_Visual = sum(Modality=="Visual")/total,
+    prop_Olfactory = sum(Modality=="Olfactory")/total,
+    prop_Gustatory = sum(Modality=="Gustatory")/total,
+    prop_Haptic = sum(Modality=="Haptic")/total,
+    prop_Interoceptive = sum(Modality=="Interoceptive")/total,
+    prop_Multimodal = sum(Modality=="Multimodal")/total,
+    prop_Amodal = sum(Modality=="Amodal")/total) %>%
+  pivot_longer(cols = prop_Auditory:prop_Amodal,
+               names_to = "Modality",
+               names_prefix = "prop_",
+               values_to = "prop") 
+write.csv(sensory_props,"data/LENA/Transcripts/sensory_props.csv")
 
 
-
-
-
-
-# CDI wrangling
+# CDI wrangling ----
 
 #inverse logit function to calculate delay
 inv_logit <- function(x){
@@ -320,5 +299,5 @@ VIHI_CDI <- rbind(WG_estimate_eng, WS_estimate_eng) %>%
   select(-c(Other_ID, Notes)) %>%
   mutate(CDI_age_in_days=age,
          CDI_age_months = age_months)
-write.csv(VIHI_CDI, "./data/CDI/Derived/VIHI_CDI.csv")
+write.csv(VIHI_CDI, "./data/CDI/Derived/VITD_CDI.csv")
 
