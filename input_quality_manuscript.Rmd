@@ -66,11 +66,13 @@ seconds_to_length <- function(seconds, format = "f", ...) {
 preprocess == TRUE
 new_graphs == TRUE
 
-read.csv("data/LENA_counts.csv")
+LENA_counts <- read.csv("data/LENA_counts.csv")
 sensory_props <- read.csv("data/derived/sensory_props.csv")
 MLUs <- read.csv("data/derived/MLUs.csv")
 manual_word_TTR <- read.csv("data/derived/manual_word_TTR.csv")
 xds_props <- read.csv("data/derived/xds_props.csv")
+VIHI_CDI <- read.csv("data/CDI/Wordbank/VIHI_CDI.csv") %>% 
+  dplyr::rename("CDI_age_in_days" = age)
 ```
 
 ```{r get-data}
@@ -543,6 +545,27 @@ sensory_props %>%
 
 ```
 
+```{r verb-tense}
+tense_props %>%
+  mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>% 
+  group_by(group, tense) %>%
+  summarise(prop = mean(prop, na.rm = TRUE)) %>%
+  ggplot(aes(fill = tense,
+                                 y = prop,
+                                 x = group)) +
+  geom_bar(position = "stack", stat = "identity")  +
+  ylab ("Proportion of verbs by tense") +
+   geom_text(aes(label=round(prop,2)), 
+            position=position_stack(vjust=0.5)) +
+  theme_classic() +
+  theme(text = element_text(size = 14),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(name="Verb Tense",
+                    values=c("#FFF170", "#BCE784"))+
+  scale_x_discrete(labels =                                                   c("VI" = "Blind", "TD" = "Sighted")) +
+  xlab(NULL) 
+```
+
 
 
 
@@ -557,48 +580,126 @@ sensory_props %>%
 
 Predict: CDI percentile & CVC percentile
 
-```{r predicting}
+```{r predicting-plots, fig.height=6,fig.width=6,fig.cap="Plots of the relationship between the input variables and children's vocabulary outcomes (relative to the Wordbank 50th percentile."}
 VIHI_CDI <- read.csv("/Users/eec35/Desktop/Git/LENA/input_quality/data/CDI/Wordbank/VIHI_CDI.csv") %>% 
 dplyr::rename(CDI_age_in_days=age)
 
 lotta_data <- LENA_counts %>%
-  left_join(MLU_for_plot, by="VIHI_ID")  %>%
+  left_join(MLUs, by="VIHI_ID")  %>%
   left_join(manual_word_TTR) %>%
-  left_join(proportion_table_subject_level) %>% 
+  left_join(xds_props_wide %>% select(-total)) %>%
+  left_join(sensory_props %>% select(-total))%>% 
   mutate(ParticipantNumber = as.factor(str_sub(VIHI_ID, 1, 6))) %>%
-  mutate(LENA_age_in_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID)))) %>%
+  mutate(LENA_age_in_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))))%>%
   left_join(VIHI_CDI, by=c("group", "ParticipantNumber")) %>%
-  mutate(CDI_LENA_days_apart = abs(CDI_age_in_days - LENA_age_in_days)) %>%
+  mutate(CDI_LENA_days_apart = abs(CDI_age_in_days - LENA_age_in_days),
+         group = as.factor(group)) %>%
   arrange(CDI_LENA_days_apart) %>%
   distinct(ParticipantNumber, .keep_all=TRUE)
 
-predict_CDI <- lm(diff_age_from_expected ~ CDI_age_in_days+group+ AWC + TTR + CTC + CDS_prop + MLU_rough,data = lotta_data)
+predict_CDI <- lm(diff_age_from_expected ~ CDI_age_in_days + AWC + tokens + TTR + CTC + prop_CDS + MLU + group + group:CDI_age_in_days + group:AWC + group:tokens + group:TTR + group:CTC + group:prop_CDS + group:MLU, data = lotta_data)
+
 summary(predict_CDI)
+MASS::stepAIC(predict_CDI)
+AIC_selected <- lm(formula = diff_age_from_expected ~ group + AWC + tokens + 
+    TTR + CTC + prop_CDS + MLU + group:tokens, 
+    data = lotta_data)
+summary(AIC_selected)
 
-predict_CVC <- lm(CVC ~ group+ AWC + TTR + CTC + CDS_prop + MLU_rough,data = lotta_data)
-summary(predict_CVC)
+predict_CDI_TD <- lm(diff_age_from_expected ~  tokens + CTC+  prop_CDS + MLU, data = (lotta_data %>% filter(group=="TD")))
+car::vif(predict_CDI_TD)
+MASS::stepAIC(predict_CDI_TD)
+AIC_selected_TD <- lm(formula = diff_age_from_expected ~ tokens + CTC + prop_CDS + 
+    MLU, data = (lotta_data %>% filter(group == "TD")))
+summary(AIC_selected_TD)
+predict_CDI_VI <- lm(diff_age_from_expected ~ CDI_age_in_days + tokens + TTR + CTC + prop_CDS + MLU, data = (lotta_data %>% filter(group=="VI")))
+MASS::stepAIC(predict_CDI_VI)
+AIC_selected_VI <- lm(formula = diff_age_from_expected ~ CDI_age_in_days*MLU, 
+    data = (lotta_data %>% filter(group == "VI")))
+summary(AIC_selected_VI)
 
-ggplot((lotta_data %>% filter(!is.na(group))), aes(x=AWC, y=diff_age_from_expected, color=group, fill=group)) +
+
+trying_this_one <- lm(formula = diff_age_from_expected ~ CDI_age_in_days+ group*MLU, 
+    data = lotta_data)
+
+AWC_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=AWC, y=diff_age_from_expected, color=group, fill=group)) +
   geom_point()+
   geom_smooth(method="lm")+
-  theme_classic()
-ggplot((lotta_data %>% filter(!is.na(group))), aes(x=TTR, y=diff_age_from_expected, color=group, fill=group)) +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)
+TTR_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=TTR, y=diff_age_from_expected, color=group, fill=group)) +
   geom_point()+
   geom_smooth(method="lm")+
-  theme_classic()
-ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CTC, y=diff_age_from_expected, color=group, fill=group)) +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)
+CTC_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CTC, y=diff_age_from_expected, color=group, fill=group)) +
   geom_point()+
   geom_smooth(method="lm")+
-  theme_classic()
-ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CDS_prop, y=diff_age_from_expected, color=group, fill=group)) +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)
+CDS_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_CDS, y=diff_age_from_expected, color=group, fill=group)) +
   geom_point()+
   geom_smooth(method="lm")+
-  theme_classic()
-ggplot((lotta_data %>% filter(!is.na(group))), aes(x=MLU_rough, y=diff_age_from_expected, color=group, fill=group)) +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)
+  
+MLU_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=MLU, y=diff_age_from_expected, color=group, fill=group)) +
   geom_point()+
   geom_smooth(method="lm")+
-  theme_classic()
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  ylab("Vocabulary Delay (months)")
+
+dont_predict_plots <- cowplot::plot_grid(AWC_predict_vocab, TTR_predict_vocab, CTC_predict_vocab, CDS_predict_vocab, ncol=1)
+cowplot::plot_grid(dont_predict_plots, MLU_predict_vocab, nrow=1, rel_widths = c(1,3))
+
+
 ```
+
+
 
 # Discussion
 

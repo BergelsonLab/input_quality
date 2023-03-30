@@ -11,6 +11,7 @@ library(reshape2)
 library(profileR)
 library(lubridate)
 library(morphemepiece)
+library(udpipe)
 
 lancaster_norms <- read.csv("data/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
   mutate(Word = tolower(Word))
@@ -160,6 +161,32 @@ sensory_props <- VITD_LENA_words %>%
                names_prefix = "prop_",
                values_to = "prop") 
 write.csv(sensory_props,"data/LENA/Transcripts/sensory_props.csv")
+
+## tense/displacement----
+udpipe_english <- udpipe_download_model(language = "english")
+udmodel_english <- udpipe_load_model(file = udpipe_english$file_model)
+annotated_utterances <- udpipe_annotate(udmodel_english, 
+                                       x = VITD_transcripts$utterance, 
+                                       doc_id = VITD_transcripts$VIHI_ID) %>%
+  as.data.frame()
+verbs_only <- annotated_utterances %>% 
+  filter(xpos %in% c("VB","VBD","VBP","VBN","VBG","VBZ")) %>%
+  mutate(tense = case_when(grepl('Tense=Past',feats) ~ "past",
+                           grepl('Tense=Pres',feats)~ "present",
+                           grepl('Mood=Imp',feats)~ "present",
+                           TRUE ~ "uncategorized"))
+tense_props <- verbs_only %>% 
+  dplyr::rename(VIHI_ID = doc_id) %>%
+  filter(tense != "uncategorized") %>%
+  group_by(VIHI_ID) %>%
+  summarize(verb_count = n(),
+            prop_past = (sum(tense=="past")/verb_count),
+            prop_present =  (sum(tense=="present")/verb_count)) %>%
+  pivot_longer(cols = prop_past:prop_present,
+               names_to = "tense",
+               names_prefix = "prop_",
+               values_to = "prop")
+
 
 
 # CDI wrangling ----
