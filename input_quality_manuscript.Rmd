@@ -67,11 +67,11 @@ seconds_to_length <- function(seconds, format = "f", ...) {
 preprocess == TRUE
 new_graphs == TRUE
 
-LENA_counts <- read.csv("data/LENA_counts.csv")
-sensory_props <- read.csv("data/derived/sensory_props.csv")
-MLUs <- read.csv("data/derived/MLUs.csv")
-manual_word_TTR <- read.csv("data/derived/manual_word_TTR.csv")
-xds_props <- read.csv("data/derived/xds_props.csv")
+LENA_counts <- read.csv("data/Automated/LENA_counts.csv")
+sensory_props <- read.csv("data/Transcripts/sensory_props.csv")
+MLUs <- read.csv("data/Transcripts/MLUs.csv")
+manual_word_TTR <- read.csv("data/Transcripts/manual_word_TTR.csv")
+xds_props <- read.csv("data/Transcripts/xds_props.csv")
 VIHI_CDI <- read.csv("data/CDI/Wordbank/VIHI_CDI.csv") %>% 
   dplyr::rename("CDI_age_in_days" = age)
 ```
@@ -145,7 +145,7 @@ This annotation scheme is designed to capture both utterances by the target chil
 
 Each utterance is coded for additional linguistic properties from a set of pre-determined categories. Target child utterances are coded for vocal maturity, lexical status, and multi-word status. Vocal maturity classifies utterances into the following categories: laughing; crying; canonical syllables that contain a consonant-like and vowel-like sound component, including both babbling and identifiable words; non-canonical syllables, which do not contain both consonant and vowel portions, or which do not transition between them in a speech-like way; and unsure, when the vocalization type is unclear. Each vocalization that contains canonical syllables is then coded for lexical status, either containing an identifiable lexical item or not. Finally, each utterance with a lexical item is coded for multi-word status, whether or not it contains more than one unique word type.
 
-Environmental speech from everyone else is coded for the addressee of each utterance: speech directed to a child, whether or not it is directed to the target child; adult-directed speech; speech directed to both an adult and a child; speech directed to pets or other animals; unclear addressee; or speech directed towards a recipient that doesn't fit into another category (e.g. voice control of Siri or Alexa, speech to a metaphysical entity).
+Environmental speech from everyone else is coded for the addressee of each utterance: speech directed to a child, whether or not it is directed to the target child; adult-directed speech; speech directed to both an adult and a child; speech directed to pets or other animals; speech with an unclear addressee; or speech directed towards a recipient that doesn't fit into another category (e.g. voice control of Siri or Alexa, prayer to a metaphysical entity).
 
 # Results
 
@@ -518,7 +518,7 @@ For our second linguistic feature, we analyzed the mean length of utterance (MLU
 
 topic diversity - <https://github.com/mind-Lab/octis> 
 sensory modality 
-tense
+temporality
 
 ```{r sensory-modality}
 
@@ -548,6 +548,30 @@ sensory_props %>%
 ```
 
 ```{r verb-tense}
+#preprocessing
+verbs_only <- annotated_utterances %>% 
+  filter(xpos %in% c("VB","VBD","VBP","VBN","VBG","VBZ","AUX","MD"),
+         token != "=!" &
+           token != "xxx") %>%
+  distinct(doc_id,paragraph_id,sentence_id, .keep_all = TRUE) %>%
+  mutate(temporality = case_when(grepl('Tense=Past',feats) ~ "not_present",
+                           grepl('Mood=Imp',feats)~ "not_present",
+                           xpos=="MD" ~ "not_present",
+                           grepl('gonna',sentence) | grepl('gotta',sentence) | grepl('wanna',sentence)|grepl('going to',sentence)| grepl('got to',sentence) |grepl('want to',sentence) |grepl('have to',sentence) ~ "not_present",
+                           grepl('Mood=Ind',feats) & grepl('Tense=Pres',feats) | grepl('VerbForm=Ger',feats) ~ "present",
+                           TRUE ~ "uncategorized"))
+temporality_props <- verbs_only %>% 
+  dplyr::rename(VIHI_ID = doc_id) %>%
+  group_by(VIHI_ID) %>%
+  summarize(verb_utt_count = n(),
+            prop_past = (sum(temporality=="not_present")/verb_utt_count),
+            prop_present =  (sum(temporality=="present")/verb_utt_count),
+            prop_uncategorized = (sum(temporality=="uncategorized")/verb_utt_count)) %>%
+  pivot_longer(cols = prop_past:prop_uncategorized,
+               names_to = "verb_temporality",
+               names_prefix = "prop_",
+               values_to = "prop")
+#then plot
 temporality_props %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>% 
   group_by(group, verb_temporality) %>%
@@ -563,12 +587,12 @@ temporality_props %>%
   theme(text = element_text(size = 14),
         axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_manual(name="Verb Tense",
-                    labels=c("present", "subjunctive,\nfuture, or past","uncategorized"),
+                    labels=c("uncategorized", "subjunctive,\nfuture, or past","present"),
                     values=c("#A5ACA5","#FFF170","#BCE784"))+
   scale_x_discrete(labels =                                                   c("VI" = "Blind", "TD" = "Sighted")) +
   xlab(NULL) 
 ```
-
+The last conceptual feature we examined is the displacement of events discussed in children's linguistic environment. That is, we tried to ascertain whether blind and sighted children receive a different amount of "here-and-now" commentary related to the events happening around them. To do this, we used the udpipe package [CITE] to tag the transcriptions with their parts of speech and other features of the utterance, such as verb form, tense, and mood. Using the features tagged to the first verb or auxiliary in each utterance (a proxy for the hierarchically dominant verb), we assigned each utterance a temporality value: utterances tagged *non-present* describe events that take place in the past, future, or irrealis space, while utterances tagged *present* describe current, ongoing events. A small amount of utterances (n = `r verbs_only, count(temporality = "uncategorized)`) were left uncat 
 ```{r cboi}
 CBOI_plot <-
   ggplot(data = subj_means, aes(

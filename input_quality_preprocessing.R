@@ -35,7 +35,7 @@ write.csv(LENA_counts,"data/LENA/Automated/LENA_counts.csv")
 
 ###read in data that has been mass exported via ELAN; add informative column names
 
-VITD_transcripts <- read.csv("data/VI_LENA_and_TD_matches_03-28-20232023-03-28.csv") %>% #need to re-generate transcripts
+VITD_transcripts <- read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches_03-28-20232023-03-28.csv") %>% #need to re-generate transcripts
   mutate(VIHI_ID = as.factor(str_sub(VIHI_ID,1,10))) 
 
 VITD_LENA_utterances_split <- VITD_transcripts %>%
@@ -105,7 +105,7 @@ xds_props <- xds_props_wide%>%
                names_to = "addressee",
                names_prefix = "prop_",
                values_to = "prop")
-write.csv(xds_props, "data/derived/xds_props.csv")
+write.csv(xds_props, "data/LENA/Transcripts/xds_props.csv")
 # linguistic quality ----
 ## TTR ----
 ### calculate type-token ratio in annotations
@@ -113,7 +113,7 @@ manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
   mutate(TTR = types/tokens,
          group = as.factor(str_sub(VIHI_ID, 1,2)))  %>%
   filter(group!="HI")
-write.csv(manual_word_TTR, "data/derived/manual_word_TTR.csv")
+write.csv(manual_word_TTR, "data/LENA/Transcripts/manual_word_TTR.csv")
 
 ## MLU ----
 ### get the morpheme counts for VI ----
@@ -138,7 +138,7 @@ simple_morpheme_counts <- tokenized_VITD_transcripts_with_counts %>%
 MLUs <- simple_morpheme_counts %>% 
   group_by(group, VIHI_ID) %>%
   summarise(MLU= mean(morphemecount))
-write.csv(MLUs,"data/derived/MLUs.csv")
+write.csv(MLUs,"data/LENA/Transcripts/MLUs.csv")
 
 # conceptual quality ----
 ## sensory word props ----
@@ -170,7 +170,7 @@ udpipe_english <- udpipe_download_model(language = "english")
 udmodel_english <- udpipe_load_model(file = udpipe_english$file_model)
 annotated_utterances <- udpipe_annotate(udmodel_english, 
                                        x = utterances_only$utterance, 
-                                       doc_id = VITD_transcripts$VIHI_ID) %>%
+                                       doc_id = utterances_only$VIHI_ID) %>%
   as.data.frame()
 
 verbs_only <- annotated_utterances %>% 
