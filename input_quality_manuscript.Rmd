@@ -64,14 +64,26 @@ seconds_to_length <- function(seconds, format = "f", ...) {
 }
 
 
-preprocess == TRUE
-new_graphs == TRUE
+preprocess <- TRUE
+new_graphs <- TRUE
 
-LENA_counts <- read.csv("data/LENA_counts.csv")
-sensory_props <- read.csv("data/derived/sensory_props.csv")
-MLUs <- read.csv("data/derived/MLUs.csv")
-manual_word_TTR <- read.csv("data/derived/manual_word_TTR.csv")
-xds_props <- read.csv("data/derived/xds_props.csv")
+if (preprocess == TRUE) {source("input_quality_preprocessing.R")} else {
+# quantity
+LENA_counts <- read.csv("data/LENA/Automated/LENA_counts.csv")
+# interactive
+xds_props <- read.csv("data/LENA/Transcripts/Derived/xds_props.csv")
+xds_props_wide <- read.csv("data/LENA/Transcripts/Derived/xds_props_wide.csv")
+# linguistic
+MLUs <- read.csv("data/LENA/Transcripts/Derived/MLUs.csv")
+manual_word_TTR <- read.csv("data/LENA/Transcripts/Derived/manual_word_TTR.csv")
+# conceptual
+sensory_props <- read.csv("data/LENA/Transcripts/Derived/sensory_props.csv")
+sensory_props_wide <- read.csv("data/LENA/Transcripts/Derived/sensory_props_wide.csv")
+temporality_props <- read.csv("data/LENA/Transcripts/Derived/temporality_props.csv")
+temporality_props_wide <- read.csv("data/LENA/Transcripts/Derived/temporality_props_wide.csv")
+subj_CBOI_means <- read.csv("data/LENA/Transcripts/Derived/subj_CBOI_means.csv")
+content_words_only <- read.csv("data/LENA/Transcripts/Derived/content_words_only.csv")}
+# CDI
 VIHI_CDI <- read.csv("data/CDI/Wordbank/VIHI_CDI.csv") %>% 
   dplyr::rename("CDI_age_in_days" = age)
 ```
@@ -79,6 +91,8 @@ VIHI_CDI <- read.csv("data/CDI/Wordbank/VIHI_CDI.csv") %>%
 ```{r get-data}
 
 participant_summary <- LENA_counts %>%
+  mutate(Age_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))),
+         Age_months = Age_days * 0.0328767) %>%
   group_by(group) %>%
   summarize(age = mean(Age_months,na.rm=TRUE),
             min_age = min(Age_months),
@@ -149,12 +163,6 @@ Environmental speech from everyone else is coded for the addressee of each utter
 
 # Results
 
-```{r transcripts-to-words}
-
-
-```
-
-
 ## Measuring Properties of Language Input
 
 ### Language Input Quantity
@@ -167,7 +175,7 @@ AWC_stats <- LENA_counts %>%
             max = max(AWC),
             mean = mean(AWC))
 
-compare_MWC <- wilcox.test(manual_word_TTR$tokens ~ LENA_counts$group)
+compare_MWC <- wilcox.test(manual_word_TTR$tokens ~ manual_word_TTR$group)
 MWC_stats <- manual_word_TTR %>% 
   group_by(group) %>%
   summarise(min = min(tokens),
@@ -187,7 +195,7 @@ AWC_plot <-
   geom_violin(alpha = .5, trim = FALSE) +
   geom_jitter(width = 0.2, height = 0) +
   theme_classic() +
-  labs(y = "Adult Word Count", x = NULL, element_text(size = 14)) +
+  labs(y = "Adult Word Count", x = NULL, element_text(size = 10)) +
   theme(
     legend.title = element_blank(),
     legend.position = "none",
@@ -207,16 +215,14 @@ AWC_plot <-
     alpha = 0.8) +
   geom_linerange(aes(
     ymin = (mean(AWC) - std.error(AWC)),
-    ymax = (mean(AWC) - std.error(AWC)))) +
+    ymax = (mean(AWC) + std.error(AWC)))) +
   stat_summary(fun.data = "mean_cl_boot", color = 'black') +
   scale_x_discrete(
     labels = c(
       "VI" = "Blind",
       "TD" = "Sighted")) +
   coord_cartesian(ylim = c(0, (max(LENA_counts$AWC * 1.1)))) +
-  theme( axis.text = element_text(size = 14),
-    axis.title.y = element_text(size = 18),
-    strip.text.x = element_text(size = 14)) 
+  theme(text = element_text(size = 10)) 
 
 manual_word_count_plot <-  ggplot(data = manual_word_TTR, aes(
     x = group,
@@ -226,7 +232,7 @@ manual_word_count_plot <-  ggplot(data = manual_word_TTR, aes(
   geom_violin(alpha = .5, trim = FALSE) +
   geom_jitter(width = 0.2, height = 0) +
   theme_classic() +
-  labs(y = "Manual Word Counts", x = NULL, element_text(size = 14)) +
+  labs(y = "Manual Word Counts", x = NULL, element_text(size = 10)) +
   theme(
     legend.title = element_blank(),
     legend.position = "none",
@@ -246,16 +252,14 @@ manual_word_count_plot <-  ggplot(data = manual_word_TTR, aes(
     alpha = 0.8) +
   geom_linerange(aes(
     ymin = (mean(tokens) - std.error(tokens)),
-    ymax = (mean(tokens) - std.error(tokens)))) +
+    ymax = (mean(tokens) + std.error(tokens)))) +
   stat_summary(fun.data = "mean_cl_boot", color = 'black') +
   scale_x_discrete(
     labels = c(
       "VI" = "Blind",
       "TD" = "Sighted")) +
   coord_cartesian(ylim = c(0, (max(manual_word_TTR$tokens * 1.1)))) +
-  theme( axis.text = element_text(size = 14),
-    axis.title.y = element_text(size = 18),
-    strip.text.x = element_text(size = 14)) 
+  theme(text = element_text(size = 10)) 
 
 cowplot::plot_grid(AWC_plot, manual_word_count_plot)
 ```
@@ -264,33 +268,10 @@ cowplot::plot_grid(AWC_plot, manual_word_count_plot)
 
 #### Interactiveness
 
-
-
-```{r CDS-prop-compare}
-
-
-ggplot(xds_props, aes(fill = addressee, y= prop, x = group)) +
-  geom_bar(position = "stack", stat = "identity")  +
-  # geom_text(aes(label=case_when(prop>.03~prop,TRUE~" ")), position=position_stack(vjust=0.5)) +
-  xlab("Group") + 
-  ylab ("Proportion, by number of utterances") +
-  scale_fill_discrete(labels=c('Adult-directed', 'Both child and adult', 'Child-directed', 'Other', 'Pet-directed', 'Unsure'), name="Addressee")+
-  theme_classic()+
-  theme(text=element_text(size=14))
-
-# analyze whether proportion of CDS is different across groups
-
-
-
-# analyze whether distribution is different across groups
-xds_profile_analysis <- pbg(proportion_table_subject_level[,10:15], proportion_table_subject_level$group, profile.plot = TRUE)
-summary(xds_profile_analysis)
-```
-
-We compared the proportions of child-directed speech (CDS) between the blind children and their sighted matches. Each proportion was calculated as the number of utterances produced by someone *other* than the target child (non-CHI utterances) tagged with a child or an adult addressee, respectively, out of the total number of non-CHI utterances for each sensory group. A two-sample test for equality of proportions revealed no significant difference in the overall proportions of CDS to blind children and CDS to sighted children (*X*\^2=`r CDS_compare$statistic`, p=`r printp(CDS_compare$p.value)`, CDS-proportion~blind~=`r CDS_compare$estimate[[2]]`, CDS-proportion~sighted~=`r CDS_compare$estimate[[1]]`). Likewise, there was no difference between the proportion of ADS to blind or sighted children (*X*\^2=`r ADS_compare$statistic`, p=`r printp(ADS_compare$p.value)`, ADS-proportion~blind~=`r ADS_compare$estimate[[2]]`, ADS-proportion~sighted~=`r ADS_compare$estimate[[1]]`).
+We compared the proportions of child-directed speech (CDS) between the blind children and their sighted matches. Each proportion was calculated as the number of utterances produced by someone *other* than the target child (non-CHI utterances) tagged with a child or an adult addressee, respectively, out of the total number of non-CHI utterances for each sensory group. A two-sample test for equality of proportions revealed no significant difference in the overall proportions of CDS to blind children and CDS to sighted children.
 
 ```{r compare-interactiveness}
-shapiro.test(LENA_counts$CTC)
+CTC_normality_check <- shapiro.test(LENA_counts$CTC)
 compare_CTC <- wilcox.test(LENA_counts$CTC ~ LENA_counts$group)
 CTC_stats <- LENA_counts %>% 
   group_by(group) %>%
@@ -298,7 +279,7 @@ CTC_stats <- LENA_counts %>%
             max = max(CTC),
             mean = mean(CTC))
 
-shapiro.test(xds_props_wide$prop_CDS)
+CDS_normality_check <- shapiro.test(xds_props_wide$prop_CDS)
 compare_CDS <- wilcox.test(xds_props_wide$prop_CDS ~ xds_props_wide$group)
 CDS_stats <- xds_props_wide %>% 
   group_by(group) %>%
@@ -309,7 +290,7 @@ CDS_stats <- xds_props_wide %>%
 
 We next compare the number of conversational turn counts for blind and sighted children, using LENA's automated Conversational Turn Count measure. A Wilcoxon rank-sum test shows that despite wide variability in the number conversational turns (`r round((CTC_stats %>% filter(group=="VI"))$min)`--`r round((CTC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((CTC_stats %>% filter(group=="TD"))$min)`--`r round((CTC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in the number of conversational turns (W = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
 
-```{r interactiveness-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Each dot represents one child's recording. The full breakdown by addressee is shown in the rightmost panel.", fig.width=6, fig.height=3}
+```{r interactiveness-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Each dot represents one child's recording. The full breakdown by addressee is shown in the rightmost panel.", fig.width=7, fig.height=3}
 CTC_plot <-
   ggplot(data = LENA_counts, aes(
     x = group,
@@ -319,7 +300,7 @@ CTC_plot <-
   geom_violin(alpha = .5, trim = FALSE) +
   geom_jitter(width = 0.2, height = 0) +
   theme_classic() +
-  labs(y = "Conversational Turn Count", x = NULL, element_text(size = 14)) +
+  labs(y = "Conversational Turn Count", x = NULL, element_text(size = 10)) +
   theme(
     legend.title = element_blank(),
     legend.position = "none",
@@ -339,7 +320,7 @@ CTC_plot <-
     alpha = 0.8) +
   geom_linerange(aes(
     ymin = (mean(CTC) - std.error(CTC)),
-    ymax = (mean(CTC) - std.error(CTC)))) +
+    ymax = (mean(CTC) + std.error(CTC)))) +
   stat_summary(fun.data = "mean_cl_boot", color = 'black') +
   scale_x_discrete(
     labels = c(
@@ -347,7 +328,6 @@ CTC_plot <-
       "TD" = "Sighted")) +
   coord_cartesian(ylim = c(0, (max(LENA_counts$CTC * 1.1)))) +
   theme(text=element_text(size=14)) 
-CTC_plot
 
 CDS_prop_plot <- xds_props %>% 
   filter(addressee == "CDS") %>%
@@ -359,7 +339,7 @@ CDS_prop_plot <- xds_props %>%
   geom_violin(alpha = .5, trim = FALSE) +
   geom_jitter(width = 0.2, height = 0) +
   theme_classic() +
-  labs(y = "Proportion of\nChild-Directed Speech", x = NULL, element_text(size = 14)) +
+  labs(y = "Proportion of\nChild-Directed Speech", x = NULL, element_text(size = 10)) +
   theme(
     legend.title = element_blank(),
     legend.position = "none",
@@ -379,7 +359,7 @@ CDS_prop_plot <- xds_props %>%
     alpha = 0.8) +
   geom_linerange(aes(
     ymin = (mean(prop) - std.error(prop)),
-    ymax = (mean(prop) - std.error(prop)))) +
+    ymax = (mean(prop) + std.error(prop)))) +
   stat_summary(fun.data = "mean_cl_boot", color = 'black') +
   scale_x_discrete(
     labels = c(
@@ -410,7 +390,7 @@ addressee_props_plot <- xds_props %>%
   ylab("Proportion of Utterances\nBy Addressee")+
   xlab(NULL)
   
-cowplot::plot_grid(CTC_plot, CDS_prop_plot, addressee_props_plot, rel_widths = c(1,1.1, .8),nrow=1)
+cowplot::plot_grid(CTC_plot, CDS_prop_plot, addressee_props_plot, rel_widths = c(1,1.1, 2),nrow=1)
 ```
 
 
@@ -425,7 +405,7 @@ TTR_plot <-  ggplot(data = (manual_word_TTR), aes(
   geom_violin(alpha = .5, trim = FALSE) +
   geom_jitter(width = 0.2, height = 0) +
   theme_classic() +
-  labs(y = "Type-Token Ratio:\nUnique Words / Total Words", x = NULL, element_text(size = 14)) +
+  labs(y = "Type-Token Ratio:\nUnique Words / Total Words", x = NULL, element_text(size = 10)) +
   theme(
     legend.title = element_blank(),
     legend.position = "none",
@@ -445,14 +425,14 @@ TTR_plot <-  ggplot(data = (manual_word_TTR), aes(
     alpha = 0.8) +
   geom_linerange(aes(
     ymin = (mean(TTR) - std.error(TTR)),
-    ymax = (mean(TTR) - std.error(TTR)))) +
+    ymax = (mean(TTR) + std.error(TTR)))) +
   stat_summary(fun.data = "mean_cl_boot", color = 'black') +
   scale_x_discrete(
     labels = c(
       "VI" = "Blind",
       "TD" = "Sighted")) +
   coord_cartesian(ylim = c(0, (max(manual_word_TTR$TTR * 1.1)))) +
-  theme(text = element_text(size = 14)) 
+  theme(text = element_text(size = 10)) 
 TTR_plot
 
 shapiro.test(manual_word_TTR$TTR)
@@ -469,7 +449,7 @@ MLU_plot <-
   geom_jitter(width = 0.2, height = 0) +
   theme_classic() +
   labs(y = "Mean Length of Utterance\n
-  (morphemes)", x = NULL, element_text(size = 14)) +
+  (morphemes)", x = NULL, element_text(size = 10)) +
   theme(
     legend.title = element_blank(),
     legend.position = "none") +
@@ -488,13 +468,13 @@ MLU_plot <-
     alpha = 0.8) +
   geom_linerange(aes(
     ymin = (mean(MLU) - std.error(MLU)),
-    ymax = (mean(MLU) - std.error(MLU))), color="black")+
+    ymax = (mean(MLU) + std.error(MLU))), color="black")+
   scale_x_discrete(
     labels = c(
       "TD" = "Sighted",
       "VI" = "Blind")) +
   coord_cartesian(ylim = c(0, (max(MLUs$MLU * 1.1)))) +
-  theme(text = element_text(size = 14),
+  theme(text = element_text(size = 10),
     axis.text.x = element_text(angle = 45, hjust = 1)) 
 
 MLU_stats <- MLUs %>% 
@@ -511,7 +491,7 @@ For linguistic features, we first measure proportion of unique words divided by 
 
 ##### MLU Analysis and results
 
-For our second linguistic feature, we analyzed the mean length of utterance (MLU) in the input speech to each group of children. We computed MLU on a morpheme level as a proximate measure of syntactic complexity. Each utterance by a non-CHI speaker was tokenized into morphemes using the 'morphemepiece' R package [CITE]. We then calculated the mean MLU per speaker from each audio recording, and then compared the mean MLU of environmental speech to blind children (M(SD) = `r average_VI_input_MLU` (`r MLU_SD_VI`)) to that of sighted children (M(SD) = `r average_TD_input_MLU` (`r MLU_SD_TD`)). A Wilcoxon rank-sum test revealed that the MLU was slightly but significantly higher in speech to blind children than to their sighted peers (W = `r MLU_compare$w.value`, *p* = `r printp(MLU_compare$p.value)`).
+For our second linguistic feature, we analyzed the mean length of utterance (MLU) in the input speech to each group of children. We computed MLU on a morpheme level as a proximate measure of syntactic complexity. Each utterance by a non-CHI speaker was tokenized into morphemes using the 'morphemepiece' R package [CITE]. We then calculated the mean MLU per speaker from each audio recording, and then compared the mean MLU of environmental speech to blind children (M(SD) = XXX (XXX)) to that of sighted children (M(SD) = XXX (XXX)). A Wilcoxon rank-sum test revealed that the MLU was slightly but significantly higher in speech to blind children than to their sighted peers (W = `r MLU_compare$w.value`, *p* = `r printp(MLU_compare$p.value)`).
 
 
 #### Conceptual Features
@@ -522,8 +502,43 @@ tense
 
 ```{r sensory-modality}
 
+visual_plot <- ggplot(data = sensory_props_wide, aes(
+    x = group,
+    y = prop_Visual,
+    color = group,
+    fill = group)) +
+    geom_jitter(width = 0.2, height = 0) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  theme_classic() +
+  labs(y = "Proportion of\nHighly Visual Words", x = NULL, element_text(size = 10)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none") +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun =  mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(prop_Visual) - std.error(prop_Visual)),
+    ymax = (mean(prop_Visual) + std.error(prop_Visual))), color="black")+
+  scale_x_discrete(
+    labels = c(
+      "TD" = "Sighted",
+      "VI" = "Blind")) +
+  coord_cartesian(ylim = c(0, .5)) +
+  theme(text = element_text(size = 10),
+    axis.text.x = element_text(angle = 45, hjust = 1)) 
 
-sensory_props %>% 
+sensory_props_plot <- sensory_props %>% 
   group_by(group,Modality) %>%
   summarise(prop = mean(prop,na.rm=TRUE)) %>%
   ggplot(aes(fill = factor(Modality,levels=c("Amodal","Olfactory","Gustatory","Haptic","Interoceptive","Auditory","Visual","Multimodal")), 
@@ -533,9 +548,9 @@ sensory_props %>%
   geom_text(aes(label=case_when(prop>.05~round(prop,2))), 
             position=position_stack(vjust=0.5)) +
   xlab("Group") + 
-  ylab ("Proportion of words by sensory modality") +
+  ylab ("Proportion of words\nby sensory modality") +
   theme_classic()+
-  theme(text=element_text(size=14),
+  theme(text=element_text(size=10),
     axis.text.x = element_text(angle = 45, hjust = 1)
         ) + 
   scale_fill_manual(name="Modality",
@@ -548,38 +563,15 @@ sensory_props %>%
 ```
 
 ```{r verb-tense}
-temporality_props %>%
-  mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>% 
-  group_by(group, verb_temporality) %>%
-  summarise(prop = mean(prop, na.rm = TRUE)) %>%
-  ggplot(aes(fill = factor(verb_temporality, levels=c("uncategorized","past","present")),
-                                 y = prop,
-                                 x = group)) +
-  geom_bar(position = "stack", stat = "identity")  +
-  ylab ("Proportion of utterances\nby verb temporality") +
-   geom_text(aes(label=round(prop,2)), 
-            position=position_stack(vjust=0.5)) +
-  theme_classic() +
-  theme(text = element_text(size = 14),
-        axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_fill_manual(name="Verb Tense",
-                    labels=c("present", "subjunctive,\nfuture, or past","uncategorized"),
-                    values=c("#A5ACA5","#FFF170","#BCE784"))+
-  scale_x_discrete(labels =                                                   c("VI" = "Blind", "TD" = "Sighted")) +
-  xlab(NULL) 
-```
-
-```{r cboi}
-CBOI_plot <-
-  ggplot(data = subj_means, aes(
+hereandnow_plot <- ggplot(data = temporality_props_wide, aes(
     x = group,
-    y = mean,
+    y = prop_present,
     color = group,
     fill = group)) +
-    geom_jitter(width = 0.2, height = 0,alpha=.1) +
+    geom_jitter(width = 0.2, height = 0) +
   geom_violin(alpha = .5, trim = FALSE) +
   theme_classic() +
-  labs(y = "Mean Child-Body-Object\nInteraction Rating (1-7)", x = NULL, element_text(size = 14)) +
+  labs(y = "Proportion of\nPresent Verbs", x = NULL, element_text(size = 10)) +
   theme(
     legend.title = element_blank(),
     legend.position = "none") +
@@ -597,25 +589,107 @@ CBOI_plot <-
     color = 'black',
     alpha = 0.8) +
   geom_linerange(aes(
-    ymin = (mean(mean) - std.error(mean)),
-    ymax = (mean(mean) - std.error(mean))), color="black")+
+    ymin = (mean(prop_present) - std.error(prop_present)),
+    ymax = (mean(prop_present) + std.error(prop_present))), color="black")+
   scale_x_discrete(
     labels = c(
       "TD" = "Sighted",
       "VI" = "Blind")) +
-  coord_cartesian(ylim = c(0, (max(subj_means$mean * 1.1)))) +
-  theme(text = element_text(size = 14),
-    axis.text.x = element_text(angle = 45, hjust = 1)) 
-CBOI_plot
+  coord_cartesian(ylim = c(0, 1)) +
+  theme(text = element_text(size = 10),
+    axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+temporality_props_plot <- temporality_props %>%
+  mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>% 
+  group_by(group, verb_temporality) %>%
+  summarise(prop = mean(prop, na.rm = TRUE)) %>%
+  ggplot(aes(fill = factor(verb_temporality, levels=c("uncategorized","past","present")),
+                                 y = prop,
+                                 x = group)) +
+  geom_bar(position = "stack", stat = "identity")  +
+  ylab ("Proportion of utterances\nby verb temporality") +
+   geom_text(aes(label=round(prop,2)), 
+            position=position_stack(vjust=0.5)) +
+  theme_classic() +
+  theme(text = element_text(size = 10),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(name="Verb Tense",
+                    labels=c("uncategorized", "subjunctive,\nfuture, or past","present"),
+                    values=c("#A5ACA5","#FFF170","#BCE784"))+
+  scale_x_discrete(labels =                                                   c("VI" = "Blind", "TD" = "Sighted")) +
+  xlab(NULL) 
+
+
 ```
 
+```{r cboi}
+CBOI_plot <-
+  ggplot(data = subj_CBOI_means, aes(
+    x = group,
+    y = CBOI_Mean,
+    color = group,
+    fill = group)) +
+    geom_jitter(width = 0.2, height = 0) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  theme_classic() +
+  labs(y = "Mean Child-Body-Object\nInteraction Rating (1-7)", x = NULL, element_text(size = 10)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none") +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(CBOI_Mean) - std.error(CBOI_Mean)),
+    ymax = (mean(CBOI_Mean) + std.error(CBOI_Mean))), color="black")+
+  scale_x_discrete(
+    labels = c(
+      "TD" = "Sighted",
+      "VI" = "Blind")) +
+  coord_cartesian(ylim = c(1, 7)) +
+  theme(text = element_text(size = 10),
+    axis.text.x = element_text(angle = 45, hjust = 1)) 
 
+CBOI_distribution_plot <- content_words_only %>%
+  ggplot(aes(x=CBOI_Mean, color=group, fill=group)) +
+  geom_density(alpha=.5) +
+  theme_classic() +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  xlab("Child-Body-Object Interaction Rating")+
+  theme(text = element_text(size = 10)) + 
+  annotate(geom="text", x=2, y=.5, label="hire,\nkill,\nfamous") +
+  annotate(geom="text", x=4.5, y=.5, label="yawn,\nstop,\nrecorder") +
+  annotate(geom="text", x=6.5, y=.5, label="dog,\ncar,\nspaghetti") +
+  geom_segment(aes(x = 2, xend=2,y = .4, yend = .2),arrow = arrow(), color="black") +
+  geom_segment(aes(x = 4.5, xend=4.5,y = .4, yend = .2),arrow = arrow(), color="black") +
+  geom_segment(aes(x = 6.5, xend=6.5,y = .4, yend = .2),arrow = arrow(), color="black") +
+  ylab("Content Word Density")
+```
 
-
-
-
-
-
+```{r conceptual-plots, fig.height=8, fig.width = 7}
+cowplot::plot_grid(visual_plot, sensory_props_plot,
+                   hereandnow_plot, temporality_props_plot,
+                   CBOI_plot, CBOI_distribution_plot,
+                   nrow=3, rel_widths = c(1,1.5))
+```
 
 ## Linking Language Input to Language Outcomes
 
@@ -623,45 +697,44 @@ Predict: CDI percentile & CVC percentile
 
 ```{r predicting-plots, fig.height=6,fig.width=6,fig.cap="Plots of the relationship between the input variables and children's vocabulary outcomes (relative to the Wordbank 50th percentile."}
 VIHI_CDI <- read.csv("/Users/eec35/Desktop/Git/LENA/input_quality/data/CDI/Wordbank/VIHI_CDI.csv") %>% 
-dplyr::rename(CDI_age_in_days=age)
+dplyr::rename(CDI_age_in_days=age) 
 
 lotta_data <- LENA_counts %>%
   left_join(MLUs, by="VIHI_ID")  %>%
-  left_join(manual_word_TTR) %>%
-  left_join(xds_props_wide %>% select(-total)) %>%
-  left_join(sensory_props %>% select(-total))%>% 
+  left_join(manual_word_TTR, by="VIHI_ID") %>%
+  left_join(xds_props_wide %>% select(-total), by=c("VIHI_ID", "group")) %>%
+  left_join(sensory_props_wide %>% select(-total), by=c("VIHI_ID", "group"))%>% 
+  left_join(subj_CBOI_means, by=c("VIHI_ID", "group")) %>%
+  left_join(temporality_props_wide, by=c("VIHI_ID", "group")) %>%
   mutate(ParticipantNumber = as.factor(str_sub(VIHI_ID, 1, 6))) %>%
   mutate(LENA_age_in_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))))%>%
   left_join(VIHI_CDI, by=c("group", "ParticipantNumber")) %>%
   mutate(CDI_LENA_days_apart = abs(CDI_age_in_days - LENA_age_in_days),
          group = as.factor(group)) %>%
   arrange(CDI_LENA_days_apart) %>%
-  distinct(ParticipantNumber, .keep_all=TRUE)
+  distinct(ParticipantNumber, .keep_all=TRUE) 
 
-predict_CDI <- lm(diff_age_from_expected ~ CDI_age_in_days + AWC + tokens + TTR + CTC + prop_CDS + MLU + group + group:CDI_age_in_days + group:AWC + group:tokens + group:TTR + group:CTC + group:prop_CDS + group:MLU, data = lotta_data)
+predict_CDI <- lm(diff_age_from_expected ~ (CDI_age_in_days*group + tokens*group + TTR*group + CTC*group + prop_CDS*group + MLU*group + prop_present*group + prop_Visual*group + CBOI_Mean*group), data = lotta_data)
 
-summary(predict_CDI)
-MASS::stepAIC(predict_CDI)
-AIC_selected <- lm(formula = diff_age_from_expected ~ group + AWC + tokens + 
-    TTR + CTC + prop_CDS + MLU + group:tokens, 
-    data = lotta_data)
+# summary(predict_CDI)
+# MASS::stepAIC(predict_CDI)
+AIC_selected <- lm(formula = diff_age_from_expected ~ CDI_age_in_days + MLU + 
+    prop_present, data = lotta_data)
 summary(AIC_selected)
 
-predict_CDI_TD <- lm(diff_age_from_expected ~  tokens + CTC+  prop_CDS + MLU, data = (lotta_data %>% filter(group=="TD")))
-car::vif(predict_CDI_TD)
-MASS::stepAIC(predict_CDI_TD)
+predict_CDI_TD <- lm(diff_age_from_expected ~  CDI_age_in_days + AWC + tokens + TTR + CTC + prop_CDS + MLU + prop_present + prop_Visual + CBOI_Mean, data = (lotta_data %>% filter(group=="TD")))
+# car::vif(predict_CDI_TD)
+# MASS::stepAIC(predict_CDI_TD)
 AIC_selected_TD <- lm(formula = diff_age_from_expected ~ tokens + CTC + prop_CDS + 
     MLU, data = (lotta_data %>% filter(group == "TD")))
-summary(AIC_selected_TD)
-predict_CDI_VI <- lm(diff_age_from_expected ~ CDI_age_in_days + tokens + TTR + CTC + prop_CDS + MLU, data = (lotta_data %>% filter(group=="VI")))
-MASS::stepAIC(predict_CDI_VI)
-AIC_selected_VI <- lm(formula = diff_age_from_expected ~ CDI_age_in_days*MLU, 
-    data = (lotta_data %>% filter(group == "VI")))
-summary(AIC_selected_VI)
+# summary(AIC_selected_TD)
+predict_CDI_VI <- lm(diff_age_from_expected ~ CDI_age_in_days + AWC + tokens + TTR + CTC + prop_CDS + MLU + prop_present + prop_Visual + CBOI_Mean, data = (lotta_data %>% filter(group=="VI")))
+# MASS::stepAIC(predict_CDI_VI)
+AIC_selected_VI <- lm(formula = diff_age_from_expected ~ AWC + CTC + prop_CDS + 
+    MLU, data = (lotta_data %>% filter(group == "VI")))
+# summary(AIC_selected_VI)
 
 
-trying_this_one <- lm(formula = diff_age_from_expected ~ CDI_age_in_days+ group*MLU, 
-    data = lotta_data)
 
 AWC_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=AWC, y=diff_age_from_expected, color=group, fill=group)) +
   geom_point()+
@@ -719,6 +792,34 @@ CDS_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_C
   theme_classic()+
   theme(legend.position = "none")+
   ylab(NULL)
+visual_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_Visual, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)
+CBOI_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CBOI_Mean, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)
   
 MLU_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=MLU, y=diff_age_from_expected, color=group, fill=group)) +
   geom_point()+
@@ -733,6 +834,20 @@ MLU_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=MLU, y
     values = c("#b16fff", "#ade7f5"))+
   theme_classic()+
   ylab("Vocabulary Delay (months)")
+temporality_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_present, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)
 
 dont_predict_plots <- cowplot::plot_grid(AWC_predict_vocab, TTR_predict_vocab, CTC_predict_vocab, CDS_predict_vocab, ncol=1)
 cowplot::plot_grid(dont_predict_plots, MLU_predict_vocab, nrow=1, rel_widths = c(1,3))
@@ -741,8 +856,8 @@ cowplot::plot_grid(dont_predict_plots, MLU_predict_vocab, nrow=1, rel_widths = c
 ```
 
 ```{r variable-relationships}
-VI_cors <- cor(lotta_data %>% filter(group=="VI") %>% select(MLU,AWC,tokens,CTC,prop_CDS,TTR))
-TD_cors <- cor(lotta_data %>% filter(group=="TD") %>% select(MLU,AWC,tokens,CTC,prop_CDS,TTR))
+VI_cors <- cor(lotta_data %>% filter(group=="VI") %>% select(MLU,AWC,tokens,CTC,prop_CDS,TTR,CBOI_Mean, prop_present, prop_Visual))
+TD_cors <- cor(lotta_data %>% filter(group=="TD") %>% select(MLU,AWC,tokens,CTC,prop_CDS,TTR,CBOI_Mean, prop_present, prop_Visual))
 corrplot(VI_cors, type = "upper",method="color")
 corrplot(TD_cors, type = "lower",method="color")
 ```

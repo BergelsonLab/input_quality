@@ -1,0 +1,21 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf}
+\caption{\label{fig:quantity-plots}Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Each dot represents the estimated number of words in one child's recording.}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{input_quality_manuscript_files/figure-latex/interactiveness-plots-1.pdf}
+\caption{\label{fig:interactiveness-plots}Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Each dot represents one child's recording. The full breakdown by addressee is shown in the rightmost panel.}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{input_quality_manuscript_files/figure-latex/predicting-plots-1.pdf}
+\caption{\label{fig:predicting-plots}Plots of the relationship between the input variables and children's vocabulary outcomes (relative to the Wordbank 50th percentile.}
+\end{figure*}

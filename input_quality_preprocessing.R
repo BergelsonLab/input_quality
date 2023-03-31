@@ -19,7 +19,6 @@ CBOI_norms <- read.csv("data/CBOI_mean_sd.csv") %>%
   mutate(Word = tolower(Word))
 
 ### find + list all LENA transcripts on pn-opus
-LENA_files_list <- list.files("/Volumes/pn-opus/VIHI/SubjectFiles/LENA", pattern="*_lena.txt", full.names=TRUE, recursive = TRUE)
 TD_matches <- c("TD_443_341", "TD_444_402", "TD_445_217", "TD_447_448", "TD_449_716",
                 "TD_463_254", "TD_464_188", "TD_465_541", "TD_466_433", "TD_467_433",
                 "TD_472_829", "TD_473_844", "TD_474_966", "TD_475_481", "TD_477_217")
@@ -35,7 +34,7 @@ write.csv(LENA_counts,"data/LENA/Automated/LENA_counts.csv")
 
 ###read in data that has been mass exported via ELAN; add informative column names
 
-VITD_transcripts <- read.csv("data/VI_LENA_and_TD_matches_03-28-20232023-03-28.csv") %>% #need to re-generate transcripts
+VITD_transcripts <- read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches_03-28-20232023-03-28.csv") %>% #need to re-generate transcripts
   mutate(VIHI_ID = as.factor(str_sub(VIHI_ID,1,10))) 
 
 VITD_LENA_utterances_split <- VITD_transcripts %>%
@@ -100,12 +99,13 @@ xds_props_wide <- utterances_only %>%
             prop_ODS = sum(xds=="O")/total,
             prop_UDS = sum(xds=="U")/total,
             prop_PDS = sum(xds=="P")/total) 
+write.csv(xds_props_wide, "data/LENA/Transcripts/Derived/xds_props_wide.csv")
 xds_props <- xds_props_wide%>%
   pivot_longer(cols = prop_ADS:prop_PDS,
                names_to = "addressee",
                names_prefix = "prop_",
                values_to = "prop")
-write.csv(xds_props, "data/derived/xds_props.csv")
+write.csv(xds_props, "data/LENA/Transcripts/Derived/xds_props.csv")
 # linguistic quality ----
 ## TTR ----
 ### calculate type-token ratio in annotations
@@ -113,7 +113,7 @@ manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
   mutate(TTR = types/tokens,
          group = as.factor(str_sub(VIHI_ID, 1,2)))  %>%
   filter(group!="HI")
-write.csv(manual_word_TTR, "data/derived/manual_word_TTR.csv")
+write.csv(manual_word_TTR, "data/LENA/Transcripts/Derived/manual_word_TTR.csv")
 
 ## MLU ----
 ### get the morpheme counts for VI ----
@@ -138,18 +138,18 @@ simple_morpheme_counts <- tokenized_VITD_transcripts_with_counts %>%
 MLUs <- simple_morpheme_counts %>% 
   group_by(group, VIHI_ID) %>%
   summarise(MLU= mean(morphemecount))
-write.csv(MLUs,"data/derived/MLUs.csv")
+write.csv(MLUs,"data/LENA/Transcripts/Derived/MLUs.csv")
 
 # conceptual quality ----
 ## sensory word props ----
-sensory_props <- VITD_LENA_words %>% 
+sensory_props_wide <- VITD_LENA_words %>% 
   anti_join(stop_words, by= c("Word" = "word")) %>%
   filter(!is.na(Auditory.mean))  %>% # filter out words that don't have a perceptual rating
   mutate(Modality = case_when(Exclusivity.perceptual <= .5 ~ "Multimodal",
                               Max_strength.perceptual<3.5 ~ "Amodal",
                               Max_strength.perceptual>4  &  Exclusivity.perceptual <= .3 ~ Dominant.perceptual,
                               TRUE~Dominant.perceptual)) %>%
-  group_by(group,VIHI_ID,xds) %>% 
+  group_by(group,VIHI_ID) %>% 
   summarise(total = n(),
     prop_Auditory = sum(Modality=="Auditory")/total,
     prop_Visual = sum(Modality=="Visual")/total,
@@ -158,46 +158,51 @@ sensory_props <- VITD_LENA_words %>%
     prop_Haptic = sum(Modality=="Haptic")/total,
     prop_Interoceptive = sum(Modality=="Interoceptive")/total,
     prop_Multimodal = sum(Modality=="Multimodal")/total,
-    prop_Amodal = sum(Modality=="Amodal")/total) %>%
+    prop_Amodal = sum(Modality=="Amodal")/total) 
+write.csv(sensory_props_wide,"data/LENA/Transcripts/Derived/sensory_props_wide.csv")
+sensory_props <- sensory_props_wide%>%
   pivot_longer(cols = prop_Auditory:prop_Amodal,
                names_to = "Modality",
                names_prefix = "prop_",
                values_to = "prop") 
-write.csv(sensory_props,"data/LENA/Transcripts/sensory_props.csv")
+
+write.csv(sensory_props,"data/LENA/Transcripts/Derived/sensory_props.csv")
 
 ## tense/displacement----
 udpipe_english <- udpipe_download_model(language = "english")
 udmodel_english <- udpipe_load_model(file = udpipe_english$file_model)
 annotated_utterances <- udpipe_annotate(udmodel_english, 
                                        x = utterances_only$utterance, 
-                                       doc_id = VITD_transcripts$VIHI_ID) %>%
+                                       doc_id = utterances_only$VIHI_ID) %>%
   as.data.frame()
 
-verbs_only <- annotated_utterances %>% 
+verbs_only <- annotated_utterances %>%
   filter(xpos %in% c("VB","VBD","VBP","VBN","VBG","VBZ","AUX","MD"),
          token != "=!" &
            token != "xxx") %>%
   distinct(doc_id,paragraph_id,sentence_id, .keep_all = TRUE) %>%
   mutate(temporality = case_when(grepl('Tense=Past',feats) ~ "not_present",
-                           grepl('Mood=Imp',feats)~ "not_present",
-                           xpos=="MD" ~ "not_present",
-                           grepl('gonna',sentence) | grepl('gotta',sentence) | grepl('wanna',sentence)|grepl('going to',sentence)| grepl('got to',sentence) |grepl('want to',sentence) |grepl('have to',sentence) ~ "not_present",
-                           grepl('Mood=Ind',feats) & grepl('Tense=Pres',feats)~ "present",
-                           grepl('VerbForm=Ger',feats)  ~ "",
-                           TRUE ~ "uncategorized"))
-temporality_props <- verbs_only %>% 
+                                 grepl('Mood=Imp',feats)~ "not_present",
+                                 xpos=="MD" ~ "not_present",
+                                 grepl('gonna',sentence) | grepl('gotta',sentence) | grepl('wanna',sentence)|grepl('going to',sentence)| grepl('got to',sentence) |grepl('want to',sentence) |grepl('have to',sentence) ~ "not_present",
+                                 grepl('Mood=Ind',feats) & grepl('Tense=Pres',feats) | grepl('VerbForm=Ger',feats) ~ "present",
+                                 TRUE ~ "uncategorized"))
+temporality_props_wide <- verbs_only %>% 
   dplyr::rename(VIHI_ID = doc_id) %>%
   group_by(VIHI_ID) %>%
   summarize(verb_utt_count = n(),
             prop_past = (sum(temporality=="not_present")/verb_utt_count),
             prop_present =  (sum(temporality=="present")/verb_utt_count),
             prop_uncategorized = (sum(temporality=="uncategorized")/verb_utt_count)) %>%
+  mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
+write.csv(temporality_props_wide, "data/LENA/Transcripts/Derived/temporality_props_wide.csv")
+temporality_props <- temporality_props_wide %>%
   pivot_longer(cols = prop_past:prop_uncategorized,
                names_to = "verb_temporality",
                names_prefix = "prop_",
                values_to = "prop")
-
-## noun CBOI ----
+write.csv(temporality_props, "data/LENA/Transcripts/Derived/temporality_props.csv")
+## content word CBOI ----
 content_words_only <- annotated_utterances %>% 
   filter(upos %in% c("ADJ","ADV","NOUN","VERB")) %>%
   left_join(CBOI_norms, by=c("lemma"="Word")) %>%
@@ -205,7 +210,11 @@ content_words_only <- annotated_utterances %>%
   dplyr::rename(VIHI_ID = doc_id) %>%
   select(VIHI_ID, sentence,token,lemma,upos,CBOI_Mean) %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
-
+write.csv(content_words_only, "data/LENA/Transcripts/Derived/content_words_only.csv")
+subj_CBOI_means <- content_words_only %>% 
+  group_by(group,VIHI_ID) %>% 
+  summarise(CBOI_Mean=mean(CBOI_Mean)) 
+write.csv(subj_CBOI_means, "data/LENA/Transcripts/Derived/subj_CBOI_means.csv")
 # CDI wrangling ----
 
 #inverse logit function to calculate delay
@@ -325,23 +334,23 @@ calculate_delay = function(cdi_form, constants, verbose=F){
   assign(paste(cdi_form, "estimate_eng_gcurve", sep = "_"), new_scores, envir = .GlobalEnv)
 }
 
-calculate_delay("WG", constants_eng, verbose=T)
-calculate_delay("WS", constants_eng, verbose=T)
+# calculate_delay("WG", constants_eng, verbose=T)
+# calculate_delay("WS", constants_eng, verbose=T)
 # join the dataframes created with delay function, and adjust at the lower tails based on Wordbank %. (otherwise overestimates delay because of long tail)
-VIHI_CDI <- rbind(WG_estimate_eng, WS_estimate_eng) %>%
-  mutate(diff_age_from_expected = case_when(WordsProduced==0 ~ (age_months - 8),
-                                            WordsProduced==1 ~ (age_months - 9),
-                                            WordsProduced==2 ~ (age_months - 10),
-                                            WordsProduced==3 ~ (age_months - 11),
-                                            WordsProduced==4 ~ (age_months - 11.5),
-                                            WordsProduced==5 ~ (age_months - 12),
-                                            WordsProduced==6 ~ (age_months - 12.5),
-                                            WordsProduced==7 ~ (age_months - 12.5),
-                                            WordsProduced==12 ~ (age_months - 13.5),
-                                            WordsProduced==12 ~ (age_months - 14.5),
-                                            TRUE ~ diff_age_from_expected)) %>%
-  select(-c(Other_ID, Notes)) %>%
-  mutate(CDI_age_in_days=age,
-         CDI_age_months = age_months)
-write.csv(VIHI_CDI, "./data/CDI/Derived/VITD_CDI.csv")
+# VIHI_CDI <- rbind(WG_estimate_eng, WS_estimate_eng) %>%
+#   mutate(diff_age_from_expected = case_when(WordsProduced==0 ~ (age_months - 8),
+#                                             WordsProduced==1 ~ (age_months - 9),
+#                                             WordsProduced==2 ~ (age_months - 10),
+#                                             WordsProduced==3 ~ (age_months - 11),
+#                                             WordsProduced==4 ~ (age_months - 11.5),
+#                                             WordsProduced==5 ~ (age_months - 12),
+#                                             WordsProduced==6 ~ (age_months - 12.5),
+#                                             WordsProduced==7 ~ (age_months - 12.5),
+#                                             WordsProduced==12 ~ (age_months - 13.5),
+#                                             WordsProduced==12 ~ (age_months - 14.5),
+#                                             TRUE ~ diff_age_from_expected)) %>%
+#   select(-c(Other_ID, Notes)) %>%
+#   mutate(CDI_age_in_days=age,
+#          CDI_age_months = age_months)
+# write.csv(VIHI_CDI, "./data/CDI/Derived/VITD_CDI.csv")
 
