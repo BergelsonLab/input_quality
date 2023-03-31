@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  31 MAR 2023 19:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  31 MAR 2023 19:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -753,99 +753,81 @@ Underfull \vbox (badness 4752) has occurred while \output is active []
 \openout4 = `input_quality_manuscript.fff'.
 
 (input_quality_manuscript.fff)
-<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=72, 463
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
+74.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [12]
+<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=90, 463
 .7325pt x 313.17pt>
 File: input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf Graphi
 c file (type pdf)
 <use input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/linguistic
--plots-1.pdf  used on input line 274.
+-plots-1.pdf  used on input line 304.
 (pdftex.def)             Requested size: 463.73842pt x 313.174pt.
 
-Overfull \hbox (22.89095pt too wide) in paragraph at lines 274--275
+Overfull \hbox (22.89095pt too wide) in paragraph at lines 304--305
 [][]  
  []
 
 
-Underfull \vbox (badness 4403) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[12]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-76.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [13 <./input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>]
-<input_quality_manuscript_files/figure-latex/linguistic-plots-2.pdf, id=108, 46
-3.7325pt x 313.17pt>
-File: input_quality_manuscript_files/figure-latex/linguistic-plots-2.pdf Graphi
-c file (type pdf)
-<use input_quality_manuscript_files/figure-latex/linguistic-plots-2.pdf>
-Package pdftex.def Info: input_quality_manuscript_files/figure-latex/linguistic
--plots-2.pdf  used on input line 306.
-(pdftex.def)             Requested size: 463.73842pt x 313.174pt.
+[13]
 
-Overfull \hbox (22.89095pt too wide) in paragraph at lines 306--307
-[][]  
- []
+LaTeX Warning: Reference `fig:TTR' on page 14 undefined on input line 306.
 
-
-LaTeX Warning: Reference `fig:TTR' on page 14 undefined on input line 308.
-
-
-Underfull \vbox (badness 4673) has occurred while \output is active []
-
-[14 <./input_quality_manuscript_files/figure-latex/linguistic-plots-2.pdf>]
-<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=126, 49
+[14 <./input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>] [15
+]
+<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=121, 49
 3.845pt x 569.12625pt>
 File: input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf Graphi
 c file (type pdf)
 <use input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/conceptual
--plots-1.pdf  used on input line 322.
+-plots-1.pdf  used on input line 326.
 (pdftex.def)             Requested size: 469.75291pt x 541.3616pt.
 
-Overfull \hbox (28.90544pt too wide) in paragraph at lines 322--323
+Overfull \hbox (28.90544pt too wide) in paragraph at lines 326--327
 [][]  
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[15] [16 <./input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>
+[16] [17 <./input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>
 ]
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-352.
+356.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 <input_quality_manuscript_files/figure-latex/variable-relationships-1.pdf, id=1
-54, 306.14375pt x 320.19624pt>
+45, 306.14375pt x 320.19624pt>
 File: input_quality_manuscript_files/figure-latex/variable-relationships-1.pdf 
 Graphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/variable-relationships-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/variable-r
-elationships-1.pdf  used on input line 360.
+elationships-1.pdf  used on input line 364.
 (pdftex.def)             Requested size: 306.14766pt x 320.20033pt.
 <input_quality_manuscript_files/figure-latex/variable-relationships-2.pdf, id=1
-55, 328.22626pt x 308.15125pt>
+46, 328.22626pt x 308.15125pt>
 File: input_quality_manuscript_files/figure-latex/variable-relationships-2.pdf 
 Graphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/variable-relationships-2.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/variable-r
-elationships-2.pdf  used on input line 360.
+elationships-2.pdf  used on input line 364.
 (pdftex.def)             Requested size: 328.23045pt x 308.15518pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[17]
+[18]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[18 <./input_quality_manuscript_files/figure-latex/variable-relationships-1.pdf
+[19 <./input_quality_manuscript_files/figure-latex/variable-relationships-1.pdf
 > <./input_quality_manuscript_files/figure-latex/variable-relationships-2.pdf>]
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[19]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [20]
@@ -863,9 +845,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [24]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[25] AED endfloat: Processing end Figures and Tables [26] (./input_quality_manu
+[25]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[26] AED endfloat: Processing end Figures and Tables [27] (./input_quality_manu
 script.fff
-<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=323, 463.
+<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=314, 463.
 7325pt x 313.17pt>
 File: input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf Graphic 
 file (type pdf)
@@ -873,15 +858,15 @@ file (type pdf)
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/quantity-p
 lots-1.pdf  used on input line 5.
 (pdftex.def)             Requested size: 463.73842pt x 313.174pt.
-<input_quality_manuscript_files/figure-latex/interactiveness-plots-1.pdf, id=32
-4, 489.83pt x 203.76125pt>
+<input_quality_manuscript_files/figure-latex/interactiveness-plots-1.pdf, id=31
+5, 489.83pt x 203.76125pt>
 File: input_quality_manuscript_files/figure-latex/interactiveness-plots-1.pdf G
 raphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/interactiveness-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/interactiv
 eness-plots-1.pdf  used on input line 12.
 (pdftex.def)             Requested size: 469.76805pt x 195.4158pt.
-<input_quality_manuscript_files/figure-latex/predicting-plots-1.pdf, id=325, 41
+<input_quality_manuscript_files/figure-latex/predicting-plots-1.pdf, id=316, 41
 7.56pt x 425.59pt>
 File: input_quality_manuscript_files/figure-latex/predicting-plots-1.pdf Graphi
 c file (type pdf)
@@ -890,29 +875,29 @@ Package pdftex.def Info: input_quality_manuscript_files/figure-latex/predicting
 -plots-1.pdf  used on input line 19.
 (pdftex.def)             Requested size: 417.58444pt x 425.61491pt.
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 543.
-[27
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 547.
+[28
 
 
- <./input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>] [28 <./i
-nput_quality_manuscript_files/figure-latex/interactiveness-plots-1.pdf>] [29 <.
+ <./input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>] [29 <./i
+nput_quality_manuscript_files/figure-latex/interactiveness-plots-1.pdf>] [30 <.
 /input_quality_manuscript_files/figure-latex/predicting-plots-1.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 543.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 547.
 (./input_quality_manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 543.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 543.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 547.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 547.
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 17167 strings out of 480608
- 258808 string characters out of 5903631
+ 17164 strings out of 480608
+ 258444 string characters out of 5903631
  568742 words of memory out of 5000000
- 32532 multiletter control sequences out of 15000+600000
- 583918 words of font info for 96 fonts, out of 8000000 for 9000
+ 32527 multiletter control sequences out of 15000+600000
+ 584047 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,11n,51p,1654b,561s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,11n,51p,1654b,562s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local
 /texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2020/
 texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/local/texlive/2020/texmf-dist
@@ -923,10 +908,10 @@ b></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/lo
 cal/texlive/2020/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive
 /2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2020/texm
 f-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on input_quality_manuscript.pdf (29 pages, 450519 bytes).
+Output written on input_quality_manuscript.pdf (30 pages, 435476 bytes).
 PDF statistics:
- 477 PDF objects out of 1000 (max. 8388607)
- 409 compressed objects within 5 object streams
- 124 named destinations out of 1000 (max. 500000)
- 6297 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 468 PDF objects out of 1000 (max. 8388607)
+ 402 compressed objects within 5 object streams
+ 125 named destinations out of 1000 (max. 500000)
+ 6292 words of extra memory for PDF output out of 10000 (max. 10000000)
 

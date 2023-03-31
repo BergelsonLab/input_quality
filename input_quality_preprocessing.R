@@ -106,6 +106,7 @@ xds_props <- xds_props_wide%>%
                names_prefix = "prop_",
                values_to = "prop")
 write.csv(xds_props, "data/LENA/Transcripts/Derived/xds_props.csv")
+
 # linguistic quality ----
 ## TTR ----
 ### calculate type-token ratio in annotations
@@ -114,6 +115,7 @@ manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
          group = as.factor(str_sub(VIHI_ID, 1,2)))  %>%
   filter(group!="HI")
 write.csv(manual_word_TTR, "data/LENA/Transcripts/Derived/manual_word_TTR.csv")
+
 
 ## MLU ----
 ### get the morpheme counts for VI ----
@@ -139,6 +141,7 @@ MLUs <- simple_morpheme_counts %>%
   group_by(group, VIHI_ID) %>%
   summarise(MLU= mean(morphemecount))
 write.csv(MLUs,"data/LENA/Transcripts/Derived/MLUs.csv")
+
 
 # conceptual quality ----
 ## sensory word props ----
@@ -176,32 +179,33 @@ annotated_utterances <- udpipe_annotate(udmodel_english,
                                        doc_id = utterances_only$VIHI_ID) %>%
   as.data.frame()
 
-verbs_only <- annotated_utterances %>%
+verbs_only <- annotated_utterances %>% 
   filter(xpos %in% c("VB","VBD","VBP","VBN","VBG","VBZ","AUX","MD"),
          token != "=!" &
            token != "xxx") %>%
   distinct(doc_id,paragraph_id,sentence_id, .keep_all = TRUE) %>%
-  mutate(temporality = case_when(grepl('Tense=Past',feats) ~ "not_present",
-                                 grepl('Mood=Imp',feats)~ "not_present",
-                                 xpos=="MD" ~ "not_present",
-                                 grepl('gonna',sentence) | grepl('gotta',sentence) | grepl('wanna',sentence)|grepl('going to',sentence)| grepl('got to',sentence) |grepl('want to',sentence) |grepl('have to',sentence) ~ "not_present",
-                                 grepl('Mood=Ind',feats) & grepl('Tense=Pres',feats) | grepl('VerbForm=Ger',feats) ~ "present",
+  mutate(temporality = case_when(grepl('Tense=Past',feats) ~ "displaced",
+                                 grepl('Mood=Imp',feats)~ "displaced",
+                                 xpos=="MD" ~ "displaced",
+                                 grepl('gonna',sentence) | grepl('gotta',sentence) | grepl('wanna',sentence)|grepl('going to',sentence)| grepl('got to',sentence) |grepl('want to',sentence) |grepl('have to',sentence) |grepl('if ', sentence) ~ "displaced",
+                                 grepl('Mood=Ind',feats) & grepl('Tense=Pres',feats) |grepl('VerbForm=Ger',feats) ~ "present",
                                  TRUE ~ "uncategorized"))
 temporality_props_wide <- verbs_only %>% 
   dplyr::rename(VIHI_ID = doc_id) %>%
   group_by(VIHI_ID) %>%
   summarize(verb_utt_count = n(),
-            prop_past = (sum(temporality=="not_present")/verb_utt_count),
+            prop_displaced = (sum(temporality=="displaced")/verb_utt_count),
             prop_present =  (sum(temporality=="present")/verb_utt_count),
             prop_uncategorized = (sum(temporality=="uncategorized")/verb_utt_count)) %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
 write.csv(temporality_props_wide, "data/LENA/Transcripts/Derived/temporality_props_wide.csv")
 temporality_props <- temporality_props_wide %>%
-  pivot_longer(cols = prop_past:prop_uncategorized,
+  pivot_longer(cols = prop_displaced:prop_uncategorized,
                names_to = "verb_temporality",
                names_prefix = "prop_",
                values_to = "prop")
 write.csv(temporality_props, "data/LENA/Transcripts/Derived/temporality_props.csv")
+
 ## content word CBOI ----
 content_words_only <- annotated_utterances %>% 
   filter(upos %in% c("ADJ","ADV","NOUN","VERB")) %>%

@@ -159,7 +159,7 @@ This annotation scheme is designed to capture both utterances by the target chil
 
 Each utterance is coded for additional linguistic properties from a set of pre-determined categories. Target child utterances are coded for vocal maturity, lexical status, and multi-word status. Vocal maturity classifies utterances into the following categories: laughing; crying; canonical syllables that contain a consonant-like and vowel-like sound component, including both babbling and identifiable words; non-canonical syllables, which do not contain both consonant and vowel portions, or which do not transition between them in a speech-like way; and unsure, when the vocalization type is unclear. Each vocalization that contains canonical syllables is then coded for lexical status, either containing an identifiable lexical item or not. Finally, each utterance with a lexical item is coded for multi-word status, whether or not it contains more than one unique word type.
 
-Environmental speech from everyone else is coded for the addressee of each utterance: speech directed to a child, whether or not it is directed to the target child; adult-directed speech; speech directed to both an adult and a child; speech directed to pets or other animals; unclear addressee; or speech directed towards a recipient that doesn't fit into another category (e.g. voice control of Siri or Alexa, speech to a metaphysical entity).
+Environmental speech from everyone else is coded for the addressee of each utterance: speech directed to a child, whether or not it is directed to the target child; adult-directed speech; speech directed to both an adult and a child; speech directed to pets or other animals; speech with an unclear addressee; or speech directed towards a recipient that doesn't fit into another category (e.g. voice control of Siri or Alexa, prayer to a metaphysical entity).
 
 # Results
 
@@ -433,7 +433,6 @@ TTR_plot <-  ggplot(data = (manual_word_TTR), aes(
       "TD" = "Sighted")) +
   coord_cartesian(ylim = c(0, (max(manual_word_TTR$TTR * 1.1)))) +
   theme(text = element_text(size = 10)) 
-TTR_plot
 
 shapiro.test(manual_word_TTR$TTR)
 TTR_test <- t.test(manual_word_TTR$TTR~manual_word_TTR$group)
@@ -498,7 +497,7 @@ For our second linguistic feature, we analyzed the mean length of utterance (MLU
 
 topic diversity - <https://github.com/mind-Lab/octis> 
 sensory modality 
-tense
+temporality
 
 ```{r sensory-modality}
 
@@ -563,8 +562,9 @@ sensory_props_plot <- sensory_props %>%
 ```
 
 ```{r verb-tense}
-hereandnow_plot <- ggplot(data = temporality_props_wide, aes(
-    x = group,
+n_uncat<-sum(verbs_only$temporality == "uncategorized")
+
+hereandnow_plot <- ggplot(data = temporality_props_wide, aes(x = group,
     y = prop_present,
     color = group,
     fill = group)) +
@@ -604,7 +604,7 @@ temporality_props_plot <- temporality_props %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>% 
   group_by(group, verb_temporality) %>%
   summarise(prop = mean(prop, na.rm = TRUE)) %>%
-  ggplot(aes(fill = factor(verb_temporality, levels=c("uncategorized","past","present")),
+  ggplot(aes(fill = factor(verb_temporality, levels=c("uncategorized","displaced","present")),
                                  y = prop,
                                  x = group)) +
   geom_bar(position = "stack", stat = "identity")  +
@@ -615,13 +615,17 @@ temporality_props_plot <- temporality_props %>%
   theme(text = element_text(size = 10),
         axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_manual(name="Verb Tense",
-                    labels=c("uncategorized", "subjunctive,\nfuture, or past","present"),
+                    labels=c("uncategorized", "displaced", "present"),
                     values=c("#A5ACA5","#FFF170","#BCE784"))+
   scale_x_discrete(labels =                                                   c("VI" = "Blind", "TD" = "Sighted")) +
   xlab(NULL) 
-
-
 ```
+
+The last conceptual feature we examined is the displacement of events discussed in children's linguistic environment. That is, we tried to ascertain whether blind and sighted children receive a different amount of "here-and-now" commentary related to the events happening around them. Prior work has quantified such "here-and-nowness" by counting object presence co-occurring with a related noun label [CITE]. The audio format of our data and the coding scheme we use make it difficult to ascertain object presence, so instead of object displacement, in this analysis we will focus on temporal displacement. Notably, we are attempting to highlight semantic features of the language environment; however, given the constraints of large-scale textual analysis, we are categorizing utterances based on a combination of closely related syntactic and morphological features of verbs, since these contain time-relevant information. We recognize that these linguistic features do not perfectly align with the temporal structure of the world.
+
+We assigned each utterance a **temporality** value: utterances tagged *displaced* describe events that take place in the past, future, or irrealis space, while utterances tagged *present* describe current, ongoing events. A small amount of utterances (n = `r n_uncat`) were left *uncategorized* because they were fragments or because the automated parser failed to tag any of the relevant features. To do this, we used the udpipe package [CITE] to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection.  To be marked as present, an utterance either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g. *you talking to Papa?*). Features that could mark an utterance as displaced included past tense, imperative mood, presence of a modal, presence of *if*, or presence of *gonna*/*going to*, *have to*, *wanna*/*want to*, or *gotta*/*got to*, since these typically indicate belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance.
+
+The proportion of present versus displaced temporality did not differ between groups ().
 
 ```{r cboi}
 CBOI_plot <-

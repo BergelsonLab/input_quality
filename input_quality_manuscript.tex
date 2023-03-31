@@ -233,7 +233,7 @@ This annotation scheme is designed to capture both utterances by the target chil
 
 Each utterance is coded for additional linguistic properties from a set of pre-determined categories. Target child utterances are coded for vocal maturity, lexical status, and multi-word status. Vocal maturity classifies utterances into the following categories: laughing; crying; canonical syllables that contain a consonant-like and vowel-like sound component, including both babbling and identifiable words; non-canonical syllables, which do not contain both consonant and vowel portions, or which do not transition between them in a speech-like way; and unsure, when the vocalization type is unclear. Each vocalization that contains canonical syllables is then coded for lexical status, either containing an identifiable lexical item or not. Finally, each utterance with a lexical item is coded for multi-word status, whether or not it contains more than one unique word type.
 
-Environmental speech from everyone else is coded for the addressee of each utterance: speech directed to a child, whether or not it is directed to the target child; adult-directed speech; speech directed to both an adult and a child; speech directed to pets or other animals; unclear addressee; or speech directed towards a recipient that doesn't fit into another category (e.g.~voice control of Siri or Alexa, speech to a metaphysical entity).
+Environmental speech from everyone else is coded for the addressee of each utterance: speech directed to a child, whether or not it is directed to the target child; adult-directed speech; speech directed to both an adult and a child; speech directed to pets or other animals; speech with an unclear addressee; or speech directed towards a recipient that doesn't fit into another category (e.g.~voice control of Siri or Alexa, prayer to a metaphysical entity).
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -271,8 +271,6 @@ We next compare the number of conversational turn counts for blind and sighted c
 \hypertarget{linguistic-features}{%
 \paragraph{Linguistic Features}\label{linguistic-features}}
 
-\includegraphics{input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf}
-
 \begin{verbatim}
 ## 
 ##  Shapiro-Wilk normality test
@@ -303,7 +301,7 @@ We next compare the number of conversational turn counts for blind and sighted c
 ## W = 0.91984, p-value = 0.0302
 \end{verbatim}
 
-\includegraphics{input_quality_manuscript_files/figure-latex/linguistic-plots-2.pdf}
+\includegraphics{input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf}
 
 For linguistic features, we first measure proportion of unique words divided by the number of total words in the input, or type-token ratio, from the manual annotations. In order to compare the type-token ratio between blind and sighted children, we performed a Wilcoxon signed-rank test. The results of the Wilcoxon test indicated that there was no significant difference in the type-token ratio between the two groups (W = -1.29, p = .208). This suggests that, on average, the type-token ratio is similar for blind (M: 0.35) and sighted (M: 0.32) children (see Figure \ref{fig:TTR}). These results provide evidence that the variety of words in the input is not affected by children's vision.
 
@@ -317,7 +315,13 @@ For our second linguistic feature, we analyzed the mean length of utterance (MLU
 
 topic diversity - \url{https://github.com/mind-Lab/octis}
 sensory modality
-tense
+temporality
+
+The last conceptual feature we examined is the displacement of events discussed in children's linguistic environment. That is, we tried to ascertain whether blind and sighted children receive a different amount of ``here-and-now'' commentary related to the events happening around them. Prior work has quantified such ``here-and-nowness'' by counting object presence co-occurring with a related noun label {[}CITE{]}. The audio format of our data and the coding scheme we use make it difficult to ascertain object presence, so instead of object displacement, in this analysis we will focus on temporal displacement. Notably, we are attempting to highlight semantic features of the language environment; however, given the constraints of large-scale textual analysis, we are categorizing utterances based on a combination of closely related syntactic and morphological features of verbs, since these contain time-relevant information. We recognize that these linguistic features do not perfectly align with the temporal structure of the world.
+
+We assigned each utterance a \textbf{temporality} value: utterances tagged \emph{displaced} describe events that take place in the past, future, or irrealis space, while utterances tagged \emph{present} describe current, ongoing events. A small amount of utterances (n = 292) were left \emph{uncategorized} because they were fragments or because the automated parser failed to tag any of the relevant features. To do this, we used the udpipe package {[}CITE{]} to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, an utterance either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g.~\emph{you talking to Papa?}). Features that could mark an utterance as displaced included past tense, imperative mood, presence of a modal, presence of \emph{if}, or presence of \emph{gonna}/\emph{going to}, \emph{have to}, \emph{wanna}/\emph{want to}, or \emph{gotta}/\emph{got to}, since these typically indicate belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance.
+
+The proportion of present versus displaced temporality did not differ between groups ().
 
 \includegraphics{input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf}
 
@@ -334,21 +338,21 @@ Predict: CDI percentile \& CVC percentile
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -10.7328  -1.4163   0.6743   2.0761   5.4613 
+## -10.3779  -1.2762   0.6891   2.2429   5.4890 
 ## 
 ## Coefficients:
-##                   Estimate Std. Error t value Pr(>|t|)   
-## (Intercept)     -37.599622  11.130387  -3.378  0.00383 **
-## CDI_age_in_days   0.018543   0.004628   4.006  0.00102 **
-## MLU               4.284442   1.379581   3.106  0.00680 **
-## prop_present     20.243400  12.850881   1.575  0.13476   
+##                   Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)     -39.048910  11.140807  -3.505 0.002932 ** 
+## CDI_age_in_days   0.018359   0.004551   4.034 0.000961 ***
+## MLU               4.412389   1.375744   3.207 0.005493 ** 
+## prop_present     22.350845  12.974226   1.723 0.104210    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 4.207 on 16 degrees of freedom
+## Residual standard error: 4.153 on 16 degrees of freedom
 ##   (12 observations deleted due to missingness)
-## Multiple R-squared:  0.6832, Adjusted R-squared:  0.6237 
-## F-statistic:  11.5 on 3 and 16 DF,  p-value: 0.0002874
+## Multiple R-squared:  0.6913, Adjusted R-squared:  0.6334 
+## F-statistic: 11.94 on 3 and 16 DF,  p-value: 0.0002346
 \end{verbatim}
 
 \begin{figure}
