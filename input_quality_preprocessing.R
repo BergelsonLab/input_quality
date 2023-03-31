@@ -15,6 +15,8 @@ library(udpipe)
 
 lancaster_norms <- read.csv("data/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
   mutate(Word = tolower(Word))
+CBOI_norms <- read.csv("data/CBOI_mean_sd.csv") %>%
+  mutate(Word = tolower(Word))
 
 ### find + list all LENA transcripts on pn-opus
 LENA_files_list <- list.files("/Volumes/pn-opus/VIHI/SubjectFiles/LENA", pattern="*_lena.txt", full.names=TRUE, recursive = TRUE)
@@ -143,8 +145,9 @@ write.csv(MLUs,"data/derived/MLUs.csv")
 sensory_props <- VITD_LENA_words %>% 
   anti_join(stop_words, by= c("Word" = "word")) %>%
   filter(!is.na(Auditory.mean))  %>% # filter out words that don't have a perceptual rating
-  mutate(Modality = case_when(Max_strength.perceptual<2.5 ~ "Amodal",
-                              Exclusivity.perceptual <= .5 ~ "Multimodal",
+  mutate(Modality = case_when(Exclusivity.perceptual <= .5 ~ "Multimodal",
+                              Max_strength.perceptual<3.5 ~ "Amodal",
+                              Max_strength.perceptual>4  &  Exclusivity.perceptual <= .3 ~ Dominant.perceptual,
                               TRUE~Dominant.perceptual)) %>%
   group_by(group,VIHI_ID,xds) %>% 
   summarise(total = n(),
@@ -166,28 +169,42 @@ write.csv(sensory_props,"data/LENA/Transcripts/sensory_props.csv")
 udpipe_english <- udpipe_download_model(language = "english")
 udmodel_english <- udpipe_load_model(file = udpipe_english$file_model)
 annotated_utterances <- udpipe_annotate(udmodel_english, 
-                                       x = VITD_transcripts$utterance, 
+                                       x = utterances_only$utterance, 
                                        doc_id = VITD_transcripts$VIHI_ID) %>%
   as.data.frame()
+
 verbs_only <- annotated_utterances %>% 
-  filter(xpos %in% c("VB","VBD","VBP","VBN","VBG","VBZ")) %>%
-  mutate(tense = case_when(grepl('Tense=Past',feats) ~ "past",
-                           grepl('Tense=Pres',feats)~ "present",
-                           grepl('Mood=Imp',feats)~ "present",
+  filter(xpos %in% c("VB","VBD","VBP","VBN","VBG","VBZ","AUX","MD"),
+         token != "=!" &
+           token != "xxx") %>%
+  distinct(doc_id,paragraph_id,sentence_id, .keep_all = TRUE) %>%
+  mutate(temporality = case_when(grepl('Tense=Past',feats) ~ "not_present",
+                           grepl('Mood=Imp',feats)~ "not_present",
+                           xpos=="MD" ~ "not_present",
+                           grepl('gonna',sentence) | grepl('gotta',sentence) | grepl('wanna',sentence)|grepl('going to',sentence)| grepl('got to',sentence) |grepl('want to',sentence) |grepl('have to',sentence) ~ "not_present",
+                           grepl('Mood=Ind',feats) & grepl('Tense=Pres',feats)~ "present",
+                           grepl('VerbForm=Ger',feats)  ~ "",
                            TRUE ~ "uncategorized"))
-tense_props <- verbs_only %>% 
+temporality_props <- verbs_only %>% 
   dplyr::rename(VIHI_ID = doc_id) %>%
-  filter(tense != "uncategorized") %>%
   group_by(VIHI_ID) %>%
-  summarize(verb_count = n(),
-            prop_past = (sum(tense=="past")/verb_count),
-            prop_present =  (sum(tense=="present")/verb_count)) %>%
-  pivot_longer(cols = prop_past:prop_present,
-               names_to = "tense",
+  summarize(verb_utt_count = n(),
+            prop_past = (sum(temporality=="not_present")/verb_utt_count),
+            prop_present =  (sum(temporality=="present")/verb_utt_count),
+            prop_uncategorized = (sum(temporality=="uncategorized")/verb_utt_count)) %>%
+  pivot_longer(cols = prop_past:prop_uncategorized,
+               names_to = "verb_temporality",
                names_prefix = "prop_",
                values_to = "prop")
 
-
+## noun CBOI ----
+content_words_only <- annotated_utterances %>% 
+  filter(upos %in% c("ADJ","ADV","NOUN","VERB")) %>%
+  left_join(CBOI_norms, by=c("lemma"="Word")) %>%
+  filter(CBOI_Mean != "NA") %>% 
+  dplyr::rename(VIHI_ID = doc_id) %>%
+  select(VIHI_ID, sentence,token,lemma,upos,CBOI_Mean) %>%
+  mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
 
 # CDI wrangling ----
 

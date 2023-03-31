@@ -53,6 +53,7 @@ library(wordbankr)
 library(reshape2)
 library(profileR)
 library(lubridate)
+library(corrplot)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
@@ -397,6 +398,8 @@ addressee_props_plot <- xds_props %>%
                     labels = c("Child","Adult","Child & Adult", "Other", "Pet", "TDS", "unknown"),
                     values = c("#FF70AE","#EF233C","#FFB870","#FFF170", "#BCE784","#ade7f5","#b16fff")
                     ) +
+    geom_text(aes(label=case_when(prop>.05~round(prop,2))), 
+            position=position_stack(vjust=0.5)) +
   scale_x_discrete(
     labels = c(
       "VI" = "Blind",
@@ -514,7 +517,6 @@ For our second linguistic feature, we analyzed the mean length of utterance (MLU
 #### Conceptual Features
 
 topic diversity - <https://github.com/mind-Lab/octis> 
-adjective typicality 
 sensory modality 
 tense
 
@@ -546,27 +548,66 @@ sensory_props %>%
 ```
 
 ```{r verb-tense}
-tense_props %>%
+temporality_props %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>% 
-  group_by(group, tense) %>%
+  group_by(group, verb_temporality) %>%
   summarise(prop = mean(prop, na.rm = TRUE)) %>%
-  ggplot(aes(fill = tense,
+  ggplot(aes(fill = factor(verb_temporality, levels=c("uncategorized","past","present")),
                                  y = prop,
                                  x = group)) +
   geom_bar(position = "stack", stat = "identity")  +
-  ylab ("Proportion of verbs by tense") +
+  ylab ("Proportion of utterances\nby verb temporality") +
    geom_text(aes(label=round(prop,2)), 
             position=position_stack(vjust=0.5)) +
   theme_classic() +
   theme(text = element_text(size = 14),
         axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_manual(name="Verb Tense",
-                    values=c("#FFF170", "#BCE784"))+
+                    labels=c("present", "subjunctive,\nfuture, or past","uncategorized"),
+                    values=c("#A5ACA5","#FFF170","#BCE784"))+
   scale_x_discrete(labels =                                                   c("VI" = "Blind", "TD" = "Sighted")) +
   xlab(NULL) 
 ```
 
-
+```{r cboi}
+CBOI_plot <-
+  ggplot(data = subj_means, aes(
+    x = group,
+    y = mean,
+    color = group,
+    fill = group)) +
+    geom_jitter(width = 0.2, height = 0,alpha=.1) +
+  geom_violin(alpha = .5, trim = FALSE) +
+  theme_classic() +
+  labs(y = "Mean Child-Body-Object\nInteraction Rating (1-7)", x = NULL, element_text(size = 14)) +
+  theme(
+    legend.title = element_blank(),
+    legend.position = "none") +
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    color = 'black',
+    alpha = 0.8) +
+  geom_linerange(aes(
+    ymin = (mean(mean) - std.error(mean)),
+    ymax = (mean(mean) - std.error(mean))), color="black")+
+  scale_x_discrete(
+    labels = c(
+      "TD" = "Sighted",
+      "VI" = "Blind")) +
+  coord_cartesian(ylim = c(0, (max(subj_means$mean * 1.1)))) +
+  theme(text = element_text(size = 14),
+    axis.text.x = element_text(angle = 45, hjust = 1)) 
+CBOI_plot
+```
 
 
 
@@ -699,7 +740,12 @@ cowplot::plot_grid(dont_predict_plots, MLU_predict_vocab, nrow=1, rel_widths = c
 
 ```
 
-
+```{r variable-relationships}
+VI_cors <- cor(lotta_data %>% filter(group=="VI") %>% select(MLU,AWC,tokens,CTC,prop_CDS,TTR))
+TD_cors <- cor(lotta_data %>% filter(group=="TD") %>% select(MLU,AWC,tokens,CTC,prop_CDS,TTR))
+corrplot(VI_cors, type = "upper",method="color")
+corrplot(TD_cors, type = "lower",method="color")
+```
 
 # Discussion
 
