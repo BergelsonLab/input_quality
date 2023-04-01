@@ -54,6 +54,7 @@ library(reshape2)
 library(profileR)
 library(lubridate)
 library(corrplot)
+library(glue)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
@@ -86,6 +87,22 @@ content_words_only <- read.csv("data/LENA/Transcripts/Derived/content_words_only
 # CDI
 VIHI_CDI <- read.csv("data/CDI/Wordbank/VIHI_CDI.csv") %>% 
   dplyr::rename("CDI_age_in_days" = age)
+
+
+lotta_data <- LENA_counts %>%
+  left_join(MLUs, by="VIHI_ID")  %>%
+  left_join(manual_word_TTR, by="VIHI_ID") %>%
+  left_join(xds_props_wide %>% select(-total), by=c("VIHI_ID", "group")) %>%
+  left_join(sensory_props_wide %>% select(-total), by=c("VIHI_ID", "group"))%>% 
+  left_join(subj_CBOI_means, by=c("VIHI_ID", "group")) %>%
+  left_join(temporality_props_wide, by=c("VIHI_ID", "group")) %>%
+  mutate(ParticipantNumber = as.factor(str_sub(VIHI_ID, 1, 6))) %>%
+  mutate(LENA_age_in_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))))%>%
+  left_join(VIHI_CDI, by=c("group", "ParticipantNumber")) %>%
+  mutate(CDI_LENA_days_apart = abs(CDI_age_in_days - LENA_age_in_days),
+         group = as.factor(group)) %>%
+  arrange(CDI_LENA_days_apart) %>%
+  distinct(ParticipantNumber, .keep_all=TRUE) 
 ```
 
 ```{r get-data}
@@ -183,9 +200,11 @@ MWC_stats <- manual_word_TTR %>%
             mean = mean(tokens))
 ```
 
-We first compare the quantity of language input to blind and sighted children, using LENA's automated Adult Word Count measure. A wilcoxon rank-sum test shows that despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in language input quantity (W = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`). If we instead measure this using word counts from the transcriptions of the audio recordings, we find parallel results: blind and sighted children do not differ in language input quantity (W = `r compare_MWC$statistic`, *p* `r printp(compare_MWC$p.value, add_equals=TRUE)`); see Figure \@ref(fig:quantity-plots). 
+We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and word token count from our manual annotations. 
 
-```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Each dot represents the estimated number of words in one child's recording."}
+A wilcoxon rank-sum test shows that despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in language input quantity (W = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`). If we instead measure this using word counts from the transcriptions of the audio recordings, we find parallel results: blind and sighted children do not differ in language input quantity (W = `r compare_MWC$statistic`, *p* `r printp(compare_MWC$p.value, add_equals=TRUE)`); see Figure \@ref(fig:quantity-plots). 
+
+```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Each dot represents the estimated number of words in one child's recording.", fig.width=6,fig.height=3}
 AWC_plot <-
   ggplot(data = LENA_counts, aes(
     x = group,
@@ -261,7 +280,20 @@ manual_word_count_plot <-  ggplot(data = manual_word_TTR, aes(
   coord_cartesian(ylim = c(0, (max(manual_word_TTR$tokens * 1.1)))) +
   theme(text = element_text(size = 10)) 
 
-cowplot::plot_grid(AWC_plot, manual_word_count_plot)
+awc_manual_cor <- cor.test(lotta_data$tokens, lotta_data$AWC)
+awc_manual_plot <- ggplot(lotta_data, aes(x=tokens,y=AWC)) +
+  geom_point(aes(color=group)) +
+    scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  geom_smooth(method="lm") +
+  xlab("Adult Word Count") +
+  ylab("Word Tokens in Manual Annotations") +
+  annotate(geom="text", x=1000,y=28000,label=glue("r = {round(awc_manual_cor$estimate,2)}")) +
+  theme_classic()
+
+cowplot::plot_grid(AWC_plot, manual_word_count_plot,awc_manual_plot,rel_widths = c(1,1,1.5),nrow = 1)
 ```
 
 ### Language Input Quality
@@ -702,21 +734,6 @@ Predict: CDI percentile & CVC percentile
 ```{r predicting-plots, fig.height=6,fig.width=6,fig.cap="Plots of the relationship between the input variables and children's vocabulary outcomes (relative to the Wordbank 50th percentile."}
 VIHI_CDI <- read.csv("/Users/eec35/Desktop/Git/LENA/input_quality/data/CDI/Wordbank/VIHI_CDI.csv") %>% 
 dplyr::rename(CDI_age_in_days=age) 
-
-lotta_data <- LENA_counts %>%
-  left_join(MLUs, by="VIHI_ID")  %>%
-  left_join(manual_word_TTR, by="VIHI_ID") %>%
-  left_join(xds_props_wide %>% select(-total), by=c("VIHI_ID", "group")) %>%
-  left_join(sensory_props_wide %>% select(-total), by=c("VIHI_ID", "group"))%>% 
-  left_join(subj_CBOI_means, by=c("VIHI_ID", "group")) %>%
-  left_join(temporality_props_wide, by=c("VIHI_ID", "group")) %>%
-  mutate(ParticipantNumber = as.factor(str_sub(VIHI_ID, 1, 6))) %>%
-  mutate(LENA_age_in_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))))%>%
-  left_join(VIHI_CDI, by=c("group", "ParticipantNumber")) %>%
-  mutate(CDI_LENA_days_apart = abs(CDI_age_in_days - LENA_age_in_days),
-         group = as.factor(group)) %>%
-  arrange(CDI_LENA_days_apart) %>%
-  distinct(ParticipantNumber, .keep_all=TRUE) 
 
 predict_CDI <- lm(diff_age_from_expected ~ (CDI_age_in_days*group + tokens*group + TTR*group + CTC*group + prop_CDS*group + MLU*group + prop_present*group + prop_Visual*group + CBOI_Mean*group), data = lotta_data)
 
