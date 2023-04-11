@@ -86,6 +86,8 @@ content_words_only <- read.csv("data/LENA/Transcripts/Derived/content_words_only
 # CDI
 VIHI_CDI <- read.csv("data/CDI/Wordbank/VIHI_CDI.csv") %>% 
   dplyr::rename("CDI_age_in_days" = age)
+#demo
+VI_matches_demo <- read.csv("data/VI_matches_demo.csv")
 ```
 
 ```{r get-data}
@@ -135,7 +137,18 @@ Better understanding how perceptual and linguistic input interact and influence 
 `r LENA_counts %>% filter(group=="VI") %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristics in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI; @fenson1994] within one week of the home language recording. See XXX for sample characteristics.
 
 ```{r participant-characteristics}
-
+VI_matches_demo$MaternalEd[VI_matches_demo$MaternalEd == ""]<-"Unreported"
+VI_matches_demo$match_group[VI_matches_demo$match_group == "VI_TD"]<-"Sighted"
+VI_matches_demo$match_group[VI_matches_demo$match_group == "VI"]<-"Blind"
+VI_matches_demo$MaternalEd = factor(VI_matches_demo$MaternalEd, levels = c ("Unreported", "Some college", "Associate's degree", "Bachelor's degree", "Master's degree", "Doctoral degree (e.g. MD, PhD, JD"))
+maternal_ed_plot <- ggplot(data=VI_matches_demo, aes(fill=match_group, x=MaternalEd)) +
+  geom_bar(position="dodge") +
+  theme_classic() +
+  scale_color_manual(
+    values = c("#ade7f5", "#b16fff")) +
+  scale_fill_manual(
+    values = c("#ade7f5", "#b16fff"))
+maternal_ed_plot
 ```
 
 
