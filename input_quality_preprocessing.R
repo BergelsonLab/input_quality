@@ -29,6 +29,11 @@ LENA_counts <- read.csv("data/LENA/Automated/VIHI_its_details.csv") %>%
            VIHI_ID %in% TD_matches)
 write.csv(LENA_counts,"data/LENA/Automated/LENA_counts.csv")  
 
+## demographics
+VI_matches_demo <- read.csv("data/VIHI_corpus_demographics_deid.csv") %>%
+  filter(match_group == "VI"|
+           match_group == "VI_TD")
+write.csv(VI_matches_demo,"data/VI_matches_demo.csv") 
 
 ## Load in transcripts and automated metrics
 
