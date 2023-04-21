@@ -231,7 +231,7 @@ Environmental speech from everyone else is coded for the addressee of each utter
 
 ## Measuring Properties of Language Input
 
-We first seek to assess whether language input to blind children is categorically different from the language input to sighted children, along the dimensions of quantity, interactiveness, linguistic properties, and conceptual properties. For continuous variables, we test for group differences using xxx, and for categorical variables we test for differences with xxx.,We use non-parametric versions of these tests when a Shapiro-Wilks test indicates that the variable is not normally distributed. Because this analysis involves multiple tests of the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the conservative Bonferroni correction to set our threshold for significance (*p* = 0.05 / 8 tests = `r .05/8`).
+We first seek to assess whether language input to blind children is categorically different from the language input to sighted children, along the dimensions of quantity, interactiveness, linguistic properties, and conceptual properties. For continuous variables, we test for group differences using a t-test, and for categorical variables we use Wilcoxon signed rank tests to assess differences in the variables' relative proportion. We use non-parametric versions of these tests when a Shapiro-Wilks test indicates that the variable is not normally distributed. Because this analysis involves multiple tests of the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the conservative Bonferroni correction to set our threshold for significance (*p* = 0.05 / 8 tests = `r .05/8`).
 
 ### Language Input Quantity
 
@@ -759,8 +759,8 @@ cor_ps_TD <- corr.test(vars_for_cor_TD)$p
 
 
 ```{r compare-corrs, caption="Kendall's tau correlations for among the input variables, plotted separately for blind and sighted participants. Cells are labelled with the correlation coefficient. With an N of 15 per group, correlations above r = 0.29 are significant.", fig.height=8,fig.width=6}
-corrplot(cors_VI, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white",p.mat=cor_ps_VI, number.cex=.6,insig="n",title="Blind (N=15)")
-corrplot(cors_TD, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white",p.mat=cor_ps_VI, number.cex=.6,insig="n", title="Sighted (N=15")
+corrplot(cors_VI, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white", number.cex=.6,insig="n",title="Blind (N=15)")
+corrplot(cors_TD, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white", number.cex=.6,insig="n", title="Sighted (N=15")
 ```
 
 Lastly, we also ran an exploratory analysis testing for patterns among these measures of language input. First, we re-aggregated the language input variables such that each child had a single value for each predictor; this required calculating MLU over child rather than over speaker and giving each child's input a mean child-body-object interaction rating. Next, we generated correlation matrices separately for the blind sample and the sighted sample, using Kendall's Tau correlations; see Figure \@ref(fig:compare-corrs). We then compared correlations among variables across groups. To reiterate, this analysis is purely exploratory and descriptive in nature.
