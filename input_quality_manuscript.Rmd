@@ -58,9 +58,8 @@ library(lubridate)
 library(corrplot)
 library(psych)
 library(glue)
-library(car)
-library(MASS)
 library(Table1)
+
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
@@ -70,9 +69,25 @@ seconds_to_length <- function(seconds, format = "f", ...) {
   paste0(hour(seconds_to_period(seconds)), " hours ", minute(seconds_to_period(seconds)), " minutes")
 }
 
-report_kcorrelation  <- function(var1, var2) {    
-  results <- cor.test(var1, var2, method="k")
-  glue("*r* = {papaja::printnum(results$estimate)}, *p* {papaja::printp(results$p.value,add_equals=TRUE)}")
+compare_corrs  <- function(var1, var2) {    
+  subset_VI <- lotta_data %>% filter(group=="VI")
+subset_TD <- lotta_data %>% filter(group=="TD")  
+  correlation_blind <- cor.test(subset_VI[[var1]],subset_VI[[var2]], method="kendall")
+correlation_sighted <- cor.test(subset_TD[[var1]],subset_TD[[var2]], method="kendall")
+
+glue("*r*~blind~ = {printnum(correlation_blind$estimate)}, *p*~blind~ {papaja::printp(correlation_blind$p.value,add_equals=TRUE)}; *r*~sighted~ = {printnum(correlation_sighted$estimate)}, *p*~sighted~ {papaja::printp(correlation_sighted$p.value,add_equals=TRUE)}")
+}
+
+report_kcorrelation  <- function(var1, var2, subset=FALSE,subset_label="") {
+  if (subset == FALSE) {
+  results <- cor.test(lotta_data[[var1]], lotta_data[[var2]], method="k")
+  glue("*r* = {papaja::printnum(results$estimate)}, *p* {papaja::printp(results$p.value,add_equals=TRUE)}")}
+  else {
+    subsetted <- lotta_data %>% filter(group==subset)
+    results <- cor.test(subsetted[[var1]], subsetted[[var2]], method="k")
+    glue("*r*~{subset_label}~ = {papaja::printnum(results$estimate)}, *p*~{subset_label}~ {papaja::printp(results$p.value,add_equals=TRUE)}")
+  }
+    
 }
 
 preprocess <- FALSE
@@ -169,14 +184,7 @@ VI_matches_demo$match_group[VI_matches_demo$match_group == "VI_TD"]<-"Sighted"
 VI_matches_demo$match_group[VI_matches_demo$match_group == "VI"]<-"Blind"
 VI_matches_demo$Race[VI_matches_demo$Race == "Black or African American,White"]<- "Mixed"
 VI_matches_demo$MaternalEd = factor(VI_matches_demo$MaternalEd, levels = c ("Unreported", "Some college", "Associate's degree", "Bachelor's degree", "Master's degree", "Doctoral degree (e.g. MD, PhD, JD"))
-#maternal_ed_plot <- ggplot(data=VI_matches_demo, aes(fill=match_group, x=MaternalEd)) +
- # geom_bar(position="dodge") +
- # theme_classic() +
-  #scale_color_manual(
-  #  values = c("#ade7f5", "#b16fff")) +
- # scale_fill_manual(
-    #values = c("#ade7f5", "#b16fff"))
-#maternal_ed_plot
+
 
 demographics_table <- make.table(dat = VI_matches_demo,
                                  strat = "match_group",
@@ -186,6 +194,10 @@ demographics_table <- make.table(dat = VI_matches_demo,
                                  cont.varlist = c("Age_months", "OlderSiblings"),
                                  cont.header = c("Age in months", "Number of older siblings"),
                                  cont.rmstat = list(c("mediqr","q1q3", "count", "miss"), c("mediqr","q1q3", "count", "miss")))
+
+
+perc_random_silent<- ((VIHI_transcripts_messy %>% filter(!is.na(sampling_type) & sampling_type == "random" & is_silent=="Y") %>% nrow()) / (VIHI_transcripts_messy %>% filter(!is.na(sampling_type) & sampling_type == "random") %>% nrow()))*100
+
 ```
 
 ## Recording Procedure
@@ -198,7 +210,7 @@ Eligible families were asked to complete two surveys and complete a daylong home
 
 ## Processing
 
-Audio recordings were first processed by LENA proprietary software, creating algorithmic measures such as conversational turn counts. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. The process output a codeable ELAN file (.eaf, @ELAN). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened. Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants (FIND A WAY TO DO MATH WITH \# SEGMENTS THAT ARE SILENT) of the 2-minute coding segments contained no speech at all.
+Audio recordings were first processed by LENA proprietary software, creating algorithmic measures such as conversational turn counts. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. The process output a codeable ELAN file (.eaf, @ELAN). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened. Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants roughly `r round(perc_random_silent)`% of the 2-minute coding segments contained no speech at all.
 
 Once the randomly selected segments were annotated, we also chose to annotate 15 additional segments specifically for their high levels of speech. To select these segments of dense talk, we first conducted an automated analysis of the audio file using the voice type classifier for child-centered daylong recordings [@lavechin2020] which identified all human speech in the recording. The entire recording was then broken into 2-minute chunks marked out at zero-second timestamps (e.g. 00:02:00.000 to 00:04:00.000). Each of these chunks was then ranked highest to lowest by the total duration of speech contained within the boundaries. For our high volubility sample, we chose the highest-ranked 15 segments of each recording, excluding those that overlapped with already-coded random segments.
 
@@ -703,21 +715,14 @@ cowplot::plot_grid(visual_plot, sensory_props_plot,
                    nrow=3, rel_widths = c(1,1.5))
 ```
 
-Before turning to children's language productions, we also ran an exploratory analysis testing for patterns among these measures of language input. First, we re-aggregated the language input variables such that each child had a single value for each predictor; this required calculating MLU over child rather than over speaker and giving each child's input a mean child-body-object interaction rating. Next, we checked for associations among our language input predictor variables by running zero-order Kendall's Tau correlations; see Figure \@ref(variable-relationships). Seven out of the thirty-six variable combinations were significantly associated with each other: Adult Word Count / Conversational Turn Count (`r report_kcorrelation(lotta_data$AWC,lotta_data$CTC)`), Manual Word Count / Type-Token Ratio (`r report_kcorrelation(lotta_data$tokens,lotta_data$TTR)`), Mean Length of Utterance / Proportion of Child-Directed Speech (`r report_kcorrelation(lotta_data$MLU,lotta_data$prop_CDS)`), Proportion of Child-Directed Speech / Proportion of Temporally Displaced Verbs (`r report_kcorrelation(lotta_data$prop_CDS,lotta_data$prop_displaced)`), Mean Length of Utterance / Proportion of Temporally Displaced Verbs (`r report_kcorrelation(lotta_data$MLU,lotta_data$prop_displaced)`), Mean Length of Utterance / Proportion of Highly Visual Words (`r report_kcorrelation(lotta_data$MLU,lotta_data$prop_Visual)`), Mean Child-Body-Object Interaction Rating / Proportion of Highly Visual Words (`r report_kcorrelation(lotta_data$CBOI_Mean,lotta_data$prop_Visual)`).
+### Patterns in Language Input
 
-## Linking Language Input to Children's Expressive Language
+```{r variable-relationships, fig.cap="Kendall's Tau correlations between subject-level language input variables. Significant correlations are marked with asterisks.", fig.height=4,fig.width=6,include=FALSE}
 
-As a last analysis, we construct models connecting children's own communicative productions to properties of the language input, as measured above, in order to explore whether different properties of language input predict child language outcomes in blind vs. sighted children. We measure child language in two complementary ways: LENA-estimated child vocalization percentile expressive vocabulary percentile on the Communicative Development Inventory [CDI, @bates1994; @fenson1994].
-
-### Measuring Child Language
-
-The CDI is a parent-report measure of children's receptive and expressive vocabulary that has been used to measure language development in many cultures and developmental contexts [@frank2017], including with blind children [@campbell_submitted]. For each of the 398~Words & Gestures~-680~Words & Sentences~ words on the CDI, parents report whether their child understands and/or produces the word. We use the word production measure only, to avoid uncertainty about how parents make the "understands word" judgement and whether that differs across groups. Expressive vocabulary percentiles were then extracted from XXX. Given that the American English CDI is only normed for 8-30 months [CITE], participants younger than 8 months (n = `r lotta_data %>% filter(LENA_age_in_days < 243.334 & group=="VI") %>% nrow()`) and their sighted matches were excluded from the model predicting vocabulary percentile.
-
-In order to include all participants in this analysis, we also build a model predicting children's automatic vocal analysis (AVA) standard score, a measure that uses LENA's speech recognition to categorize and quantify the speech sounds in child vocalizations [@richards2009]. The distribution of these speech sounds is used to predict children's vocal maturity. AVA has been normed and validated for sighted, typically-developing children from two- to 48-months-old [@richards2017], correlates strongly with other measures of expressive language, demonstrates decent test-retest reliability, and has also been used in clinical settings with children with autism, children with language delays, and Deaf/Hard-of-Hearing children [@oller2010; @warren2009; @vandam2015].
-
-```{r variable-relationships, fig.cap="Kendall's Tau correlations between subject-level language input variables. Significant correlations are marked with asterisks.", fig.height=6.5,fig.width=6.5}
-vars_for_cor <- lotta_data %>%
-  select(AWC,tokens,CTC,prop_CDS,TTR,MLU,prop_displaced, CBOI_Mean, prop_Visual) %>%
+# VI
+vars_for_cor_VI <- lotta_data %>%
+  filter(group=="VI") %>%
+  dplyr::select(AWC,tokens,CTC,prop_CDS,TTR,MLU,prop_displaced, CBOI_Mean, prop_Visual) %>%
   dplyr::rename("Adult Word Count" = "AWC",
                 "Manual Word Count" = "tokens",
                 "Conversational Turn Count" = "CTC",
@@ -727,192 +732,37 @@ vars_for_cor <- lotta_data %>%
                 "Proportion of Temporally Displaced Verbs" = "prop_displaced",
                 "Mean Child-Body-Object Interaction Rating" = "CBOI_Mean",
                 "Proportion of Highly Visual Words" = "prop_Visual")
-cors <-   cor(vars_for_cor,use="na.or.complete", method="kendall")
-cor_ps <- corr.test(vars_for_cor)$p
+cors_VI <-   cor(vars_for_cor_VI,use="na.or.complete", method="kendall")
+cor_ps_VI <- corr.test(vars_for_cor_VI)$p
 
-
-corrplot(cors, type = "lower",method="color", tl.col = "black",tl.cex=.8, addCoef.col="white",p.mat=cor_ps, number.cex=.7,insig="n")
-
-```
-
-```{r productive-language-measures}
-# make a table
-```
-
-### Predicting Expressive Language
-
-
-
-We constructed three linear models, one predicting vocabulary percentile and one predicting AVA standard score, using the same model fitting procedure. We start with a model including all of our main effects-- age, group, and each of the language input variables: adult word count, manual word count, conversational turn count, proportion of child-directed speech, type-token ratio, mean length of utterance, proportion of temporally displaced verbs, mean child-body-object interaction rating for content words, and proportion of highly visual words. Next, we check the variance inflation factor for potential collinearity and remove any language input variables with a VIF > 5 [cite]. Then, we include an interaction between each of the input variables and group. To select the final model, we then use stepwise model comparison [CITE stepaic] to pare down the full. This procedure retains only the variables that significantly improve model fit based on Akaike's Information Criterion [AIC; @yamashita2007]. 
-
-For the model of AVA, prior to model comparison, we removed the proportion of visual words (VIF = 7.09). Model selection indicated that the best fitting model of AVA included main effects of Adult Word Count and MLU. This model accounted for ~30% of the variance in children's AVA standard score (report model results).
-
-For the model of CVC, to avoid collinearity, we removed conversational turn count and adult word count from the model, as the LENA algorithm uses child vocalization count and adult word count to calculate conversational turn count. Checking VIF did not indicate that it was necessary to remove any further variables. 
-
-```{r predicting-plots, fig.height=6,fig.width=6,fig.cap="Plots of the relationship between the input variables and children's vocabulary outcomes (relative to the Wordbank 50th percentile."}
-
-predict_CDI_full <- lm(diff_age_from_expected ~ AWC + CTC + prop_CDS + TTR + MLU  + prop_Visual + CBOI_Mean, data = (lotta_data %>% filter(group=="VI")))
-vif(predict_CDI_full) # remove prop_Displaced, age
-# stepAIC(predict_CDI_full) # lm(formula = AVA_standard_score ~ AWC + MLU, data = lotta_data)
-
-predict_AVA_selected <- lm(formula = AVA_standard_score ~ AWC + MLU, data = lotta_data)
-# summary(predict_AVA_selected)
-
-predict_CVC_full <- lm(CVC ~ (LENA_age_in_days + prop_CDS + TTR + MLU  + prop_displaced + prop_Visual+ CBOI_Mean), data = lotta_data)
-# stepAIC(predict_CVC_full)
-
-predict_CVC_selected <- lm(formula = CVC ~ LENA_age_in_days + MLU + prop_displaced + 
-    prop_Visual, data = lotta_data)
-# summary(predict_CVC_selected)
-
-predict_CDI_full <- lm(diff_age_from_expected ~ (LENA_age_in_days + AWC + CTC + prop_CDS + prop_Visual+ TTR + MLU  + prop_displaced + CBOI_Mean)*group, data = lotta_data)
-# vif(predict_CDI_full) # remove prop_Visual
-# stepAIC(predict_CDI_full) # 
-
-predict_AVA_selected <- lm(formula = AVA_standard_score ~ AWC + MLU, data = lotta_data)
-# summary(predict_AVA_selected)
-
-
-
-
-# # summary(predict_CDI)
-# # MASS::stepAIC(predict_CDI)
-# AIC_selected <- lm(formula = diff_age_from_expected ~ CDI_age_in_days + MLU +
-#     prop_present, data = lotta_data)
-# summary(AIC_selected)
-#
-# predict_CDI_TD <- lm(diff_age_from_expected ~  CDI_age_in_days + AWC + tokens + TTR + CTC + prop_CDS + MLU + prop_present + prop_Visual + CBOI_Mean, data = (lotta_data %>% filter(group=="TD")))
-# # car::vif(predict_CDI_TD)
-# # MASS::stepAIC(predict_CDI_TD)
-# AIC_selected_TD <- lm(formula = diff_age_from_expected ~ tokens + CTC + prop_CDS +
-#     MLU, data = (lotta_data %>% filter(group == "TD")))
-# # summary(AIC_selected_TD)
-# predict_CDI_VI <- lm(diff_age_from_expected ~ CDI_age_in_days + AWC + tokens + TTR + CTC + prop_CDS + MLU + prop_present + prop_Visual + CBOI_Mean, data = (lotta_data %>% filter(group=="VI")))
-# # MASS::stepAIC(predict_CDI_VI)
-# AIC_selected_VI <- lm(formula = diff_age_from_expected ~ AWC + CTC + prop_CDS +
-#     MLU, data = (lotta_data %>% filter(group == "VI")))
-# # summary(AIC_selected_VI)
-#
-#
-#
-# AWC_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=AWC, y=diff_age_from_expected, color=group, fill=group)) +
-#   geom_point()+
-#   geom_smooth(method="lm")+
-#   scale_color_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5")) +
-#   scale_fill_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5"))+
-#   theme_classic()+
-#   theme(legend.position = "none")+
-#   ylab(NULL)
-# TTR_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=TTR, y=diff_age_from_expected, color=group, fill=group)) +
-#   geom_point()+
-#   geom_smooth(method="lm")+
-#   scale_color_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5")) +
-#   scale_fill_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5"))+
-#   theme_classic()+
-#   theme(legend.position = "none")+
-#   ylab(NULL)
-# CTC_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CTC, y=diff_age_from_expected, color=group, fill=group)) +
-#   geom_point()+
-#   geom_smooth(method="lm")+
-#   scale_color_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5")) +
-#   scale_fill_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5"))+
-#   theme_classic()+
-#   theme(legend.position = "none")+
-#   ylab(NULL)
-# CDS_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_CDS, y=diff_age_from_expected, color=group, fill=group)) +
-#   geom_point()+
-#   geom_smooth(method="lm")+
-#   scale_color_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5")) +
-#   scale_fill_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5"))+
-#   theme_classic()+
-#   theme(legend.position = "none")+
-#   ylab(NULL)
-# visual_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_Visual, y=diff_age_from_expected, color=group, fill=group)) +
-#   geom_point()+
-#   geom_smooth(method="lm")+
-#   scale_color_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5")) +
-#   scale_fill_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5"))+
-#   theme_classic()+
-#   theme(legend.position = "none")+
-#   ylab(NULL)
-# CBOI_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CBOI_Mean, y=diff_age_from_expected, color=group, fill=group)) +
-#   geom_point()+
-#   geom_smooth(method="lm")+
-#   scale_color_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5")) +
-#   scale_fill_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5"))+
-#   theme_classic()+
-#   theme(legend.position = "none")+
-#   ylab(NULL)
-#   
-# MLU_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=MLU, y=diff_age_from_expected, color=group, fill=group)) +
-#   geom_point()+
-#   geom_smooth(method="lm")+
-#   scale_color_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5")) +
-#   scale_fill_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5"))+
-#   theme_classic()+
-#   ylab("Vocabulary Delay (months)")
-# temporality_predict_vocab <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_present, y=diff_age_from_expected, color=group, fill=group)) +
-#   geom_point()+
-#   geom_smooth(method="lm")+
-#   scale_color_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5")) +
-#   scale_fill_manual(
-#     breaks = c("TD", "VI"),
-#     labels = c("Sighted", "Blind"),
-#     values = c("#b16fff", "#ade7f5"))+
-#   theme_classic()+
-#   theme(legend.position = "none")+
-#   ylab(NULL)
-#
-# dont_predict_plots <- cowplot::plot_grid(AWC_predict_vocab, TTR_predict_vocab, CTC_predict_vocab, CDS_predict_vocab, ncol=1)
-# cowplot::plot_grid(dont_predict_plots, MLU_predict_vocab, nrow=1, rel_widths = c(1,3))
+# TD
+vars_for_cor_TD <- lotta_data %>%
+  filter(group=="TD") %>%
+  dplyr::select(AWC,tokens,CTC,prop_CDS,TTR,MLU,prop_displaced, CBOI_Mean, prop_Visual) %>%
+  dplyr::rename("Adult Word Count" = "AWC",
+                "Manual Word Count" = "tokens",
+                "Conversational Turn Count" = "CTC",
+                "Proportion of Child-Directed Speech" = "prop_CDS",
+                "Type-Token Ratio" = "TTR",
+                "Mean Length of Utterance" = "MLU",
+                "Proportion of Temporally Displaced Verbs" = "prop_displaced",
+                "Mean Child-Body-Object Interaction Rating" = "CBOI_Mean",
+                "Proportion of Highly Visual Words" = "prop_Visual")
+cors_TD <-   cor(vars_for_cor_TD,use="na.or.complete", method="kendall")
+cor_ps_TD <- corr.test(vars_for_cor_TD)$p
 
 
 ```
+
+
+```{r compare-corrs, caption="Kendall's tau correlations for among the input variables, plotted separately for blind and sighted participants. Cells are labelled with the correlation coefficient. With an N of 15 per group, correlations above r = 0.29 are significant.", fig.height=8,fig.width=6}
+corrplot(cors_VI, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white",p.mat=cor_ps_VI, number.cex=.6,insig="n",title="Blind (N=15)")
+corrplot(cors_TD, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white",p.mat=cor_ps_VI, number.cex=.6,insig="n", title="Sighted (N=15")
+```
+
+Lastly, we also ran an exploratory analysis testing for patterns among these measures of language input. First, we re-aggregated the language input variables such that each child had a single value for each predictor; this required calculating MLU over child rather than over speaker and giving each child's input a mean child-body-object interaction rating. Next, we generated correlation matrices separately for the blind sample and the sighted sample, using Kendall's Tau correlations; see Figure \@ref(fig:compare-corrs). We then compared correlations among variables across groups. To reiterate, this analysis is purely exploratory and descriptive in nature.
+
+Looking across matrices, we found similarities in how properties of children's language input patterned across groups. To highlight one of the strongest common relationships, in both samples, children who heard more adult words were involved in more conversational turns (`r compare_corrs("AWC","CTC")`) and had lower type-token ratios (`r report_kcorrelation("tokens","TTR", "VI","blind")`; `r report_kcorrelation("AWC","TTR", "TD","sighted")`).  However, we also found some differences, where associations ran in the *opposite* direction: For blind kids but not sighted kids, higher BOI ratings was associated with a greater proportion of temporally displaced verbs; for sighted kids, higher BOI was associated with *less* temporal displacement (`r compare_corrs("prop_displaced","CBOI_Mean")`). For blind kids only, proportion of child-directed speech was associated with *lower* proportion of highly visual words (`r compare_corrs("prop_CDS","prop_Visual")`).
 
 # Discussion - ignore me for now
 
@@ -924,16 +774,16 @@ Across both of measures of language input quantity, one estimated from the full 
 
 ## Interactiveness
 
-Likewise, we quantified interactiveness in two ways: through the LENA-estimated conversational turn count, and through the proportion of child-directed speech in our manual annotations. Again, we found no differences across groups in the amount of parent-child interaction. This finding runs counter to previous research; other studies report *less* interaction in dyads where the child is blind [@rowland1984; @perez-pereira2001;, @moore1994; @kekelis1984; @preisler1991; @anderson1993; @grumi2021]. Using a non-visual sampling method (i.e., audio recordings) might provide a different perspective on parent-child interactions, particularly in this population. For one thing, many of these studies [e.g., @kekelis1984; @preisler1991; @moore1994; @perez-pereira2001] involve video recordings in the child's home, with the researcher present. Like other young children, blind children distinguish between familiar individuals and strangers, and react with trepidation to the presence of a stranger [@mcrae2002; @fraiberg1975]; for blind children, this reaction may involve "quieting", wherein children cease speaking or vocalizing when they hear a new voice in the home [@mcrae2002; @fraiberg1975]. By having a researcher present during the recordings[^2] , prior research may have artificially suppressed blind children's initiation of interactions. On the other hand, even naturalistic observer-free video-recordings appear to inflate aspects of parental input, relative to daylong recordings [@bergelson2019]. Together, these factors could explain why past parent-child interaction research finds that blind children initiate less [@anderson1993; @kekelis1981; @dote-kwan1995; @troster1992], that parents do most of the talking [@kekelis1984; @anderson1993], and that there is overall less interaction [@rowland1984; @nagayoshi2017; @rogers1984; @troster1992].
+We quantified interactiveness in two ways: through the LENA-estimated conversational turn count, and through the proportion of child-directed speech in our manual annotations. Again, we found no differences across groups in the amount of parent-child interaction. This finding runs counter to previous research; other studies report *less* interaction in dyads where the child is blind [@rowland1984; @perez-pereira2001;, @moore1994; @kekelis1984; @preisler1991; @anderson1993; @grumi2021]. Using a non-visual sampling method (i.e., our audio recordings) might provide a different, more naturalistic perspective on parent-child interactions, particularly in this population. For one thing, many of these studies [e.g., @kekelis1984; @preisler1991; @moore1994; @perez-pereira2001] involve video recordings in the child's home, with the researcher present. Like other young children, blind children distinguish between familiar individuals and strangers, and react with trepidation to the presence of a stranger [@mcrae2002; @fraiberg1975]; for blind children, this reaction may involve "quieting", wherein children cease speaking or vocalizing when they hear a new voice in the home [@mcrae2002; @fraiberg1975]. By having a researcher present during the recordings[^2] , prior research may have artificially suppressed blind children's initiation of interactions. Even naturalistic observer-free video-recordings appear to inflate aspects of parental input, relative to daylong recordings [@bergelson2019]. In these cases, the video camera acts as an observer itself, making participants aware of its presence, limiting participants' mobility, and therefore shrinking the pragmatic scope of possible interactions. Together, these factors could explain why past parent-child interaction research finds that blind children initiate less [@anderson1993; @kekelis1981; @dote-kwan1995; @troster1992], that parents do most of the talking [@kekelis1984; @anderson1993], and that there is overall less interaction [@rowland1984; @nagayoshi2017; @rogers1984; @troster1992].
 
 [^2]: Fraiberg (1975) writes "these fear and avoidance behaviors appear even though the observer, a twice-monthly visitor, is not, strictly speaking, a stranger." (pg. 323).
 
-Additionally, a common trope in earlier interaction literature is to focus on visual cues of interaction, such as shared gaze or attentiveness to facial expressions [@preisler1991; @baird1997; @rogers1984]. We can't help but wonder: are visual markers of social interaction the right yardstick to measure blind children against? In line with @macleod2023, perhaps the field should move away from sighted indicators of interaction "quality", and instead try to understand try to situate blind children's interactions within their own developmental niche, one that may be better captured with auditory- or tactile-focused coding schemes.
+Additionally, a common focus in earlier interaction literature is to measure visual cues of interaction, such as shared gaze or attentiveness to facial expressions [@preisler1991; @baird1997; @rogers1984]. We can't help but wonder: are visual markers of social interaction the right yardstick to measure blind children against? In line with @macleod2023, perhaps the field should move away from sighted indicators of interaction "quality", and instead try to understand try to situate blind children's interactions within their own developmental niche, one that may be better captured with auditory- or tactile-focused coding schemes.
 
 ## Linguistic Features
 
 Along the linguistic dimension, we measured type-token ratio and mean length of utterance. Type-token ratio was similar across groups, and in line with type-token ratio in other child-centered corpora [e.g., @newman2015]. However, we found slightly but significantly higher MLU in blind children's language environment.
-Parents of children with disabilities (including parents of blind children! https://familyconnect.org/browse-by-age/infants-and-toddlers/growth-and-development-iandt/language-development/ https://www.wikihow.life/Teach-Your-Blind-or-Visually-Impaired-Child-to-Talk) are often advised to use shorter, simpler sentences with their children, in order to promote children's understanding. Yet, longer, more complex utterances are associated with better child language outcomes in both typically-developing children [@hoff2002] and children with cognitive differences [@sandbank2015].
+This finding runs counter to common advice: Parents of children with disabilities (including parents of blind children! e.g., @familyconnect; @chernyak) are often advised to use shorter, simpler sentences with their children, in order to promote children's understanding. We find instead that the language environments of blind children contain *longer* utterances, which could suggest that consciously modifying your linguistic behavior is difficult for parents. In any case, this advice is not supported by the literature: evidence suggests that longer, more complex utterances are associated with better child language outcomes in both typically-developing children [@hoff2002] and children with cognitive differences [@sandbank2015]. While  
 
 ## Conceptual Features
 
@@ -947,7 +797,7 @@ One explanation for the minimal differences between blind and sighted children's
 
 The small differences in linguistic input might also be accentuated by differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example, [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect. also @baird1997 (N=7, parents interpret behaviors differently)
 
-## Predicting Expressive Outcomes
+## Patterns in Language Input
 
 ```{r trackdown}
 # trackdown::update_file(file="input_quality_manuscript.Rmd",gpath="trackdown/input_quality",hide_code=TRUE, path_output = "input_quality_manuscript.pdf")
