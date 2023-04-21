@@ -55,10 +55,10 @@ VITD_LENA_words <- VITD_LENA_utterances_split %>%
                names_to = "utt_loc",
                #create another column that gives the location within utterance (ex:Word2)
                values_to = "Word") %>%
-  select(VIHI_ID, group, speaker, xds, uttnum, utt_loc, Word) %>%
+  dplyr::select(VIHI_ID, group, speaker, xds, uttnum, utt_loc, Word) %>%
   filter(!is.na(Word)) %>%#filter out blank rows
   left_join(lancaster_norms) %>% # join with lancaster norms
-  select(Word,
+  dplyr::select(Word,
          VIHI_ID,
          group,
          Auditory.mean:Dominant.sensorimotor,
@@ -137,9 +137,9 @@ tokenized_VITD_transcripts_with_counts <- tokenized_VITD_transcripts %>%
   mutate(utt_num = 1:nrow(tokenized_VITD_transcripts))
 
 simple_morpheme_counts <- tokenized_VITD_transcripts_with_counts %>% 
-  select(-group, -code) %>%
+  dplyr::select(-group, -code) %>%
   left_join(utterances_only) %>%
-  select(VIHI_ID, utt_num, speaker, xds, utterance, morphemecount) %>%
+  dplyr::select(VIHI_ID, utt_num, speaker, xds, utterance, morphemecount) %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
 
 MLUs <- simple_morpheme_counts %>% 
@@ -183,6 +183,7 @@ annotated_utterances <- udpipe_annotate(udmodel_english,
                                        x = utterances_only$utterance, 
                                        doc_id = utterances_only$VIHI_ID) %>%
   as.data.frame()
+write.csv(annotated_utterances, "data/LENA/Transcripts/Derived/annotated_utterances.csv")
 
 verbs_only <- annotated_utterances %>% 
   filter(xpos %in% c("VB","VBD","VBP","VBN","VBG","VBZ","AUX","MD"),
@@ -195,6 +196,7 @@ verbs_only <- annotated_utterances %>%
                                  grepl('gonna',sentence) | grepl('gotta',sentence) | grepl('wanna',sentence)|grepl('going to',sentence)| grepl('got to',sentence) |grepl('want to',sentence) |grepl('have to',sentence) |grepl('if ', sentence) ~ "displaced",
                                  grepl('Mood=Ind',feats) & grepl('Tense=Pres',feats) |grepl('VerbForm=Ger',feats) ~ "present",
                                  TRUE ~ "uncategorized"))
+write.csv(verbs_only, "data/LENA/Transcripts/Derived/verbs_only.csv")
 temporality_props_wide <- verbs_only %>% 
   dplyr::rename(VIHI_ID = doc_id) %>%
   group_by(VIHI_ID) %>%
@@ -217,16 +219,10 @@ content_words_only <- annotated_utterances %>%
   left_join(CBOI_norms, by=c("lemma"="Word")) %>%
   filter(CBOI_Mean != "NA") %>% 
   dplyr::rename(VIHI_ID = doc_id) %>%
-  select(VIHI_ID, sentence,token,lemma,upos,CBOI_Mean) %>%
+  dplyr::select(VIHI_ID, sentence,token,lemma,upos,CBOI_Mean) %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
 write.csv(content_words_only, "data/LENA/Transcripts/Derived/content_words_only.csv")
 subj_CBOI_means <- content_words_only %>% 
   group_by(group,VIHI_ID) %>% 
   summarise(CBOI_Mean=mean(CBOI_Mean)) 
 write.csv(subj_CBOI_means, "data/LENA/Transcripts/Derived/subj_CBOI_means.csv")
-# CDI wrangling ----
-
-#   mutate(CDI_age_in_days=age,
-#          CDI_age_months = age_months)
-# write.csv(VIHI_CDI, "./data/CDI/Derived/VITD_CDI.csv")
-
