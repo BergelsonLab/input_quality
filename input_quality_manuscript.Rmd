@@ -68,9 +68,25 @@ seconds_to_length <- function(seconds, format = "f", ...) {
   paste0(hour(seconds_to_period(seconds)), " hours ", minute(seconds_to_period(seconds)), " minutes")
 }
 
-report_kcorrelation  <- function(var1, var2) {    
-  results <- cor.test(var1, var2, method="k")
-  glue("*r* = {papaja::printnum(results$estimate)}, *p* {papaja::printp(results$p.value,add_equals=TRUE)}")
+compare_corrs  <- function(var1, var2) {    
+  subset_VI <- lotta_data %>% filter(group=="VI")
+subset_TD <- lotta_data %>% filter(group=="TD")  
+  correlation_blind <- cor.test(subset_VI[[var1]],subset_VI[[var2]], method="kendall")
+correlation_sighted <- cor.test(subset_TD[[var1]],subset_TD[[var2]], method="kendall")
+
+glue("*r*~blind~ = {printnum(correlation_blind$estimate)}, *p*~blind~ {papaja::printp(correlation_blind$p.value,add_equals=TRUE)}; *r*~sighted~ = {printnum(correlation_sighted$estimate)}, *p*~sighted~ {papaja::printp(correlation_sighted$p.value,add_equals=TRUE)}")
+}
+
+report_kcorrelation  <- function(var1, var2, subset=FALSE,subset_label="") {
+  if (subset == FALSE) {
+  results <- cor.test(lotta_data[[var1]], lotta_data[[var2]], method="k")
+  glue("*r* = {papaja::printnum(results$estimate)}, *p* {papaja::printp(results$p.value,add_equals=TRUE)}")}
+  else {
+    subsetted <- lotta_data %>% filter(group==subset)
+    results <- cor.test(subsetted[[var1]], subsetted[[var2]], method="k")
+    glue("*r*~{subset_label}~ = {papaja::printnum(results$estimate)}, *p*~{subset_label}~ {papaja::printp(results$p.value,add_equals=TRUE)}")
+  }
+    
 }
 
 preprocess <- FALSE
@@ -174,6 +190,8 @@ maternal_ed_plot <- ggplot(data=VI_matches_demo, aes(fill=match_group, x=Materna
   scale_fill_manual(
     values = c("#ade7f5", "#b16fff"))
 maternal_ed_plot
+
+perc_random_silent<- ((VIHI_transcripts_messy %>% filter(!is.na(sampling_type) & sampling_type == "random" & is_silent=="Y") %>% nrow()) / (VIHI_transcripts_messy %>% filter(!is.na(sampling_type) & sampling_type == "random") %>% nrow()))*100
 ```
 
 ## Recording Procedure
@@ -182,7 +200,7 @@ Eligible families were asked to complete two surveys and complete a daylong home
 
 ## Processing
 
-Audio recordings were first processed by LENA proprietary software, creating algorithmic measures such as conversational turn counts. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. The process output a codeable ELAN file (.eaf, @ELAN). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened. Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants (FIND A WAY TO DO MATH WITH \# SEGMENTS THAT ARE SILENT) of the 2-minute coding segments contained no speech at all.
+Audio recordings were first processed by LENA proprietary software, creating algorithmic measures such as conversational turn counts. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. The process output a codeable ELAN file (.eaf, @ELAN). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened. Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants roughly `r round(perc_random_silent)`% of the 2-minute coding segments contained no speech at all.
 
 Once the randomly selected segments were annotated, we also chose to annotate 15 additional segments specifically for their high levels of speech. To select these segments of dense talk, we first conducted an automated analysis of the audio file using the voice type classifier for child-centered daylong recordings [@lavechin2020] which identified all human speech in the recording. The entire recording was then broken into 2-minute chunks marked out at zero-second timestamps (e.g. 00:02:00.000 to 00:04:00.000). Each of these chunks was then ranked highest to lowest by the total duration of speech contained within the boundaries. For our high volubility sample, we chose the highest-ranked 15 segments of each recording, excluding those that overlapped with already-coded random segments.
 
@@ -689,7 +707,7 @@ cowplot::plot_grid(visual_plot, sensory_props_plot,
 
 ### Patterns in Language Input
 
-```{r variable-relationships, fig.cap="Kendall's Tau correlations between subject-level language input variables. Significant correlations are marked with asterisks.", fig.height=5,fig.width=6,include=FALSE}
+```{r variable-relationships, fig.cap="Kendall's Tau correlations between subject-level language input variables. Significant correlations are marked with asterisks.", fig.height=4,fig.width=6,include=FALSE}
 
 # VI
 vars_for_cor_VI <- lotta_data %>%
@@ -706,9 +724,6 @@ vars_for_cor_VI <- lotta_data %>%
                 "Proportion of Highly Visual Words" = "prop_Visual")
 cors_VI <-   cor(vars_for_cor_VI,use="na.or.complete", method="kendall")
 cor_ps_VI <- corr.test(vars_for_cor_VI)$p
-
-
-associations_VI <- corrplot(cors_VI, type = "lower",method="color", tl.col = "black",tl.cex=.8, addCoef.col="white",p.mat=cor_ps_VI, number.cex=.7,insig="n")
 
 # TD
 vars_for_cor_TD <- lotta_data %>%
@@ -727,42 +742,17 @@ cors_TD <-   cor(vars_for_cor_TD,use="na.or.complete", method="kendall")
 cor_ps_TD <- corr.test(vars_for_cor_TD)$p
 
 
-associations_TD <- corrplot(cors_TD, type = "lower",method="color", tl.col = "black",tl.cex=.8, addCoef.col="white",p.mat=cor_ps_VI, number.cex=.7,insig="n")
-
-# write function for testing difference between correlations
-
-compare_corrs <- function(var1, var2) {
-subset_VI <- lotta_data %>% filter(group=="VI")
-subset_TD <- lotta_data %>% filter(group=="TD")  
-  correlation1 <- cor.test(subset_VI[[var1]],subset_VI[[var2]], method="kendall")
-correlation2 <- cor.test(subset_TD[[var1]],subset_TD[[var2]], method="kendall")
-diff_test <-  cocor.indep.groups(r1=correlation1$estimate, r2=correlation2$estimate, n1=15, n2=15, alternative="two.sided", alpha=0.05, conf.level=0.95, null.value=0)
-
-glue("*r*~blind~ = {printnum(correlation1$estimate)}, *r*~sighted~ = {printnum(correlation2$estimate)}, z = {papaja::printnum(diff_test@fisher1925[['statistic']])}, *p* {papaja::printp(diff_test@fisher1925[['p.value']],add_equals = TRUE)}")
-
-}
-
 ```
 
 
-```{r compare-corrs, include=FALSE}
-matrix_comparison <- cortest.jennrich(cors_VI,cors_TD,n1=15, n2=15)
-par(mfrow=c(2,1))
-associations_VI
-associations_TD
+```{r compare-corrs, caption="Kendall's tau correlations for among the input variables, plotted separately for blind and sighted participants. Cells are labelled with the correlation coefficient. With an N of 15 per group, correlations above r = 0.29 are significant.", fig.height=8,fig.width=6}
+corrplot(cors_VI, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white",p.mat=cor_ps_VI, number.cex=.6,insig="n",title="Blind (N=15)")
+corrplot(cors_TD, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white",p.mat=cor_ps_VI, number.cex=.6,insig="n", title="Sighted (N=15")
 ```
-Lastly, we also ran an exploratory analysis testing for patterns among these measures of language input. First, we re-aggregated the language input variables such that each child had a single value for each predictor; this required calculating MLU over child rather than over speaker and giving each child's input a mean child-body-object interaction rating. Next, we generated correlation matrices separately for the blind sample and the sighted sample, using Kendall's Tau correlations; see Figure \@ref(variable-relationships). We then compared correlations among variables across groups using Fisher's z test. To reiterate, this analysis is purely exploratory and descriptive in nature.
 
-Looking across matrices, we found many similarities in how properties of children's language input patterned across groups. To highlight a few, in both samples, children who heard more adult words were involved in more conversational turns (`r compare_corrs("AWC","CTC")`), heard more child-directed speech were involved in more conversational turns (`r compare_corrs("prop_CDS","CTC")`), heard more adult words had a lower type-token ratio (`r compare_corrs("AWC","TTR")`), heard more highly visual words had higher BOI ratings (`r compare_corrs("prop_Visual","CBOI_Mean")`).
-However, we also found some differences, where associations ran in the *opposite* direction:
-- for blind kids but not sighted kids, higher conversational turns was associated with lower type-token ratio (`r compare_corrs("AWC","CTC")`)
-- for blind kids but not sighted kids, higher BOI ratings was associated with a greater proportion of temporally displaced verbs (`r compare_corrs("prop_displaced","CBOI_Mean")`)
-- for blind kids but not sighted kids, proportion of child-directed speech was associated with lower proportion of highly visual words (`r compare_corrs("prop_CDS","prop_Visual")`)
+Lastly, we also ran an exploratory analysis testing for patterns among these measures of language input. First, we re-aggregated the language input variables such that each child had a single value for each predictor; this required calculating MLU over child rather than over speaker and giving each child's input a mean child-body-object interaction rating. Next, we generated correlation matrices separately for the blind sample and the sighted sample, using Kendall's Tau correlations; see Figure \@ref(fig:compare-corrs). We then compared correlations among variables across groups. To reiterate, this analysis is purely exploratory and descriptive in nature.
 
-
-We then test whether these correlation matrices are significantly different from each other using the Jennrich test for matrix equality. We find that these (this magnitude of difference would be significant at a sample size of 29 per group).
-
-
+Looking across matrices, we found similarities in how properties of children's language input patterned across groups. To highlight one of the strongest common relationships, in both samples, children who heard more adult words were involved in more conversational turns (`r compare_corrs("AWC","CTC")`) and had lower type-token ratios (`r report_kcorrelation("tokens","TTR", "VI","blind")`; `r report_kcorrelation("AWC","TTR", "TD","sighted")`).  However, we also found some differences, where associations ran in the *opposite* direction: For blind kids but not sighted kids, higher BOI ratings was associated with a greater proportion of temporally displaced verbs; for sighted kids, higher BOI was associated with *less* temporal displacement (`r compare_corrs("prop_displaced","CBOI_Mean")`). For blind kids only, proportion of child-directed speech was associated with *lower* proportion of highly visual words (`r compare_corrs("prop_CDS","prop_Visual")`).
 
 # Discussion - ignore me for now
 
@@ -774,16 +764,16 @@ Across both of measures of language input quantity, one estimated from the full 
 
 ## Interactiveness
 
-Likewise, we quantified interactiveness in two ways: through the LENA-estimated conversational turn count, and through the proportion of child-directed speech in our manual annotations. Again, we found no differences across groups in the amount of parent-child interaction. This finding runs counter to previous research; other studies report *less* interaction in dyads where the child is blind [@rowland1984; @perez-pereira2001;, @moore1994; @kekelis1984; @preisler1991; @anderson1993; @grumi2021]. Using a non-visual sampling method (i.e., audio recordings) might provide a different perspective on parent-child interactions, particularly in this population. For one thing, many of these studies [e.g., @kekelis1984; @preisler1991; @moore1994; @perez-pereira2001] involve video recordings in the child's home, with the researcher present. Like other young children, blind children distinguish between familiar individuals and strangers, and react with trepidation to the presence of a stranger [@mcrae2002; @fraiberg1975]; for blind children, this reaction may involve "quieting", wherein children cease speaking or vocalizing when they hear a new voice in the home [@mcrae2002; @fraiberg1975]. By having a researcher present during the recordings[^2] , prior research may have artificially suppressed blind children's initiation of interactions. On the other hand, even naturalistic observer-free video-recordings appear to inflate aspects of parental input, relative to daylong recordings [@bergelson2019]. Together, these factors could explain why past parent-child interaction research finds that blind children initiate less [@anderson1993; @kekelis1981; @dote-kwan1995; @troster1992], that parents do most of the talking [@kekelis1984; @anderson1993], and that there is overall less interaction [@rowland1984; @nagayoshi2017; @rogers1984; @troster1992].
+We quantified interactiveness in two ways: through the LENA-estimated conversational turn count, and through the proportion of child-directed speech in our manual annotations. Again, we found no differences across groups in the amount of parent-child interaction. This finding runs counter to previous research; other studies report *less* interaction in dyads where the child is blind [@rowland1984; @perez-pereira2001;, @moore1994; @kekelis1984; @preisler1991; @anderson1993; @grumi2021]. Using a non-visual sampling method (i.e., our audio recordings) might provide a different, more naturalistic perspective on parent-child interactions, particularly in this population. For one thing, many of these studies [e.g., @kekelis1984; @preisler1991; @moore1994; @perez-pereira2001] involve video recordings in the child's home, with the researcher present. Like other young children, blind children distinguish between familiar individuals and strangers, and react with trepidation to the presence of a stranger [@mcrae2002; @fraiberg1975]; for blind children, this reaction may involve "quieting", wherein children cease speaking or vocalizing when they hear a new voice in the home [@mcrae2002; @fraiberg1975]. By having a researcher present during the recordings[^2] , prior research may have artificially suppressed blind children's initiation of interactions. Even naturalistic observer-free video-recordings appear to inflate aspects of parental input, relative to daylong recordings [@bergelson2019]. In these cases, the video camera acts as an observer itself, making participants aware of its presence, limiting participants' mobility, and therefore shrinking the pragmatic scope of possible interactions. Together, these factors could explain why past parent-child interaction research finds that blind children initiate less [@anderson1993; @kekelis1981; @dote-kwan1995; @troster1992], that parents do most of the talking [@kekelis1984; @anderson1993], and that there is overall less interaction [@rowland1984; @nagayoshi2017; @rogers1984; @troster1992].
 
 [^2]: Fraiberg (1975) writes "these fear and avoidance behaviors appear even though the observer, a twice-monthly visitor, is not, strictly speaking, a stranger." (pg. 323).
 
-Additionally, a common trope in earlier interaction literature is to focus on visual cues of interaction, such as shared gaze or attentiveness to facial expressions [@preisler1991; @baird1997; @rogers1984]. We can't help but wonder: are visual markers of social interaction the right yardstick to measure blind children against? In line with @macleod2023, perhaps the field should move away from sighted indicators of interaction "quality", and instead try to understand try to situate blind children's interactions within their own developmental niche, one that may be better captured with auditory- or tactile-focused coding schemes.
+Additionally, a common focus in earlier interaction literature is to measure visual cues of interaction, such as shared gaze or attentiveness to facial expressions [@preisler1991; @baird1997; @rogers1984]. We can't help but wonder: are visual markers of social interaction the right yardstick to measure blind children against? In line with @macleod2023, perhaps the field should move away from sighted indicators of interaction "quality", and instead try to understand try to situate blind children's interactions within their own developmental niche, one that may be better captured with auditory- or tactile-focused coding schemes.
 
 ## Linguistic Features
 
 Along the linguistic dimension, we measured type-token ratio and mean length of utterance. Type-token ratio was similar across groups, and in line with type-token ratio in other child-centered corpora [e.g., @newman2015]. However, we found slightly but significantly higher MLU in blind children's language environment.
-Parents of children with disabilities (including parents of blind children! https://familyconnect.org/browse-by-age/infants-and-toddlers/growth-and-development-iandt/language-development/ https://www.wikihow.life/Teach-Your-Blind-or-Visually-Impaired-Child-to-Talk) are often advised to use shorter, simpler sentences with their children, in order to promote children's understanding. Yet, longer, more complex utterances are associated with better child language outcomes in both typically-developing children [@hoff2002] and children with cognitive differences [@sandbank2015].
+This finding runs counter to common advice: Parents of children with disabilities (including parents of blind children! e.g., @familyconnect; @chernyak) are often advised to use shorter, simpler sentences with their children, in order to promote children's understanding. We find instead that the language environments of blind children contain *longer* utterances, which could suggest that consciously modifying your linguistic behavior is difficult for parents. In any case, this advice is not supported by the literature: evidence suggests that longer, more complex utterances are associated with better child language outcomes in both typically-developing children [@hoff2002] and children with cognitive differences [@sandbank2015]. While  
 
 ## Conceptual Features
 
