@@ -171,8 +171,17 @@ maternal_ed_plot <- ggplot(data=VI_matches_demo, aes(fill=match_group, x=Materna
   scale_color_manual(
     values = c("#ade7f5", "#b16fff")) +
   scale_fill_manual(
-    values = c("#ade7f5", "#b16fff"))
-maternal_ed_plot
+    values = c("#ade7f5", "#b16fff")) +
+  labs(y = "Participants", x = "Maternal education level", fill="Group", element_text(size = 10)) +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+
+race_breakdown_plot <- ggplot(data=VI_matches_demo, aes(fill=Race, x= match_group)) +
+  geom_bar(position = "stack", stat = "identity") +
+  scale_fill_manual(name = "Race",
+                    values = c("#FF70AE","#EF233C","#FFB870","#FFF170", "#BCE784","#ade7f5","#b16fff"))+
+  theme_classic()
+
+
 ```
 
 ## Recording Procedure
