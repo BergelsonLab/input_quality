@@ -114,7 +114,7 @@ VIHI_CDI <- read.csv("data/CDI/Wordbank/VIHI_CDI_wb.csv") %>%
   dplyr::rename("CDI_age_in_days" = age)
 #demo
 VI_matches_demo <- read.csv("data/VI_matches_demo.csv")
-
+VIHI_transcripts_messy <- read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches_messy2023-04-21.csv")
 
 lotta_data <- LENA_counts %>%
   left_join(MLUs, by="VIHI_ID")  %>%
@@ -176,24 +176,31 @@ Better understanding how sensory perception and linguistic input interact to inf
 
 ## Participants
 
-`r LENA_counts %>% filter(group=="VI") %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristic in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI, @fenson1994] within one week of the home language recording. See XXX for sample characteristics.
+`r LENA_counts %>% filter(group=="VI") %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristic in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI, @fenson1994] within one week of the home language recording. See Table \@ref(tab: participant-characteristics) for sample characteristics.
 
-```{r participant-characteristics}
-VI_matches_demo[VI_matches_demo == ""]<-"Unreported"
-VI_matches_demo$match_group[VI_matches_demo$match_group == "VI_TD"]<-"Sighted"
-VI_matches_demo$match_group[VI_matches_demo$match_group == "VI"]<-"Blind"
-VI_matches_demo$Race[VI_matches_demo$Race == "Black or African American,White"]<- "Mixed"
-VI_matches_demo$MaternalEd = factor(VI_matches_demo$MaternalEd, levels = c ("Unreported", "Some college", "Associate's degree", "Bachelor's degree", "Master's degree", "Doctoral degree (e.g. MD, PhD, JD"))
+```{r participant-characteristics, results="asis"}
+VI_matches_demo <- VI_matches_demo %>% 
+  mutate(match_group = as.factor(case_when(
+    match_group == "VI_TD" ~ "Sighted",
+    match_group == "VI" ~ "Blind",
+    TRUE ~ match_group
+  )),
+  Race = if_else(Race == "Black or African American,White", "Mixed", Race),
+  MaternalEd = factor(MaternalEd, levels = c(
+    "Unreported", "Some college", "Associate's degree",
+    "Bachelor's degree", "Master's degree",
+    "Doctoral degree (e.g. MD, PhD, JD)"
+  ))
+)
 
-
-demographics_table <- make.table(dat = VI_matches_demo,
+make.table(dat = VI_matches_demo,
                                  strat = "match_group",
                                  cat.varlist = c("Gender", "MaternalEd", "Diagnosis", "Race", "Ethnicity"),
                                  cat.header = c("Gender", "Maternal education level", "Vision diagnosis", "Race", "Ethnicity"),
                                  cat.rmstat = list(c("row", "count", "miss"), c("row", "count", "miss"), c("row", "count", "miss"), c("row", "count", "miss"), c("row", "count", "miss")),
                                  cont.varlist = c("Age_months", "OlderSiblings"),
                                  cont.header = c("Age in months", "Number of older siblings"),
-                                 cont.rmstat = list(c("mediqr","q1q3", "count", "miss"), c("mediqr","q1q3", "count", "miss")))
+                                 cont.rmstat = list(c("mediqr","q1q3", "count", "miss"), c("mediqr","q1q3", "count", "miss")), output = "latex")
 
 
 perc_random_silent<- ((VIHI_transcripts_messy %>% filter(!is.na(sampling_type) & sampling_type == "random" & is_silent=="Y") %>% nrow()) / (VIHI_transcripts_messy %>% filter(!is.na(sampling_type) & sampling_type == "random") %>% nrow()))*100
@@ -204,13 +211,9 @@ perc_random_silent<- ((VIHI_transcripts_messy %>% filter(!is.na(sampling_type) &
 
 Eligible families were asked to complete two surveys and complete a daylong home language recording. For the recording portion of the study, caregivers of participating infants received a LENA wearable audio recorder [@ganek2016] and vest. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off after 16 hours (setting vest nearby during bath, nap, and car times). They were also instructed how to pause the recording at any time, but asked to keep these pauses to a minimum. Actual recording length ranged from `r seconds_to_length(min(LENA_counts$total_time_dur))` to `r seconds_to_length(max(LENA_counts$total_time_dur))` (`r seconds_to_length(mean(LENA_counts$total_time_dur, na.rm=TRUE))`).
 
-```{r}
-
-```
-
 ## Processing
 
-Audio recordings were first processed by LENA proprietary software, creating algorithmic measures such as conversational turn counts. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. The process output a codeable ELAN file (.eaf, @ELAN). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened. Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants roughly `r round(perc_random_silent)`% of the 2-minute coding segments contained no speech at all.
+Audio recordings were first processed by LENA proprietary software, creating algorithmic measures such as conversational turn counts. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. The process output a codeable ELAN file (.eaf, @ELAN). Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context marked out preceding the annotation clip and 1 minute of additional context following the annotation clip. Each file therefore contains 30 minutes of coded recording time and 75 minutes of total time listened. Because these segments were sampled randomly, and not on a high-volubility measure such as conversational turns or adult speech density, the amount of time with codeable speech input varied for each recording. Indeed, across participants roughly `r round(perc_random_silent)`% of the random 2-minute coding segments contained no speech at all.
 
 Once the randomly selected segments were annotated, we also chose to annotate 15 additional segments specifically for their high levels of speech. To select these segments of dense talk, we first conducted an automated analysis of the audio file using the voice type classifier for child-centered daylong recordings [@lavechin2020] which identified all human speech in the recording. The entire recording was then broken into 2-minute chunks marked out at zero-second timestamps (e.g. 00:02:00.000 to 00:04:00.000). Each of these chunks was then ranked highest to lowest by the total duration of speech contained within the boundaries. For our high volubility sample, we chose the highest-ranked 15 segments of each recording, excluding those that overlapped with already-coded random segments.
 
@@ -786,34 +789,20 @@ Along the linguistic dimension, we measured type-token ratio and mean length of 
 
 ## Conceptual Features
 
-slipperiest
+The conceptual features of language input feel slipperiest to operationalize. For this analysis, we chose to capture *here-and-now*-ness by measuring the proportion of temporally displaced verbs, the distribution of high vs. low child-body-object interaction ratings for content words, and the proportion of highly visual words. Relative to other aspects of language input, the conceptual dimension seemed to vary most across groups: though blind and sighted participants were exposed to a similar proportion of highly visual words, blind children heard more displaced verbs and their content words were distributed slightly more to the not-interactable side of the child-body-object interaction ratings.
 
-
-For this analysis, we chose to capture *here-and-now*-ness by measuring the proportion of temporally displaced verbs, the distribution of high vs. low child-body-object interaction ratings for content words, and the proportion of highly visual words. 
-
-
-@moore1994 (n=8, "visited at home at around 18 months of age and videorecordings were made of each child interacting with a familiar caretaker" "A few minutes warm-up was given before the video-camera was switched on. The parents did not appear to be inhibited by the presence of the camera and most reported subsequently that they forgot about it very quickly.") -- MORE DISPLACED LANGUAGE / also less child-initiation @kekelis1984 (N=6) LESS DISPLACED LANGUAGE
-
-
-
-
-One explanation for the minimal differences between blind and sighted children's language environments is parents' ability to assess their children's engagement and cognitive level, and thereby tailor their speech accordingly. Sighted parents may be unfamiliar with blind children's signals of interest [@perez-pereira1999], and as a result, may respond less often to infants' vocalizations and bids for communication [@rowland1984], instead defaulting to more adultlike language. 
-
-
+Furthermore, our exploratory analysis points to potential group differences in the *context* of conceptual information. Blind children's proportion of temporally displaced verbs was inversely correlated with their mean child-body-object interaction rating, whereas sighted children showed the reverse relationship. Could this suggest that when sighted children hear about words that are perceivable or manipulable, it tends to be in the context of co-present objects / events, but when blind children hear  about things that can be interacted with, it tends to be related to past/future events? Additionally, while we found that overall, blind and sighted children hear a similar proportion of highly visual words (blue, mirror, rainbow, see), blind children (but not sighted children) who receive *more* child-directed speech seem to receive *less* of this highly visual language. Our present analyses can only hint at potential relationships between these variables at the child level, but as more dense annotation becomes available, we can explore the social and environmental context of conceptual information as it unfolds across discourse.
 
 ## Patterns in Language Input
 
-Among our measures of input quantity and various qualitative characteristics, three differed between blind and sighted children: the distribution of highly child-interactable words, the displacement of events, and the mean length of utterance. Along these lines, blind children's input is more similar to adult-directed speech than sighted children's, with slightly longer utterances, lower child-body interaction ratings, and more displaced speech, although all differences between groups are small in magnitude. 
+Before synthesizing any of these differences, we wish to highlight again how much variability there is *within* groups and how much consistency there is *between* groups. One could imagine a world in which the language environments of blind and sighted children are radically different from each other. Our data do not support that hypothesis. Rather, we find far more similarity across groups than difference, and all differences were small in magnitude. This is worth emphasizing and re-emphasizing: across developmental contexts, including, as we show here, visual experience, children's language input is resoundingly similar [@bergelson2022a].
+
+When we zoom into more fine-grained aspects of the input, we found that blind children's language environments contained longer utterances, more temporal displacement, and content words that are harder for children to interact with. Together, these features seem to suggest that blind children's input is more similar to adult-directed speech [cite cite cite] than sighted children's. This does not seem attributable to differences in addressee: our annotators indicate that there is a similar proportion of child-.vs.adult-directed speech across the two groups.
 
 ```{r trackdown}
 # trackdown::update_file(file="input_quality_manuscript.Rmd",gpath="trackdown/input_quality",hide_code=TRUE, path_output = "input_quality_manuscript.pdf")
 ```
 
-
-
-
-
-The small differences in linguistic input might also be accentuated by differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example, [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect. also @baird1997 (N=7, parents interpret behaviors differently)
 \pagebreak
 
 # References
