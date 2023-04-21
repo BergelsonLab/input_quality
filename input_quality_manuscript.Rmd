@@ -58,7 +58,8 @@ library(lubridate)
 library(corrplot)
 library(psych)
 library(glue)
-library(cocor)
+library(Table1)
+
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
@@ -178,25 +179,34 @@ Better understanding how sensory perception and linguistic input interact to inf
 `r LENA_counts %>% filter(group=="VI") %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through opthamologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Given the wide age range of the study, to control for age, each blind participant was matched to a sighted partcipicant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). When more than one match was available, we prioritized matching the blind participants as closely as possible on each characteristic in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI, @fenson1994] within one week of the home language recording. See XXX for sample characteristics.
 
 ```{r participant-characteristics}
-VI_matches_demo$MaternalEd[VI_matches_demo$MaternalEd == ""]<-"Unreported"
+VI_matches_demo[VI_matches_demo == ""]<-"Unreported"
 VI_matches_demo$match_group[VI_matches_demo$match_group == "VI_TD"]<-"Sighted"
 VI_matches_demo$match_group[VI_matches_demo$match_group == "VI"]<-"Blind"
+VI_matches_demo$Race[VI_matches_demo$Race == "Black or African American,White"]<- "Mixed"
 VI_matches_demo$MaternalEd = factor(VI_matches_demo$MaternalEd, levels = c ("Unreported", "Some college", "Associate's degree", "Bachelor's degree", "Master's degree", "Doctoral degree (e.g. MD, PhD, JD"))
-maternal_ed_plot <- ggplot(data=VI_matches_demo, aes(fill=match_group, x=MaternalEd)) +
-  geom_bar(position="dodge") +
-  theme_classic() +
-  scale_color_manual(
-    values = c("#ade7f5", "#b16fff")) +
-  scale_fill_manual(
-    values = c("#ade7f5", "#b16fff"))
-maternal_ed_plot
+
+
+demographics_table <- make.table(dat = VI_matches_demo,
+                                 strat = "match_group",
+                                 cat.varlist = c("Gender", "MaternalEd", "Diagnosis", "Race", "Ethnicity"),
+                                 cat.header = c("Gender", "Maternal education level", "Vision diagnosis", "Race", "Ethnicity"),
+                                 cat.rmstat = list(c("row", "count", "miss"), c("row", "count", "miss"), c("row", "count", "miss"), c("row", "count", "miss"), c("row", "count", "miss")),
+                                 cont.varlist = c("Age_months", "OlderSiblings"),
+                                 cont.header = c("Age in months", "Number of older siblings"),
+                                 cont.rmstat = list(c("mediqr","q1q3", "count", "miss"), c("mediqr","q1q3", "count", "miss")))
+
 
 perc_random_silent<- ((VIHI_transcripts_messy %>% filter(!is.na(sampling_type) & sampling_type == "random" & is_silent=="Y") %>% nrow()) / (VIHI_transcripts_messy %>% filter(!is.na(sampling_type) & sampling_type == "random") %>% nrow()))*100
+
 ```
 
 ## Recording Procedure
 
 Eligible families were asked to complete two surveys and complete a daylong home language recording. For the recording portion of the study, caregivers of participating infants received a LENA wearable audio recorder [@ganek2016] and vest. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off after 16 hours (setting vest nearby during bath, nap, and car times). They were also instructed how to pause the recording at any time, but asked to keep these pauses to a minimum. Actual recording length ranged from `r seconds_to_length(min(LENA_counts$total_time_dur))` to `r seconds_to_length(max(LENA_counts$total_time_dur))` (`r seconds_to_length(mean(LENA_counts$total_time_dur, na.rm=TRUE))`).
+
+```{r}
+
+```
 
 ## Processing
 
