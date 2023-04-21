@@ -796,21 +796,19 @@ For this analysis, we chose to capture *here-and-now*-ness by measuring the prop
 
 
 
-
-One explanation for the minimal differences between blind and sighted children's language environments is parents' ability to assess their children's engagement and cognitive level, and thereby tailor their speech accordingly. Sighted parents may be unfamiliar with blind children's signals of interest [@perez-pereira1999], and as a result, may respond less often to infants' vocalizations and bids for communication [@rowland1984], instead defaulting to more adultlike language. 
-
-
-
 ## Patterns in Language Input
 
 Among our measures of input quantity and various qualitative characteristics, three differed between blind and sighted children: the distribution of highly child-interactable words, the displacement of events, and the mean length of utterance. Along these lines, blind children's input is more similar to adult-directed speech than sighted children's, with slightly longer utterances, lower child-body interaction ratings, and more displaced speech, although all differences between groups are small in magnitude. 
 
+One explanation for the minimal differences between blind and sighted children's language environments is parents' ability to assess their children's engagement and cognitive level, and thereby tailor their speech accordingly. Sighted parents may be unfamiliar with blind children's signals of interest [@perez-pereira1999], and as a result, may respond less often to infants' vocalizations and bids for communication [@rowland1984], instead defaulting to more adultlike language. On the other hand, we found between-group differences in how these measures relate to each other. In speech to sighted children, there is a small positive relationship between the amount of child-directed speech and the quantity of highly visual words, but in speech to blind children the opposite is true: parents who use more child-directed speech use *less* highly visual language, which suggests that at least some caregivers are tailoring their language to their child's sensory access when speaking to their child specifically.
+
+However, the evidence that each of these inputs measures differs in its relationship to other measures when examined across these two groups underscores the idea that no feature or its proportion relative to other features can be an indicator of input "quality" in and of itself. Speech to children is highly variable; even the dimensions of language input that we attempt to measure are not static in their orientation nor the ways we can operationalize them. And yet, despite all this variation both within and between groups, both blind and sighted children grow up to be competent speakers [@roder2000; @roder2003]. Future work should  explore the relationship between these input measures and the children's own language outcomes; however, given the high variability of all of these variables and their relationship to one another, we do not expect parental input to be at all deterministic of successful language acquisition.  
+
+
+
 ```{r trackdown}
 # trackdown::update_file(file="input_quality_manuscript.Rmd",gpath="trackdown/input_quality",hide_code=TRUE, path_output = "input_quality_manuscript.pdf")
 ```
-
-
-
 
 
 The small differences in linguistic input might also be accentuated by differences in nonverbal communication between blind infants and their sighted caregivers. Young children born with visual impairment may differ in their nonverbal communication cues. For example, [@preisler1995] found that 6--9-month-old blind infants communicated using leaning, eyebrow raising, and lip movements. Caregivers who responded to these nonverbal cues as conversational turns had higher rates of interaction with the child, higher rates of appropriate response, and increased positive affect. By contrast, caregivers who did not recognize these signals as communicative had lower rates of response and increased negative affect. also @baird1997 (N=7, parents interpret behaviors differently)
