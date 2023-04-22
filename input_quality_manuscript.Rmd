@@ -240,7 +240,7 @@ Environmental speech from everyone else is coded for the addressee of each utter
 
 ## Measuring Properties of Language Input
 
-We first seek to assess whether language input to blind children is categorically different from the language input to sighted children, along the dimensions of quantity, interactivity, linguistic properties, and conceptual properties. For continuous variables, we test for group differences using a t-test, and for categorical variables we use Wilcoxon signed rank tests to assess differences in the variables' relative proportion. We use non-parametric versions of these tests when a Shapiro-Wilks test indicates that the variable is not normally distributed. Because this analysis involves multiple tests of the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the conservative Bonferroni correction to set our threshold for significance (*p* = 0.05 / 8 tests = `r .05/8`).
+We first seek to assess whether language input to blind children is categorically different from the language input to sighted children, along the dimensions of quantity, interactivity, linguistic properties, and conceptual properties. We test for group differences using a Bonferroni-corrected t-tests or the non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed. Because this analysis involves multiple tests of the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the conservative Bonferroni correction to set our threshold for significance (*p* = 0.05 / 8 tests = `r .05/8`).
 
 ### Language Input Quantity
 
