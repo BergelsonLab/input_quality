@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  21 APR 2023 20:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  3 MAY 2023 22:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -739,140 +739,119 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 File: mt-eur.cfg 2006/07/31 v1.1 microtype config. file: AMS Euler Roman (RS)
 ) [1{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-] [2]
-Underfull \vbox (badness 4752) has occurred while \output is active []
+] [2] [3]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 193.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 193.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 193.
+[4] [5] [6]
+Underfull \vbox (badness 4954) has occurred while \output is active []
 
-[3]
-Underfull \vbox (badness 4752) has occurred while \output is active []
+[7] [8] [9]
 
-[4]
-Underfull \vbox (badness 4752) has occurred while \output is active []
-
-[5] [6]
-Underfull \vbox (badness 4752) has occurred while \output is active []
-
-[7]
-Underfull \vbox (badness 4752) has occurred while \output is active []
-
-[8] [9]
-
-LaTeX Warning: Float too large for page by 741.38914pt on input line 277.
+LaTeX Warning: Float too large for page by 741.38914pt on input line 281.
 
 [10] [11]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 314.
+[12] [13] [14] [15]
+Underfull \vbox (badness 1360) has occurred while \output is active []
 
-[12]
-<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=78, 572.1
-375pt x 204.765pt>
+[16] [17]
+<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=146, 572.
+1375pt x 204.765pt>
 File: input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf Graphic 
 file (type pdf)
 <use input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/quantity-p
-lots-1.pdf  used on input line 319.
+lots-1.pdf  used on input line 417.
 (pdftex.def)             Requested size: 469.75816pt x 168.12395pt.
-[13]
-<input_quality_manuscript_files/figure-latex/interactivity-plots-1.pdf, id=92, 
-489.83pt x 203.76125pt>
+<input_quality_manuscript_files/figure-latex/interactivity-plots-1.pdf, id=147,
+ 489.83pt x 203.76125pt>
 File: input_quality_manuscript_files/figure-latex/interactivity-plots-1.pdf Gra
 phic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/interactivity-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/interactiv
-ity-plots-1.pdf  used on input line 332.
+ity-plots-1.pdf  used on input line 430.
 (pdftex.def)             Requested size: 469.76805pt x 195.4158pt.
-<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=93, 463
-.7325pt x 313.17pt>
+<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=148, 46
+3.7325pt x 313.17pt>
 File: input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf Graphi
 c file (type pdf)
 <use input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/linguistic
--plots-1.pdf  used on input line 339.
+-plots-1.pdf  used on input line 437.
 (pdftex.def)             Requested size: 463.73842pt x 313.174pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[14 <./input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>]
+[18 <./input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>]
 
-LaTeX Warning: Reference `fig:TTR' on page 15 undefined on input line 341.
+LaTeX Warning: Reference `fig:linguistic-plots' on page 19 undefined on input l
+ine 439.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[15 <./input_quality_manuscript_files/figure-latex/interactivity-plots-1.pdf> <
+[19 <./input_quality_manuscript_files/figure-latex/interactivity-plots-1.pdf> <
 ./input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[16]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-54.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Underfull \vbox (badness 4752) has occurred while \output is active []
+LaTeX Warning: Reference `fig:linguistic-plots' on page 20 undefined on input l
+ine 441.
 
-[17] [18]
-<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=151, 49
+[20]
+<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=200, 49
 3.845pt x 569.12625pt>
 File: input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf Graphi
 c file (type pdf)
 <use input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/conceptual
--plots-1.pdf  used on input line 358.
+-plots-1.pdf  used on input line 452.
 (pdftex.def)             Requested size: 469.75291pt x 541.3616pt.
 
-Overfull \hbox (28.90544pt too wide) in paragraph at lines 358--359
+Overfull \hbox (28.90544pt too wide) in paragraph at lines 452--453
 [][]  
  []
 
-<input_quality_manuscript_files/figure-latex/compare-corrs-1.pdf, id=152, 395.4
+<input_quality_manuscript_files/figure-latex/compare-corrs-1.pdf, id=201, 395.4
 775pt x 438.63875pt>
 File: input_quality_manuscript_files/figure-latex/compare-corrs-1.pdf Graphic f
 ile (type pdf)
 <use input_quality_manuscript_files/figure-latex/compare-corrs-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/compare-co
-rrs-1.pdf  used on input line 363.
+rrs-1.pdf  used on input line 457.
 (pdftex.def)             Requested size: 395.48256pt x 438.64435pt.
-<input_quality_manuscript_files/figure-latex/compare-corrs-2.pdf, id=153, 395.4
+<input_quality_manuscript_files/figure-latex/compare-corrs-2.pdf, id=202, 395.4
 775pt x 438.63875pt>
 File: input_quality_manuscript_files/figure-latex/compare-corrs-2.pdf Graphic f
 ile (type pdf)
 <use input_quality_manuscript_files/figure-latex/compare-corrs-2.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/compare-co
-rrs-2.pdf  used on input line 363.
+rrs-2.pdf  used on input line 457.
 (pdftex.def)             Requested size: 395.48256pt x 438.64435pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[19 <./input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>]
+[21 <./input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[20 <./input_quality_manuscript_files/figure-latex/compare-corrs-1.pdf>]
+[22 <./input_quality_manuscript_files/figure-latex/compare-corrs-1.pdf>]
 
-LaTeX Warning: Reference `fig:compare-corrs' on page 21 undefined on input line
- 365.
+LaTeX Warning: Reference `fig:compare-corrs' on page 23 undefined on input line
+ 459.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[21 <./input_quality_manuscript_files/figure-latex/compare-corrs-2.pdf>]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 382.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 382.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 382.
-[22]
+[23 <./input_quality_manuscript_files/figure-latex/compare-corrs-2.pdf>] [24]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[23] [24]
+[25] [26]
 Underfull \vbox (badness 4752) has occurred while \output is active []
 
-[25] [26] [27]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[28]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[29]
+[27] [28] [29]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [30]
@@ -896,38 +875,51 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [36]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[37] AED endfloat: Processing end Figures and Tables [38] [39]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 698.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 698.
+[37]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[38]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[39]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[40]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[41] AED endfloat: Processing end Figures and Tables [42] [43] [44]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 834.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 834.
 (./input_quality_manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 698.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 698.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 834.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 834.
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 17330 strings out of 480608
- 260056 string characters out of 5903631
- 581288 words of memory out of 5000000
- 32598 multiletter control sequences out of 15000+600000
- 610576 words of font info for 137 fonts, out of 8000000 for 9000
+ 17400 strings out of 480608
+ 261169 string characters out of 5903631
+ 589152 words of memory out of 5000000
+ 32608 multiletter control sequences out of 15000+600000
+ 625684 words of font info for 149 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,11n,51p,2595b,477s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,11n,51p,2587b,479s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
 texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/local/texlive/20
 20/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2020/texmf-d
-ist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/t
-ype1/public/lm/lmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public
-/lm/lmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr8.pfb
-></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/loc
-al/texlive/2020/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/
-2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2020/texmf
--dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on input_quality_manuscript.pdf (39 pages, 478663 bytes).
+ist/fonts/type1/public/lm/lmbxi10.pfb></usr/local/texlive/2020/texmf-dist/fonts
+/type1/public/lm/lmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/publ
+ic/lm/lmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr7.
+pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/lo
+cal/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/
+2020/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2020/texmf
+-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2020/texmf-dist/fonts
+/type1/public/lm/lmsy10.pfb>
+Output written on input_quality_manuscript.pdf (44 pages, 523542 bytes).
 PDF statistics:
- 602 PDF objects out of 1000 (max. 8388607)
- 528 compressed objects within 6 object streams
- 180 named destinations out of 1000 (max. 500000)
- 10455 words of extra memory for PDF output out of 12000 (max. 10000000)
+ 729 PDF objects out of 1000 (max. 8388607)
+ 648 compressed objects within 7 object streams
+ 235 named destinations out of 1000 (max. 500000)
+ 10519 words of extra memory for PDF output out of 12000 (max. 10000000)
 

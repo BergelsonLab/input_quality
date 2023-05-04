@@ -26,7 +26,9 @@ TD_matches <- c("TD_436_678", "TD_443_341", "TD_444_402", "TD_445_217", "TD_447_
 
 LENA_counts <- read.csv("data/LENA/Automated/VIHI_its_details.csv") %>% 
   filter(match_type == "VI"|
-           VIHI_ID %in% TD_matches)
+           VIHI_ID %in% TD_matches) %>%
+  mutate(AWC_stand = AWC / (total_time_dur / (30 * 60)),
+         CTC_stand = CTC / (total_time_dur / (30 * 60)))
 write.csv(LENA_counts,"data/LENA/Automated/LENA_counts.csv")  
 
 ## demographics
@@ -67,6 +69,28 @@ VITD_LENA_words <- VITD_LENA_utterances_split %>%
          xds,
          speaker) %>% #remove unwanted columns
   filter(group!="HI" & speaker!="CHI")
+
+
+TTR_calculations <- VITD_LENA_words %>%
+  group_by(VIHI_ID) %>%
+  arrange(uttnum) %>%
+  filter(Word != "0",
+         speaker != "CHI",
+         speaker != "EE1") %>%
+  mutate(num_obs = n()) %>%
+  mutate(bin = rep(1:ceiling(num_obs/100), each = 100)[1:num_obs]) %>%
+  group_by(VIHI_ID, bin) %>%
+  summarise(num_words_in_bin = n(),
+            num_unique_words = n_distinct(Word),
+            ttr = num_unique_words / num_words_in_bin) %>%
+  group_by(VIHI_ID) %>%
+  summarise(num_bins = n(),
+            mean_ttr = mean(ttr)) %>%
+  mutate(group = as.factor(str_sub(VIHI_ID, 1,2)))
+
+
+
+
 
 utterances_only<-VITD_transcripts %>% 
   filter(speaker!="EE1", speaker!="CHI") %>% # remove CHI utts and electronic noise
