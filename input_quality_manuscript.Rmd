@@ -98,6 +98,7 @@ if (preprocess == TRUE) {source("input_quality_preprocessing.R")} else {
 # quantity
 LENA_counts <- read.csv("data/LENA/Automated/LENA_counts.csv")
 manual_word_TTR <- read.csv("data/LENA/Transcripts/Derived/manual_word_TTR.csv")
+manual_word_tokens <- read.csv("data/LENA/Transcripts/Derived/manual_word_tokens.csv")
 # interactive
 xds_props <- read.csv("data/LENA/Transcripts/Derived/xds_props.csv")
 xds_props_wide <- read.csv("data/LENA/Transcripts/Derived/xds_props_wide.csv")
@@ -358,13 +359,13 @@ In addition to these two more traditional measures of decontextualized language,
 
 ## Measuring Properties of Language Input
 
-We first seek to assess whether language input to blind children is categorically different from the language input to sighted children, along the dimensions of quantity, interactivity, linguistic properties, and conceptual properties. We test for group differences using Bonferroni-corrected t-tests or the non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed. Because this analysis involves multiple tests against the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the conservative Bonferroni correction to set our threshold for significance (*p* = 0.05 / 8 tests = `r .05/8`).
+We first seek to assess whether language input to blind children is categorically different from the language input to sighted children, along the dimensions of quantity, interactivity, linguistic properties, and conceptual properties. We test for group differences using paired, t-tests or the non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed. Because this analysis involves multiple tests against the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the conservative Bonferroni correction to set our threshold for significance (*p* = 0.05 / 8 tests = `r .05/8`).
 
 ### Language Input Quantity
 
 ```{r compare-AWC}
 AWC_check <- shapiro.test(LENA_counts$AWC_stand)
-compare_AWC <- t.test(LENA_counts$AWC_stand ~ LENA_counts$group)
+compare_AWC <- t.test(LENA_counts$AWC_stand ~ LENA_counts$group, paired=TRUE)
 AWC_stats <- LENA_counts %>%
   group_by(group) %>%
   summarise(min = min(AWC_stand),
@@ -372,6 +373,7 @@ AWC_stats <- LENA_counts %>%
             mean = mean(AWC_stand))
 
 MWC_check<-shapiro.test(manual_word_tokens$tokens)
+# compare_MWC <- t.test(manual_word_tokens$tokens ~ manual_word_tokens$group, paired=TRUE)
 compare_MWC <- t.test(manual_word_tokens$tokens ~ manual_word_tokens$group)
 MWC_stats <- manual_word_tokens %>%
   group_by(group) %>%
@@ -453,7 +455,7 @@ cowplot::plot_grid(AWC_plot, manual_word_count_plot,rel_widths = c(1,1),nrow = 1
 
 ```{r compare-interactivity}
 CTC_normality_check <- shapiro.test(LENA_counts$CTC_stand)
-compare_CTC <- wilcox.test(LENA_counts$CTC_stand ~ LENA_counts$group)
+compare_CTC <- wilcox.test(LENA_counts$CTC_stand ~ LENA_counts$group, paired=TRUE)
 CTC_stats <- LENA_counts %>%
   group_by(group) %>%
   summarise(min = min(CTC_stand),
@@ -461,6 +463,7 @@ CTC_stats <- LENA_counts %>%
             mean = mean(CTC_stand))
 
 CDS_normality_check <- shapiro.test(xds_props_wide$prop_CDS)
+# compare_CDS <- t.test(xds_props_wide$prop_CDS ~ xds_props_wide$group, paired=TRUE)
 compare_CDS <- t.test(xds_props_wide$prop_CDS ~ xds_props_wide$group)
 CDS_stats <- xds_props_wide %>%
   group_by(group) %>%
@@ -595,6 +598,7 @@ TTR_plot <-  ggplot(data = (TTR_calculations), aes(
   theme(text = element_text(size = 10))
 
 TTR_normality <- shapiro.test(TTR_calculations$mean_ttr)
+# TTR_test <- t.test(TTR_calculations$mean_ttr~TTR_calculations$group, paired=TRUE)
 TTR_test <- t.test(TTR_calculations$mean_ttr~TTR_calculations$group)
 
 MLU_plot <-
@@ -699,6 +703,7 @@ sensory_props_plot <- sensory_props %>%
 # then do this same graph, but by target child only   
 
 visual_normality <- shapiro.test(sensory_props_wide$prop_Visual)
+# visual_test<- t.test(sensory_props_wide$prop_Visual ~ sensory_props_wide$group, paired=TRUE)
 visual_test<- t.test(sensory_props_wide$prop_Visual ~ sensory_props_wide$group)
 ```
 
@@ -754,6 +759,7 @@ temporality_props_plot <- temporality_props %>%
   xlab(NULL)
 
 temporality_normal<- shapiro.test(temporality_props_wide$prop_displaced)
+# temporality_test <- wilcox.test(temporality_props_wide$prop_displaced ~ temporality_props_wide$group, paired=TRUE)
 temporality_test <- wilcox.test(temporality_props_wide$prop_displaced ~ temporality_props_wide$group)
 ```
 
