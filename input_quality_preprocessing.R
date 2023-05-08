@@ -90,7 +90,8 @@ manual_word_tokens <- VITD_LENA_words %>%
   group_by(VIHI_ID) %>%
   summarise(tokens = n()) %>%
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID") %>%
-  mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
+  mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>%
+  distinct(VIHI_ID, .keep_all = TRUE)
 write.csv(manual_word_tokens, "data/LENA/Transcripts/Derived/manual_word_tokens.csv")
 
 # interactiveness quality ----
