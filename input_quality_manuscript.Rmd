@@ -47,6 +47,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(tidyverse)
 library(ggplot2)
 library(plotrix)
+library(see)
 library(papaja)
 library(stringr)
 library(morphemepiece)
@@ -96,12 +97,13 @@ new_graphs <- FALSE
 if (preprocess == TRUE) {source("input_quality_preprocessing.R")} else {
 # quantity
 LENA_counts <- read.csv("data/LENA/Automated/LENA_counts.csv")
+manual_word_TTR <- read.csv("data/LENA/Transcripts/Derived/manual_word_TTR.csv")
 # interactive
 xds_props <- read.csv("data/LENA/Transcripts/Derived/xds_props.csv")
 xds_props_wide <- read.csv("data/LENA/Transcripts/Derived/xds_props_wide.csv")
 # linguistic
 MLUs <- read.csv("data/LENA/Transcripts/Derived/MLUs.csv")
-manual_word_TTR <- read.csv("data/LENA/Transcripts/Derived/manual_word_TTR.csv")
+TTR_calculations <- read.csv("data/LENA/Transcripts/Derived/TTR_calculations.csv")
 # conceptual
 sensory_props <- read.csv("data/LENA/Transcripts/Derived/sensory_props.csv")
 sensory_props_wide <- read.csv("data/LENA/Transcripts/Derived/sensory_props_wide.csv")
@@ -121,7 +123,6 @@ VIHI_transcripts_messy <- read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches
 
 lotta_data <- LENA_counts %>%
   left_join(MLUs, by=c("VIHI_ID", "group"))  %>%
-  left_join(manual_word_TTR, by=c("VIHI_ID", "group")) %>%
   left_join(TTR_calculations, by=c("VIHI_ID", "group")) %>%
   left_join(xds_props_wide %>% dplyr::select(-total), by=c("VIHI_ID", "group")) %>%
   left_join(sensory_props_wide %>% dplyr::select(-total), by=c("VIHI_ID", "group"))%>%
@@ -181,8 +182,7 @@ First, speakers regularly tailor input to communicate efficiently with the liste
 
 In addition to tailoring communication to children's developmental level, speakers also adjust their conversation in accordance with the conversation partner's sensory access [@gergle2004; @grigoroglou2016]. In a noisy environment, speakers will adapt the acoustic-phonetic features of their speech with the intent to make it easier for their interlocutor to understand them [@hazan2011], which demonstrates sensitivity to even temporary sensory conditions of their conversation partner. When describing scenes, speakers aim to provide the information their listeners lack but avoid redundant visual description [@ostarek2019; @grice1975]. During in-lab tasks with sighted participants, participants tailor their descriptions and requests by verbally providing visually-absent cues when an object is occluded to their partner [@jara-ettinger2021; @hawkins2021; @rubio-fernandez2019]. These results suggest that adults and even infants [@senju2013; @ganea2018; @chiesa2015] can flexibly adapt communication to the visual and auditory abilities of their partner.
 
-Curiously though, these patterns are not borne out in the existing literature on interactions between blind infants and their sighted parents. We might expect parents to verbally compensate for missing visual input, resulting in parents providing more description of the child's environment. Instead, caregivers of blind children seem to restrict conversation to things that the blind child is currently engaged with, rather than attempt to redirect their attention to other stimuli [@andersen1993; @campbell2003; @kekelis1984; though c.f., @moore1994]. In naturalistic settings, parents of blind children use *fewer* declaratives and *more* imperatives than parents of sighted children, suggesting that children might be receiving less description than sighted children [@kekelis1984; @landau1985]. On the other hand, some parents may adapt to their children's visual abilities in specific contexts. @tadic2013 and colleagues find that in a structured book reading task, parents of blind children provide more descriptive utterances than parents of sighted children. Further, parents of blind children provide more tactile cues to initiate interactions or establish joint attention [@urwin1983; @urwin1984; @preisler1991], which may serve the same social role as shared gaze in sighted children. These mixed results suggest that parents of blind children might alter language input in some domains but not others.
-Blind children's own use of decontextualized language appears to develop later than sighted children's [@urwin1984; @bigelow1990].
+Curiously though, these patterns are not borne out in the existing literature on interactions between blind infants and their sighted parents. We might expect parents to verbally compensate for missing visual input, resulting in parents providing more description of the child's environment. Instead, caregivers of blind children seem to restrict conversation to things that the blind child is currently engaged with, rather than attempt to redirect their attention to other stimuli [@andersen1993; @campbell2003; @kekelis1984; though c.f., @moore1994]. In naturalistic settings, parents of blind children use *fewer* declaratives and *more* imperatives than parents of sighted children, suggesting that children might be receiving less description than sighted children [@kekelis1984; @landau1985]. On the other hand, some parents may adapt to their children's visual abilities in specific contexts. @tadic2013 and colleagues find that in a structured book reading task, parents of blind children provide more descriptive utterances than parents of sighted children. Further, parents of blind children provide more tactile cues to initiate interactions or establish joint attention [@urwin1983; @urwin1984; @preisler1991], which may serve the same social role as shared gaze in sighted children. These mixed results suggest that parents of blind children might alter language input in some domains but not others. Blind children's own use of decontextualized language appears to develop later than sighted children's [@urwin1984; @bigelow1990].
 
 ## The Present Study
 
@@ -310,7 +310,7 @@ kable(variables_df, align = c("l","c","c","l"), col.names = c("Variable", "Codin
 
 #### Adult Word Count
 
-To derive this count, first the LENA algorithm segments the recording into clips of varying length. These segments are then classified as female adult speech, male adult speech, target child, other child, overlapping vocalization/noise, electronic noise, noise, silence, or uncertain, each of which is further categorized into "near" or "far". Only segments that are classified as nearby male or female adult speech are included in the Adult Word Count estimation; Segments that the LENA algorithm identifies as "far", "child", or "overlapping", do not contribute to this count [@xu2009]. Validation work suggests that this automated count correlates strongly with word counts derived from manual annotations [r = .71 -- .92; @lehet2021], but @lehet2021 and colleagues find that the amount of error may vary substantially across families. Compared to 30 minute -- 1 hour samples that they had manually transcribed and counted, LENA's AWC estimate ranged from undercounting words by 17% to overcounting words by 208% [@lehet2021]. Perhaps reassuringly however, meta-analytic work finds that AWC is associated with children’s language outcomes across developmental contexts [@wang2020; e.g., autism, hearing loss].
+To derive this count, first the LENA algorithm segments the recording into clips of varying length. These segments are then classified as female adult speech, male adult speech, target child, other child, overlapping vocalization/noise, electronic noise, noise, silence, or uncertain, each of which is further categorized into "near" or "far". Only segments that are classified as nearby male or female adult speech are included in the Adult Word Count estimation; Segments that the LENA algorithm identifies as "far", "child", or "overlapping", do not contribute to this count [@xu2009]. Validation work suggests that this automated count correlates strongly with word counts derived from manual annotations [r = .71 -- .92; @lehet2021], but @lehet2021 and colleagues find that the amount of error may vary substantially across families. Compared to 30 minute -- 1 hour samples that they had manually transcribed and counted, LENA's AWC estimate ranged from undercounting words by 17% to overcounting words by 208% [@lehet2021]. Perhaps reassuringly however, meta-analytic work finds that AWC is associated with children's language outcomes across developmental contexts [@wang2020; e.g., autism, hearing loss].
 
 #### Manual Word Count
 
@@ -322,7 +322,7 @@ By using Adult Word Count and Manual Word Count, we hope to capture complementar
 
 #### Conversational Turn Count
 
-One commonly used and easily-extracted metric of communicative interaction [e.g., @ganek2018; @magimairaj2022] is conversational turn count (or CTC), an automated measure generated by LENA [@xu2009]. Like AWC, a recent meta-analysis finds that CTC is associated with children’s language outcomes [@wang2020]. After tagging vocalizations for speaker identity, LENA algorithm looks for alternations between adult and target child speech in close temporal proximity. The algorithm counts any temporally close (within 5 seconds) switch between adult and target child vocalizations, which can erroneously include non-contingent interactions (e.g., mom talking to dad while the infant babbles to herself nearby), and therefore inflate the count especially for younger ages and in houses with multiple children [@ferjanramirez2021]. Still, this measure correlates moderately well with manually-coded conversational turns [@busch2018; @ganek2018], and because participants in our sample are matched on both age and number of siblings, CTC overestimation should not be biased towards either groups. Conversational turn count is calculated over the entire recording, but to normalize for recording length, we divided this by recording length.
+One commonly used and easily-extracted metric of communicative interaction [e.g., @ganek2018; @magimairaj2022] is conversational turn count (or CTC), an automated measure generated by LENA [@xu2009]. Like AWC, a recent meta-analysis finds that CTC is associated with children's language outcomes [@wang2020]. After tagging vocalizations for speaker identity, LENA algorithm looks for alternations between adult and target child speech in close temporal proximity. The algorithm counts any temporally close (within 5 seconds) switch between adult and target child vocalizations, which can erroneously include non-contingent interactions (e.g., mom talking to dad while the infant babbles to herself nearby), and therefore inflate the count especially for younger ages and in houses with multiple children [@ferjanramirez2021]. Still, this measure correlates moderately well with manually-coded conversational turns [@busch2018; @ganek2018], and because participants in our sample are matched on both age and number of siblings, CTC overestimation should not be biased towards either groups. Conversational turn count is calculated over the entire recording, but to normalize for recording length, we divided this by recording length.
 
 #### Proportion of Child-Directed Speech
 
@@ -332,7 +332,7 @@ Our other measure of interactivity is the proportion of utterances that are chil
 
 #### Type-Token Ratio
 
-As in previous work [e.g., @templin1957; @pancsofar2006; @montag2018], we calculated type-token ratio by dividing the number of unique words by the total number of words. Because the type-token ratio changes as a function of the size of the language sample [@richards1987; @montag2018], we first standardized the sample length by cutting children's input (from the manual annotations) in each recording into 100-word bins. We then calculated the type-token ratio within each of these bins by dividing the number of unique words in each bin by the number of total words (~100). For each child, type-token ratio is the average of the type-token ratios for each of the bins in their input.
+As in previous work [e.g., @templin1957; @pancsofar2006; @montag2018], we calculated type-token ratio by dividing the number of unique words by the total number of words. Because the type-token ratio changes as a function of the size of the language sample [@richards1987; @montag2018], we first standardized the sample length by cutting children's input (from the manual annotations) in each recording into 100-word bins. We then calculated the type-token ratio within each of these bins by dividing the number of unique words in each bin by the number of total words (\~100). For each child, type-token ratio is the average of the type-token ratios for each of the bins in their input.
 
 #### MLU
 
@@ -344,7 +344,7 @@ Our analysis of the conceptual features aims to measure whether the extent to wh
 
 #### Proportion temporally displaced verbs
 
-We examined the displacement of events discussed in children's linguistic environment, via properties of the verbs in their input. Notably, we are attempting to highlight semantic features of the language environment; however, given the constraints of large-scale textual analysis, we are categorizing utterances based on a combination of closely related syntactic and morphological features of verbs, since these contain time-relevant information. We assigned each utterance a **temporality** value: utterances tagged *displaced* describe events that take place in the past, future, or irrealis space, while utterances tagged *present* describe current, ongoing events. This coding scheme roughly aligns with both the temporal displacement and future hypothetical categories in @grimminger2020 [see also: @lucariello1987; @hudson2002]. To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, a verb either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g. *you talking to Papa?*). Features that could mark an utterance as displaced included past tense, presence of a modal, presence of *if*, or presence of *gonna*/*going to*, *have to*, *wanna*/*want to*, or *gotta*/*got to*, since these typically indicate belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance. A small number of utterances in our corpus were left *uncategorized* (n = `r n_uncat`/`r nrow(verbs_only)`) because they were fragments or because the automated parser failed to tag any of the relevant features.  We manually checked verb temporality in a random subset of 10% of the utterances, and reached XXX agreement with the NLP approach, indicating moderate reliability.
+We examined the displacement of events discussed in children's linguistic environment, via properties of the verbs in their input. Notably, we are attempting to highlight semantic features of the language environment; however, given the constraints of large-scale textual analysis, we are categorizing utterances based on a combination of closely related syntactic and morphological features of verbs, since these contain time-relevant information. We assigned each utterance a **temporality** value: utterances tagged *displaced* describe events that take place in the past, future, or irrealis space, while utterances tagged *present* describe current, ongoing events. This coding scheme roughly aligns with both the temporal displacement and future hypothetical categories in [@grimminger2020; see also: @lucariello1987; @hudson2002]. To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, a verb either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g. *you talking to Papa?*). Features that could mark an utterance as displaced included past tense, presence of a modal, presence of *if*, or presence of *gonna*/*going to*, *have to*, *wanna*/*want to*, or *gotta*/*got to*, since these typically indicate belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance. A small number of utterances in our corpus were left *uncategorized* (n = `r n_uncat`/`r nrow(verbs_only)`) because they were fragments or because the automated parser failed to tag any of the relevant features. We manually checked verb temporality in a random subset of 10% of the utterances, and reached XXX agreement with the NLP approach, indicating moderate reliability.
 
 #### CBOI distribution
 
@@ -371,9 +371,9 @@ AWC_stats <- LENA_counts %>%
             max = max(AWC_stand),
             mean = mean(AWC_stand))
 
-MWC_check<-shapiro.test(manual_word_TTR$tokens)
-compare_MWC <- t.test(manual_word_TTR$tokens ~ manual_word_TTR$group)
-MWC_stats <- manual_word_TTR %>%
+MWC_check<-shapiro.test(manual_word_tokens$tokens)
+compare_MWC <- t.test(manual_word_tokens$tokens ~ manual_word_tokens$group)
+MWC_stats <- manual_word_tokens %>%
   group_by(group) %>%
   summarise(min = min(tokens),
             max = max(tokens),
@@ -391,8 +391,9 @@ AWC_plot <-
     y = AWC_stand,
     color = group,
     fill = group)) +
-  geom_violin(alpha = .5, trim = FALSE) +
-  geom_jitter(width = 0.2, height = 0) +
+  geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
+  geom_point() +
+    geom_line(aes(group = pair), color = "grey10", alpha = .5) +
   theme_classic() +
   labs(y = "Adult Word Count", x = NULL, element_text(size = 10)) +
   theme(
@@ -415,13 +416,14 @@ AWC_plot <-
   coord_cartesian(ylim = c(0, (max(LENA_counts$AWC_stand * 1.1)))) +
   theme(text = element_text(size = 10))
 
-manual_word_count_plot <-  ggplot(data = manual_word_TTR, aes(
+manual_word_count_plot <-  ggplot(data = manual_word_tokens, aes(
     x = group,
     y = tokens,
     color = group,
     fill = group)) +
-  geom_violin(alpha = .5, trim = FALSE) +
-  geom_jitter(width = 0.2, height = 0) +
+  geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
+  geom_point() +
+    geom_line(aes(group = pair), color = "grey10", alpha = .5) +
   theme_classic() +
   labs(y = "Manual Word Counts", x = NULL, element_text(size = 10)) +
   theme(
@@ -441,7 +443,7 @@ manual_word_count_plot <-  ggplot(data = manual_word_TTR, aes(
     labels = c(
       "VI" = "Blind",
       "TD" = "Sighted")) +
-  coord_cartesian(ylim = c(0, (max(manual_word_TTR$tokens * 1.1)))) +
+  coord_cartesian(ylim = c(0, (max(manual_word_tokens$tokens * 1.1)))) +
   theme(text = element_text(size = 10))
 
 cowplot::plot_grid(AWC_plot, manual_word_count_plot,rel_widths = c(1,1),nrow = 1)
@@ -478,8 +480,9 @@ CTC_plot <-
     y = CTC_stand,
     color = group,
     fill = group)) +
-  geom_violin(alpha = .5, trim = FALSE) +
-  geom_jitter(width = 0.2, height = 0) +
+  geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
+  geom_point() +
+    geom_line(aes(group = pair), color = "grey10", alpha = .5) +
   theme_classic() +
   labs(y = "Conversational Turn Count", x = NULL, element_text(size = 10)) +
   theme(
@@ -509,8 +512,9 @@ CDS_prop_plot <- xds_props %>%
     y = prop,
     color = group,
     fill = group)) +
-  geom_violin(alpha = .5, trim = FALSE) +
-  geom_jitter(width = 0.2, height = 0) +
+  geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
+  geom_point() +
+    geom_line(aes(group = pair), color = "grey10", alpha = .5) +
   theme_classic() +
   labs(y = "Proportion of\nChild-Directed Speech", x = NULL, element_text(size = 10)) +
   theme(
@@ -559,14 +563,15 @@ cowplot::plot_grid(CTC_plot, CDS_prop_plot, addressee_props_plot, rel_widths = c
 
 ### Linguistic Features
 
-```{r linguistic-plots}
+```{r linguistic-plots, fig.cap="Comparing linguistic features: Mean length of utterance (left); each dot represents one speaker. Type-token ratio (right). Each dot represents one child's recording."}
 TTR_plot <-  ggplot(data = (TTR_calculations), aes(
     x = group,
     y = mean_ttr,
     color = group,
     fill = group)) +
-  geom_violin(alpha = .5, trim = FALSE) +
-  geom_jitter(width = 0.2, height = 0) +
+  geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
+  geom_point() +
+    geom_line(aes(group = pair), color = "grey10", alpha = .5) +
   theme_classic() +
   labs(y = "Type-Token Ratio:\nUnique Words / Total Words", x = NULL, element_text(size = 10)) +
   theme(
@@ -598,8 +603,8 @@ MLU_plot <-
     y = MLU,
     color = group,
     fill = group)) +
-  geom_violin(alpha = .5, trim = FALSE) +
-  geom_jitter(width = 0.2, height = 0) +
+  geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
+  geom_point() +
   theme_classic() +
   labs(y = "Mean Length of Utterance\n
   (morphemes)", x = NULL, element_text(size = 10)) +
@@ -646,8 +651,9 @@ visual_plot <- ggplot(data = sensory_props_wide, aes(
     y = prop_Visual,
     color = group,
     fill = group)) +
-    geom_jitter(width = 0.2, height = 0) +
-  geom_violin(alpha = .5, trim = FALSE) +
+    geom_point() +
+    geom_line(aes(group = pair), color = "grey10", alpha = .5) +
+  geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
   theme_classic() +
   labs(y = "Proportion of\nHighly Visual Words", x = NULL, element_text(size = 10)) +
   theme(
@@ -702,8 +708,9 @@ hereandnow_plot <- ggplot(data = temporality_props_wide, aes(x = group,
     y = prop_displaced,
     color = group,
     fill = group)) +
-    geom_jitter(width = 0.2, height = 0) +
-  geom_violin(alpha = .5, trim = FALSE) +
+    geom_point() +
+    geom_line(aes(group = pair), color = "grey10", alpha = .5) +
+  geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
   theme_classic() +
   labs(y = "Proportion of\nDisplaced Verbs", x = NULL, element_text(size = 10)) +
   theme(
@@ -759,8 +766,9 @@ CBOI_plot <-
     y = CBOI_Mean,
     color = group,
     fill = group)) +
-    geom_jitter(width = 0.2, height = 0) +
-  geom_violin(alpha = .5, trim = FALSE) +
+    geom_point() +
+    geom_line(aes(group = pair), color = "grey10", alpha = .5) +
+  geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
   theme_classic() +
   labs(y = "Mean Child-Body-Object\nInteraction Rating (1-7)", x = NULL, element_text(size = 10)) +
   theme(
@@ -815,56 +823,6 @@ We then compared the distribution of CBOI ratings in word tokens in blind childr
 
 Lastly, we measure whether the language input to blind children contains a different proportion of words referring to visual objects/actions/properties; this variable was normally distributed (W = `r visual_normality$statistic`, *p* `r papaja::printp(visual_normality$statistic,add_equals=TRUE)`). We found no differences across groups in the proportion of highly visual words (*t*(`r visual_test$parameter`) = `r visual_test$statistic`, *p* `r printp(visual_test$p.value, add_equals=TRUE)`).
 
-```{r conceptual-plots, fig.height=8, fig.width = 7}
-cowplot::plot_grid(visual_plot, sensory_props_plot,
-                   hereandnow_plot, temporality_props_plot,
-                   CBOI_plot, CBOI_distribution_plot,
-                   nrow=3, rel_widths = c(1,1.5))
-```
-
-```{r variable-relationships, fig.cap="Kendall's Tau correlations between subject-level language input variables. Significant correlations are marked with asterisks.", fig.height=4,fig.width=6,include=FALSE}
-
-# VI
-vars_for_cor_VI <- lotta_data %>%
-  filter(group=="VI") %>%
-  dplyr::select(AWC_stand,tokens,CTC_stand,prop_CDS,mean_ttr,MLU,prop_displaced, CBOI_Mean, prop_Visual) %>%
-  dplyr::rename("Adult Word Count" = "AWC_stand",
-                "Manual Word Count" = "tokens",
-                "Conversational Turn Count" = "CTC_stand",
-                "Proportion of Child-Directed Speech" = "prop_CDS",
-                "Type-Token Ratio" = "mean_ttr",
-                "Mean Length of Utterance" = "MLU",
-                "Proportion of Temporally Displaced Verbs" = "prop_displaced",
-                "Mean Child-Body-Object Interaction Rating" = "CBOI_Mean",
-                "Proportion of Highly Visual Words" = "prop_Visual")
-cors_VI <-   cor(vars_for_cor_VI,use="na.or.complete", method="kendall")
-cor_ps_VI <- corr.test(vars_for_cor_VI)$p
-
-# TD
-vars_for_cor_TD <- lotta_data %>%
-  filter(group=="TD") %>%
-  dplyr::select(AWC_stand,tokens,CTC_stand,prop_CDS,mean_ttr,MLU,prop_displaced, CBOI_Mean, prop_Visual) %>%
-  dplyr::rename("Adult Word Count" = "AWC_stand",
-                "Manual Word Count" = "tokens",
-                "Conversational Turn Count" = "CTC_stand",
-                "Proportion of Child-Directed Speech" = "prop_CDS",
-                "Type-Token Ratio" = "mean_ttr",
-                "Mean Length of Utterance" = "MLU",
-                "Proportion of Temporally Displaced Verbs" = "prop_displaced",
-                "Mean Child-Body-Object Interaction Rating" = "CBOI_Mean",
-                "Proportion of Highly Visual Words" = "prop_Visual")
-cors_TD <-   cor(vars_for_cor_TD,use="na.or.complete", method="kendall")
-cor_ps_TD <- corr.test(vars_for_cor_TD)$p
-
-```
-
-```{r compare-corrs, caption="Kendall's tau correlations for among the input variables, plotted separately for blind and sighted participants. Cells are labelled with the correlation coefficient. With an N of 15 per group, correlations above r = 0.29 are significant.", fig.height=8,fig.width=6}
-corrplot(cors_VI, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white", number.cex=.6,insig="n",title="Blind (N=15)")
-corrplot(cors_TD, type = "lower",method="color", tl.col = "black",tl.cex=.6, addCoef.col="white", number.cex=.6,insig="n", title="Sighted (N=15")
-```
-
-
-
 # Discussion
 
 This study measured language input to young blind children and their sighted peers, using the LENA audio recorder to capture naturalistic speech in the home. We found that across many dimensions of language input, parents largely talk similarly to blind and sighted children, with a few nuanced differences, that we discuss further below.
@@ -916,11 +874,7 @@ In summary, our study compared language input in homes of 15 blind and 15 sighte
 ```
 
 \pagebreak
-Results To Do:
-* Filter to random sample for manual word count, proportion CDS
-* Switch all statistical tests to paired tests
-* Switch violin plots to half violins with connecty lines
 
+Results To Do: \* Filter to random sample for manual word count, proportion CDS \* Switch all statistical tests to paired tests \* Switch violinhalf plots to half violinhalfs with connecty lines
 
 # References
-

@@ -13,6 +13,10 @@ library(lubridate)
 library(morphemepiece)
 library(udpipe)
 
+
+## demographics
+VI_matches_demo <- read.csv("data/VI_matches_demo.csv") 
+
 lancaster_norms <- read.csv("data/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
   mutate(Word = tolower(Word))
 CBOI_norms <- read.csv("data/CBOI_mean_sd.csv") %>%
@@ -28,14 +32,9 @@ LENA_counts <- read.csv("data/LENA/Automated/VIHI_its_details.csv") %>%
   filter(match_type == "VI"|
            VIHI_ID %in% TD_matches) %>%
   mutate(AWC_stand = AWC / (total_time_dur / (30 * 60)),
-         CTC_stand = CTC / (total_time_dur / (30 * 60)))
+         CTC_stand = CTC / (total_time_dur / (30 * 60))) %>%
+  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID")
 write.csv(LENA_counts,"data/LENA/Automated/LENA_counts.csv")  
-
-## demographics
-VI_matches_demo <- read.csv("data/VIHI_corpus_demographics_deid.csv") %>%
-  filter(match_group == "VI"|
-           match_group == "VI_TD")
-write.csv(VI_matches_demo,"data/VI_matches_demo.csv") 
 
 ## Load in transcripts and automated metrics
 
@@ -71,6 +70,53 @@ VITD_LENA_words <- VITD_LENA_utterances_split %>%
   filter(group!="HI" & speaker!="CHI")
 
 
+
+
+
+
+
+
+utterances_only<-VITD_transcripts %>% 
+  filter(speaker!="EE1", speaker!="CHI") %>% # remove CHI utts and electronic noise
+  filter(!utterance==c("xxx.")) %>% #remove unintelligible utterances
+  mutate(utterance = str_remove_all(utterance, pattern = "[[:punct:]]"),# remove punctuation from utterances
+         utt_num = 1:nrow(.)) 
+
+
+# quantity ----
+
+# count word tokens in annotations
+manual_word_tokens <- VITD_LENA_words %>% 
+  group_by(VIHI_ID) %>%
+  summarise(tokens = n()) %>%
+  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID") %>%
+  mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
+
+# interactiveness quality ----
+## CTC----
+## child-directed----
+xds_props_wide <- utterances_only %>%
+  group_by(group,VIHI_ID) %>% 
+  summarise(total = n(),
+            prop_ADS = sum(xds=="A")/total,
+            prop_CDS = sum(xds=="C")/total,
+            prop_BDS = sum(xds=="B")/total,
+            prop_TDS = sum(xds=="T")/total,
+            prop_ODS = sum(xds=="O")/total,
+            prop_UDS = sum(xds=="U")/total,
+            prop_PDS = sum(xds=="P")/total) %>%
+  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID")
+write.csv(xds_props_wide, "data/LENA/Transcripts/Derived/xds_props_wide.csv")
+xds_props <- xds_props_wide%>%
+  pivot_longer(cols = prop_ADS:prop_PDS,
+               names_to = "addressee",
+               names_prefix = "prop_",
+               values_to = "prop")
+write.csv(xds_props, "data/LENA/Transcripts/Derived/xds_props.csv")
+
+# linguistic quality ----
+## TTR ----
+### calculate type-token ratio in annotations
 TTR_calculations <- VITD_LENA_words %>%
   group_by(VIHI_ID) %>%
   arrange(uttnum) %>%
@@ -86,64 +132,8 @@ TTR_calculations <- VITD_LENA_words %>%
   group_by(VIHI_ID) %>%
   summarise(num_bins = n(),
             mean_ttr = mean(ttr)) %>%
-  mutate(group = as.factor(str_sub(VIHI_ID, 1,2)))
-
-
-
-
-
-utterances_only<-VITD_transcripts %>% 
-  filter(speaker!="EE1", speaker!="CHI") %>% # remove CHI utts and electronic noise
-  filter(!utterance==c("xxx.")) %>% #remove unintelligible utterances
-  mutate(utterance = str_remove_all(utterance, pattern = "[[:punct:]]"),# remove punctuation from utterances
-         utt_num = 1:nrow(.)) 
-
-
-# quantity ----
-
-
-
-
-
-# count word types in annotations
-manual_word_types <- VITD_LENA_words %>% 
-  group_by(VIHI_ID) %>%
-  distinct(Word, .keep_all=TRUE) %>%
-  summarise(types = n())
-# count word tokens in annotations
-manual_word_tokens <- VITD_LENA_words %>% 
-  group_by(VIHI_ID) %>%
-  summarise(tokens = n())
-
-# interactiveness quality ----
-## CTC----
-## child-directed----
-xds_props_wide <- utterances_only %>%
-  group_by(group,VIHI_ID) %>% 
-  summarise(total = n(),
-            prop_ADS = sum(xds=="A")/total,
-            prop_CDS = sum(xds=="C")/total,
-            prop_BDS = sum(xds=="B")/total,
-            prop_TDS = sum(xds=="T")/total,
-            prop_ODS = sum(xds=="O")/total,
-            prop_UDS = sum(xds=="U")/total,
-            prop_PDS = sum(xds=="P")/total) 
-write.csv(xds_props_wide, "data/LENA/Transcripts/Derived/xds_props_wide.csv")
-xds_props <- xds_props_wide%>%
-  pivot_longer(cols = prop_ADS:prop_PDS,
-               names_to = "addressee",
-               names_prefix = "prop_",
-               values_to = "prop")
-write.csv(xds_props, "data/LENA/Transcripts/Derived/xds_props.csv")
-
-# linguistic quality ----
-## TTR ----
-### calculate type-token ratio in annotations
-manual_word_TTR <- manual_word_types %>% left_join(manual_word_tokens) %>%
-  mutate(TTR = types/tokens,
-         group = as.factor(str_sub(VIHI_ID, 1,2)))  %>%
-  filter(group!="HI")
-write.csv(manual_word_TTR, "data/LENA/Transcripts/Derived/manual_word_TTR.csv")
+  mutate(group = as.factor(str_sub(VIHI_ID, 1,2))) %>%
+  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID")
 
 
 ## MLU ----
@@ -168,7 +158,8 @@ simple_morpheme_counts <- tokenized_VITD_transcripts_with_counts %>%
 
 MLUs <- simple_morpheme_counts %>% 
   group_by(group, VIHI_ID, speaker) %>%
-  summarise(MLU= mean(morphemecount))
+  summarise(MLU= mean(morphemecount)) %>%
+  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID")
 write.csv(MLUs,"data/LENA/Transcripts/Derived/MLUs.csv")
 
 
@@ -190,7 +181,8 @@ sensory_props_wide <- VITD_LENA_words %>%
     prop_Haptic = sum(Modality=="Haptic")/total,
     prop_Interoceptive = sum(Modality=="Interoceptive")/total,
     prop_Multimodal = sum(Modality=="Multimodal")/total,
-    prop_Amodal = sum(Modality=="Amodal")/total) 
+    prop_Amodal = sum(Modality=="Amodal")/total) %>%
+  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID")
 write.csv(sensory_props_wide,"data/LENA/Transcripts/Derived/sensory_props_wide.csv")
 sensory_props <- sensory_props_wide%>%
   pivot_longer(cols = prop_Auditory:prop_Amodal,
@@ -219,7 +211,7 @@ verbs_only <- annotated_utterances %>%
                                  xpos=="MD" ~ "displaced",
                                  grepl('gonna',sentence) | grepl('gotta',sentence) | grepl('wanna',sentence)|grepl('going to',sentence)| grepl('got to',sentence) |grepl('want to',sentence) |grepl('have to',sentence) |grepl('if ', sentence) ~ "displaced",
                                  grepl('Mood=Ind',feats) & grepl('Tense=Pres',feats) |grepl('VerbForm=Ger',feats) ~ "present",
-                                 TRUE ~ "uncategorized"))
+                                 TRUE ~ "uncategorized")) 
 write.csv(verbs_only, "data/LENA/Transcripts/Derived/verbs_only.csv")
 temporality_props_wide <- verbs_only %>% 
   dplyr::rename(VIHI_ID = doc_id) %>%
@@ -228,7 +220,8 @@ temporality_props_wide <- verbs_only %>%
             prop_displaced = (sum(temporality=="displaced")/verb_utt_count),
             prop_present =  (sum(temporality=="present")/verb_utt_count),
             prop_uncategorized = (sum(temporality=="uncategorized")/verb_utt_count)) %>%
-  mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
+  mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>%
+  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID")
 write.csv(temporality_props_wide, "data/LENA/Transcripts/Derived/temporality_props_wide.csv")
 temporality_props <- temporality_props_wide %>%
   pivot_longer(cols = prop_displaced:prop_uncategorized,
@@ -248,5 +241,7 @@ content_words_only <- annotated_utterances %>%
 write.csv(content_words_only, "data/LENA/Transcripts/Derived/content_words_only.csv")
 subj_CBOI_means <- content_words_only %>% 
   group_by(group,VIHI_ID) %>% 
-  summarise(CBOI_Mean=mean(CBOI_Mean)) 
+  summarise(CBOI_Mean=mean(CBOI_Mean)) %>%
+  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID")
 write.csv(subj_CBOI_means, "data/LENA/Transcripts/Derived/subj_CBOI_means.csv")
+
