@@ -40,8 +40,9 @@ write.csv(LENA_counts,"data/LENA/Automated/LENA_counts.csv")
 
 ###read in data that has been mass exported via ELAN; add informative column names
 
-VITD_transcripts <- read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches_03-28-20232023-03-28.csv") %>% #need to re-generate transcripts
-  mutate(VIHI_ID = as.factor(str_sub(VIHI_ID,1,10))) 
+VITD_transcripts <- read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches_2023-05-09.csv") %>% #need to re-generate transcripts
+  mutate(VIHI_ID = as.factor(str_sub(VIHI_ID,1,10))) %>%
+  filter(VIHI_ID %in% TD_matches | group == "VI")
 
 VITD_LENA_utterances_split <- VITD_transcripts %>%
   mutate(utterance_clean = str_remove_all(utterance, pattern = ("\\[.*?<>"))) %>% # remove punctuation from utterances
@@ -56,24 +57,19 @@ VITD_LENA_words <- VITD_LENA_utterances_split %>%
                names_to = "utt_loc",
                #create another column that gives the location within utterance (ex:Word2)
                values_to = "Word") %>%
-  dplyr::select(VIHI_ID, group, speaker, xds, uttnum, utt_loc, Word) %>%
+  dplyr::select(VIHI_ID, group, speaker, sampling_type, xds, uttnum, utt_loc, Word) %>%
   filter(!is.na(Word)) %>%#filter out blank rows
   left_join(lancaster_norms) %>% # join with lancaster norms
   dplyr::select(Word,
          VIHI_ID,
          group,
          Auditory.mean:Dominant.sensorimotor,
+         sampling_type,
          utt_loc,
          uttnum,
          xds,
          speaker) %>% #remove unwanted columns
   filter(group!="HI" & speaker!="CHI")
-
-
-
-
-
-
 
 
 utterances_only<-VITD_transcripts %>% 
@@ -87,17 +83,20 @@ utterances_only<-VITD_transcripts %>%
 
 # count word tokens in annotations
 manual_word_tokens <- VITD_LENA_words %>% 
+  filter(sampling_type == "random") %>%
   group_by(VIHI_ID) %>%
   summarise(tokens = n()) %>%
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID") %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>%
   distinct(VIHI_ID, .keep_all = TRUE)
+
 write.csv(manual_word_tokens, "data/LENA/Transcripts/Derived/manual_word_tokens.csv")
 
 # interactiveness quality ----
 ## CTC----
 ## child-directed----
 xds_props_wide <- utterances_only %>%
+  filter(sampling_type == "random") %>%
   group_by(group,VIHI_ID) %>% 
   summarise(total = n(),
             prop_ADS = sum(xds=="A")/total,
@@ -159,7 +158,7 @@ simple_morpheme_counts <- tokenized_VITD_transcripts_with_counts %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2)))
 
 MLUs <- simple_morpheme_counts %>% 
-  group_by(group, VIHI_ID, speaker) %>%
+  group_by(group, VIHI_ID) %>%
   summarise(MLU= mean(morphemecount)) %>%
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID,pair)), by="VIHI_ID")
 write.csv(MLUs,"data/LENA/Transcripts/Derived/MLUs.csv")
