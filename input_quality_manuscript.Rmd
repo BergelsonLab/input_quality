@@ -125,8 +125,8 @@ verbs_only <- read.csv("data/LENA/Transcripts/Derived/verbs_only.csv")
 n_uncat<-sum(verbs_only$temporality == "uncategorized")
 
 #demo
-VI_matches_demo <- read.csv("data/VI_matches_demo.csv")
-VIHI_transcripts_messy <- read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches_messy2023-04-21.csv")
+VI_matches_demo <- read.csv("data/VI_matches_demo.csv", na = c("", "NA", " "))
+VIHI_transcripts_messy <- read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches_2023-05-09.csv")
 
 lotta_data <- LENA_counts %>%
   left_join(MLUs, by=c("VIHI_ID", "group"))  %>%
@@ -203,18 +203,19 @@ Reaching a better understanding of how sensory perception and linguistic input i
 
 ```{r participant-characteristics, results="asis"}
 VI_matches_demo <- VI_matches_demo %>%
+  replace_na(list(MaternalEd = 'unknown')) %>%
   mutate(match_group = as.factor(case_when(
     match_group == "VI_TD" ~ "Sighted",
     match_group == "VI" ~ "Blind",
     TRUE ~ match_group
   )),
   Race = if_else(Race == "Black or African American,White", "Mixed", Race),
-  MaternalEd = factor(MaternalEd, levels = c(
-    "Unreported", "Some college", "Associate's degree",
-    "Bachelor's degree", "Master's degree",
-    "Doctoral degree (e.g. MD, PhD, JD)"
-  ))
-)
+ #MaternalEd = factor(MaternalEd, levels = c("unknown", "Some college", "Associate's degree",
+  #  "Bachelor's degree", "Master's degree",
+  #  "Doctoral degree (e.g. MD, PhD, JD)"
+#  )),
+  Gender = recode(Gender, "F" = "Female", "M" = "Male"))
+
 options(xtable.comment = FALSE)
 make.table(
   dat = VI_matches_demo,
@@ -228,11 +229,11 @@ make.table(
     "Ethnicity"
   ),
   cat.rmstat = list(
-    c("row", "count", "miss"),
-    c("row", "count", "miss"),
-    c("row", "count", "miss"),
-    c("row", "count", "miss"),
-    c("row", "count", "miss")
+    c("count", "miss", "row", "col"),
+    c("count", "miss", "row", "col"),
+    c("count", "miss", "row", "col"),
+    c("count", "miss", "row", "col"),
+    c("count", "miss", "row", "col")
   ),
   cont.varlist = c("Age_months", "OlderSiblings"),
   cont.header = c("Age in months", "Number of older siblings"),
@@ -240,6 +241,8 @@ make.table(
     c("mediqr", "q1q3", "count", "miss"),
     c("mediqr", "q1q3", "count", "miss")
   ),
+  caption = "Participant Demographics, by vision group",
+  stripe.col   = "grey",
   output = "latex"
 )
 
@@ -938,7 +941,7 @@ Returning to the larger equation of language development, blind and sighted infa
 
 # Conclusion
 
-In summary, our study compared language input in homes of 15 blind and 15 sighted infants/toddlers. We found that both groups received similar quantities of adult speech and had similar levels of interaction. However, blind children were exposed to longer utterances and more decontextualized language, suggesting that they are being exposed to a rich and complex linguistic environment that differs from the language input of sighted children. Our study does not imply that parents should change their communication styles, but rather highlights the importance of recognizing and appreciating the unique language experiences of blind children. Future research could investigate how these input differences impact the language development and cognitive abilities of blind children,
+In summary, our study compared language input in homes of 15 blind and 15 sighted infants/toddlers. We found that both groups received similar quantities of adult speech and had similar levels of interaction. However, blind children were exposed to longer utterances and more decontextualized language, suggesting that they are being exposed to a rich and complex linguistic environment that differs from the language input of sighted children. Our study does not imply that parents should change their communication styles, but rather highlights the importance of recognizing and appreciating the unique language experiences of blind children. Future research could investigate how these input differences impact the language development and cognitive abilities of blind children.
 
 ```{r trackdown}
 # trackdown::update_file(file="input_quality_manuscript.Rmd",gpath="trackdown/input_quality",hide_code=TRUE, path_output = "input_quality_manuscript.pdf")
