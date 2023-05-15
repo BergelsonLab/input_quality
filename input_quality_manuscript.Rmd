@@ -58,6 +58,8 @@ library(lubridate)
 library(corrplot)
 library(psych)
 library(glue)
+library(car)
+library(MASS)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
@@ -101,16 +103,16 @@ VI_matches_demo <- read.csv("data/VI_matches_demo.csv")
 lotta_data <- LENA_counts %>%
   left_join(MLUs, by="VIHI_ID")  %>%
   left_join(manual_word_TTR, by="VIHI_ID") %>%
-  left_join(xds_props_wide %>% select(-total), by=c("VIHI_ID", "group")) %>%
-  left_join(sensory_props_wide %>% select(-total), by=c("VIHI_ID", "group"))%>%
+  left_join(xds_props_wide %>% dplyr::select(-total), by=c("VIHI_ID", "group")) %>%
+  left_join(sensory_props_wide %>% dplyr::select(-total), by=c("VIHI_ID", "group"))%>%
   left_join(subj_CBOI_means, by=c("VIHI_ID", "group")) %>%
   left_join(temporality_props_wide, by=c("VIHI_ID", "group")) %>%
   mutate(ParticipantNumber = as.factor(str_sub(VIHI_ID, 1, 6))) %>%
   mutate(LENA_age_in_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))))%>%
-  # left_join(VIHI_CDI, by=c("group", "ParticipantNumber")) %>%
-  # mutate(CDI_LENA_days_apart = abs(CDI_age_in_days - LENA_age_in_days),
-  #        group = as.factor(group)) %>%
-  # arrange(CDI_LENA_days_apart) %>%
+  left_join(VIHI_CDI, by=c("group", "ParticipantNumber")) %>%
+  mutate(CDI_LENA_days_apart = abs(CDI_age_in_days - LENA_age_in_days),
+         group = as.factor(group)) %>%
+  arrange(CDI_LENA_days_apart) %>%
   distinct(ParticipantNumber, .keep_all=TRUE)
 ```
 
@@ -707,12 +709,6 @@ The CDI is a parent-report measure of children's receptive and expressive vocabu
 
 In order to include all participants in this analysis, we also build a model predicting children's automatic vocal analysis (AVA) standard score, a measure that uses LENA's speech recognition to categorize and quantify the speech sounds in child vocalizations [@richards2009]. The distribution of these speech sounds is used to predict children's vocal maturity. AVA has been normed and validated for sighted, typically-developing children from two- to 48-months-old [@richards2017], correlates strongly with other measures of expressive language, demonstrates decent test-retest reliability, and has also been used in clinical settings with children with autism, children with language delays, and Deaf/Hard-of-Hearing children [@oller2010; @warren2009; @vandam2015].
 
-```{r productive-language-measures}
-# make a table
-```
-
-### Predicting Expressive Language
-
 ```{r variable-relationships, fig.cap="Kendall's Tau correlations between subject-level language input variables. Significant correlations are marked with asterisks.", fig.height=6.5,fig.width=6.5}
 vars_for_cor <- lotta_data %>%
   select(AWC,tokens,CTC,prop_CDS,TTR,MLU,prop_displaced, CBOI_Mean, prop_Visual) %>%
@@ -733,6 +729,14 @@ corrplot(cors, type = "lower",method="color", tl.col = "black",tl.cex=.8, addCoe
 
 ```
 
+```{r productive-language-measures}
+# make a table
+```
+
+### Predicting Expressive Language
+
+
+
 We constructed three linear models, one predicting vocabulary percentile and one predicting AVA standard score, using the same model fitting procedure. We start with a model including all of our main effects-- age, group, and each of the language input variables: adult word count, manual word count, conversational turn count, proportion of child-directed speech, type-token ratio, mean length of utterance, proportion of temporally displaced verbs, mean child-body-object interaction rating for content words, and proportion of highly visual words. Next, we check the variance inflation factor for potential collinearity and remove any language input variables with a VIF > 5 [cite]. Then, we include an interaction between each of the input variables and group. To select the final model, we then use stepwise model comparison [CITE stepaic] to pare down the full. This procedure retains only the variables that significantly improve model fit based on Akaike's Information Criterion [AIC; @yamashita2007]. 
 
 For the model of AVA, prior to model comparison, we removed the proportion of visual words (VIF = 7.09). Model selection indicated that the best fitting model of AVA included main effects of Adult Word Count and MLU. This model accounted for ~30% of the variance in children's AVA standard score (report model results).
@@ -740,12 +744,10 @@ For the model of AVA, prior to model comparison, we removed the proportion of vi
 For the model of CVC, to avoid collinearity, we removed conversational turn count and adult word count from the model, as the LENA algorithm uses child vocalization count and adult word count to calculate conversational turn count. Checking VIF did not indicate that it was necessary to remove any further variables. 
 
 ```{r predicting-plots, fig.height=6,fig.width=6,fig.cap="Plots of the relationship between the input variables and children's vocabulary outcomes (relative to the Wordbank 50th percentile."}
-# VIHI_CDI <- read.csv("/Users/eec35/Desktop/Git/LENA/input_quality/data/CDI/Wordbank/VIHI_CDI.csv") %>%
-# dplyr::rename(CDI_age_in_days=age)
-#
-predict_AVA_full <- lm(AVA_standard_score ~ (LENA_age_in_days + AWC+CTC + prop_CDS + TTR + MLU  + prop_displaced + CBOI_Mean)*group, data = lotta_data)
-# vif(predict_AVA_full) # remove prop_Visual
-# stepAIC(predict_AVA_full) # lm(formula = AVA_standard_score ~ AWC + MLU, data = lotta_data)
+
+predict_CDI_full <- lm(diff_age_from_expected ~ AWC + CTC + prop_CDS + TTR + MLU  + prop_Visual + CBOI_Mean, data = (lotta_data %>% filter(group=="VI")))
+vif(predict_CDI_full) # remove prop_Displaced, age
+# stepAIC(predict_CDI_full) # lm(formula = AVA_standard_score ~ AWC + MLU, data = lotta_data)
 
 predict_AVA_selected <- lm(formula = AVA_standard_score ~ AWC + MLU, data = lotta_data)
 # summary(predict_AVA_selected)
@@ -924,7 +926,8 @@ Additionally, a common trope in earlier interaction literature is to focus on vi
 
 ## Linguistic Features
 
-Along the linguistic dimension, we measured type-token ratio and mean length of utterance. Type-token ratio was similar across groups, and in line with type-token ratio in other child-centered corpora [e.g., @newman2015]. However, we found higher MLU in blind children's language environment.
+Along the linguistic dimension, we measured type-token ratio and mean length of utterance. Type-token ratio was similar across groups, and in line with type-token ratio in other child-centered corpora [e.g., @newman2015]. However, we found slightly but significantly higher MLU in blind children's language environment.
+Parents of children with disabilities (including parents of blind children! https://familyconnect.org/browse-by-age/infants-and-toddlers/growth-and-development-iandt/language-development/ https://www.wikihow.life/Teach-Your-Blind-or-Visually-Impaired-Child-to-Talk) are often advised to use shorter, simpler sentences with their children, in order to promote children's understanding. Yet, longer, more complex utterances are associated with better child language outcomes in both typically-developing children [@hoff2002] and children with cognitive differences [@sandbank2015].
 
 ## Conceptual Features
 
