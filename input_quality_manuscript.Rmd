@@ -202,50 +202,6 @@ Reaching a better understanding of how sensory perception and linguistic input i
 `r LENA_counts %>% filter(group=="VI") %>% distinct(VIHI_ID, .keep_all =TRUE) %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through ophthalmologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. To control for the wide age range of the study, each blind participant was matched to a sighted participant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level: less than high school diploma, high school diploma, some college / Associate's, Bachelor's, graduate school), and number of siblings ($\pm$ 1 sibling). We prioritized matching each characteristic as closely as possible in the preceding order. Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI, @fenson1994] within one week of the home language recording. See Table \@ref(tab:participant-characteristics) for sample characteristics.
 
 ```{r participant-characteristics, results="asis"}
-VI_matches_demo <- VI_matches_demo %>%
-  replace_na(list(MaternalEd = 'unknown')) %>%
-  mutate(match_group = as.factor(case_when(
-    match_group == "VI_TD" ~ "Sighted",
-    match_group == "VI" ~ "Blind",
-    TRUE ~ match_group
-  )),
-  Race = if_else(Race == "Black or African American,White", "Mixed", Race),
- #MaternalEd = factor(MaternalEd, levels = c("unknown", "Some college", "Associate's degree",
-  #  "Bachelor's degree", "Master's degree",
-  #  "Doctoral degree (e.g. MD, PhD, JD)"
-#  )),
-  Gender = recode(Gender, "F" = "Female", "M" = "Male"))
-
-options(xtable.comment = FALSE)
-make.table(
-  dat = VI_matches_demo,
-  strat = "match_group",
-  cat.varlist = c("Gender", "MaternalEd", "Diagnosis", "Race", "Ethnicity"),
-  cat.header = c(
-    "Gender",
-    "Maternal education level",
-    "Vision diagnosis",
-    "Race",
-    "Ethnicity"
-  ),
-  cat.rmstat = list(
-    c("count", "miss", "row", "col"),
-    c("count", "miss", "row", "col"),
-    c("count", "miss", "row", "col"),
-    c("count", "miss", "row", "col"),
-    c("count", "miss", "row", "col")
-  ),
-  cont.varlist = c("Age_months", "OlderSiblings"),
-  cont.header = c("Age in months", "Number of older siblings"),
-  cont.rmstat = list(
-    c("mediqr", "q1q3", "count", "miss"),
-    c("mediqr", "q1q3", "count", "miss")
-  ),
-  caption = "Participant Demographics, by vision group",
-  stripe.col   = "grey",
-  output = "latex"
-)
-
 perc_random_silent <-
   ((
     VIHI_transcripts_messy %>% filter(
@@ -259,10 +215,63 @@ perc_random_silent <-
   )
   ) * 100
 
+report_continuous <- function(vector, string,dig=1){
+  range <- glue("{round(min(vector,na.rm=TRUE))}--{round(max(vector,na.rm=TRUE))}")
+  mean <- glue("{round(mean(vector,na.rm=TRUE),dig)}")
+  sd = glue("{round(sd(vector,na.rm=TRUE),dig)}")
+  template <- "{range}{string},\n{mean} ({sd}){string}"
+  glue(template, range = range, mean = mean, sd = sd)
+}
+
+level_template <- "{level}: {pct}%"
+report_level <- function(vector, level) {
+  fac = as.factor(vector)
+  n <- sum(fac == level, na.rm = TRUE)
+  total <- length(fac)
+  pct <- round(n / total * 100)
+  glue(level_template, n = n, pct = pct, level = level)
+}
+report_factor <- function(vector) {
+  levels(as.factor(vector)) %>%
+    map_chr(function(level) report_level(vector = vector, level = level)) %>%
+    str_c(collapse = ',\n')
+}
+
+VI_matches_demo %>%
+  mutate(match_group = as.factor(case_when(
+    match_group == "VI_TD" ~ "Sighted (N=15)",
+    match_group == "VI" ~ "Blind (N=15)")
+  ),
+  Race = if_else(Race == "Black or African American,White", "Mixed", Race),
+MaternalEd = factor(MaternalEd, levels = c("Some college", "Associate's degree",
+ "Bachelor's degree", "Master's degree",
+ "Doctoral degree"
+ )),
+  Gender = recode(Gender, "F" = "Female", "M" = "Male"))  %>%
+  dplyr::rename(Group = match_group) %>%
+  mutate(
+    across(c(Gender,Race), ~replace_na(.x, "Missing")),
+           Gender = factor(Gender,levels=c("Female","Male")),
+) %>%
+  group_by(Group) %>%
+summarize(
+    `Age (months)` = report_continuous(Age_months, ""),
+     Sex= report_factor(Gender),
+     Race=report_factor(Race),
+    `Number of Older Siblings` = report_continuous(OlderSiblings, ""),
+    `Maternal Education Level`=report_factor(MaternalEd),
+    Diagnosis = report_factor(Diagnosis)
+  ) %>%
+kable(caption = "Demographic characteristics of the blind and sighted samples") %>%
+  kable_styling(font_size = 8) %>%
+ column_spec(1, width = ".5in")%>%
+ column_spec(2, width = ".5in")%>%
+ column_spec(3, width = ".7in")%>%
+ column_spec(4, width = ".7in")%>%
+ column_spec(5, width = ".7in")%>%
+  column_spec(6, width = ".85in") %>%
+column_spec(7, width = ".85in")
 ```
-
-<!-- lr: fix table -->
-
 ## Recording Procedure
 
 For the recording portion of the study, caregivers of participating infants received a LENA wearable audio recorder and vest [@ganek2016; @gilkerson2008]. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off after 16 hours (setting the vest nearby during baths, naps, and car rides). They were also informed how to pause the recording at any time, but asked to keep these pauses to a minimum. Actual recording length ranged from `r seconds_to_length(min(LENA_counts$total_time_dur))` to `r seconds_to_length(max(LENA_counts$total_time_dur))` (Mean: `r seconds_to_length(mean(LENA_counts$total_time_dur, na.rm=TRUE))`).
