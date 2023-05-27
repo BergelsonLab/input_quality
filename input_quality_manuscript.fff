@@ -9,13 +9,20 @@
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{input_quality_manuscript_files/figure-latex/interactiveness-plots-1.pdf}
-\caption{\label{fig:interactiveness-plots}Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Each dot represents one child's recording. The full breakdown by addressee is shown in the rightmost panel.}
+\includegraphics{input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf}
+\caption{\label{fig:interaction-plots}Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Each dot represents one child's recording. The full breakdown by addressee is shown in the rightmost panel.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{input_quality_manuscript_files/figure-latex/predicting-plots-1.pdf}
-\caption{\label{fig:predicting-plots}Plots of the relationship between the input variables and children's vocabulary outcomes (relative to the Wordbank 50th percentile.}
+\includegraphics{input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf}
+\caption{\label{fig:linguistic-plots}Comparing linguistic features: Mean length of utterance (left); each dot represents one speaker. Type-token ratio (right). Each dot represents one child's recording.}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf}
+\caption{\label{fig:conceptual-plots}Left col: Comparing proportion of temporally displaced verbs (top), mean Child-Body-Object-Interaction rating (middle), and proportion of highly visual words (bottom). Each dot represents the one child's recording, with black dot and whiskers showing means and standard errors. Right col: Full distribution of verb types (top), Child-Body-Object Interaction ratings (middle), and sensory modality (bottom) by group, collapsing across participants.}
 \end{figure*}
