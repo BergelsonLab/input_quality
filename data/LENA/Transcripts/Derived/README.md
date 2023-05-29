@@ -1,0 +1,159 @@
+# input_quality/data/LENA/Transcripts/Derived/
+
+This subfolder contains various derived language input data generated from LENA recordings. Each of these is genereaed by input_quality_preprocessing.R
+
+## Files
+
+- `MLUs.csv`: File containing Mean Length of Utterance (MLU) measurements. Contains the following columns: 
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `MLU`: Mean Length of Utterance in morphemes.
+    - `pair`: Indicates which blind participant is matched to which sighted match.
+- `secret_random_MLU_subset.csv`: Subset of MLU measurements for reliability. Contains the following columns:
+    - `utt_num`: utterance number.
+    - `speaker`: Speaker of the utterance (from ELAN tiers)
+    - `xds`: addressee of the utterance (from ELAN).
+    - `utterance`: Text of the utterance.
+    - `manual_morpheme_count`: Manual count of morphemes. Added directly to excel for reliability and then read back into VI_input_quality_preprocessing.R.
+- `annotated_utterances.csv`: Utterances tokenized and with morphosyntactic information added from the udpipe package. Contains the following columns: 
+    - `doc_id`: Identifier for the document (corresponds to VIHI_ID)
+    - `paragraph_id`: Identifier for the paragraph within the document.
+    - `sentence_id`: Identifier for the sentence within the paragraph.
+    - `sentence`: Text of the sentence. (corresponds to utterance)
+    - `token_id`: Identifies the location of the token in the utterance (ex: first word = 1, second word = 2, etc.).
+    - `token`: word token
+    - `lemma`: Lemma of the token.
+    - `upos`: Universal Part-of-Speech tag. https://universaldependencies.org/u/pos/index.html
+    - `xpos`: Language-specific Part-of-Speech tags, from the Penn Treebank project: https://ufal.mff.cuni.cz/pcedt3.0/pubs/english-treebank-postags.pdf
+    - `feats`: Morphological features.
+    - `head_token_id`: Identifier for the head token of the dependency relation.
+    - `dep_rel`: Dependency relation to the head token.
+    - `deps`: Enhanced dependency graph.
+    - `misc`: Miscellaneous information.
+- `content_words_only.csv`: File containing only content words from the transcripts. Contains the following columns:
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `sentence`: Text of the utterance
+    - `token`: the word
+    - `lemma`: Lemma of the token.
+    - `upos`: Universal Part-of-Speech tag.
+    - `CBOI_Mean`: Mean of Child Body Object Interaction ratings (1-7) from Muraki et al., 2023.
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+- `manual_word_tokens.csv`: File containing manually coded word tokens.
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `tokens`: how many tokens (from non-CHI speakers) in the random samples for each participant
+    - `pair`: Indicates which blind participant is matched to which sighted match.
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+- `manually_coded_MLU_subset.csv`: Subset of verb utterances to be manually coded for displacement. Contains the following columns, but most of these columns are only provided in order to later match the utterance to the correct participant:
+    - `speaker`: Speaker of the utterance.
+    - `xds`: addressee
+    - `utterance`: Text of the utterance.
+    - `manual_morpheme_count`: Count of manual morphemes in the utterance.
+- `manually_coded_displacement_subset.csv`: 
+    - `paragraph_id`: Identifier for the utterance within participant
+    - `sentence_id`: Identifier for the sentence within the paragraph.
+    - `sentence`: Text of the utterance
+    - `token_id`: Identifier for the token within the sentence.
+    - `token`: Text of the token.
+    - `lemma`: Lemma of the token.
+    - `head_token_id`: Identifier for the head token of the dependency relation.
+    - `dep_rel`: Dependency relation to the head token.
+    - `deps`: Enhanced dependency graph.
+    - `misc`: Miscellaneous information.
+    - `manual_temporality`: human judgment of whether event is current occurring. (to be filled in)
+- `manually_coded_modality_sample.csv`: Subset of word tokens to be manually coded for modality. Contains the following columns:
+    - `Word`: the word
+    - `manual_modality`: human judgment of the modality of the word (to be filled in)
+- `random_MLU_subset.csv`: Random subset of MLU measurements to be filled in by human coder for reliability with udpipe approach:
+    - `speaker`: Speaker of the utterance.
+    - `xds`: addressee
+    - `utterance`: Text of the utterance.
+    - `manual_morpheme_count`: Count of manual morphemes in the utterance.
+- `random_displacement_subset.csv`: Random subset of displacement judgments to be filled in by human coder for reliability:
+    - `paragraph_id`: Identifier for the utterance within participant
+    - `sentence_id`: Identifier for the sentence within the paragraph.
+    - `sentence`: Text of the utterance
+    - `token_id`: Identifier for the token within the sentence.
+    - `token`: Text of the token.
+    - `lemma`: Lemma of the token.
+    - `head_token_id`: Identifier for the head token of the dependency relation.
+    - `dep_rel`: Dependency relation to the head token.
+    - `deps`: Enhanced dependency graph.
+    - `misc`: Miscellaneous information.
+    - `manual_temporality`: human judgment of whether event is current occurring. (to be filled in)
+- `random_modality_subset.csv`: Random subset of modality measurements.
+   - `Word`: the word
+    - `manual_modality`: human judgment of the modality of the word (to be filled in)
+- `sensory_props.csv`: proportions of utterances by sensory modality (long)
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `Modality`: perceptual modality of word
+    - `total`: number of words contributing to proportion for this participant
+    - `pair`: Indicates which blind participant is matched to which sighted match.
+    - `prop`: proportion of utterances by modality
+- `sensory_props_wide.csv`: proportion of utterances by sensory modality (wide)
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `total`: number of words contributing to proportion for this participant
+    - `pair`: Indicates which blind participant is matched to which sighted match.
+    - `prop_Amodal`: proportion of words that are predominantly Amodal
+    - `prop_Auditory`: proportion of words that are predominantly Auditory
+    - `prop_Gustatory`: proportion of words that are predominantly Gustatory
+    - `prop_Haptic`: proportion of words that are predominantly Haptic
+    - `prop_Interoceptive`: proportion of words that are predominantly Interoceptive
+    - `prop_Multimodal`: proportion of words that are Multimodal
+    - `prop_Olfactory`: proportion of words that are predominantly Olfactory
+    - `prop_Visual`: proportion of words that are predominantly Auditory
+- `subj_CBOI_means.csv`: File containing mean subject CBOI measurements.
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `pair`: Indicates which blind participant is matched to which sighted match.
+    - `CBOI_Mean`: average CBOI rating (1-7) for all the content words in each participants' sample
+- `temporality_props.csv`: proportion of utterances by verb temporality (long)
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `verb_temporality`: present, displaced, or uncategorized
+    - `verb_utt_count`: number of verb utterances contributing to proportion for this participant
+    - `pair`: Indicates which blind participant is matched to which sighted match.
+    - `prop`: proportion of utterances by temporality
+- `temporality_props_wide.csv`: proportion of utterances by verb temporality (wide)
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `verb_utt_count`: number of verb utterances contributing to proportion for this participant
+    - `pair`: Indicates which blind participant is matched to which sighted match.
+    - `prop_displaced`: proportion of utterances that are past, future, or hypothetical
+    - `prop_present`: proportion of utterances that are present tense
+    - `prop_uncategorized`: proportion of utterances that are uncategorized
+- `verbs_only.csv`: only utterances that contain verbs, with morphosyntactic information added with udpipe
+    - `doc_id`: Identifier for the document (corresponds to VIHI_ID)
+    - `paragraph_id`: Identifier for the utterance within participant
+    - `sentence_id`: Identifier for the sentence within the paragraph.
+    - `sentence`: Text of the utterance
+    - `token_id`: Identifier for the token within the sentence.
+    - `token`: Text of the token.
+    - `lemma`: Lemma of the token.
+    - `head_token_id`: Identifier for the head token of the dependency relation.
+    - `dep_rel`: Dependency relation to the head token.
+    - `deps`: Enhanced dependency graph.
+    - `misc`: Miscellaneous information.
+    - `temporality`: whether verb is present, displaced, or uncategorized
+- `xds_props.csv`: proportions of utterances by addressee (long)
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `xds`: addressee
+    - `total`: number of utterances contributing to proportion for this participant
+    - `pair`: Indicates which blind participant is matched to which sighted match.
+    - `prop`: proportion of utterances by addressee
+- `xds_props_wide.csv`: proportions of utterances by addressee (wide)
+    - `group`: Indicates the group of the participant (e.g., blind = VI, sighted = TD).
+    - `VIHI_ID`: Unique identifier for each participant.
+    - `total`: number of utterances contributing to proportion for this participant
+    - `pair`: Indicates which blind participant is matched to which sighted match.
+    - `prop_ADS`: proportion of utterances that are directed to Adults
+    - `prop_BDS`: proportion of utterances that are directed to Both children and adults
+    - `prop_CDS`: proportion of utterances that are directed to Children        
+    - `prop_ODS`: proportion of utterances that are directed to Other
+    - `prop_UDS`: proportion of utterances that are directed to Unsure
+    - `prop_PDS`: proportion of utterances that are directed to Pets
+
+Maintained by: Erin Campbell (erin.e.campbell@duke.edu)
+Last updated: 5/29/2023

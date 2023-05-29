@@ -27,7 +27,7 @@ note: |
 keywords          : "keywords"
 wordcount         : "X"
 
-bibliography      : ["VI_InputQuality.bib"]
+bibliography      : ["VI_input_citations.bib"]
 
 floatsintext      : no
 figurelist        : no
@@ -40,7 +40,6 @@ draft             : no
 documentclass     : "apa6"
 classoption       : "man"
 output            : papaja::apa6_pdf
-
 ---
 
 ```{r libraries, echo = FALSE, message = FALSE, warning = FALSE}
@@ -120,8 +119,8 @@ verbs_only <- read.csv("data/LENA/Transcripts/Derived/verbs_only.csv")
 n_uncat<-sum(verbs_only$temporality == "uncategorized")
 
 #demo
-VI_matches_demo <- read.csv("data/VI_matches_demo.csv", na = c("", "NA", " "))
-VIHI_transcripts_messy <- read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches_2023-05-09.csv")
+VI_matches_demo <- read.csv("data/Demographics/VI_matches_demo.csv", na = c("", "NA", " "))
+VIHI_transcripts_messy <- read.csv("data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-05-09.csv")
 
 lotta_data <- LENA_counts %>%
   left_join(MLUs, by=c("VIHI_ID", "group"))  %>%
@@ -160,11 +159,11 @@ participant_summary <- LENA_counts %>%
 
 # Introduction
 
-The early language skills of blind children are highly variable [@campbellsubmitted], with some blind children demonstrating age-appropriate vocabulary from the earliest stages of language learning [@landau1985; @bigelow1987; @campbellsubmitted], while others experience large and persistent language delays [@campbellsubmitted]. By adulthood, blind individuals are fluent speakers of their language and are even reported to have faster auditory and lexical processing skills than sighted adults [@roder2000; @roder2003; @loiotile2020]. The causes of this variability and the later ability to "catch up" remain poorly understood: what could make the language learning problem different and initially more difficult for the blind child? There are multiple possible contributors to the variability in language development for blind children, including characteristics of the child (e.g., visual acuity, comorbid conditions, cognitive ability, gender) as well as characteristics of the environment (e.g., access to early intervention services, school setting, caretakers tailoring interactions to their child's sensory access). Here, we compare the language environment of blind children to that of their sighted peers. In doing so, we can begin to untangle the role that perceptual input plays in shaping children's language environment, and better understand the interlocking factors that may contribute to variability in blind children's early language abilities.
+The early language skills of blind children are highly variable [@campbellsubmitted], with some blind children demonstrating age-appropriate vocabulary from the earliest stages of language learning [@landau1985; @bigelow1987; @campbellsubmitted], while others experience substantial language delays [@campbellsubmitted]. By adulthood, blind individuals are fluent speakers and even have faster lexical processing skills than sighted adults [@roder2000; @roder2003; @loiotile2020]. The causes of early variability and the later ability to "catch up" remain poorly understood: what could make the language learning problem different and initially more difficult for the blind child? Here, we compare the language environments of blind children to that of their sighted peers. In doing so, we begin to untangle the role that perceptual input plays in shaping children's language environment, and better understand the interlocking factors that may contribute to variability in blind children's early language abilities.
 
 ## Why would input matter?
 
-Among both typically-developing children and children with developmental differences, language input can predict variability in language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021; @rowe2012; @anderson2021; @huttenlocher2010]. There are many ways to operationalize language input, that tend to be grouped into **quantity of language input** and **input characteristics** [often discussed as **quality of language input**[^1], c.f. @macleod2023]. Quantity of language input can be broadly construed as the number of words or utterances a child is exposed to. At a coarse level, children who are exposed to more speech [or sign, @watkins1998] tend to have better language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021]. However, if only the *amount* of language exposure mattered, then infants should be able to sit in front of the television all day and become fluent language users. Yet young children struggle to learn language from just from exposure to large quantities of speech [e.g., @roseberry2014], so something about the *type* of language input must matter.
+Among both typically-developing children and children with developmental differences, language input can predict variability in language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021; @rowe2012; @anderson2021; @huttenlocher2010]. There are many ways to operationalize language input, that tend to be grouped into **quantity of language input** and **input characteristics** [often discussed as **quality of language input**[^1], c.f. @macleod2023]. Quantity can be broadly construed as the number of words or utterances a child is exposed to. At a coarse level, children who are exposed to more speech [or sign, @watkins1998] tend to have better language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021]. However, if only the *amount* of language exposure mattered, then infants should be able to sit in front of the television all day and become fluent language users. Yet young children struggle to learn language just from exposure to large quantities of speech [e.g., @roseberry2014], so something about the *type* of language input must matter.
 
 [^1]: In the present study, we move away from describing these linguistic characteristics as "quality" measures. In the field thus far, the directionality of the term "quality" has favored the types of language used by white and abled groups as immutable universal standards, thereby framing racialized and disabled peoples' language as deficit and "low quality" by nature. Describing a singular source of input variation as "high quality" ignores the sociocultural variation of talk styles, and the presence of many rich sources of information from which children can learn [@macleod2023].
 
@@ -280,9 +279,7 @@ Therefore, we also chose to annotate 5 additional segments specifically for thei
 
 ## Annotation
 
-Annotations were completed using the ELAN software [@brugman2009]. Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the Analyzing Child Language Experiences around the World (ACLEW) Daylong Audio Recording of Children's Linguistic Environments (DARCLE) annotation scheme [@soderstrom2021]. For more information about this annotation scheme and the annotator training process, please see the [ACLEW homepage](https://sites.google.com/view/aclewdid/home "ACLEW homepage"). Following the first pass, all files were reviewed by a highly-trained "superchecker" to ensure the consistency of annotations.
-<!-- ec: do we need to spell out ACLEW and DARCLE? -->
-For each recording, annotators segmented the duration of each utterance on a separate coding tier for each unique speaker. Speech by people other than the target child was transcribed using an adapted version of the CHAT transcription style [@macwhinney2019; @soderstrom2021]. Because the majority of target children in the project are pre-lexical, utterances produced by the target child are not yet transcribed. Environmental speech was then classified based on the addressee of each utterance: child, adult, both an adult and a child, pets or other animals, unclear addressee, or a recipient that doesn't fit into another category (e.g., voice control of Siri or Alexa, prayer to a metaphysical entity).
+Annotations were completed using the ELAN software [@brugman2009]. Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the Analyzing Child Language Experiences around the World (ACLEW) Daylong Audio Recording of Children's Linguistic Environments (DARCLE) annotation scheme [@soderstrom2021]. For more information about this annotation scheme and the annotator training process, please see the [ACLEW homepage](https://sites.google.com/view/aclewdid/home "ACLEW homepage"). Following the first pass, all files were reviewed by a highly-trained "superchecker" to ensure the consistency of annotations. <!-- ec: do we need to spell out ACLEW and DARCLE? --> For each recording, annotators segmented the duration of each utterance on a separate coding tier for each unique speaker. Speech by people other than the target child was transcribed using an adapted version of the CHAT transcription style [@macwhinney2019; @soderstrom2021]. Because the majority of target children in the project are pre-lexical, utterances produced by the target child are not yet transcribed. Environmental speech was then classified based on the addressee of each utterance: child, adult, both an adult and a child, pets or other animals, unclear addressee, or a recipient that doesn't fit into another category (e.g., voice control of Siri or Alexa, prayer to a metaphysical entity).
 
 ## Extracting Measures of Language Input
 
@@ -824,7 +821,7 @@ ks_content_words <- content_words_only %>%
 ks_content_words_test <- ks.test(ks_content_words$CBOI_Mean, ks_content_words$group)
 ```
 
-```{r conceptual-plots, fig.cap="Left col: Comparing proportion of temporally displaced verbs (top), mean Child-Body-Object-Interaction rating (middle), and proportion of highly visual words (bottom). Each dot represents the one child's recording, with black dot and whiskers showing means and standard errors. Right col: Full distribution of verb types (top), Child-Body-Object Interaction ratings (middle), and sensory modality (bottom) by group, collapsing across participants.", fig.height=8, fig.width=6.5}
+```{r conceptual-plots, fig.cap="Left col: Comparing proportion of temporally displaced verbs (top), mean Child-Body-Object-Interaction rating (middle), and proportion of highly visual words (bottom). Each dot represents the one child's recording, with black dot and whiskers showing means and standard errors. Right col: Full distribution of verb types (top), Child-Body-Object Interaction ratings (middle), and sensory modality (bottom) by group, collapsing across participants.", fig.height=8, fig.width=7}
 cowplot::plot_grid(hereandnow_plot,temporality_props_plot,CBOI_plot,CBOI_distribution_plot,visual_plot,sensory_props_plot,cols = 2, rel_widths = c(1.5,2.2))
 ```
 
