@@ -1,0 +1,33 @@
+pair,VIHI_ID,match_group,Age,Age_months,Gender,MaternalEd,OlderSiblings,Diagnosis,Race,Ethnicity
+2,TD_443_341,VI_TD,341,11.2109547,F,Associate's degree,3,NA,White,Not Hispanic or Latino
+3,TD_444_402,VI_TD,402,13.2164334,M,Associate's degree,1,NA,White,Not Hispanic or Latino
+3,VI_003_405,VI,405,13.3150635,M,Associate's degree,2,Multiple,White,Hispanic or Latino
+1,TD_436_678,VI_TD,678,22.2904026,F,Bachelor's degree,2,NA,unknown,unknown
+7,TD_445_217,VI_TD,217,7.1342439,M,Bachelor's degree,2,NA,White,Not Hispanic or Latino
+4,TD_447_448,VI_TD,448,14.7287616,F,Bachelor's degree,0,NA,White,Not Hispanic or Latino
+8,TD_449_716,VI_TD,716,23.5397172,M,Bachelor's degree,NA,NA,White,Not Hispanic or Latino
+14,TD_472_829,VI_TD,829,27.2547843,M,Bachelor's degree,0,NA,unknown,unknown
+15,TD_473_844,VI_TD,844,27.7479348,F,Bachelor's degree,0,NA,unknown,unknown
+13,TD_474_966,VI_TD,966,31.7588922,F,Bachelor's degree,1,NA,White,unknown
+16,TD_475_481,VI_TD,481,15.8136927,M,Bachelor's degree,0,NA,Black or African American,Not Hispanic or Latino
+10,TD_477_217,VI_TD,217,7.1342439,F,Bachelor's degree,2,NA,unknown,unknown
+4,VI_004_415,VI,415,13.6438305,F,Bachelor's degree,0,Cataracts,White,Not Hispanic or Latino
+7,VI_007_204,VI,204,6.7068468,M,Bachelor's degree,2,Microphthalmia ,White,Not Hispanic or Latino
+8,VI_008_707,VI,707,23.2438269,M,Bachelor's degree,0,Optic Nerve Hypoplasia,White,Not Hispanic or Latino
+12,VI_015_195,VI,195,6.4109565,F,Bachelor's degree,0,Not specified,White,Not Hispanic or Latino
+15,VI_037_868,VI,868,28.5369756,F,Bachelor's degree,0,Optic Nerve Hypoplasia,White,Not Hispanic or Latino
+5,VI_005_263,VI,263,8.6465721,M,Doctoral degree,0,Ocular albinism,"Black or African American,White",Not Hispanic or Latino
+6,VI_005_411,VI,411,13.5123237,M,Doctoral degree,0,Ocular albinism,"Black or African American,White",Not Hispanic or Latino
+16,VI_047_440,VI,440,14.465748,M,Doctoral degree,0,Multiple,White,Not Hispanic or Latino
+11,TD_463_254,VI_TD,254,8.3506818,M,Master's degree,1,NA,White,Not Hispanic or Latino
+1,VI_001_676,VI,676,22.2246492,F,Master's degree,1,Cataracts,American Indian or Alaska Native,Hispanic or Latino
+9,VI_012_562,VI,562,18.4767054,M,Master's degree,0,Retinopathy of Prematurity,White,Not Hispanic or Latino
+11,VI_014_242,VI,242,7.9561614,M,Master's degree,1,Not specified,White,Not Hispanic or Latino
+14,VI_033_820,VI,820,26.958894,M,Master's degree,0,Leber's Congenital Amaurosis ,White,Not Hispanic or Latino
+9,TD_465_541,VI_TD,541,17.7862947,M,Some college,NA,NA,Mixed,Not Hispanic or Latino
+2,VI_002_336,VI,336,11.0465712,F,Some college,0,Cataracts,Black or African American,Not Hispanic or Latino
+10,VI_013_206,VI,206,6.7726002,F,Some college,0,Microphthalmia ,"Black or African American,White",Not Hispanic or Latino
+13,VI_018_924,VI,924,30.3780708,F,Some college,2,Retinal Detachments,White,Hispanic or Latino
+5,TD_448_304,VI_TD,304,9.9945168,M,,NA,NA,unknown,unknown
+12,TD_464_188,VI_TD,188,6.1808196,F,,NA,NA,unknown,unknown
+6,TD_467_433,VI_TD,433,14.2356111,M,,NA,NA,unknown,unknown

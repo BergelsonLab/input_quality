@@ -15,12 +15,12 @@ library(udpipe)
 library(irr)
 
 ## demographics
-VI_matches_demo <- read.csv("data/VI_matches_demo.csv")
+VI_matches_demo <- read.csv("data/Demographics/VI_matches_demo.csv")
 
 lancaster_norms <-
-  read.csv("data/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
+  read.csv("data/Norms/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
   mutate(Word = tolower(Word))
-CBOI_norms <- read.csv("data/CBOI_mean_sd.csv") %>%
+CBOI_norms <- read.csv("data/Norms/CBOI_mean_sd.csv") %>%
   mutate(Word = tolower(Word))
 
 ### find + list all LENA transcripts on pn-opus
@@ -61,7 +61,7 @@ write.csv(LENA_counts, "data/LENA/Automated/LENA_counts.csv")
 ###read in data that has been mass exported via ELAN; add informative column names
 
 VITD_transcripts <-
-  read.csv("data/LENA/Transcripts/VI_LENA_and_TD_matches_2023-05-09.csv") %>% #need to re-generate transcripts
+  read.csv("data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-05-09.csv") %>% #need to re-generate transcripts
   mutate(VIHI_ID = as.factor(str_sub(VIHI_ID, 1, 10))) %>%
   filter(VIHI_ID %in% TD_matches | group == "VI") %>%
   mutate(
@@ -240,7 +240,7 @@ MLU_subset_for_agreement <-
 
 # Calculate Intraclass Correlation
 MLU_agreement <- icc(MLU_subset_for_agreement %>%
-                       select(manual_morpheme_count, morphemecount))
+                       dplyr::select(manual_morpheme_count, morphemecount))
 
 
 # conceptual quality ----
