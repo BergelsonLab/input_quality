@@ -61,7 +61,7 @@ write.csv(LENA_counts, "data/LENA/Automated/LENA_counts.csv")
 ###read in data that has been mass exported via ELAN; add informative column names
 
 VITD_transcripts <-
-  read.csv("data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-05-09.csv") %>% #need to re-generate transcripts
+  read.csv("data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-05-22.csv") %>% #need to re-generate transcripts
   mutate(VIHI_ID = as.factor(str_sub(VIHI_ID, 1, 10))) %>%
   filter(VIHI_ID %in% TD_matches | group == "VI") %>%
   mutate(

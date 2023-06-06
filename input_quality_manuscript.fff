@@ -24,5 +24,5 @@
 
 \centering
 \includegraphics{input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf}
-\caption{\label{fig:conceptual-plots}Left col: Comparing proportion of temporally displaced verbs (top), mean Child-Body-Object-Interaction rating (middle), and proportion of highly visual words (bottom). Each dot represents the one child's recording, with black dot and whiskers showing means and standard errors. Right col: Full distribution of verb types (top), Child-Body-Object Interaction ratings (middle), and sensory modality (bottom) by group, collapsing across participants.}
+\caption{\label{fig:conceptual-plots}Left col: Comparing proportion of temporally displaced verbs (top) and proportion of highly visual words (bottom). Each dot represents the one child's recording, with black dot and whiskers showing means and standard errors. Right col: Full distribution of verb types (top) and sensory modality (bottom) by group, collapsing across participants.}
 \end{figure*}
