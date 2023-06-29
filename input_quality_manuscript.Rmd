@@ -830,6 +830,20 @@ kable(ps_df, caption = "Summary of analyses over language input variables.", ali
 
 ```
 
+
+```{r predicting-outcomes}
+
+# # only AWC has a measurable association with CVC, and it doesnt vary by group
+# model_AWC <- lm(CVC ~ LENA_age_in_days + group *AWC, data=lotta_data)
+# model_CDS <- lm(CVC ~ LENA_age_in_days + group* prop_CDS, data=lotta_data)
+# model_TTR <- lm(CVC ~ LENA_age_in_days + group*  mean_ttr, data=lotta_data)
+# model_MLU <- lm(CVC ~ LENA_age_in_days+ group * MLU, data=lotta_data)
+# model_displaced <- lm(CVC ~ LENA_age_in_days * group+ prop_displaced, data=lotta_data)
+# model_visual <- lm(CVC ~ LENA_age_in_days + group* prop_Visual, data=lotta_data)
+
+```
+
+
 # Discussion
 
 This study, which contains more blind participants than prior research alongside a carefully peer-matched sighted sample, measured language input to young blind children and their sighted peers, using the LENA audio recorder. We found that along the dimensions of quantity and interaction, parents talk similarly to blind and sighted children, with differences in linguistic and conceptual content of the input. We discuss each of these results further below.
@@ -848,7 +862,7 @@ Additionally, a common focus in earlier interaction literature is to measure vis
 
 ## Linguistic Features
 
-Along the linguistic dimension, we measured type-token ratio and mean length of utterance. Parents of children with disabilities [including parents of blind children! e.g., @familyconnect; @chernyak] are often advised to use shorter, simpler sentences with their children; correspondingly, previous work finds that parents of children with disabilities tend to find that parents *do* use shorter, simpler utterances [e.g., Down syndrome, @lorang2020; hearing loss, @dirks2020]. We therefore expected to observe shorter utterances and less lexical diversity. Instead, type-token ratio and MLU were higher for blind children, suggesting that blind children are exposed to more lexically and morphosyntactically complex speech. Returning to the potential impact on children, evidence suggests that (contrary to the advice often given to parents), longer, more complex utterances are associated with better child language outcomes in both typically-developing children [@hoff2002] and children with cognitive differences [@sandbank2016]. And similarly, higher lexical diversity is associated with larger vocabulary [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001]. It seems that advice to simplify speech to blind children, while well-intentioned, is unnecessary.
+Along the linguistic dimension, we measured type-token ratio and mean length of utterance. Parents of children with disabilities [including parents of blind children! e.g., @familyconnect; @chernyak] are often advised to use shorter, simpler sentences with their children; correspondingly, previous work finds that parents of children with disabilities tend to find that parents *do* use shorter, simpler utterances [e.g., Down syndrome, @lorang2020; hearing loss, @dirks2020]. We therefore expected to observe shorter utterances and less lexical diversity. Instead, we found that blind children heard on average `r printnum(abs(TTR_test$estimate * 100))` more unique words per hundred words and `r printnum(abs(MLU_compare$estimate))` more morphemes per utterance [which is similar in magnitude to @dirk2020's MLU difference between mothers of typically-hearing vs. deaf children, and three times larger than @hoff2003's MLU difference between low- and high-SES mothers]. These results suggest that blind children are exposed to more lexically and morphosyntactically complex speech. Returning to the potential impact on children, evidence suggests that (contrary to the advice often given to parents), longer, more complex utterances are associated with better child language outcomes in both typically-developing children [@hoff2002] and children with cognitive differences [@sandbank2016]. And similarly, higher lexical diversity is associated with larger vocabulary [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001]. If these patterns are the same for blind children, this additional linguistic complexity may pose helpful in the absence of visual input.
 
 ## Conceptual Features
 
@@ -860,7 +874,11 @@ We wish to highlight again how much variability there is *within* groups and how
 
 ## Connecting to Language Outcomes
 
-This may be part of the reason why language delays are common in blind toddlers, but often resolved in older childhood [@landau1985]. If direct sensory access to referents provides an initial "brute force" mechanism for mapping words onto meanings (e.g., shared gaze, pointing, visual perception of referents), it may take longer for blind children to acquire the first few words. By hypothesis, once this initial seed of lexical knowledge is acquired [@babineau2021], blind children and sighted children alike are able to use more abstract and linguistic features as cues, and learning can proceed more rapidly thereafter [@campbell2022]. It could be precisely this increased linguistic input complexity which aids blind children in acquiring semantic knowledge later in development, once the first words are acquired. Testing this prediction awaits further research.
+Blind children's language input in this sample looks more linguistically and conceptually complex than input to sighted infants--what consequences might this have for language acquisition? Unfortunately, given the varied age range of this sample, we are underpowered to measure how these dimensions of language input affect children's language learning, but prior literature allows us to speculate. We explore two possibilities: First, if input effects pattern similarly for blind and sighted children, we would expect blind and sighted children alike to benefit from more input [cite], more interactive input [cite], more linguistically complex input [cite], and more conceptually complex input [cite]. If this is the case, then receiving more complex input might help blind children to learn linguistic structure. In turn, understanding linguistic structure [@gleitman1990] may support blind children's acquisition of word meanings in the absence of vision. Alternatively, what if language input affects acquisition *differently* for blind children than it does for sighted children? Is it possible that blind children actually need *less* complex language, and that differences in language input are responsible for early vocabulary delays? 
+
+To show our cards, we are inclined to believe the former account: that blind children benefit from receiving more complex language input. Language regularly supports learning in the absence of direct sensory perception (e.g., reading a book about mythical creatures). Given the language skills of blind adults [@roder2000; @roder2003; @loiotile2020], it seems likely that language is a source of meaning for blind individuals as well [@lewis2019; @vanparidon2021; @campbell2022]. Testing each of these predictions awaits further research.
+
+In either case, if properties of language input do influence blind children's language outcomes, attempting to train parents to talk differently may be unfruitful. Interventions where parents are trained to talk differently to their children often show short-term success [@roberts2019] but fail to change parental speech patterns in the long term [e.g., @mcgillon2017; @suskind2016]. 
 
 # Conclusion
 
