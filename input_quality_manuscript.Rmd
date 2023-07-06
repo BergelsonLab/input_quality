@@ -331,7 +331,6 @@ We examined the displacement of events discussed in children's linguistic enviro
 
 In addition to this general measures of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, ratings from typically-sighted adults about the extent to which a word evokes a visual/tactile/auditory/etc. experience [@lynott2020]. Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings (\< 3.5/5) across all modalities were re-categorized as *amodal*, and words whose ratings were distributed across modalities (perceptual exclusivity \< 0.5/1) were re-categorized as *multimodal*. Using this system, each of the content words in children's input were categorized into their primary perceptual modality. For each child, we extracted the proportion of exclusively "visual" words in their language environment.
 
-<!-- version where models are mentioned throughout: -->
 ## Extracting Child Language
 
 Because utterances produced by the target child are not yet transcribed, we measure child language using child vocalization count-- an automated count of the times the target child makes a communicative utterance during a recording. 
@@ -835,26 +834,6 @@ kable(ps_df, caption = "Summary of analyses over language input variables.", ali
 
 ```
 
-
-```{r predicting-outcomes, include=FALSE}
-
-# only AWC has a measurable association with CVC, and it doesnt vary by group
-model_AWC <- lm(CVC ~ LENA_age_in_days + group *AWC, data=lotta_data)
-summary(model_AWC)
-model_CDS <- lm(CVC ~ LENA_age_in_days + group* prop_CDS, data=lotta_data)
-summary(model_CDS)
-model_TTR <- lm(CVC ~ LENA_age_in_days + group*  mean_ttr, data=lotta_data)
-summary(model_TTR)
-model_MLU <- lm(CVC ~ LENA_age_in_days+ group * MLU, data=lotta_data)
-summary(model_MLU)
-model_displaced <- lm(CVC ~ LENA_age_in_days * group+ prop_displaced, data=lotta_data)
-summary(model_displaced)
-model_visual <- lm(CVC ~ LENA_age_in_days + group* prop_Visual, data=lotta_data)
-summary(model_visual)
-
-
-```
-<!-- version where models are mentioned throughout: -->
 ## Connecting to Language Outcomes
 
 Lastly, we test whether these properties of the input are associated with children's own productions, and whether these input-production associations differ by group. For each of our input variables, we construct a linear model testing whether child vocalization count is predicted by age, group, [input variable], and an interaction between group and [input variable]. In all models, we found significant main effects of age, such that older children produce more vocalizations. We did not find evidence for main effects of group or our input variables or for interactions between group and input variables; see supplemental materials for full model outputs.
@@ -889,16 +868,13 @@ We wish to highlight again how much variability there is *within* groups and how
 
 ## Connecting to Language Outcomes
 
-Blind children's language input in this sample looks more linguistically and conceptually complex than input to sighted infants--what consequences might this have for language acquisition? <!-- version where models are mentioned throughout: -->In our sample, we don't find evidence for associations between these input variables and child vocalization counts. This doesn't necessarily preclude a relationship between input and output: Given the varied age range and small sample size, we are likely underpowered to detect how these dimensions of language input affect children's language learning, but prior literature allows us to speculate.
+Blind children's language input in this sample looks more linguistically and conceptually complex than input to sighted infants--what consequences might this have for language acquisition? In our sample, we don't find evidence for associations between these input variables and child vocalization counts. This doesn't necessarily preclude a relationship between input and output: Given the varied age range and small sample size, we are likely underpowered to detect how these dimensions of language input affect children's language learning, but prior literature allows us to speculate.
 
 We explore two possibilities: First, if input effects pattern similarly for blind and sighted children, we would expect blind and sighted children alike to benefit from more input [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021], more interactive input [@goldstein2008; @donnellan2020; @hirsh-pasek2015; @romeo2018 @weisleder2013; @rowe2008; @shneidman2013], more linguistically complex input [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001; @hoff2003; @naigles1998; @devilliers1985; @hadley2017; @huttenlocher2002], and more conceptually complex input [@rowe2012; @demir2015; @uccelli2019]. If this is the case, then receiving more complex input might help blind children to learn linguistic structure. In turn, understanding linguistic structure [@gleitman1990] may support blind children's acquisition of word meanings in the absence of vision. Alternatively, what if language input affects acquisition *differently* for blind children than it does for sighted children? Is it possible that blind children actually need *less* complex language, and that differences in language input are responsible for early vocabulary delays? 
 
 To show our cards, we are inclined to believe the former account: that blind children benefit from receiving more complex language input. Language regularly supports learning in the absence of direct sensory perception (e.g., reading a book about mythical creatures). Given the language skills of blind adults [@roder2000; @roder2003; @loiotile2020], it seems likely that language is a source of meaning for blind individuals as well [@lewis2019; @vanparidon2021; @campbell2022]. Testing each of these predictions awaits further research.
 
 In either case, if properties of language input do influence blind children's language outcomes, attempting to train parents to talk differently may be unfruitful. Interventions where parents are trained to talk differently to their children often show short-term success [@roberts2019] but fail to change parental speech patterns in the long term [e.g., @mcgillion2017; @suskind2016]. 
-
-<!-- version where models are only mentioned in the discussion:  -->
-We initially attempted to connect these input measures to variation in children’s productions using a mixed-effects model with Child Vocalization Count (CVC) as the outcome measure-- an automated count of the times the target child makes a communicative utterance during a recording. We found no evidence that differences in these input measures significantly predict variance in CVC (see supplementals for model details); however, despite being larger than previous samples investigating language development in blind children, our sample may nevertheless be too small and underpowered to meaningfully assess this connection. Testing whether increased input complexity supports blind children in word learning awaits further research.
 
 # Conclusion
 
