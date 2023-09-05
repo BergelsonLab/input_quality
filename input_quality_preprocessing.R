@@ -1,18 +1,4 @@
 # Input Quality Preprocessing
-library(tidyverse)
-library(ggplot2)
-library(plotrix)
-library(papaja)
-library(stringr)
-library(morphemepiece)
-library(tidytext)
-library(wordbankr)
-library(reshape2)
-library(profileR)
-library(lubridate)
-library(morphemepiece)
-library(udpipe)
-library(irr)
 
 ## demographics
 VI_matches_demo <- read.csv("data/Demographics/VI_matches_demo.csv")

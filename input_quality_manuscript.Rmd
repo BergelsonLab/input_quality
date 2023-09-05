@@ -44,22 +44,37 @@ output            : papaja::apa6_pdf
 
 ```{r libraries, echo = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
-library(tidyverse)
-library(ggplot2)
-library(plotrix)
-library(see)
-library(papaja)
-library(stringr)
-library(morphemepiece)
-library(tidytext)
-library(reshape2)
-library(profileR)
-library(lubridate)
-library(corrplot)
-library(psych)
-library(glue)
-library(knitr)
-library(kableExtra)
+
+
+packages <- c("tidyverse","ggplot2", "plotrix", "see", "papaja", "stringr", "morphemepiece", "tidytext", "reshape2", "lubridate", "corrplot", "psych", "glue", "knitr", "kableExtra", "wordbankr", "profileR", "irr", "udpipe")
+
+package.check <- lapply(
+  packages,
+  FUN = function(x) {
+    if (!require(x, character.only = TRUE)) {
+      install.packages(x, dependencies = TRUE)
+      library(x, character.only = TRUE)
+    }
+  }
+)
+
+
+# library(tidyverse)
+# library(ggplot2)
+# library(plotrix)
+# library(see)
+# library(papaja)
+# library(stringr)
+# library(morphemepiece)
+# library(tidytext)
+# library(reshape2)
+# library(profileR)
+# library(lubridate)
+# library(corrplot)
+# library(psych)
+# library(glue)
+# library(knitr)
+# library(kableExtra)
 
 #lets create a function to convert things into percents (I stole this obvi)
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
@@ -316,7 +331,7 @@ As in previous work [e.g., @templin1957; @pancsofar2006; @montag2018], we calcul
 
 #### MLU
 
-We also analyzed the syntactic complexity of children's language input, approximated as mean utterance length in morphemes. Both type-token ratio and mean length of utterance in speech to infants are consistent within individual caretakers, in and out of lab settings [@stevenson1986]. Each utterance was tokenized into morphemes using the 'morphemepiece' R package [@bratt2022]. We then calculated the mean length of utterance (number of morphemes) per speaker in each audio recording. We manually checked utterance length in a random subset of 10% of the utterances (n = `r nrow(MLU_agreement$subjects)`), which yielded a intra-class correlation coefficient of `r MLU_agreement$value` agreement with the udpipe approach (*p* `r printp(MLU_agreement$p.value)`), indicating high consistency.
+We also analyzed the syntactic complexity of children's language input, approximated as mean utterance length in morphemes. Both type-token ratio and mean length of utterance in speech to infants are consistent within individual caretakers, in and out of lab settings [@stevenson1986]. Each utterance was tokenized into morphemes using the 'morphemepiece' R package [@bratt2022]. We then calculated the mean length of utterance (number of morphemes) per speaker in each audio recording. We manually checked utterance length in a random subset of 10% of the utterances (n = `r nrow(MLU_agreement)`), which yielded a intra-class correlation coefficient of `r MLU_agreement$value` agreement with the udpipe approach (*p* `r printp(MLU_agreement$p.value)`), indicating high consistency.
 
 ### Conceptual Features
 
@@ -338,7 +353,7 @@ Because utterances produced by the target child are not yet transcribed, we meas
 
 ## Measuring Properties of Language Input
 
-Our study assesses whether language input to blind children is different from the language input to sighted children, along the dimensions of quantity, interaction, linguistic properties, and conceptual properties. We test for group differences using paired t-tests or non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed. Because this analysis involves multiple tests against the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the Benjamini-Hochberg correction [@benjamini1995] to control false discovery rate (Q = .05) for each set of analyses (quantity, interaction, linguistic, conceptual). Because each dimension's analysis consists of two statistical tests, our Benjamini-Hochberg critical values were *p* \< `r 1/2 * .05` for the smaller *p* value and *p* \< `r 2/2 * .05` for the larger *p* value.The results of these analyses are summarized in Table \@ref(tab:ps).
+Our study assesses whether language input to blind children is different from the language input to sighted children, along the dimensions of quantity, interaction, linguistic properties, and conceptual properties. We test for group differences using paired t-tests or non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed (summarized in Table \@ref(tab:ps)). Because this analysis involves multiple tests against the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the Benjamini-Hochberg correction [@benjamini1995] to control false discovery rate (Q = .05) for each set of analyses (quantity, interaction, linguistic, conceptual). Because each dimension's analysis consists of two statistical tests, our Benjamini-Hochberg critical values were *p* \< `r 1/2 * .05` for the smaller *p* value and *p* \< `r 2/2 * .05` for the larger *p* value.The results of these analyses are summarized in Table \@ref(tab:ps).
 
 ### Language Input Quantity
 
@@ -360,9 +375,7 @@ MWC_stats <- manual_word_tokens %>%
             mean = mean(tokens))
 ```
 
-We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and Manual Word Count. Shapiro-Wilks tests indicated that both of these variables were normally distributed (*p*s \> .05). 
-
-Turning first to LENA's automated measure, a two-sample t-test shows that despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~), blind and sighted children do not differ in language input quantity (*t*(`r compare_AWC$parameter`) = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`). If we instead measure this using word counts from the transcriptions of the audio recordings, we find parallel results: blind and sighted children do not differ in language input quantity (*t*(`r compare_MWC$parameter`) = `r compare_MWC$statistic`, *p* `r printp(compare_MWC$p.value, add_equals=TRUE)`); see Figure \@ref(fig:quantity-plots).
+We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and our transcription-derived Manual Word Count. Despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~ by LENA count), along both measures of input quantity, blind and sighted children do not differ in language input quantity (Adult Word Count: *t*(`r compare_AWC$parameter`) = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`; Manual Word Count: *t*(`r compare_MWC$parameter`) = `r compare_MWC$statistic`, *p* `r printp(compare_MWC$p.value, add_equals=TRUE)`); see Figure \@ref(fig:quantity-plots).
 
 ```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Each dot represents the estimated number of words in one child's recording.", fig.width=6,fig.height=3}
 AWC_plot <-
@@ -447,7 +460,7 @@ CDS_stats <- xds_props_wide %>%
             mean = mean(prop_CDS))
 ```
 
-Next, we ask whether blind and sighted groups differ in the amount of interaction with the child, by comparing the proportion of child-directed speech and the number of conversational turns. Both measures were normally distributed (Prop. CDS: W = `r CDS_normality_check$statistic`, *p* `r papaja::printp(CDS_normality_check$statistic,add_equals=TRUE)`; CTC: W = `r CTC_normality_check$statistic`, *p* `r papaja::printp(CTC_normality_check$statistic,add_equals=TRUE)`). Paired t-tests revealed no significant difference in the proportion of child-directed speech (*t* = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children .
+Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*W* = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*t*(`r compare_CTC$parameter`) = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
 
 ```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Each dot represents one child's recording. The full breakdown by addressee is shown in the rightmost panel.", fig.width=7, fig.height=2.5}
 CTC_plot <-
@@ -611,7 +624,7 @@ MLU_compare <- t.test(MLUs$MLU ~ MLUs$group, paired=TRUE)
 cowplot::plot_grid(MLU_plot, TTR_plot)
 ```
 
-For linguistic features, we measure type-token ratio and mean length of utterance, two variables derived from the manual annotations. Because these variables met the normality assumption (TTR: W = `r TTR_normality_check$statistic`, *p* `r papaja::printp(TTR_normality_check$statistic,add_equals=TRUE)`; MLU: (W = `r MLU_normality_check$statistic`, *p* `r papaja::printp(MLU_normality_check$statistic,add_equals=TRUE)`)), we performed paired t-tests. Both variables differed across groups: blind children had a significantly higher type-token ratio (*t*(`r TTR_test$parameter`) = `r TTR_test$statistic`, *p* `r papaja::printp(TTR_test$p.value, add_equals=TRUE)`), such that per 100 words, blind children on average hear `r printnum(abs(TTR_test$estimate * 100))` more unique words than sighted children. Blind children also heard significantly longer MLU than to their sighted peers (*t*(`r MLU_compare$parameter`) = `r MLU_compare$statistic`, *p* = `r printp(MLU_compare$p.value)`), such that utterances in blind children's input were `r printnum(abs(MLU_compare$estimate))` morphemes longer; see Figure \@ref(fig:linguistic-plots)).
+Both linguistic variables differed across groups: blind children had a significantly higher type-token ratio (*t*(`r TTR_test$parameter`) = `r TTR_test$statistic`, *p* `r papaja::printp(TTR_test$p.value, add_equals=TRUE)`), such that per 100 words, blind children on average hear `r printnum(abs(TTR_test$estimate * 100))` more unique words than sighted children. Blind children also heard significantly longer MLU than to their sighted peers (*t*(`r MLU_compare$parameter`) = `r MLU_compare$statistic`, *p* = `r printp(MLU_compare$p.value)`), such that utterances in blind children's input were `r printnum(abs(MLU_compare$estimate))` morphemes longer; see Figure \@ref(fig:linguistic-plots)).
 
 ### Conceptual Features
 
@@ -730,7 +743,7 @@ temporality_test <- t.test(temporality_props_wide$prop_displaced ~ temporality_p
 cowplot::plot_grid(hereandnow_plot,temporality_props_plot,visual_plot,sensory_props_plot,cols = 2, rel_widths = c(1.5,2))
 ```
 
-Lastly, we compared two measures of the conceptual features of language input: the proportion of temporally displaced verbs and the proportion of highly visual words. Because the proportion of displaced verbs follows a normal distribution (W = `r temporality_normal$statistic`, *p* `r papaja::printp(temporality_normal$statistic,add_equals=TRUE)`), we tested this measure with a paired t-test and found that blind children hear `r printnum(abs(temporality_test$estimate))` more displaced verbs than sighted children (*t*(`r temporality_test$parameter`) = `r temporality_test$statistic`, *p* `r papaja::printp(temporality_test$p.value, add_equals=TRUE)`). For the proportion of highly visual words, a Shapiro-Wilks test showed that this variable was not normally distributed (W = `r visual_normality$statistic`, *p* `r papaja::printp(visual_normality$statistic,add_equals=TRUE)`). A paired Wilcoxon test found no significant difference across groups in the proportion of highly visual words (*W*(`r visual_test$parameter`) = `r visual_test$statistic`, *p* `r printp(visual_test$p.value, add_equals=TRUE)`).
+Lastly, we compared two measures of the conceptual features of language input: the proportion of temporally displaced verbs and the proportion of highly visual words. We found that blind children hear `r printnum(abs(temporality_test$estimate))` more displaced verbs than sighted children (*t*(`r temporality_test$parameter`) = `r temporality_test$statistic`, *p* `r papaja::printp(temporality_test$p.value, add_equals=TRUE)`) but found no significant difference across groups in the proportion of highly visual words (*W*(`r visual_test$parameter`) = `r visual_test$statistic`, *p* `r printp(visual_test$p.value, add_equals=TRUE)`).
 
 ```{r ps, results='asis'}
 
@@ -739,16 +752,19 @@ get_group_means <- function(data, column, subset, unit = "",adjust=1,digits=2) {
     filter({{ subset }})
   
   mean_value <- mean(filtered_data[[column]], na.rm=TRUE)*adjust
-  mean_string <- glue::glue("{round(mean_value,digits)} {unit}")
-  return(mean_string)
+  median_value <- median(filtered_data[[column]], na.rm=TRUE)*adjust
+  min_value <- min(filtered_data[[column]], na.rm=TRUE)*adjust
+  max_value <- max(filtered_data[[column]], na.rm=TRUE)*adjust
+  values_string <- glue::glue("{round(mean_value,digits)}, {round(median_value,digits)}, {round(min_value,digits)}-{round(max_value,digits)} {unit}")
+  return(values_string)
 }
 
 vars <-
   c(
     "Adult Word Count",
     "Manual Word Count",
-    "Prop. Child-Directed Speech",
     "Conversational Turn Count",
+    "Prop. Child-Directed Speech",
     "Type-Token Ratio",
     "Mean Length of Utterance",
     "Prop. Displaced",
@@ -767,14 +783,14 @@ vars <-
 
 tests <-
   c(
-    "Paired Wilcoxon test",
-    "Paired t-test",
-    "Paired Wilcoxon test",
-    "Paired t-test",
-    "Paired t-test",
-    "Paired t-test",
-    "Paired t-test",
-    "Paired Wilcoxon test"
+    "Wilcoxon",
+    "t-test",
+    "Wilcoxon",
+    "t-test",
+    "t-test",
+    "t-test",
+    "t-test",
+    "Wilcoxon"
   )
 MeanBlind <-
   c(
@@ -809,26 +825,26 @@ raw_ps <-
     temporality_test$p.value,
     visual_test$p.value
   )
-ps_df <- bind_cols(vars, `Portion of Recording`, Description, tests, MeanBlind, MeanSighted, raw_ps) %>%
+ps_df <- bind_cols(vars, Description, `Portion of Recording`, tests, MeanBlind, MeanSighted, raw_ps) %>%
   dplyr::rename(
     "Variable" = `...1`,
-    "Portion of Recording" = `...2`,
-    "Description" = `...3`,
+    "Portion of Recording" = `...3`,
+    "Description" = `...2`,
         "Test" = `...4`,
-        "Mean Blind" = `...5`,
-    "Mean Sighted" = `...6`,
+        "Blind Mean, Median, Range" = `...5`,
+    "Sighted Mean, Median, Range" = `...6`,
     "p value" = `...7`
   ) %>%
   mutate(`p value` = case_when(`p value` < .05 ~ paste0(printp(`p value`), "*"),
                                TRUE ~ printp(`p value`)))
-kable(ps_df, caption = "Summary of analyses over language input variables.", align = c("l", "l", "l", "l", "l", "l","c")) %>%
+kable(ps_df, caption = "Summary of, for language input variable: how the measure is calculated; what portion of the recording the measure was calculated over; whether a parametric or non-parametric test was used; the mean, median, and range for blind and sighted children, and the raw p-value of the test comparing groups.", align = c("l", "l", "l", "l", "l", "l","c")) %>%
   kable_styling(font_size = 9) %>%
   column_spec(1, width = ".82in") %>%
-    column_spec(2, width = ".76in") %>%
-  column_spec(3, width = "2in") %>%
-    column_spec(4, width = ".78in") %>%
+    column_spec(2, width = "2in") %>%
+  column_spec(3, width = ".76in") %>%
+    column_spec(4, width = ".6in") %>%
     column_spec(5, width = ".7in") %>%
-  column_spec(6, width = ".7in") %>%
+  column_spec(6, width = ".8in") %>%
   column_spec(7, width = ".43in") 
 
 ```
@@ -867,9 +883,9 @@ We wish to highlight again how much variability there is *within* groups and how
 
 ## Connecting to Language Outcomes
 
-Blind children's language input in this sample looks more linguistically and conceptually complex than input to sighted infants--what consequences might this have for language acquisition? In our sample, we don't find evidence for associations between these input variables and child vocalization counts. This doesn't necessarily preclude a relationship between input and output: Given the varied age range and small sample size, we are likely underpowered to detect how these dimensions of language input affect children's language learning, but prior literature allows us to speculate.
+Given that blind children frequently experience language delays, one might reasonably wonder if such delays are attributable to their language input, as well as their visual experience. We believe that parental language input is ***not*** to blame. Our results uncover no systematic group differences in the quantity of speech or the amount of language interaction parents provide to blind vs. sighted children. When we do see differences, language input to blind children looks more conceptually and linguistically complex. In other populations, complexity of this sort is linked with *more* sophisticated child language production, so it is not the case that blind children's language input is "impoverished". 
 
-We explore two possibilities: First, if input effects pattern similarly for blind and sighted children, we would expect blind and sighted children alike to benefit from more input [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021], more interactive input [@goldstein2008; @donnellan2020; @hirsh-pasek2015; @romeo2018 @weisleder2013; @rowe2008; @shneidman2013], more linguistically complex input [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001; @hoff2003; @naigles1998; @devilliers1985; @hadley2017; @huttenlocher2002], and more conceptually complex input [@rowe2012; @demir2015; @uccelli2019]. If this is the case, then receiving more complex input might help blind children to learn linguistic structure. In turn, understanding linguistic structure [@gleitman1990] may support blind children's acquisition of word meanings in the absence of vision. Alternatively, what if language input affects acquisition *differently* for blind children than it does for sighted children? Is it possible that blind children actually need *less* complex language, and that differences in language input are responsible for early vocabulary delays? 
+In our predominantly pre-lexical sample, testing this hypothesis is not yet feasible, but prior literature allows us to speculate on the nature of the relationship between parental language input and child language outcomes. We explore two possibilities: First, if input effects pattern similarly for blind and sighted children, we would expect blind and sighted children alike to benefit from more input [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021], more interactive input [@goldstein2008; @donnellan2020; @hirsh-pasek2015; @romeo2018 @weisleder2013; @rowe2008; @shneidman2013], more linguistically complex input [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001; @hoff2003; @naigles1998; @devilliers1985; @hadley2017; @huttenlocher2002], and more conceptually complex input [@rowe2012; @demir2015; @uccelli2019]. If this is the case, then receiving more complex input might help blind children to learn linguistic structure. In turn, understanding linguistic structure [@gleitman1990] may support blind children's acquisition of word meanings in the absence of vision. Alternatively, what if language input affects acquisition *differently* for blind children than it does for sighted children? Is it possible that blind children actually need *less* complex language, and that differences in language input are responsible for early vocabulary delays? 
 
 To show our cards, we are inclined to believe the former account: that blind children benefit from receiving more complex language input. Language regularly supports learning in the absence of direct sensory perception (e.g., reading a book about mythical creatures). Given the language skills of blind adults [@roder2000; @roder2003; @loiotile2020], it seems likely that language is a source of meaning for blind individuals as well [@lewis2019; @vanparidon2021; @campbell2022]. Testing each of these predictions awaits further research.
 
