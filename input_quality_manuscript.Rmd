@@ -177,15 +177,15 @@ The early language skills of blind children are highly variable [@campbellsubmit
 
 ## Why would input matter?
 
-Among both typically-developing children and children with developmental differences, language input can predict variability in language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021; @rowe2012; @anderson2021; @huttenlocher2010]. The many ways to operationalize language input tend to be grouped into **quantity of language input** and **input characteristics** [often referred to as **quality of language input**[^1], c.f. @macleod2023]. Quantity can be broadly construed as the number of words or utterances a child is exposed to. At a coarse level, children who are exposed to more speech [or sign, @watkins1998] tend to have better language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021]. 
+Among both typically-developing children and children with developmental differences, language input can predict variability in language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021; @rowe2012; @anderson2021; @huttenlocher2010]. The many ways to operationalize language input tend to be grouped into **quantity of language input** and **input characteristics** [often referred to as **quality of language input**[^1], c.f. @macleod2023]. Quantity can be broadly construed as the number of words or utterances a child is exposed to. At a coarse level, children who are exposed to more speech [or sign, @watkins1998] tend to have better language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021].
 
-[^1]: In the present study, we move away from describing these linguistic characteristics as "quality" measures. In the field thus far, the directionality of the term "quality" has favored the types of language used by white and abled groups as immutable universal standards, thereby framing racialized and disabled peoples' language as deficient and "low quality" by nature. Describing a singular source of input variation as "high quality" ignores the sociocultural variation of talk styles, and the presence of many rich sources of information from which children can learn (MacLeod & Demers, 2023).
+[^1]: In the present study, we move away from describing these linguistic characteristics as "quality" measures. In the field thus far, the directionality of the term "quality" has favored the types of language used by white and abled groups as immutable universal standards, thereby framing racialized and disabled peoples' language as deficient and "low quality". Describing a singular source of input variation as "high quality" ignores the sociocultural variation of talk styles, and the presence of many rich sources of information from which children can learn (MacLeod & Demers, 2023).
 
-The specific characteristics of language input are perhaps even more influential [@rowe2012; @hirsh-pasek2015], although they are somewhat trickier to quantify into discrete measures. Rowe and Snow [@rowe2020] divide this space into three dimensions: interactive features (e.g., parent responsiveness, speech directed *to* child vs. overheard, conversational turn-taking), linguistic features (e.g., lexical diversity, grammatical complexity), and conceptual features (i.e., the extent to which input focuses on the *here-and-now*).
+The specific characteristics of language input are perhaps even more influential [@rowe2012; @hirsh-pasek2015], although they are somewhat trickier to quantify into discrete measures. Rowe and Snow (2020) divide this space into three dimensions: interactive features (e.g., parent responsiveness, speech directed *to* child vs. overheard, conversational turn-taking), linguistic features (e.g., lexical diversity, grammatical complexity), and conceptual features (i.e., the extent to which input focuses on the *here-and-now*).
 
 Prior literature reports that back-and-forth communicative exchanges (also known as conversational turns) between caregivers and children predict better language outcomes across infancy [@goldstein2008; @donnellan2020] and toddlerhood [@hirsh-pasek2015; @romeo2018]. Another way to quantify the extent to which caregivers and infants interact is by looking at how much speech is directed *to* the child (as opposed to, for example, an overheard conversation between adults). The amount of child-directed speech in children's input [at least in Western contexts, @casillas2020] is associated with children's vocabulary size and lexical processing [@weisleder2013; @rowe2008; @shneidman2013].
 
-Under the linguistic umbrella, we can measure the *kinds* of words used (often measured as lexical diversity, type/token ratio), and the ways they are *combined* (syntactic complexity, often measured by mean length of utterance) . Both parameters have measurable associations with children's language growth. Sighted toddlers who are exposed to a greater diversity of words in their language input are reported to have larger vocabulary scores [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001]. Likewise, the diversity and complexity of syntactic constructions in parental language input is associated with both children's vocabulary growth and structural diversity in their own productions [@hoff2003; @naigles1998; @devilliers1985; @huttenlocher2010; @hadley2017; @huttenlocher2002].
+Under the linguistic umbrella, we can measure the *kinds* of words used (often measured as lexical diversity, type/token ratio), and the ways they are *combined* (syntactic complexity, often measured by mean length of utterance). Both parameters have measurable associations with children's language growth. Sighted toddlers who are exposed to a greater diversity of words in their language input are reported to have larger vocabulary scores [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001]. Likewise, the diversity and complexity of syntactic constructions in parental language input is associated with both children's vocabulary growth and structural diversity in their own productions [@hoff2003; @naigles1998; @devilliers1985; @huttenlocher2010; @hadley2017; @huttenlocher2002].
 
 The conceptual dimension of language input aims to capture the extent to which the language signal maps onto present objects and ongoing events in children's environments [@rowe2020]. As children develop, their ability to represent abstract and abstract referents improves [@luchkina2020; @kramer1975; @bergelson2013]. Decontextualized language input-- that is, talking about past, future, or hypothetical events, or people and items that are not currently present in the environment-- may be one contributing factor [@rowe2013]; greater amounts of decontextualized language use in input to toddlers predict aspects of children's own language in kindergarten and beyond [@rowe2012; @demir2015; @uccelli2019].
 
@@ -197,17 +197,19 @@ Speakers regularly tailor their speech to communicate efficiently with the liste
 
 In addition to tailoring communication to children's developmental level, speakers also adjust their conversation in accordance to their partner's sensory access [@gergle2004; @grigoroglou2016]. In a noisy environment, speakers adapt the acoustic-phonetic features of their speech to make it easier for their interlocutor to understand them [@hazan2011], demonstrating sensitivity to even temporary sensory conditions. When describing scenes, speakers aim to provide the information their listeners lack but avoid redundant visual description [@ostarek2019; @grice1975]. During in-lab tasks with sighted participants, participants verbally provide visually-absent cues when an object is occluded to their partner [@jara-ettinger2021; @hawkins2021; @rubio-fernandez2019]. These results suggest that adults and even infants [@senju2013; @ganea2018; @chiesa2015] can flexibly adapt communication to the visual and auditory abilities of their partner.
 
-Taking these results into account, we might expect parents to verbally compensate for missing visual input, perhaps providing more description of the child's environment. But prior research doesn't yield a clear answer. Several studies suggest differences in the conceptual features: caregivers of blind children restrict conversation to things that the blind child is currently engaged with, rather than attempt to redirect their attention to other stimuli [@andersen1993; @campbell2003; @kekelis1984; though c.f., @moore1994]. Studies of naturalistic input to blind children report that parents use *fewer* declaratives and *more* imperatives than parents of sighted children, suggesting that blind children might be receiving less description than sighted children [@kekelis1984; @landau1985]. Other studies report that parents adapt their interactions to their children's visual abilities, albeit in specific contexts. @tadic2013a find that in a structured book reading task, parents of blind children provide more descriptive utterances than parents of sighted children. Further, parents of blind children provide more tactile cues to initiate interactions or establish joint attention [@urwin1983; @urwin1984; @preisler1991], which may serve the same social role as shared gaze in sighted children. These mixed results suggest that parents of blind children might alter language input in some domains but not others. The apparent conflict in results may be exacerbated by the difficulty of recruiting specialized populations to participate in research: the small (in most cases, single-digit) sample sizes of prior work limits our ability to generalize about any principled differences in the input to blind infants.
+Taking these results into account, we might expect parents to verbally compensate for missing visual input, perhaps providing more description of the child's environment. But prior research doesn't yield a clear answer. Several studies suggest differences in the conceptual features: caregivers of blind children restrict conversation to things that the blind child is currently engaged with, rather than attempt to redirect their attention to other stimuli [@andersen1993; @campbell2003; @kekelis1984; though c.f., @moore1994]. Studies of naturalistic input to blind children report that parents use *fewer* declaratives and *more* imperatives than parents of sighted children, suggesting that blind children might be receiving less description than sighted children [@kekelis1984; @landau1985]. Other studies report that parents adapt their interactions to their children's visual abilities, albeit in specific contexts. @tadic2013a find that in a structured book reading task, parents of blind children provide more descriptive utterances than parents of sighted children. Further, parents of blind children provide more tactile cues to initiate interactions or establish joint attention [@urwin1983; @urwin1984; @preisler1991], which may serve the same social role as shared gaze in sighted children. These mixed results suggest that parents of blind children might alter language input in some domains but not others. The apparent conflict in results may be exacerbated by the difficulty of recruiting specialized populations to participate in research: the small (in most cases, single-digit) sample sizes of prior work limits our ability to generalize about any differences in the input to blind vs. sighted infants.
 
 ## The Present Study
 
-If properties of language input influence the likelihood of language delays among blind infants and toddlers [@campbellsubmitted], capturing this variation may reveal a more nuanced picture of how infants use the input to learn language. In the present study, we examine daylong recordings of the naturalistic language environments of blind and sighted children in order to characterize the input to each group. Using both automated measures and manual transcription of these recordings, we measure input quantity (adult word count) and analyze several characteristics that have been previously suggested to be information-rich learning cues, including interaction (conversational turn counts, proportion of child-directed speech), conceptual features (temporal displacement, sensory modality), and linguistic complexity (type/token ratio and mean length of utterance).
+If properties of language input influence the likelihood of language delays among blind infants and toddlers [@campbellsubmitted], capturing this variation may reveal a more nuanced picture of how infants use the input to learn language. In the present study, we examine daylong recordings of the naturalistic language environments of blind and sighted children in order to characterize the input to each group. Using both automated measures and manual transcription of these recordings, we measure input quantity (adult word count) and analyze several characteristics that have been previously suggested to be information-rich learning cues, including interaction (conversational turn count, proportion of child-directed speech), conceptual features (temporal displacement, sensory modality), and linguistic complexity (type/token ratio and mean length of utterance). Though the present study is largely exploratory, based on prior research, we might expect to find less interaction (fewer conversational turns and less child-directed speech), less linguistic complexity (lower type-token ratio and shorter utterances), and conceptual content focused more on the blind child's locus of attention (more here-and-now speech and fewer visual words); we have no a priori hypotheses regarding language input quantity.
 
 # Methods
 
 ## Participants
 
-`r LENA_counts %>% filter(group=="VI") %>% distinct(VIHI_ID, .keep_all =TRUE) %>% nrow()` blind infants and their families participated in this study. Blind participants were recruited through ophthalmologist referral, preschools, early intervention programs, social media, and word of mouth. To be eligible for this study, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. To control for the wide age range of the study, each blind participant was matched to a sighted participant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level), and number of siblings ($\pm$ 1 sibling). Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI, @fenson1994] within one week of the home language recording. See Table \@ref(tab:participant-characteristics) for sample characteristics.
+`r LENA_counts %>% filter(group=="VI") %>% distinct(VIHI_ID, .keep_all =TRUE) %>% nrow()` blind infants and their families participated in this study. To be eligible, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Blind participants were recruited through ophthalmologist referral, preschools, early intervention programs, social media, and word of mouth. Blindness in our sample was caused by a range of conditions, including cataracts (n=`r VI_matches_demo %>% filter(Diagnosis == "Cataracts") %>% nrow()`), Leber's Congenital Amaurosis (n=`r VI_matches_demo %>% filter(Diagnosis == "Leber's Congenital Amaurosis ") %>% nrow()`), Microphthalmia (n=`r VI_matches_demo %>% filter(Diagnosis == "Microphthalmia ") %>% nrow()`), Ocular albinism (n=`r VI_matches_demo %>% filter(Diagnosis == "Ocular albinism") %>% nrow()`), Optic Nerve Hypoplasia (n=`r VI_matches_demo %>% filter(Diagnosis == "Optic Nerve Hypoplasia") %>% nrow()`), Retinal Detachments (n=`r VI_matches_demo %>% filter(Diagnosis == "Retinal Detachments") %>% nrow()`), and Retinopathy of Prematurity (n=`r VI_matches_demo %>% filter(Diagnosis == "Retinopathy of Prematurity") %>% nrow()`). Etiology was unknown in n=`r VI_matches_demo %>% filter(Diagnosis == "Not specified") %>% nrow()` participants, and n=`r VI_matches_demo %>% filter(Diagnosis == "Multiple") %>% nrow()` participants had multiple contributing conditions.
+
+To control for the wide age range of the study, each blind participant was matched to a sighted participant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level), and number of siblings ($\pm$ 1 sibling). Caregivers were asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI, @fenson1994] within one week of the home language recording. See Table \@ref(tab:participant-characteristics) for sample characteristics.
 
 ```{r participant-characteristics, results="asis"}
 perc_random_silent <-
@@ -245,7 +247,7 @@ report_factor <- function(vector) {
     str_c(collapse = ',\n')
 }
 
-VI_matches_demo %>%
+VI_matches_demo_all <- VI_matches_demo %>%
   mutate(match_group = as.factor(case_when(
     match_group == "VI_TD" ~ "Sighted (N=15)",
     match_group == "VI" ~ "Blind (N=15)")
@@ -260,25 +262,36 @@ MaternalEd = factor(MaternalEd, levels = c("Some college", "Associate's degree",
   mutate(
     across(c(Gender,Race), ~replace_na(.x, "Missing")),
            Gender = factor(Gender,levels=c("Female","Male")),
-) %>%
-  group_by(Group) %>%
-summarize(
-    `Age (months)` = report_continuous(Age_months, ""),
-     Sex= report_factor(Gender),
-     Race=report_factor(Race),
-    `Number of Older Siblings` = report_continuous(OlderSiblings, ""),
-    `Maternal Education Level`=report_factor(MaternalEd),
-    Diagnosis = report_factor(Diagnosis)
-  ) %>%
-kable(caption = "Demographic characteristics of the blind and sighted samples") %>%
-  kable_styling(font_size = 8) %>%
- column_spec(1, width = ".4in")%>%
- column_spec(2, width = ".5in")%>%
- column_spec(3, width = ".7in")%>%
- column_spec(4, width = ".75in")%>%
- column_spec(5, width = ".75in")%>%
-  column_spec(6, width = "1in") %>%
-column_spec(7, width = "1.5in")
+) 
+
+VI_matches_demo_blind <- VI_matches_demo_all %>%
+  filter(Group == "Blind (N=15)")
+
+VI_matches_demo_sighted <- VI_matches_demo_all %>%
+  filter(Group == "Sighted (N=15)")
+
+
+as.data.frame(tribble(
+  ~ Variable, ~ "Blind (N=15)", ~ "Sighted (N=15)",
+  "Age (months)", report_continuous(VI_matches_demo_blind$Age_months, ""), report_continuous(VI_matches_demo_sighted$Age_months, ""), 
+  "Sex", report_level(VI_matches_demo_blind$Gender, "Female"), report_level(VI_matches_demo_blind$Gender, "Female"),
+  "", report_level(VI_matches_demo_blind$Gender, "Male"), report_level(VI_matches_demo_blind$Gender, "Male"),
+  "Number of Older Siblings", report_continuous(VI_matches_demo_blind$OlderSiblings, ""), report_continuous(VI_matches_demo_sighted$OlderSiblings, ""),
+  "Race", report_level(VI_matches_demo_blind$Race, "American Indian or Alaska Native"), report_level(VI_matches_demo_blind$Race, "American Indian or Alaska Native"),
+  "", report_level(VI_matches_demo_blind$Race, "Black or African American"), report_level(VI_matches_demo_sighted$Race, "Black or African American"),
+   "", report_level(VI_matches_demo_blind$Race, "Mixed"), report_level(VI_matches_demo_sighted$Race, "Mixed"),
+  "", report_level(VI_matches_demo_blind$Race, "White"), report_level(VI_matches_demo_sighted$Race, "White"),
+  "", report_level(VI_matches_demo_blind$Race, "unknown"), report_level(VI_matches_demo_sighted$Race, "unknown"),
+  "Maternal Education", report_level(VI_matches_demo_blind$MaternalEd, "Some college"), report_level(VI_matches_demo_sighted$MaternalEd, "Some college"),
+  "", report_level(VI_matches_demo_blind$MaternalEd, "Associate's degree"), report_level(VI_matches_demo_sighted$MaternalEd, "Associate's degree"),
+  "", report_level(VI_matches_demo_blind$MaternalEd, "Bachelor's degree"), report_level(VI_matches_demo_sighted$MaternalEd, "Bachelor's degree"),
+  "", report_level(VI_matches_demo_blind$MaternalEd, "Master's degree"), report_level(VI_matches_demo_sighted$MaternalEd, "Master's degree"),
+  "", report_level(VI_matches_demo_blind$MaternalEd, "Doctoral degree"), report_level(VI_matches_demo_sighted$MaternalEd, "Doctoral degree"),
+  "Ethnicity", report_level(VI_matches_demo_blind$Ethnicity, "Hispanic or Latino"), report_level(VI_matches_demo_sighted$Ethnicity, "Hispanic or Latino"),
+  "", report_level(VI_matches_demo_blind$Ethnicity, "Not Hispanic or Latino"), report_level(VI_matches_demo_sighted$Ethnicity, "Not Hispanic or Latino"),
+))  %>%
+kable(caption = "Demographic characteristics of the blind and sighted samples. For continuous variables, range and mean are provided. For categorical variables, percentages by level are provided.") %>%
+   kable_styling(font_size = 8)
 ```
 
 ## Recording Procedure
@@ -287,23 +300,42 @@ For the recording portion of the study, caregivers of participating infants rece
 
 ## Processing
 
-The audio recordings were first processed by the LENA proprietary software [@xu2009], creating algorithmic measures such as conversational turn counts and adult word count. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context preceding the annotation clip and 1 minute of additional context following. Because these segments were sampled randomly, across participants roughly `r round(perc_random_silent)`% of the random 2-minute coding segments contained no speech at all. For questions of *how much does a phenomenon occur*, random sampling schemes can help avoid overestimating speech in the input, but for questions of input *content*, randomly selected samples may be too sparse [@pisani2021].
+The audio recordings were first processed by the LENA proprietary software [@xu2009], creating algorithmic measures such as conversational turn count and adult word count. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context preceding the annotation clip and 1 minute of additional context following. Because these segments were sampled randomly, across participants roughly `r round(perc_random_silent)`% of the random 2-minute coding segments contained no speech at all. For questions of *how much does a phenomenon occur*, random sampling schemes can help avoid overestimating speech in the input, but for questions of input *content*, randomly selected samples may be too sparse [@pisani2021].
 
 Therefore, we chose to annotate 5 additional segments specifically for their high density of speech. To select these segments of dense talk, we first conducted an automated analysis of the audio file using the voice type classifier for child-centered daylong recordings [@lavechin2021] which identified all human speech in the recording. The entire recording was divided into 2-minute chunks, each ranked highest to lowest by the total duration of speech contained within the chunk. We annotated the highest-ranked 5 segments of each recording. These high volubility segments allow us to more closely compare our findings to studies classifying the input during structured play sessions, which paint a denser and differently-proportioned makeup of the language input [@bergelson2019]. In sum, 30 minutes of randomly sampled input and 10 minutes of high-volubility input (40 minutes total) were annotated per child.
 
 ## Annotation
 
-Recordings were annotated using the ELAN software [@brugman2009]. Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the ACLEW annotation scheme [@soderstrom2021]. For more information about this scheme, see the [ACLEW homepage](https://sites.google.com/view/aclewdid/home "ACLEW homepage"). Speech by people other than the target child was transcribed using an adapted version of the CHAT transcription style [@macwhinney2019; @soderstrom2021]. Because the majority of target children in the project are pre-lexical, utterances produced by the target child are not yet transcribed. Environmental speech was then classified by the addressee of each utterance: child, adult, both an adult and a child, pets or other animals, unclear addressee, or a recipient that doesn't fit into another category (e.g., voice control of Siri or Alexa, prayer to a metaphysical entity). Following the first pass, all files were reviewed by a highly-trained "superchecker" to ensure consistency 
+Recordings were annotated using the ELAN software [@brugman2009]. Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the ACLEW annotation scheme [@soderstrom2021]. For more information about this scheme, see the [ACLEW homepage](https://sites.google.com/view/aclewdid/home "ACLEW homepage"). Speech by people other than the target child was transcribed using an adapted version of the CHAT transcription style [@macwhinney2019; @soderstrom2021]. Because the majority of target children in the project are pre-lexical, utterances produced by the target child are not yet transcribed. Environmental speech was then classified by the addressee of each utterance: child, adult, both an adult and a child, pets or other animals, unclear addressee, or a recipient that doesn't fit into another category (e.g., voice control of Siri or Alexa, prayer to a metaphysical entity). Following the first pass, all files were reviewed by a highly-trained "superchecker" to ensure consistency
 
 ## Extracting Measures of Language Input
 
-To go from our dimensions of interest (quantity, interactiveness, linguistic, conceptual), to quantifiable properties, we used a combination of automated measures [generated by the proprietary LENA algorithm, @xu2009] and manual measures (generated from the transcriptions made by our trained annotators). Quantity and interactiveness analyses were conducted on the random samples only, to capture a more representative estimate. Linguistic and conceptual analyses were conducted on all available annotations in order to maximize the amount of speech over which we could calculate them. These measures are described below and summarized in Table \@ref(tab:ps).
+To go from our dimensions of interest (quantity, interactiveness, linguistic, conceptual), to quantifiable properties, we used a combination of automated measures [generated by the proprietary LENA algorithm, @xu2009] and manual measures (generated from the transcriptions made by our trained annotators). Altogether, this corpus presently includes approximately `r round(sum(LENA_counts$total_time_dur) / 60 / 60)` hours of audio, `r nrow(VITD_transcripts)` utterances, and `r nrow(VITD_LENA_words)` words; see Figure \@ref(fig:corpus-size-plot). Quantity and interactiveness analyses were conducted on the random samples only, to capture a more representative estimate. Linguistic and conceptual analyses were conducted on all available annotations in order to maximize the amount of speech over which we could calculate them. These measures are described below and summarized in Table \@ref(tab:ps).
+
+```{r corpus-size-plot, fig.cap="The amount of text that analyses are run over. Left panel shows the corpus size in words, and right panel shows the corpus size in utterances."}
+word_counts_plot <- ggplot((VITD_LENA_words %>% filter(sampling_type == "random" | sampling_type == "high-volubility")), aes(x=fct_infreq(VIHI_ID), fill=sampling_type)) +
+  geom_bar(position="stack") +
+  theme_classic()+
+  theme(axis.text.x = element_blank(),
+        legend.position = "none") +
+  xlab("") +
+  ylab("Word Count")
+
+utterance_counts_plot <- ggplot((VITD_transcripts %>% filter(sampling_type == "random" | sampling_type == "high-volubility")), aes(x=fct_infreq(VIHI_ID), fill=sampling_type)) +
+  geom_bar(position="stack") +
+  theme_classic() +
+  theme(axis.text.x = element_blank()) +
+  xlab("") +
+  ylab("Utterance Count")
+
+cowplot::plot_grid(word_counts_plot,utterance_counts_plot, rel_widths = c(1,1.5))
+```
 
 ### Quantity
 
 #### Adult Word Count
 
-To derive this count, LENA algorithm segments the recording into clips which are then classified by speaker's gender (male/female), age (child/adult), and distance (near/far), as well as several non-human speaker categories (e.g., silence, electronic noise). Only segments that are classified as nearby male or female adult speech are included in the Adult Word Count estimation [@xu2009]. Validation work suggests that this automated count correlates strongly with word counts derived from manual annotations [r = .71 -- .92, @lehet2021], and meta-analytic work finds that AWC is associated with children's language outcomes across developmental contexts [e.g., autism, hearing loss, @wang2020]. Because the recordings varied in length ( `r seconds_to_length(min(LENA_counts$total_time_dur))` to `r seconds_to_length(max(LENA_counts$total_time_dur))`), we normalized AWC by dividing by recording length[^2].
+To derive this count, the LENA algorithm segments the recording into clips which are then classified by speaker's gender (male/female), age (child/adult), and distance (near/far), as well as several non-human speaker categories (e.g., silence, electronic noise). Only segments that are classified as nearby male or female adult speech are included in the Adult Word Count estimation [@xu2009]. Validation work suggests that this automated count correlates strongly with word counts derived from manual annotations [r = .71 -- .92, @lehet2021], and meta-analytic work finds that AWC is associated with children's language outcomes across developmental contexts [e.g., autism, hearing loss, @wang2020]. Because the recordings varied in length (`r seconds_to_length(min(LENA_counts$total_time_dur))` to `r seconds_to_length(max(LENA_counts$total_time_dur))`), we normalized AWC by dividing by recording length[^2].
 
 [^2]: To make this comparable to the manual word count estimates, which are derived from the 30 minutes of randomly sampled annotation, we calculate AWC per half hour.
 
@@ -331,11 +363,11 @@ As in previous work [e.g., @templin1957; @pancsofar2006; @montag2018], we calcul
 
 #### MLU
 
-We also analyzed the syntactic complexity of children's language input, approximated as mean utterance length in morphemes. Both type-token ratio and mean length of utterance in speech to infants are consistent within individual caretakers, in and out of lab settings [@stevenson1986]. Each utterance was tokenized into morphemes using the 'morphemepiece' R package [@bratt2022]. We then calculated the mean length of utterance (number of morphemes) per speaker in each audio recording. We manually checked utterance length in a random subset of 10% of the utterances (n = `r nrow(MLU_agreement)`), which yielded a intra-class correlation coefficient of `r MLU_agreement$value` agreement with the udpipe approach (*p* `r printp(MLU_agreement$p.value)`), indicating high consistency.
+We also analyzed the syntactic complexity of children's language input, approximated as mean utterance length in morphemes. Both type-token ratio and mean length of utterance in speech to infants are consistent within individual caretakers, in and out of lab settings [@stevenson1986]. Each utterance was tokenized into morphemes using the 'morphemepiece' R package [@bratt2022]. We then calculated the mean length of utterance (number of morphemes) per speaker in each audio recording. We manually checked utterance length in a random subset of 10% of the utterances (n = `r nrow(MLU_subset_for_agreement)`), which yielded a intra-class correlation coefficient of `r MLU_agreement$value` agreement with the udpipe approach (*p* `r printp(MLU_agreement$p.value)`), indicating high consistency.
 
 ### Conceptual Features
 
-Our analysis of the conceptual features aims to measure whether the extent to which language input centers around the *"here and now"*: things that are currently present or occurring that a child may attend to in real time. Prior work has quantified such *here-and-now*ness by counting object presence co-occurring with a related noun label [e.g., @osina2013; @ganea2013; @moore1994; @harris1986]. The audio format of our data make it difficult to ascertain object presence, so instead of object displacement, we approximate *here-and-now*ness using lexical and morphosyntactic properties of the input.
+Our analysis of the conceptual features aims to measure whether the extent to which language input centers around the *"here and now"*: things that are currently present or occurring that a child may attend to in real time. We approximate *here-and-now*ness using lexical and morphosyntactic properties of the input.
 
 #### Proportion of temporally displaced verbs
 
@@ -343,23 +375,21 @@ We examined the displacement of events discussed in children's linguistic enviro
 
 #### Proportion of highly visual words
 
-In addition to this general measures of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, ratings from typically-sighted adults about the extent to which a word evokes a visual/tactile/auditory/etc. experience [@lynott2020]. Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings (\< 3.5/5) across all modalities were re-categorized as *amodal*, and words whose ratings were distributed across modalities (perceptual exclusivity \< 0.5/1) were re-categorized as *multimodal*. Using this system, each of the content words in children's input were categorized into their primary perceptual modality. For each child, we extracted the proportion of exclusively "visual" words in their language environment.
+In addition to this general measures of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, ratings from typically-sighted adults about the extent to which a word evokes a visual/tactile/auditory/etc. experience [@lynott2020]. Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings across all modalities were re-categorized as *amodal*, and words whose ratings were distributed across modalities were re-categorized as *multimodal*[^3]. Using this system, each of the content words in children's input were categorized into their primary perceptual modality. For each child, we extracted the proportion of exclusively "visual" words in their language environment.
 
-## Extracting Child Language
-
-Because utterances produced by the target child are not yet transcribed, we measure child language using child vocalization count-- an automated count of the times the target child makes a communicative utterance during a recording. 
+[^3]: We used thresholds of \< 3.5/5 for the maximum perceptual rating, and \< 0.5/1 for perceptual exclusivity [calculated as a word's range of ratings across modalities divided by the sum of ratings across modalities, @lynott2020]. These specific values were chosen because they, for a subset of the words, best aligned with human judgments of which words referred to multimodal vs. amodal vs. visual phenomena. Note, however, that the results appear robust across a range of thresholds for categorization.
 
 # Results
 
 ## Measuring Properties of Language Input
 
-Our study assesses whether language input to blind children is different from the language input to sighted children, along the dimensions of quantity, interaction, linguistic properties, and conceptual properties. We test for group differences using paired t-tests or non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed (summarized in Table \@ref(tab:ps)). Because this analysis involves multiple tests against the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the Benjamini-Hochberg correction [@benjamini1995] to control false discovery rate (Q = .05) for each set of analyses (quantity, interaction, linguistic, conceptual). Because each dimension's analysis consists of two statistical tests, our Benjamini-Hochberg critical values were *p* \< `r 1/2 * .05` for the smaller *p* value and *p* \< `r 2/2 * .05` for the larger *p* value.The results of these analyses are summarized in Table \@ref(tab:ps).
+Our study assesses whether language input to blind children is different from the language input to sighted children, along the dimensions of quantity, interaction, linguistic properties, and conceptual properties. We test for group differences using paired t-tests or non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed (summarized in Table \@ref(tab:ps)). Because this analysis involves multiple tests against the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the Benjamini-Hochberg correction [@benjamini1995] to control false discovery rate (Q = .05) for each set of analyses (quantity, interaction, linguistic, conceptual). Because each dimension's analysis consists of two statistical tests, our Benjamini-Hochberg critical values were *p* \< `r 1/2 * .05` for the smaller *p* value and *p* \< `r 2/2 * .05` for the larger *p* value. The results of these analyses are summarized in Table \@ref(tab:ps).
 
 ### Language Input Quantity
 
 ```{r compare-AWC}
 AWC_check <- shapiro.test(LENA_counts$AWC_stand)
-compare_AWC <- wilcox.test(LENA_counts$AWC_stand ~ LENA_counts$group, paired=TRUE)
+compare_AWC <- t.test(LENA_counts$AWC_stand ~ LENA_counts$group, paired=TRUE)
 AWC_stats <- LENA_counts %>%
   group_by(group) %>%
   summarise(min = min(AWC_stand),
@@ -377,7 +407,7 @@ MWC_stats <- manual_word_tokens %>%
 
 We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and our transcription-derived Manual Word Count. Despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~ by LENA count), along both measures of input quantity, blind and sighted children do not differ in language input quantity (Adult Word Count: *t*(`r compare_AWC$parameter`) = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`; Manual Word Count: *t*(`r compare_MWC$parameter`) = `r compare_MWC$statistic`, *p* `r printp(compare_MWC$p.value, add_equals=TRUE)`); see Figure \@ref(fig:quantity-plots).
 
-```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Each dot represents the estimated number of words in one child's recording.", fig.width=6,fig.height=3}
+```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.", fig.width=6,fig.height=3}
 AWC_plot <-
   ggplot(data = LENA_counts, aes(
     x = group,
@@ -460,9 +490,9 @@ CDS_stats <- xds_props_wide %>%
             mean = mean(prop_CDS))
 ```
 
-Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*W* = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*t*(`r compare_CTC$parameter`) = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
+Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*t*(`r compare_CDS$parameter`) = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*W* = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
 
-```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Each dot represents one child's recording. The full breakdown by addressee is shown in the rightmost panel.", fig.width=7, fig.height=2.5}
+```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither interaction measure differed between groups. ", fig.width=7, fig.height=2.5}
 CTC_plot <-
   ggplot(data = LENA_counts, aes(
     x = group,
@@ -550,7 +580,7 @@ cowplot::plot_grid(CTC_plot, CDS_prop_plot, addressee_props_plot, rel_widths = c
 
 ### Linguistic Features
 
-```{r linguistic-plots, fig.cap="Comparing linguistic features: Mean length of utterance (left); each dot represents one speaker. Type-token ratio (right). Each dot represents one child's recording.", fig.height=2, fig.width=4.5}
+```{r linguistic-plots, fig.cap="Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher.", fig.height=3, fig.width=4.5}
 TTR_plot <-  ggplot(data = (TTR_calculations), aes(
     x = group,
     y = mean_ttr,
@@ -572,13 +602,13 @@ TTR_plot <-  ggplot(data = (TTR_calculations), aes(
     breaks = c("TD", "VI"),
     labels = c("Typically-\nDeveloping", "Blind"),
     values = c("#b16fff", "#ade7f5")) +
-  stat_summary(fun.data = "mean_cl_boot", color = 'black') +
+  stat_summary(fun.data = "mean_cl_boot", color = 'black',size=.1) +
   scale_x_discrete(
     labels = c(
       "VI" = "Blind",
       "TD" = "Sighted")) +
   coord_cartesian(ylim = c(0, (max(TTR_calculations$mean_ttr * 1.1)))) +
-  theme(text = element_text(size = 10))
+  theme(text = element_text(size = 12))
 
 TTR_normality_check <- shapiro.test(TTR_calculations$mean_ttr)
 TTR_test <- t.test(TTR_calculations$mean_ttr~TTR_calculations$group, paired=TRUE)
@@ -605,13 +635,13 @@ MLU_plot <-
     breaks = c("TD", "VI"),
     labels = c("Sighted", "Blind"),
     values = c("#b16fff", "#ade7f5")) +
-  stat_summary(fun.data = "mean_cl_boot", color = 'black') +
+  stat_summary(fun.data = "mean_cl_boot", color = 'black',size=.3) +
   scale_x_discrete(
     labels = c(
       "TD" = "Sighted",
       "VI" = "Blind")) +
   coord_cartesian(ylim = c(0, (max(MLUs$MLU * 1.1)))) +
-  theme(text = element_text(size = 10),
+  theme(text = element_text(size = 12),
     axis.text.x = element_text(angle = 45, hjust = 1))
 
 MLU_stats <- MLUs %>%
@@ -739,11 +769,11 @@ temporality_normal<- shapiro.test(temporality_props_wide$prop_displaced)
 temporality_test <- t.test(temporality_props_wide$prop_displaced ~ temporality_props_wide$group, paired=TRUE)
 ```
 
-```{r conceptual-plots, fig.cap="Left col: Comparing proportion of temporally displaced verbs (top) and proportion of highly visual words (bottom). Each dot represents the one child's recording, with black dot and whiskers showing means and standard errors. Right col: Full distribution of verb types (top)  and sensory modality (bottom) by group, collapsing across participants.", fig.height=8, fig.width=7}
+```{r conceptual-plots, fig.cap="Left col: Comparing proportion of temporally displaced verbs (top) and proportion of highly visual words (bottom). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Right col: Full distribution of verb types (top)  and sensory modality (bottom) by group, collapsing across participants. Blind children's input contained significantly more temporally displaced verbs. The groups did not differ in the proportion of highly visual words.", fig.height=8, fig.width=7}
 cowplot::plot_grid(hereandnow_plot,temporality_props_plot,visual_plot,sensory_props_plot,cols = 2, rel_widths = c(1.5,2))
 ```
 
-Lastly, we compared two measures of the conceptual features of language input: the proportion of temporally displaced verbs and the proportion of highly visual words. We found that blind children hear `r printnum(abs(temporality_test$estimate))` more displaced verbs than sighted children (*t*(`r temporality_test$parameter`) = `r temporality_test$statistic`, *p* `r papaja::printp(temporality_test$p.value, add_equals=TRUE)`) but found no significant difference across groups in the proportion of highly visual words (*W*(`r visual_test$parameter`) = `r visual_test$statistic`, *p* `r printp(visual_test$p.value, add_equals=TRUE)`).
+Lastly, we compared two measures of the conceptual features of language input: the proportion of temporally displaced verbs and the proportion of highly visual words. We found that blind children hear a higher proportion of displaced verbs than sighted children (*t*(`r temporality_test$parameter`) = `r temporality_test$statistic`, *p* `r papaja::printp(temporality_test$p.value, add_equals=TRUE)`), which  on average equates to `r round(abs(temporality_test$estimate) * (mean(temporality_props_wide$verb_utt_count)) * (60/40))` more utterances about past, future, or hypothetical events per hour. We found no significant difference across groups in the proportion of highly visual words (*W* = `r visual_test$statistic`, *p* `r printp(visual_test$p.value, add_equals=TRUE)`), which constitute roughly `r round((mean(sensory_props_wide$prop_Visual))*100)`% of the input for both groups.
 
 ```{r ps, results='asis'}
 
@@ -783,7 +813,7 @@ vars <-
 
 tests <-
   c(
-    "Wilcoxon",
+    "t-test",
     "t-test",
     "Wilcoxon",
     "t-test",
@@ -849,10 +879,6 @@ kable(ps_df, caption = "Summary of, for language input variable: how the measure
 
 ```
 
-## Connecting to Language Outcomes
-
-Lastly, we test whether these properties of the input are associated with children's own productions, and whether these input-production associations differ by group. For each of our input variables, we construct a linear model testing whether child vocalization count is predicted by age, group, [input variable], and an interaction between group and [input variable]. In all models, we found significant main effects of age, such that older children produce more vocalizations. We did not find evidence for main effects of group or our input variables or for interactions between group and input variables; see supplemental materials for full model outputs.
-
 # Discussion
 
 This study, which contains more blind participants than prior research alongside a carefully peer-matched sighted sample, measured language input to young blind children and their sighted peers, using the LENA audio recorder. We found that along the dimensions of quantity and interaction, parents talk similarly to blind and sighted children, with differences in linguistic and conceptual content of the input. We discuss each of these results further below.
@@ -863,9 +889,9 @@ Across two measures of language input quantity, one estimated from the full sixt
 
 ## Interaction
 
-We quantified interaction in two ways: through the LENA-estimated conversational turn count and through the proportion of child-directed speech in our manual annotations. Again, we found no differences across groups in the amount of parent-child interaction. This finding contrasts with previous research; other studies report *less* interaction in dyads where the child is blind [@rowland1984; @perez-pereira2001; , @moore1994; @kekelis1984; @preisler1991; @andersen1993; @grumi2021]. Using a non-visual sampling method (i.e., our audio recordings) might provide a different, more naturalistic perspective on parent-child interactions, particularly in this population. For one thing, many prior studies [e.g., @kekelis1984; @preisler1991; @moore1994; @perez-pereira2001] involve videorecordings in the child's home, with the researcher present. Like other young children, blind children distinguish between familiar individuals and strangers, and react with trepidation to the presence of a stranger; for blind children, this reaction may involve "quieting", wherein children cease speaking or vocalizing when they hear a new voice in the home [@mcrae2002; @fraiberg1975]. By having a researcher present during the recordings[^3] , prior research may have artificially suppressed blind children's initiation of interactions. Even naturalistic observer-free videorecordings appear to inflate aspects of parental input, relative to daylong audio recordings [@bergelson2019]. Together, these factors could explain why past parent-child interaction research finds that blind children initiate fewer interactions [@andersen1993; @kekelis1984; @dote-kwan1995; @troster1992; @moore1994], that parents do most of the talking [@kekelis1984; @andersen1993], and that there is overall less interaction [@rowland1984; @nagayoshi2017; @rogers1984; @troster1992].
+We quantified interaction in two ways: through the LENA-estimated conversational turn count and through the proportion of child-directed speech in our manual annotations. Again, we found no differences across groups in the amount of parent-child interaction. This finding contrasts with previous research; other studies report *less* interaction in dyads where the child is blind [@rowland1984; @perez-pereira2001; , @moore1994; @kekelis1984; @preisler1991; @andersen1993; @grumi2021]. Using a non-visual sampling method (i.e., our audio recordings) might provide a different, more naturalistic perspective on parent-child interactions, particularly in this population. For one thing, many prior studies [e.g., @kekelis1984; @preisler1991; @moore1994; @perez-pereira2001] involve videorecordings in the child's home, with the researcher present. Like other young children, blind children distinguish between familiar individuals and strangers, and react with trepidation to the presence of a stranger; for blind children, this reaction may involve "quieting", wherein children cease speaking or vocalizing when they hear a new voice in the home [@mcrae2002; @fraiberg1975]. By having a researcher present during the recordings[^4] , prior research may have artificially suppressed blind children's initiation of interactions. Even naturalistic observer-free videorecordings appear to inflate aspects of parental input, relative to daylong audio recordings [@bergelson2019]. Together, these factors could explain why past parent-child interaction research finds that blind children initiate fewer interactions [@andersen1993; @kekelis1984; @dote-kwan1995; @troster1992; @moore1994], that parents do most of the talking [@kekelis1984; @andersen1993], and that there is overall less interaction [@rowland1984; @nagayoshi2017; @rogers1984; @troster1992].
 
-[^3]: Fraiberg (1975) writes "these fear and avoidance behaviors appear even though the observer, a twice-monthly visitor, is not, strictly speaking, a stranger." (pg. 323).
+[^4]: Fraiberg (1975) writes "these fear and avoidance behaviors appear even though the observer, a twice-monthly visitor, is not, strictly speaking, a stranger." (pg. 323).
 
 Additionally, a common focus in earlier interaction literature is to measure visual cues of interaction, such as shared gaze or attentiveness to facial expressions [@preisler1991; @baird1997; @rogers1984]. We can't help but wonder: are visual markers of social interaction the right yardstick to measure blind children against? In line with @macleod2023, perhaps the field should move away from sighted indicators of interaction "quality", and instead situate blind children's interactions within their own developmental niche, one that may be better captured with auditory- or tactile-focused measures.
 
@@ -883,13 +909,13 @@ We wish to highlight again how much variability there is *within* groups and how
 
 ## Connecting to Language Outcomes
 
-Given that blind children frequently experience language delays, one might reasonably wonder if such delays are attributable to their language input, as well as their visual experience. We believe that parental language input is ***not*** to blame. Our results uncover no systematic group differences in the quantity of speech or the amount of language interaction parents provide to blind vs. sighted children. When we do see differences, language input to blind children looks more conceptually and linguistically complex. In other populations, complexity of this sort is linked with *more* sophisticated child language production, so it is not the case that blind children's language input is "impoverished". 
+Given that blind children frequently experience language delays, one might reasonably wonder if such delays are attributable to their language input, as well as their visual experience. We believe that parental language input is ***not*** to blame. Our results uncover no systematic group differences in the quantity of speech or the amount of language interaction parents provide to blind vs. sighted children. When we do see differences, language input to blind children looks more conceptually and linguistically complex. In other populations, complexity of this sort is linked with *more* sophisticated child language production, so it is not the case that blind children's language input is "impoverished".
 
-In our predominantly pre-lexical sample, testing this hypothesis is not yet feasible, but prior literature allows us to speculate on the nature of the relationship between parental language input and child language outcomes. We explore two possibilities: First, if input effects pattern similarly for blind and sighted children, we would expect blind and sighted children alike to benefit from more input [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021], more interactive input [@goldstein2008; @donnellan2020; @hirsh-pasek2015; @romeo2018 @weisleder2013; @rowe2008; @shneidman2013], more linguistically complex input [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001; @hoff2003; @naigles1998; @devilliers1985; @hadley2017; @huttenlocher2002], and more conceptually complex input [@rowe2012; @demir2015; @uccelli2019]. If this is the case, then receiving more complex input might help blind children to learn linguistic structure. In turn, understanding linguistic structure [@gleitman1990] may support blind children's acquisition of word meanings in the absence of vision. Alternatively, what if language input affects acquisition *differently* for blind children than it does for sighted children? Is it possible that blind children actually need *less* complex language, and that differences in language input are responsible for early vocabulary delays? 
+In our predominantly pre-lexical sample, testing this hypothesis is not yet feasible, but prior literature allows us to speculate on the nature of the relationship between parental language input and child language outcomes. We explore two possibilities: First, if input effects pattern similarly for blind and sighted children, we would expect blind and sighted children alike to benefit from more input [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021], more interactive input [@goldstein2008; @donnellan2020; @hirsh-pasek2015; @romeo2018 @weisleder2013; @rowe2008; @shneidman2013], more linguistically complex input [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001; @hoff2003; @naigles1998; @devilliers1985; @hadley2017; @huttenlocher2002], and more conceptually complex input [@rowe2012; @demir2015; @uccelli2019]. If this is the case, then receiving more complex input might help blind children to learn linguistic structure. In turn, understanding linguistic structure [@gleitman1990] may support blind children's acquisition of word meanings in the absence of vision. Alternatively, what if language input affects acquisition *differently* for blind children than it does for sighted children? Is it possible that blind children actually need *less* complex language, and that differences in language input are responsible for early vocabulary delays?
 
 To show our cards, we are inclined to believe the former account: that blind children benefit from receiving more complex language input. Language regularly supports learning in the absence of direct sensory perception (e.g., reading a book about mythical creatures). Given the language skills of blind adults [@roder2000; @roder2003; @loiotile2020], it seems likely that language is a source of meaning for blind individuals as well [@lewis2019; @vanparidon2021; @campbell2022]. Testing each of these predictions awaits further research.
 
-In either case, if properties of language input do influence blind children's language outcomes, attempting to train parents to talk differently may be unfruitful. Interventions where parents are trained to talk differently to their children often show short-term success [@roberts2019] but fail to change parental speech patterns in the long term [e.g., @mcgillion2017; @suskind2016]. 
+In either case, if properties of language input do influence blind children's language outcomes, attempting to train parents to talk differently may be unfruitful. Interventions where parents are trained to talk differently to their children often show short-term success [@roberts2019] but fail to change parental speech patterns in the long term [e.g., @mcgillion2017; @suskind2016].
 
 # Conclusion
 

@@ -22,7 +22,7 @@ TD_matches <-
     "TD_463_254",
     "TD_464_188",
     "TD_465_541",
-    "TD_467_433",
+    # "TD_467_433",
     "TD_472_829",
     "TD_473_844",
     "TD_474_966",
@@ -39,7 +39,8 @@ LENA_counts <-
     AWC_stand = AWC / (total_time_dur / (30 * 60)),
     CTC_stand = CTC / (total_time_dur / (30 * 60))
   ) %>%
-  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
+  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID") %>%
+  distinct(its_path, .keep_all = TRUE) 
 write.csv(LENA_counts, "data/LENA/Automated/LENA_counts.csv")
 
 ## Load in transcripts and automated metrics
@@ -47,7 +48,7 @@ write.csv(LENA_counts, "data/LENA/Automated/LENA_counts.csv")
 ###read in data that has been mass exported via ELAN; add informative column names
 
 VITD_transcripts <-
-  read.csv("data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-05-22.csv") %>% #need to re-generate transcripts
+  read.csv("data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-09-11.csv") %>% 
   mutate(VIHI_ID = as.factor(str_sub(VIHI_ID, 1, 10))) %>%
   filter(VIHI_ID %in% TD_matches | group == "VI") %>%
   mutate(
@@ -105,7 +106,7 @@ manual_word_tokens <- VITD_LENA_words %>%
   summarise(tokens = n()) %>%
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID") %>%
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
-  distinct(VIHI_ID, .keep_all = TRUE)
+  distinct(VIHI_ID, .keep_all = TRUE) 
 
 write.csv(manual_word_tokens,
           "data/LENA/Transcripts/Derived/manual_word_tokens.csv")
@@ -181,8 +182,7 @@ tokenized_VITD_transcripts_with_counts <-
 
 simple_morpheme_counts <-
   tokenized_VITD_transcripts_with_counts %>%
-  dplyr::select(-group,-code) %>%
-  left_join(VITD_transcripts) %>%
+  left_join((VITD_transcripts %>% dplyr::select(-group,-code,-con))) %>%
   dplyr::select(VIHI_ID, utt_num, speaker, xds, utterance_clean, morphemecount) %>%
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2)))
 
@@ -405,3 +405,4 @@ subj_CBOI_means <- content_words_only %>%
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
 write.csv(subj_CBOI_means,
           "data/LENA/Transcripts/Derived/subj_CBOI_means.csv")
+

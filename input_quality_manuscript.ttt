@@ -1,0 +1,78 @@
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+
+\caption{\label{tab:participant-characteristics}Demographic characteristics of the blind and sighted samples. For continuous variables, range and mean are provided. For categorical variables, percentages by level are provided.}
+\centering
+\fontsize{8}{10}\selectfont
+\begin{tabular}[t]{l|l|l}
+\hline
+Variable & Blind (N=15) & Sighted (N=15)\\
+\hline
+Age (months) & 6--30,
+15.8 (8.2) & 6--32,
+16.1 (8.1)\\
+\hline
+Sex & Female: 44\% & Female: 44\%\\
+\hline
+ & Male: 56\% & Male: 56\%\\
+\hline
+Number of Older Siblings & 0--2,
+0.5 (0.8) & 0--3,
+1.1 (1)\\
+\hline
+Race & American Indian or Alaska Native: 6\% & American Indian or Alaska Native: 6\%\\
+\hline
+ & Black or African American: 6\% & Black or African American: 6\%\\
+\hline
+ & Mixed: 19\% & Mixed: 6\%\\
+\hline
+ & White: 69\% & White: 44\%\\
+\hline
+ & unknown: 0\% & unknown: 44\%\\
+\hline
+Maternal Education & Some college: 19\% & Some college: 6\%\\
+\hline
+ & Associate's degree: 6\% & Associate's degree: 12\%\\
+\hline
+ & Bachelor's degree: 31\% & Bachelor's degree: 56\%\\
+\hline
+ & Master's degree: 25\% & Master's degree: 6\%\\
+\hline
+ & Doctoral degree: 19\% & Doctoral degree: 0\%\\
+\hline
+Ethnicity & Hispanic or Latino: 19\% & Hispanic or Latino: 0\%\\
+\hline
+ & Not Hispanic or Latino: 81\% & Not Hispanic or Latino: 50\%\\
+\hline
+\end{tabular}
+\end{table*}
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+
+\caption{\label{tab:ps}Summary of, for language input variable: how the measure is calculated; what portion of the recording the measure was calculated over; whether a parametric or non-parametric test was used; the mean, median, and range for blind and sighted children, and the raw p-value of the test comparing groups.}
+\centering
+\fontsize{9}{11}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{.82in}|>{\raggedright\arraybackslash}p{2in}|>{\raggedright\arraybackslash}p{.76in}|>{\raggedright\arraybackslash}p{.6in}|>{\raggedright\arraybackslash}p{.7in}|>{\raggedright\arraybackslash}p{.8in}|>{\centering\arraybackslash}p{.43in}}
+\hline
+Variable & Description & Portion of Recording & Test & Blind Mean, Median, Range & Sighted Mean, Median, Range & p value\\
+\hline
+Adult Word Count & Estimated number of words in recording categorized as nearby adult speech by LENA algorithm & Whole day & t-test & 1062, 904, 390-1984 words/hour & 1059, 1023, 475-1608 words/hour & .984\\
+\hline
+Manual Word Count & Number of word tokens from speakers other than target child & Random & t-test & 2123, 2216, 620-3654 words/hour & 2399, 2320, 394-4318 words/hour & .347\\
+\hline
+Conversational Turn Count & Count of temporally close switches between adult and target-child vocalizations, divided by recording length & Whole day & Wilcoxon & 33, 25, 13-90 turns/hour & 36, 32, 9-84 turns/hour & .946\\
+\hline
+Prop. Child-Directed Speech & Number of utterances tagged with child addressee out of total number of utterances, from speakers other than target child & Random & t-test & 0.57, 0.61, 0.23-1 & 0.57, 0.57, 0.1-0.95 & .978\\
+\hline
+Type-Token Ratio & Average of the type-token ratios (number of unique words divided by number of total words) for each of the 100-word bins in their sample & Random + High Volume & t-test & 0.65, 0.66, 0.6-0.69 words/hour & 0.62, 0.62, 0.54-0.68 words/hour & .027*\\
+\hline
+Mean Length of Utterance & Average number of morphemes per utterance & Random + High Volume & t-test & 5.74, 5.61, 4.41-7.51 morphemes & 5.05, 5.17, 3.72-5.95 morphemes & .008*\\
+\hline
+Prop. Displaced & Proportion of verbs that refer to past, future, or hypothetical events & Random + High Volume & t-test & 0.34, 0.36, 0.24-0.44 & 0.28, 0.28, 0.13-0.39 & .002*\\
+\hline
+Prop. Visual & Proportion of words in the input with high visual association ratings and low ratings for other perceptual modalities & Random + High Volume & Wilcoxon & 0.1, 0.09, 0.04-0.21 & 0.11, 0.1, 0.06-0.22 & .890\\
+\hline
+\end{tabular}
+\end{table*}
