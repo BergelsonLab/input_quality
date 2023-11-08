@@ -59,24 +59,7 @@ package.check <- lapply(
 )
 
 
-# library(tidyverse)
-# library(ggplot2)
-# library(plotrix)
-# library(see)
-# library(papaja)
-# library(stringr)
-# library(morphemepiece)
-# library(tidytext)
-# library(reshape2)
-# library(profileR)
-# library(lubridate)
-# library(corrplot)
-# library(psych)
-# library(glue)
-# library(knitr)
-# library(kableExtra)
-
-#lets create a function to convert things into percents (I stole this obvi)
+#function to convert things into percents
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
   paste0(formatC(x * 100, format = format, digits = digits, ...), "%")
 }
@@ -110,36 +93,36 @@ new_graphs <- FALSE
 
 if (preprocess == TRUE) {source("input_quality_preprocessing.R")} else {
 # quantity
-LENA_counts <- read.csv("data/LENA/Automated/LENA_counts.csv")
-manual_word_tokens <- read.csv("data/LENA/Transcripts/Derived/manual_word_tokens.csv")
-VITD_transcripts <- read.csv("data/LENA/Transcripts/Derived/VITD_transcripts.csv")
-VITD_LENA_words <- read.csv("data/LENA/Transcripts/Derived/VITD_LENA_words.csv")
+LENA_counts <- read.csv("../data/LENA/Automated/LENA_counts.csv")
+manual_word_tokens <- read.csv("../data/LENA/Transcripts/Derived/manual_word_tokens.csv")
+VITD_transcripts <- read.csv("../data/LENA/Transcripts/Derived/VITD_transcripts.csv")
+VITD_LENA_words <- read.csv("../data/LENA/Transcripts/Derived/VITD_LENA_words.csv")
 # interactive
-xds_props <- read.csv("data/LENA/Transcripts/Derived/xds_props.csv")
-xds_props_wide <- read.csv("data/LENA/Transcripts/Derived/xds_props_wide.csv")
+xds_props <- read.csv("../data/LENA/Transcripts/Derived/xds_props.csv")
+xds_props_wide <- read.csv("../data/LENA/Transcripts/Derived/xds_props_wide.csv")
 # linguistic
-MLUs <- read.csv("data/LENA/Transcripts/Derived/MLUs.csv")
-MLU_subset_for_agreement <- read.csv("data/LENA/Transcripts/Derived/MLU_subset_for_agreement.csv")
-TTR_calculations <- read.csv("data/LENA/Transcripts/Derived/TTR_calculations.csv")
-TTR_calculations <- read.csv("data/LENA/Transcripts/Derived/TTR_calculations.csv")
+MLUs <- read.csv("../data/LENA/Transcripts/Derived/MLUs.csv")
+MLU_subset_for_agreement <- read.csv("../data/LENA/Transcripts/Derived/MLU_subset_for_agreement.csv")
+TTR_calculations <- read.csv("../data/LENA/Transcripts/Derived/TTR_calculations.csv")
+TTR_calculations <- read.csv("../data/LENA/Transcripts/Derived/TTR_calculations.csv")
 
 # conceptual
-sensory_props <- read.csv("data/LENA/Transcripts/Derived/sensory_props.csv")
-sensory_props_wide <- read.csv("data/LENA/Transcripts/Derived/sensory_props_wide.csv")
-temporality_props <- read.csv("data/LENA/Transcripts/Derived/temporality_props.csv")
-temporality_props_wide <- read.csv("data/LENA/Transcripts/Derived/temporality_props_wide.csv")
-subj_CBOI_means <- read.csv("data/LENA/Transcripts/Derived/subj_CBOI_means.csv")
-content_words_only <- read.csv("data/LENA/Transcripts/Derived/content_words_only.csv")
-annotated_utterances <- read.csv("data/LENA/Transcripts/Derived/annotated_utterances.csv")
-verbs_only <- read.csv("data/LENA/Transcripts/Derived/verbs_only.csv")
-displacement_subset_for_agreement <- read.csv("data/LENA/Transcripts/Derived/displacement_subset_for_agreement.csv")
+sensory_props <- read.csv("../data/LENA/Transcripts/Derived/sensory_props.csv")
+sensory_props_wide <- read.csv("../data/LENA/Transcripts/Derived/sensory_props_wide.csv")
+temporality_props <- read.csv("../data/LENA/Transcripts/Derived/temporality_props.csv")
+temporality_props_wide <- read.csv("../data/LENA/Transcripts/Derived/temporality_props_wide.csv")
+subj_CBOI_means <- read.csv("../data/LENA/Transcripts/Derived/subj_CBOI_means.csv")
+content_words_only <- read.csv("../data/LENA/Transcripts/Derived/content_words_only.csv")
+annotated_utterances <- read.csv("../data/LENA/Transcripts/Derived/annotated_utterances.csv")
+verbs_only <- read.csv("../data/LENA/Transcripts/Derived/verbs_only.csv")
+displacement_subset_for_agreement <- read.csv("../data/LENA/Transcripts/Derived/displacement_subset_for_agreement.csv")
 }
 
 n_uncat<-sum(verbs_only$temporality == "uncategorized")
 
 #demo
-VI_matches_demo <- read.csv("data/Demographics/VI_matches_demo.csv", na = c("", "NA", " "))
-VIHI_transcripts_messy <- read.csv("data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
+VI_matches_demo <- read.csv("../data/Demographics/VI_matches_demo.csv", na = c("", "NA", " "))
+VIHI_transcripts_messy <- read.csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
 
 lotta_data <- LENA_counts %>%
   left_join(MLUs, by=c("VIHI_ID", "group"))  %>%

@@ -1,7 +1,7 @@
 # Input Quality Preprocessing
 
 ## demographics
-VI_matches_demo <- read.csv("data/Demographics/VI_matches_demo.csv")
+VI_matches_demo <- read.csv("./data/Demographics/VI_matches_demo.csv")
 
 lancaster_norms <-
   read.csv("data/Norms/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
