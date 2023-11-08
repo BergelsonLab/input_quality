@@ -105,20 +105,24 @@ report_kcorrelation  <- function(var1, var2, subset=FALSE,subset_label="") {
 
 }
 
-preprocess <- TRUE
+preprocess <- FALSE
 new_graphs <- FALSE
 
 if (preprocess == TRUE) {source("input_quality_preprocessing.R")} else {
 # quantity
 LENA_counts <- read.csv("data/LENA/Automated/LENA_counts.csv")
-manual_word_TTR <- read.csv("data/LENA/Transcripts/Derived/manual_word_TTR.csv")
 manual_word_tokens <- read.csv("data/LENA/Transcripts/Derived/manual_word_tokens.csv")
+VITD_transcripts <- read.csv("data/LENA/Transcripts/Derived/VITD_transcripts.csv")
+VITD_LENA_words <- read.csv("data/LENA/Transcripts/Derived/VITD_LENA_words.csv")
 # interactive
 xds_props <- read.csv("data/LENA/Transcripts/Derived/xds_props.csv")
 xds_props_wide <- read.csv("data/LENA/Transcripts/Derived/xds_props_wide.csv")
 # linguistic
 MLUs <- read.csv("data/LENA/Transcripts/Derived/MLUs.csv")
+MLU_subset_for_agreement <- read.csv("data/LENA/Transcripts/Derived/MLU_subset_for_agreement.csv")
 TTR_calculations <- read.csv("data/LENA/Transcripts/Derived/TTR_calculations.csv")
+TTR_calculations <- read.csv("data/LENA/Transcripts/Derived/TTR_calculations.csv")
+
 # conceptual
 sensory_props <- read.csv("data/LENA/Transcripts/Derived/sensory_props.csv")
 sensory_props_wide <- read.csv("data/LENA/Transcripts/Derived/sensory_props_wide.csv")
@@ -128,6 +132,7 @@ subj_CBOI_means <- read.csv("data/LENA/Transcripts/Derived/subj_CBOI_means.csv")
 content_words_only <- read.csv("data/LENA/Transcripts/Derived/content_words_only.csv")
 annotated_utterances <- read.csv("data/LENA/Transcripts/Derived/annotated_utterances.csv")
 verbs_only <- read.csv("data/LENA/Transcripts/Derived/verbs_only.csv")
+displacement_subset_for_agreement <- read.csv("data/LENA/Transcripts/Derived/displacement_subset_for_agreement.csv")
 }
 
 n_uncat<-sum(verbs_only$temporality == "uncategorized")
@@ -361,6 +366,25 @@ Our other measure of interaction is the proportion of utterances that are child-
 
 As in previous work [e.g., @templin1957; @pancsofar2006; @montag2018], we calculated the lexical diversity of the input by dividing the number of unique words by the total number of words (i.e., the type-token ratio). Because the type-token ratio changes as a function of the size of the language sample [@richards1987; @montag2018], we first standardized the sample length by cutting children's input (from the manual annotations) in each recording into 100-word bins. We then calculated the type-token ratio within each of these bins by dividing the number of unique words in each bin by the number of total words (\~100) and then averaged the type-token ratio across bins for each child.
 
+```{r agreement}
+# Calculate Intraclass Correlation
+MLU_agreement <- icc(MLU_subset_for_agreement %>%
+                       dplyr::select(manual_morpheme_count, morphemecount))
+# Calculate Percent Agreement
+displacement_agreement <-
+  sum(
+    displacement_subset_for_agreement$temporality == displacement_subset_for_agreement$manual_temporality,
+    na.rm = TRUE
+  ) / nrow(displacement_subset_for_agreement %>% filter(!is.na(manual_temporality)))
+displaced_agreement <-
+  sum((
+    displacement_subset_for_agreement %>% filter(manual_temporality == "displaced")
+  )$temporality == (
+    displacement_subset_for_agreement %>% filter(manual_temporality == "displaced")
+  )$manual_temporality
+  ) / nrow(displacement_subset_for_agreement %>% filter(manual_temporality == "displaced"))
+```
+
 #### MLU
 
 We also analyzed the syntactic complexity of children's language input, approximated as mean utterance length in morphemes. Both type-token ratio and mean length of utterance in speech to infants are consistent within individual caretakers, in and out of lab settings [@stevenson1986]. Each utterance was tokenized into morphemes using the 'morphemepiece' R package [@bratt2022]. We then calculated the mean length of utterance (number of morphemes) per speaker in each audio recording. We manually checked utterance length in a random subset of 10% of the utterances (n = `r nrow(MLU_subset_for_agreement)`), which yielded a intra-class correlation coefficient of `r MLU_agreement$value` agreement with the udpipe approach (*p* `r printp(MLU_agreement$p.value)`), indicating high consistency.
@@ -371,7 +395,7 @@ Our analysis of the conceptual features aims to measure whether the extent to wh
 
 #### Proportion of temporally displaced verbs
 
-We examined the displacement of events discussed in children's linguistic environment, via properties of the verbs in their input. Notably, we are attempting to highlight semantic features of the language environment; however, given the constraints of large-scale textual analysis, we are categorizing utterances based on a combination of closely related syntactic and morphological features of verbs, since these contain some time information in their surface forms. We assigned each utterance a **temporality** value: utterances tagged *displaced* describe events that take place in the past, future, or irrealis space, while utterances tagged *present* describe current, ongoing events. This coding scheme roughly aligns with both the temporal displacement and future hypothetical categories in [@grimminger2020; see also: @lucariello1987; @hudson2002]. To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, a verb either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g. *you talking to Papa?*). Features that could mark an utterance as displaced included past tense, presence of a modal, presence of *if*, or presence of *gonna*/*going to*, *have to*, *wanna*/*want to*, or *gotta*/*got to*, since these typically indicate future events, belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance. A small number of utterances in our corpus were left *uncategorized* (n = `r n_uncat`/`r nrow(verbs_only)`), either because they were fragments or because the automated parser failed to tag any of the relevant features. We manually checked verb temporality in a random subset of 10% of the utterances (n = `r nrow(manually_coded_displacement_subset)`); human judgments of event temporality aligned with the automated tense tagger `r round(displacement_agreement,2) * 100`%, indicating reasonably high reliability of this measure.
+We examined the displacement of events discussed in children's linguistic environment, via properties of the verbs in their input. Notably, we are attempting to highlight semantic features of the language environment; however, given the constraints of large-scale textual analysis, we are categorizing utterances based on a combination of closely related syntactic and morphological features of verbs, since these contain some time information in their surface forms. We assigned each utterance a **temporality** value: utterances tagged *displaced* describe events that take place in the past, future, or irrealis space, while utterances tagged *present* describe current, ongoing events. This coding scheme roughly aligns with both the temporal displacement and future hypothetical categories in [@grimminger2020; see also: @lucariello1987; @hudson2002]. To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, a verb either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g. *you talking to Papa?*). Features that could mark an utterance as displaced included past tense, presence of a modal, presence of *if*, or presence of *gonna*/*going to*, *have to*, *wanna*/*want to*, or *gotta*/*got to*, since these typically indicate future events, belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance. A small number of utterances in our corpus were left *uncategorized* (n = `r n_uncat`/`r nrow(verbs_only)`), either because they were fragments or because the automated parser failed to tag any of the relevant features. We manually checked verb temporality in a random subset of 10% of the utterances (n = `r nrow(displacement_subset_for_agreement)`); human judgments of event temporality aligned with the automated tense tagger `r round(displacement_agreement,2) * 100`%, indicating reasonably high reliability of this measure.
 
 #### Proportion of highly visual words
 

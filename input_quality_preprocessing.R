@@ -61,6 +61,8 @@ VITD_transcripts <-
   filter(!grepl("utt@|inq@", speaker)) %>% # remove non-utterance info
   mutate(utt_num = 1:nrow(.))
 
+write.csv(VITD_transcripts, "data/LENA/Transcripts/Derived/VITD_transcripts.csv")
+
 VITD_LENA_utterances_split <- VITD_transcripts %>%
   separate(utterance_clean,
            into = paste0("Word", 1:70),
@@ -95,7 +97,7 @@ VITD_LENA_words <- VITD_LENA_utterances_split %>%
     speaker
   ) %>% #remove unwanted columns
   filter(group != "HI" & speaker != "CHI")
-
+write.csv(VITD_LENA_words, "data/LENA/Transcripts/Derived/VITD_LENA_words.csv")
 
 # quantity ----
 
@@ -161,7 +163,7 @@ TTR_calculations <- VITD_LENA_words %>%
             mean_ttr = mean(ttr)) %>%
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
-
+write.csv(TTR_calculations, "data/LENA/Transcripts/Derived/TTR_calculations.csv")
 
 ## MLU ----
 tokenized_VITD_transcripts <-
@@ -223,10 +225,8 @@ MLU_subset_for_agreement <-
     morpheme_diff = morphemecount - manual_morpheme_count,
     abs_morpheme_diff = abs(morphemecount - manual_morpheme_count)
   )
+write.csv(MLU_subset_for_agreement,"data/LENA/Transcripts/Derived/MLU_subset_for_agreement.csv")
 
-# Calculate Intraclass Correlation
-MLU_agreement <- icc(MLU_subset_for_agreement %>%
-                       dplyr::select(manual_morpheme_count, morphemecount))
 
 
 # conceptual quality ----
@@ -347,6 +347,7 @@ displacement_subset_for_agreement <-
                 manual_temporality, 
                 feats) %>%
   filter(!grepl("Mood=Imp", feats))
+write.csv(displacement_subset_for_agreement, "data/LENA/Transcripts/Derived/displacement_subset_for_agreement.csv")
 
 # Calculate Percent Agreement
 displacement_agreement <-

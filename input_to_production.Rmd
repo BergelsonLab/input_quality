@@ -1,0 +1,454 @@
+---
+title: "Relationships with Production"
+author: "Erin Campbell"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(readr)
+library(tidyverse)
+library(cowplot)
+library(ggpubr)
+```
+
+```{r readin-data}
+
+
+# quantity
+LENA_counts <- read.csv("data/LENA/Automated/LENA_counts.csv")
+manual_word_tokens <- read.csv("data/LENA/Transcripts/Derived/manual_word_tokens.csv")
+# interactive
+xds_props <- read.csv("data/LENA/Transcripts/Derived/xds_props.csv")
+xds_props_wide <- read.csv("data/LENA/Transcripts/Derived/xds_props_wide.csv")
+# linguistic
+MLUs <- read.csv("data/LENA/Transcripts/Derived/MLUs.csv")
+TTR_calculations <- read.csv("data/LENA/Transcripts/Derived/TTR_calculations.csv")
+# conceptual
+sensory_props <- read.csv("data/LENA/Transcripts/Derived/sensory_props.csv")
+sensory_props_wide <- read.csv("data/LENA/Transcripts/Derived/sensory_props_wide.csv")
+temporality_props <- read.csv("data/LENA/Transcripts/Derived/temporality_props.csv")
+temporality_props_wide <- read.csv("data/LENA/Transcripts/Derived/temporality_props_wide.csv")
+subj_CBOI_means <- read.csv("data/LENA/Transcripts/Derived/subj_CBOI_means.csv")
+content_words_only <- read.csv("data/LENA/Transcripts/Derived/content_words_only.csv")
+annotated_utterances <- read.csv("data/LENA/Transcripts/Derived/annotated_utterances.csv")
+verbs_only <- read.csv("data/LENA/Transcripts/Derived/verbs_only.csv")
+
+VIHI_CDI <- read.csv("data/VIHI_CDI.csv")
+
+#demo
+VI_matches_demo <- read.csv("data/Demographics/VI_matches_demo.csv", na = c("", "NA", " "))
+VIHI_transcripts_messy <- read.csv("data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
+
+
+lotta_data <- LENA_counts %>%
+    left_join(manual_word_tokens, by=c("VIHI_ID", "group"))  %>%
+  left_join(MLUs, by=c("VIHI_ID", "group"))  %>%
+  left_join(TTR_calculations, by=c("VIHI_ID", "group")) %>%
+  left_join(xds_props_wide %>% dplyr::select(-total), by=c("VIHI_ID", "group")) %>%
+  left_join(sensory_props_wide %>% dplyr::select(-total), by=c("VIHI_ID", "group"))%>%
+  left_join(subj_CBOI_means, by=c("VIHI_ID", "group")) %>%
+  left_join(temporality_props_wide, by=c("VIHI_ID", "group")) %>%
+  mutate(ParticipantNumber = as.factor(str_sub(VIHI_ID, 1, 6))) %>%
+  mutate(LENA_age_in_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))))%>%
+  left_join(VIHI_CDI, by=c("group", "ParticipantNumber")) %>%
+  mutate(CDI_LENA_days_apart = abs(age - LENA_age_in_days),
+         group = as.factor(group)) %>%
+  arrange(CDI_LENA_days_apart) %>%
+  distinct(ParticipantNumber, .keep_all=TRUE) 
+
+```
+
+
+
+# Child Vocalization Count
+
+```{r predict-CVC-plots, fig.height=9, fig.width=6}
+AWC_predict_CVC <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=AWC, y=CVC, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+MWC_predict_CVC <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=tokens, y=CVC, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+CTC_predict_CVC <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CTC, y=CVC, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+CDS_predict_CVC <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_CDS, y=CVC, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+MLU_predict_CVC <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=MLU, y=CVC, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+TTR_predict_CVC <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=mean_ttr, y=CVC, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+visual_predict_CVC <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_Visual, y=CVC, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+displaced_predict_CVC <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_displaced, y=CVC, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+
+cowplot::plot_grid(AWC_predict_CVC, MWC_predict_CVC, CDS_predict_CVC, CTC_predict_CVC, TTR_predict_CVC, MLU_predict_CVC, visual_predict_CVC, displaced_predict_CVC, ncol=2)
+```
+
+# CDI (delay in months)
+```{r predict-CDI-plots, fig.height=9, fig.width=6}
+AWC_predict_CDI <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=AWC, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+MWC_predict_CDI <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=tokens, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+CTC_predict_CDI <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CTC, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+CDS_predict_CDI <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_CDS, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+MLU_predict_CDI <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=MLU, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+TTR_predict_CDI <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=mean_ttr, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+visual_predict_CDI <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_Visual, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+displaced_predict_CDI <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_displaced, y=diff_age_from_expected, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+
+cowplot::plot_grid(AWC_predict_CDI, MWC_predict_CDI, CDS_predict_CDI, CTC_predict_CDI, TTR_predict_CDI, MLU_predict_CDI, visual_predict_CDI, displaced_predict_CDI, ncol=2)
+```
+
+# AVA Standard Score
+```{r predict-AVA-plots, fig.height=9, fig.width=6}
+AWC_predict_AVA <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=AWC, y=AVA_standard_score, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+MWC_predict_AVA <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=tokens, y=AVA_standard_score, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+CTC_predict_AVA <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=CTC, y=AVA_standard_score, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+CDS_predict_AVA <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_CDS, y=AVA_standard_score, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+MLU_predict_AVA <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=MLU, y=AVA_standard_score, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+TTR_predict_AVA <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=mean_ttr, y=AVA_standard_score, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+visual_predict_AVA <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_Visual, y=AVA_standard_score, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+displaced_predict_AVA <- ggplot((lotta_data %>% filter(!is.na(group))), aes(x=prop_displaced, y=AVA_standard_score, color=group, fill=group)) +
+  geom_point()+
+  geom_smooth(method="lm")+
+  scale_color_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5")) +
+  scale_fill_manual(
+    breaks = c("TD", "VI"),
+    labels = c("Sighted", "Blind"),
+    values = c("#b16fff", "#ade7f5"))+
+  theme_classic()+
+  theme(legend.position = "none")+
+  ylab(NULL)+
+  stat_cor(p.accuracy = 0.001, r.accuracy = 0.01,show.legend = FALSE, size=4)
+
+
+cowplot::plot_grid(AWC_predict_AVA, MWC_predict_AVA, CDS_predict_AVA, CTC_predict_AVA, TTR_predict_AVA, MLU_predict_AVA, visual_predict_AVA, displaced_predict_AVA, ncol=2)
+```
