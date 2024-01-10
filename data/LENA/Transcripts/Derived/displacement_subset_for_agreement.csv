@@ -1,826 +1,826 @@
-"","doc_id","paragraph_id","sentence_id","sentence","temporality","manual_temporality","feats"
-"1","VI_047_440",444,1,"I even signed this yesterday","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"2","VI_047_440",305,1,"whos this old guy","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"3","TD_443_341",672,1,"you know","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"4","TD_449_716",307,1,"Mommy will close this for you there you go","displaced","present","VerbForm=Fin"
-"5","TD_467_433",544,1,"were not going down there right now","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"6","VI_047_440",456,1,"there you go xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"7","VI_037_868",248,1,"yep you put things on your head","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"8","TD_436_678",2103,1,"=cries","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"9","TD_467_433",586,1,"can you just please just lay still for a second","displaced","uncategorized","VerbForm=Fin"
-"10","TD_445_217",2478,1,"why are we go","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"11","TD_443_341",1176,1,"Mama does Landen xxx","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"12","TD_474_966",377,1,"what is that","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"13","VI_015_195",269,1,"her being well you might not be that blind but pretty close","present","displaced","VerbForm=Ger"
-"14","VI_015_195",537,1,"shes growing like a weed","present","present","VerbForm=Ger"
-"15","VI_033_820",1222,1,"bakerAker places the banana bread in a box and adds a purple ribbon","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"16","TD_473_844",306,1,"oh its easy","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"17","VI_014_242",344,1,"I promise this is the last time","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"18","VI_013_206",714,1,"okay Dad which color do you want","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"19","TD_463_254",39,1,"lets go lets go lets go lets go okay","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"20","TD_448_304",225,1,"what was that","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"21","VI_001_676",1242,1,"hey Im family","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"22","TD_448_304",249,1,"hey dont get his face","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"23","VI_002_336",836,1,"alright were going to leave the wipes nope going to leave the wipes there we go","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"24","VI_033_820",1108,1,"I forgot to do that before we started","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"25","TD_474_966",233,1,"what is that","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"26","TD_444_402",574,1,"I know <howda>","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"27","TD_436_678",2110,1,"=cries","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"28","VI_014_242",49,1,"Max is trying to fool us all isnt he Dad","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"29","VI_008_707",1245,1,"Im gonna play some keys","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"30","TD_445_217",1345,1,"I dont have to unpack them","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"31","VI_015_195",425,1,"the second one said the xxx in the air","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"32","TD_477_217",534,1,"I want","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"33","TD_436_678",1532,2,"didnt you","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"34","TD_448_304",68,1,"and why do you xxx yourself","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"35","VI_013_206",1450,1,"yeah you hear Nana and <Gaga> grandpa","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"36","TD_445_217",1083,1,"you know with the the","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"37","VI_002_336",99,1,"walked into an Italian","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"38","VI_003_405",532,1,"alright well go walking","uncategorized","displaced","VerbForm=Inf"
-"39","VI_003_405",833,1,"dont do it while Im there why you gotta do it like that","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"40","VI_012_562",612,1,"I dont know what to do with Whitman though","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"41","TD_465_541",191,1,"you did it","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"42","TD_448_304",416,1,"do","uncategorized","uncategorized","VerbForm=Inf"
-"43","TD_467_433",72,1,"why did you toot at the table","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"44","VI_015_195",264,1,"it looks great thank you","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"45","VI_002_336",851,1,"it was like","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"46","VI_012_562",1095,1,"<they cant quite see it there> = whispers ready","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"47","VI_015_195",164,1,"my uncle Bill is like loves to tell stories","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"48","TD_449_716",107,1,"soon after dark upon the beach we sing our favorite oh sweetie","present","displaced","VerbForm=Ger"
-"49","TD_447_448",580,1,"but in the middle of my half day off I had three lab visits","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"50","TD_463_254",45,1,"I want that","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"51","VI_047_440",330,1,"I love it","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"52","VI_012_562",277,1,"are you coming to find us Whitman","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"53","VI_012_562",1813,1,"he would want to get","displaced","displaced","VerbForm=Fin"
-"54","TD_443_341",994,1,"I didnt really understand math until after I got out of school <cuz> because I started using it in the real world","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"55","VI_014_242",263,1,"there you are","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"56","TD_445_217",1243,1,"Mommy does not buy enough fruit for you guys","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"57","VI_012_562",852,1,"so we just had like another one on Saturday where he he uh","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"58","VI_015_195",199,1,"I found your hair","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"59","TD_465_541",258,1,"<the itsy bitsy spider went up the spout again> = sings","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"60","VI_012_562",339,1,"okay lets go","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"61","TD_473_844",408,2,"I love you sweetheart","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"62","VI_008_707",462,1,"I got his leg","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"63","VI_047_440",22,1,"here we go are you ready to see more animals","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"64","VI_033_820",162,1,"I know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"65","VI_014_242",97,1,"yeah you want a little xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"66","VI_012_562",651,1,"alright I Ill set an alarm for down here and then we gotta go back upstairs okay Henry","displaced","displaced","VerbForm=Fin"
-"67","TD_444_402",192,1,"I dont think that I think Moms gonna work like a half day in the morning so any time in the afternoon will","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"68","VI_013_206",1649,1,"so are you planning on going to Laurenberg","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"69","VI_013_206",1468,1,"I go Wednesday","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"70","TD_444_402",141,1,"I think theyd be too big on her","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"71","TD_436_678",1669,1,"he took my ball","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"72","TD_477_217",697,1,"xxx baby wants to xxx","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"73","TD_473_844",921,1,"that way youre not paying for the weight of the stalk that you","present","displaced","VerbForm=Ger"
-"74","TD_444_402",251,1,"yeah <cus> because she yeah <cus> because her mom is selling their","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"75","VI_008_707",1690,1,"what did the baby do","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"76","TD_445_217",1047,1,"your swimming season is so much shorter unless you have a way to get to it","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"77","TD_474_966",303,1,"there you go","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"78","VI_014_242",230,1,"it sometimes it is","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"79","VI_012_562",759,1,"you did","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"80","TD_436_678",1977,1,"<Janeys eyes out> = sings","present","uncategorized","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"81","VI_047_440",478,1,"yeah that feels nice","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"82","VI_033_820",1423,1,"you should always hurry by","displaced","displaced","VerbForm=Fin"
-"83","VI_012_562",861,1,"and he was doing that and the cabinet door um kind of closed abrubtly and um","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"84","VI_037_868",267,1,"those are the words","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"85","TD_477_217",93,1,"were actually going to the store right now","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"86","TD_473_844",543,1,"dont","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"87","TD_436_678",1732,1,"Dad I want to see AlvinandtheChipmunks","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"88","VI_005_411",404,1,"<and I pray God to keep you from> = sings","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"89","VI_018_924",52,1,"<and RockyRaccoon checked into his room> = sings","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"90","TD_445_217",2027,1,"yes I do","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"91","VI_047_440",710,1,"I will","displaced","displaced","VerbForm=Fin"
-"92","VI_005_411",960,1,"cluck said a chicken and a chick said peep","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"93","TD_447_448",339,1,"she might not understand you shes a little bit younger than you are","displaced","displaced","VerbForm=Fin"
-"94","VI_005_263",101,1,"lets change that bottom","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"95","TD_436_678",1302,1,"he loves that thing too","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"96","VI_003_405",630,1,"do you have anywhere idea what pl al cl yl is","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"97","VI_012_562",1062,1,"like he knows its coming so","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"98","TD_467_433",588,1,"thank you","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"99","VI_001_676",509,1,"Im making xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"100","TD_436_678",415,1,"you need to stop taking these out","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"101","VI_001_676",1852,1,"xxx runs over me","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"102","TD_447_448",734,1,"maybe we dont wanna play it just because shes here =laughs","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"103","VI_005_411",789,1,"you want to have an after dinner treat","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"104","VI_002_336",77,1,"been there its a straight shot","displaced","displaced","Tense=Past|VerbForm=Part"
-"105","TD_445_217",597,1,"he slept better last night","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"106","TD_467_433",174,1,"we gonna put this coffee pot back","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"107","TD_447_448",407,1,"bananas I think an hour and a half","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"108","TD_474_966",55,1,"dont do it","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"109","TD_463_254",616,1,"how come","uncategorized","uncategorized","VerbForm=Inf"
-"110","VI_015_195",79,1,"theres my eyes","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"111","VI_047_440",695,1,"one of the sea lions is named Rona","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"112","TD_444_402",557,1,"um can we","displaced","present","VerbForm=Fin"
-"113","VI_007_204",158,1,"have what","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"114","VI_014_242",2,1,"the way the record is going","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"115","TD_436_678",2117,2,"Ill never go to the library","displaced","displaced","VerbForm=Fin"
-"116","VI_047_440",632,1,"you feel the wind","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"117","TD_448_304",116,1,"I do like her though shes uh shes an enigma","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"118","VI_005_263",67,1,"I dont know what channel it was though","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"119","TD_467_433",512,1,"yeah I kind of feel like that too","uncategorized","present","VerbForm=Inf"
-"120","TD_467_433",386,1,"do you want some lunch","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"121","TD_436_678",2144,1,"I dont want to watch","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"122","VI_007_204",117,1,"is like this tall and fat","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"123","VI_005_411",1116,1,"my little bunny lets wriggle and jiggle","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"124","VI_007_204",1,1,"xxx is out there","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"125","VI_018_924",78,1,"because that that was just cicada killer and its not gonna hurt you","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"126","TD_467_433",148,1,"Im gonna get you","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"127","VI_003_405",682,1,"what is it","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"128","TD_443_341",1087,1,"if I cant xxx and that on the hanger","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"129","VI_008_707",800,1,"xxx and then Im going to quit","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"130","TD_464_188",539,1,"she farted","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"131","VI_013_206",938,1,"I like yellow","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"132","TD_467_433",570,2,"Ill stay tomorrow","displaced","displaced","VerbForm=Fin"
-"133","VI_003_405",196,1,"then I dont","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"134","TD_477_217",419,1,"we have to","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"135","TD_447_448",833,1,"what is she doing","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"136","VI_013_206",1111,1,"are those pants too small","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"137","TD_463_254",495,1,"they have cloth diapers theyve got lots of natural um teething stuff","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"138","VI_037_868",86,1,"thank you for telling me","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"139","VI_007_204",204,1,"you did","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"140","TD_465_541",489,1,"aw is some water getting in your eyes love","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"141","VI_001_676",1032,1,"thats right thats what you fill xxx","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"142","VI_008_707",1946,1,"I feel like xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"143","VI_014_242",363,1,"why didnt you bring it","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"144","VI_015_195",504,1,"well thats what I was just saying to her earlier","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"145","TD_473_844",973,1,"I dont know where its gone to visit xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"146","TD_464_188",330,2,"Im going to show you something","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"147","VI_047_440",490,1,"were gonna get some trouble right here","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"148","TD_477_217",191,1,"I need to","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"149","VI_015_195",293,1,"those are your toes xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"150","TD_477_217",275,1,"<do as Im doing> = sings","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"151","TD_449_716",288,1,"well maybe it depends","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"152","TD_472_829",714,1,"fancy day xxx to be silly with this","uncategorized","present","VerbForm=Inf"
-"153","TD_463_254",152,1,"I twirled","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"154","TD_467_433",258,1,"hey hey hey what are you doing","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"155","VI_033_820",367,1,"he had","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"156","TD_444_402",28,1,"you do reward yourself","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"157","TD_449_716",144,1,"<twing twing> = imitatesguitar","present","uncategorized","VerbForm=Ger"
-"158","VI_012_562",615,1,"where we gonna put him","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"159","VI_012_562",1692,1,"oh my goodness what a great wave that was","displaced","present","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"160","VI_005_411",1074,1,"can I have a kiss","displaced","displaced","VerbForm=Fin"
-"161","VI_018_924",33,1,"thank you","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"162","TD_448_304",37,1,"hes like I can see it Granny Ive seen it","displaced","present","VerbForm=Fin"
-"163","VI_033_820",448,1,"hes got little bumps","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"164","TD_477_217",125,1,"you want your ball","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"165","VI_047_440",189,1,"I hear a shaker","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"166","TD_474_966",129,1,"<and I pick it back up> = sings","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"167","VI_001_676",288,1,"we were by everything outside","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"168","VI_005_411",464,1,"can you see the moon","displaced","present","VerbForm=Fin"
-"169","VI_001_676",294,1,"xxx can be xxx","displaced","uncategorized","VerbForm=Fin"
-"170","TD_436_678",1490,1,"you got spaghetti face you know that","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"171","VI_008_707",1809,1,"and then he comes back in and goes xxx","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"172","TD_465_541",179,1,"the word wait is not in his vocabulary anymore","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"173","TD_467_433",335,1,"hows that yeah","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"174","TD_444_402",484,1,"oh to do the work","uncategorized","uncategorized","VerbForm=Inf"
-"175","TD_436_678",628,1,"trash can","displaced","uncategorized","VerbForm=Fin"
-"176","VI_012_562",945,2,"Ty said hell take it","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"177","VI_008_707",639,1,"to look at him hes really full xxx","uncategorized","present","VerbForm=Inf"
-"178","VI_001_676",731,1,"xxx getting xxx =laughs","present","uncategorized","VerbForm=Ger"
-"179","VI_005_411",443,1,"<of my world is in Miles> = sings","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"180","VI_003_405",1269,1,"you didnt see her at school","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"181","VI_012_562",586,1,"we can try","displaced","present","VerbForm=Fin"
-"182","VI_033_820",1615,1,"its going to be right here waiting for you right after the nap well put the vest right back on","displaced","displaced","Tense=Pres|VerbForm=Part"
-"183","VI_015_195",303,1,"they just just avoiding the whole situation","present","present","VerbForm=Ger"
-"184","TD_474_966",400,1,"oh wow theres a lot to look at here","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"185","TD_463_254",783,1,"xxx they also have a lot of baby care","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"186","VI_012_562",494,1,"because Brian had a bunch of stuff xxx","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"187","TD_472_829",663,1,"<how they run> = sings","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"188","TD_436_678",733,1,"we need to be leaving","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"189","TD_477_217",732,1,"and ye shall find","displaced","displaced","VerbForm=Fin"
-"190","VI_012_562",624,1,"=groans okay baby","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"191","TD_445_217",695,2,"referring to Zachary","present","present","VerbForm=Ger"
-"192","VI_001_676",1179,1,"we seen it walking around","displaced","displaced","Tense=Past|VerbForm=Part"
-"193","TD_474_966",404,1,"not one friend will be missed","displaced","displaced","VerbForm=Fin"
-"194","TD_436_678",490,1,"<wa> = imitatescrying","present","uncategorized","VerbForm=Ger"
-"195","TD_445_217",755,1,"you go in there Danny honey","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"196","VI_003_405",739,1,"where you going eh eh eh eh eh eh","present","present","VerbForm=Ger"
-"197","TD_445_217",380,1,"I dont know if he can like move it if him and his crew can move it or","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"198","VI_005_411",882,1,"seaturtles have flippers to help them swim","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"199","VI_037_868",237,1,"the frosting is spread","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"200","TD_463_254",185,1,"are you making a big mess","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"201","VI_033_820",196,1,"somehow I ended up on the death notice email list for local three ninety nine","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"202","TD_473_844",300,1,"that might work that youre xxx very quickly","displaced","displaced","VerbForm=Fin"
-"203","TD_463_254",319,1,"wanna go xxx something kind","displaced","displaced","Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin"
-"204","TD_436_678",475,1,"start","uncategorized","uncategorized","VerbForm=Inf"
-"205","TD_449_716",365,1,"if theyre having juice Im having juice","displaced","displaced","VerbForm=Ger"
-"206","TD_464_188",581,1,"it was","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"207","VI_033_820",952,1,"you seem upset","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"208","TD_464_188",387,1,"I like that cookie","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"209","TD_444_402",4,1,"xxx you can go down","displaced","displaced","VerbForm=Fin"
-"210","VI_015_195",374,1,"its done by Duke","displaced","displaced","Tense=Past|VerbForm=Part"
-"211","TD_473_844",407,1,"can Daddy have a kiss my love","displaced","present","VerbForm=Fin"
-"212","TD_473_844",1011,1,"lets see were gonna jump","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"213","TD_449_716",315,1,"and they played in the xxx","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"214","VI_001_676",1760,1,"can I have some coffee","displaced","displaced","VerbForm=Fin"
-"215","VI_047_440",655,1,"this is Otto","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"216","VI_005_411",227,1,"he said nothing can go faster than the speed of light","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"217","VI_015_195",7,1,"because he has her putting a teaspoon every two ounces and they only eat forty to sixty milliliters right now","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"218","VI_004_415",112,1,"do we ever see","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"219","TD_436_678",1544,1,"I dont think itll burn you any more","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"220","VI_037_868",171,2,"Im no expert but","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"221","TD_463_254",489,1,"ll ul","displaced","uncategorized","VerbForm=Fin"
-"222","TD_436_678",2171,1,"<ra> = imitatescrying","present","uncategorized","VerbForm=Ger"
-"223","TD_445_217",2305,1,"and UncleRobert could take me camp","displaced","displaced","VerbForm=Fin"
-"224","VI_008_707",1011,1,"=gasps happy Halloween","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"225","VI_003_405",422,1,"I ate that xxx white","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"226","TD_464_188",564,1,"no it tastes like poop","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"227","VI_014_242",193,1,"hes just asleep","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"228","TD_465_541",343,1,"<were getting our xxx were following so long for now from Mickey Mouse> = sings","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"229","VI_033_820",1903,1,"we got a couple more hot days well keep the summer stuff out but","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"230","TD_447_448",369,1,"you know I can put <em>","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"231","TD_473_844",1128,1,"I bet they have xxx to go with it","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"232","VI_005_263",710,1,"oh yeah theres poop in this diaper","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"233","VI_015_195",326,1,"our one music toy always stays on our lap","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"234","VI_033_820",514,1,"just want hugs","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"235","VI_001_676",199,1,"xxx how we controlled it","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"236","VI_005_411",95,1,"did he love them","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"237","VI_047_440",535,1,"do you want um","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"238","TD_464_188",500,1,"I got it","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"239","VI_047_440",705,1,"were gonna make our way that way","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"240","VI_037_868",147,1,"there we go","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"241","TD_472_829",486,1,"you and Nana have ridden the horses at the xxx didnt you","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"242","VI_047_440",335,1,"you coming to xxx","present","present","VerbForm=Ger"
-"243","TD_436_678",7,1,"<where is this> = whispers","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"244","VI_015_195",431,1,"the first one said","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"245","TD_436_678",1188,1,"we wanna see how much is in there","displaced","displaced","Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin"
-"246","VI_033_820",487,1,"are you getting hungry","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"247","VI_005_411",951,1,"Cow said moo","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"248","TD_464_188",87,1,"they claimed him as the father","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"249","TD_436_678",1402,1,"half dime its a half dime","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"250","VI_002_336",815,1,"Im <gon>","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"251","TD_444_402",153,1,"you are really silly monkeys today","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"252","TD_464_188",369,1,"I wanna xxx too","displaced","displaced","Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin"
-"253","TD_464_188",167,1,"we cant because xxx","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"254","TD_436_678",2102,1,"<uh huh> = cries","present","uncategorized","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"255","VI_033_820",1261,1,"do you smell it","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"256","VI_001_676",2077,1,"where you going","present","present","VerbForm=Ger"
-"257","TD_463_254",831,1,"I have xxx now","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"258","TD_467_433",319,1,"its gonna be a quiet week anyway","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"259","TD_472_829",184,1,"we go and find the tunnels","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"260","VI_012_562",807,1,"you wanna go","displaced","displaced","Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin"
-"261","TD_463_254",192,1,"whats going on","present","present","VerbForm=Ger"
-"262","VI_005_411",127,1,"youre doing a good job","present","present","VerbForm=Ger"
-"263","VI_013_206",1390,1,"shes just relaxing","present","present","VerbForm=Ger"
-"264","VI_015_195",451,1,"is that a burp hiccup","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"265","VI_004_415",29,1,"so like there theres a reason why they killed her off","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"266","TD_474_966",314,1,"whered you put the yellow marker","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"267","TD_448_304",131,1,"hes just got that kind of you know that look of li of being in bars and uh respectable but not really","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"268","VI_033_820",1192,1,"we could shred some carrots in there too for extra veggies","displaced","displaced","VerbForm=Fin"
-"269","TD_444_402",412,1,"how do I","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"270","TD_445_217",1137,1,"Im trying to remember what number my mother said","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"271","VI_005_263",551,1,"<BillieJean was not my lover oh> = sings","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"272","VI_037_868",37,1,"<I dont know what to do I> = sings","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"273","VI_008_707",552,1,"um did they fill it anyway","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"274","TD_465_541",384,1,"its time for you to close your eyes","uncategorized","present","VerbForm=Inf"
-"275","TD_473_844",1106,1,"the farm raises farm animals there","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"276","VI_008_707",1321,1,"yeah heres a bite","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"277","VI_008_707",591,1,"all I did was grill them mm mm","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"278","TD_448_304",108,1,"are these uh n no extra larges","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"279","TD_436_678",1708,1,"<I want to go> = cries","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"280","VI_013_206",1102,1,"after you get ready","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"281","TD_443_341",917,1,"rub a dub a dub in a tub","uncategorized","present","VerbForm=Inf"
-"282","TD_436_678",2197,1,"need","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"283","TD_472_829",1163,1,"what is that xxx","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"284","VI_033_820",1900,1,"Jack I brought up your three tl clothes","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"285","TD_463_254",503,1,"theres also a really great carrier called an ergo el rl gl ol","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"286","VI_037_868",226,1,"big bears smells sugar and spice","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"287","VI_047_440",289,1,"what did you see","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"288","VI_047_440",451,1,"Im gonna lift you up baby","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"289","TD_477_217",360,1,"I didnt say anything","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"290","TD_436_678",845,1,"okay alright come on","displaced","displaced","VerbForm=Fin"
-"291","VI_012_562",801,1,"=gasps","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"292","TD_473_844",368,1,"can you draw a star","displaced","displaced","VerbForm=Fin"
-"293","VI_008_707",1038,1,"I thought you said you were tired","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"294","VI_012_562",1618,1,"Im a warrior Mama","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"295","VI_001_676",397,2,"going to eat your sopa okay","displaced","displaced","VerbForm=Ger"
-"296","TD_444_402",520,1,"here eat my xxx","uncategorized","present","VerbForm=Inf"
-"297","VI_047_440",687,1,"he has cool spots","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"298","VI_008_707",1312,2,"Im ready for bed now","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"299","VI_001_676",1432,1,"thats a five dollar bill","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"300","TD_449_716",467,1,"=cries","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"301","TD_436_678",2173,1,"<wa> = imitatescrying","present","uncategorized","VerbForm=Ger"
-"302","VI_012_562",1137,1,"is that","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"303","VI_015_195",569,1,"anything thats gonna you know make it easier xxx","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"304","TD_436_678",1935,1,"=cries","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"305","VI_008_707",326,1,"there we go","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"306","VI_003_405",1378,1,"<long to be> = sings","uncategorized","displaced","VerbForm=Inf"
-"307","VI_003_405",1272,1,"who went late","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"308","VI_037_868",209,1,"too soon to come in","uncategorized","displaced","VerbForm=Inf"
-"309","VI_003_405",966,1,"yeah I know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"310","VI_001_676",1483,2,"you all need glasses","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"311","VI_014_242",286,1,"so I fed him about an hour ago","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"312","TD_463_254",320,1,"but thankfully its not too long bad for too long","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"313","TD_448_304",273,1,"flying baby","present","present","VerbForm=Ger"
-"314","VI_015_195",437,2,"going","present","uncategorized","VerbForm=Ger"
-"315","TD_463_254",224,1,"uh so we my husband and I were looking at each other like okay and then she","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"316","TD_445_217",41,1,"taking xxx Batman and Robin pull it right out from under Jokers feet","present","present","VerbForm=Ger"
-"317","TD_436_678",1286,1,"we also have movies down in the childrens area","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"318","VI_033_820",865,1,"I dont know what you want","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"319","VI_008_707",628,1,"you picking it xxx","present","present","VerbForm=Ger"
-"320","TD_472_829",528,1,"<nuh nuh> = makesnsound Nana","displaced","uncategorized","Tense=Past|VerbForm=Part"
-"321","TD_465_541",605,1,"Id be on one end","uncategorized","displaced","VerbForm=Inf"
-"322","VI_033_820",724,1,"did you go in your diaper","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"323","VI_002_336",262,1,"because its closest to here","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"324","VI_047_440",191,1,"gonna put your arm through","displaced","present","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"325","VI_012_562",1358,1,"is his diaper dirty or clean","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"326","VI_014_242",123,1,"and then were finished","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"327","VI_004_415",150,1,"theres nothing to be afraid of","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"328","VI_008_707",1147,1,"xxx to help you come in","uncategorized","uncategorized","VerbForm=Inf"
-"329","VI_005_263",40,1,"alright well Ill Ill hold him til xxx","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"330","VI_033_820",1555,1,"<ah> = imitates you have a loud trumpet sound right","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"331","TD_463_254",359,1,"Mommy took away your fun its not cool","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"332","TD_448_304",393,1,"<whose name was Tiny Tim> = sings","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"333","VI_033_820",1330,1,"seven flowers growing in the ground","present","present","VerbForm=Ger"
-"334","TD_473_844",1005,1,"shes getting a big girl","present","displaced","VerbForm=Ger"
-"335","TD_474_966",342,1,"and what shape is it","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"336","VI_001_676",1870,1,"weve been trying it for years and then","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"337","VI_014_242",372,1,"but I bring up the dryer xxx","uncategorized","present","VerbForm=Inf"
-"338","VI_012_562",855,1,"fell face forward and cut his lip on his his tooth cut his lip","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"339","VI_012_562",1543,1,"I put the present uh put them","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"340","VI_005_411",1208,1,"how does it look","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"341","TD_448_304",134,1,"looks a bit like a man whos like","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"342","TD_448_304",322,1,"I dont think so no <cuz>","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"343","TD_467_433",405,1,"there we go","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"344","VI_015_195",457,1,"were doing it all by ourself","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"345","TD_436_678",227,1,"I dont know where Cape","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"346","TD_465_541",86,1,"lets get your cup","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"347","VI_002_336",1118,1,"lets go check that diaper","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"348","TD_449_716",428,1,"its gonna be hard now","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"349","TD_465_541",444,1,"can you remember discovering your favorite foods","displaced","displaced","VerbForm=Fin"
-"350","TD_474_966",206,2,"because theres the baby that comes out of the eggs","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"351","TD_445_217",1880,1,"Mom I want more","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"352","TD_467_433",598,1,"and you dont like this to happen","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"353","TD_465_541",77,1,"theres no baby in there","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"354","TD_477_217",73,1,"so we can do it","displaced","displaced","VerbForm=Fin"
-"355","TD_474_966",368,1,"and you heard what I said you must keep out of sight","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"356","VI_013_206",1091,1,"are you taking your socks off again","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"357","TD_475_481",43,1,"where you going","present","present","VerbForm=Ger"
-"358","TD_444_402",100,1,"it bounced off her head and she went <eh> = imitates","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"359","VI_005_263",43,1,"=grunts there we go okay","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"360","TD_477_217",708,1,"mm over there is ours","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"361","TD_467_433",128,1,"Im gonna get you","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"362","TD_473_844",392,1,"you want all your rubber duckies","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"363","TD_448_304",243,1,"I its over here extra larges","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"364","VI_008_707",1863,1,"I dont think it xxx a private xxx","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"365","TD_436_678",1314,1,"kitty theres a bad <ol>","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"366","TD_444_402",231,1,"xxx how you doing","uncategorized","present","Tense=Pres|VerbForm=Part"
-"367","VI_005_411",491,1,"wow Venus is the hottest planet in the solar system","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"368","TD_444_402",269,3,"Im like","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"369","TD_445_217",525,1,"so we have the olive bread from Trader Joes","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"370","TD_444_402",167,1,"I mean it","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"371","TD_472_829",1021,1,"you say it","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"372","TD_467_433",139,1,"I think he wants his coat on now","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"373","VI_001_676",819,1,"you put JohnnyJohnny","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"374","VI_012_562",1176,1,"we could put his paciec there because he knows what that is","displaced","displaced","VerbForm=Fin"
-"375","TD_436_678",1547,1,"that is still pretty hot","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"376","VI_007_204",241,1,"well at least you can go in late tomorrow","displaced","displaced","VerbForm=Fin"
-"377","TD_477_217",238,1,"he pulled xxx the pork","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"378","VI_047_440",383,1,"that I was leaving =laughs","displaced","displaced","Mood=Ind|Number=Sing|Person=1|Tense=Past|VerbForm=Fin"
-"379","VI_015_195",418,1,"like its definitely not cool enough yet to where you can you just have your doors open","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"380","VI_013_206",1979,1,"whoa I see","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"381","VI_007_204",149,1,"hey whats the problem","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"382","TD_467_433",321,1,"yeah I would like to have a tree and we like Christmas at our home","displaced","displaced","VerbForm=Fin"
-"383","VI_012_562",1828,1,"so I know he can crawl xxx pick up triangles xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"384","TD_467_433",370,1,"who is that baby","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"385","TD_443_341",456,1,"I just wanna know maybe going forward","displaced","displaced","Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin"
-"386","VI_004_415",73,1,"I would love that","displaced","displaced","VerbForm=Fin"
-"387","TD_448_304",423,1,"=gasps ah do ah do ah do ah do","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"388","VI_037_868",257,1,"he blows out the candle with a <pff> = makesblowingnoise of air","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"389","TD_464_188",409,2,"=crying","present",NA,"VerbForm=Ger"
-"390","VI_015_195",424,1,"my its getting late","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"391","VI_003_405",535,1,"xxx put it right here","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"392","VI_047_440",185,1,"I love you","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"393","TD_464_188",252,1,"yeah but Amelia didnt help xxx","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"394","TD_472_829",1045,1,"you need a tissue","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"395","VI_015_195",398,1,"oh are they","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"396","VI_013_206",1833,1,"<went up the spout again> = sings","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"397","TD_465_541",78,1,"thats a book","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"398","TD_444_402",169,1,"I mean it","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"399","TD_443_341",79,1,"<do do do do do> = sings","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"400","VI_002_336",1100,1,"she loves that","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"401","VI_047_440",542,1,"okay I havent put anything on","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"402","TD_448_304",337,1,"I have a lot of clothes but not as many as I once had","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"403","VI_003_405",700,1,"xxx is it <playin> playing","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"404","TD_445_217",2030,1,"I dont like xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"405","TD_436_678",400,1,"you can choose one","displaced","present","VerbForm=Fin"
-"406","TD_464_188",269,1,"Sunny found out that she has wait or how many","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"407","TD_445_217",516,1,"have them","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"408","VI_012_562",597,1,"yeah theres some chippiesc in there","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"409","TD_436_678",685,1,"that doesnt help Jane","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"410","TD_445_217",1044,1,"because as weve discovered","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"411","VI_005_263",153,1,"thinking","present","present","VerbForm=Ger"
-"412","TD_465_541",380,1,"your day has been so busy now its time for you to rest","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"413","VI_047_440",381,1,"its just its really not and I cant control what my boss says I cant control the fact that I gave you notice","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"414","VI_014_242",188,1,"or sounding terrible","present","present","VerbForm=Ger"
-"415","VI_008_707",1436,1,"like so I put a al in it","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"416","VI_033_820",1,1,"what is that your new desk","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"417","TD_467_433",225,1,"is it I think its a cigar","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"418","VI_013_206",998,1,"<Mama loves her babies> = sings","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"419","TD_464_188",262,1,"you know sometimes shell even call me Mom","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"420","VI_001_676",2142,1,"dont say that","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"421","VI_005_263",827,1,"I can do two trees xxx","displaced","displaced","VerbForm=Fin"
-"422","TD_445_217",209,1,"xxx theyre waiting for a xxx announcement","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"423","TD_465_541",404,1,"can you kick the ball","displaced","present","VerbForm=Fin"
-"424","TD_443_341",292,1,"<well everyday you can> = sings","displaced","present","VerbForm=Fin"
-"425","VI_033_820",1955,1,"Jack could you be hey hey hey","displaced","displaced","VerbForm=Fin"
-"426","TD_448_304",192,1,"you only use xxx","uncategorized","present","VerbForm=Inf"
-"427","TD_463_254",148,1,"Daddy how was your day","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"428","VI_015_195",35,1,"when shes in tummy time","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"429","TD_447_448",55,1,"theyve got experience theyre going to want to know why and really the test xxx","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"430","TD_464_188",171,1,"alright lets get your hair xxx and well go real quick hang on","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"431","VI_013_206",345,1,"so we can bounce bounce bounce","displaced","present","VerbForm=Fin"
-"432","VI_047_440",26,1,"oh yeah I forgot about that","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"433","VI_033_820",901,1,"want toys","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"434","VI_002_336",1133,1,"whats going on here","present","present","VerbForm=Ger"
-"435","TD_443_341",534,1,"and then we let everything in the past go","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"436","VI_013_206",1040,1,"and then we gotta figure out what youre gonna wear today um at lunch","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"437","TD_474_966",375,1,"whats that","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"438","TD_447_448",24,1,"he didnt really say much","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"439","VI_015_195",492,1,"so I got to hold her for a few minutes xxx and","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"440","VI_015_195",276,1,"um they usually have them closed more","uncategorized","displaced","VerbForm=Inf"
-"441","TD_465_541",100,1,"would that fit there","displaced","displaced","VerbForm=Fin"
-"442","VI_012_562",603,1,"did you lock us out","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"443","TD_443_341",543,1,"well I know that","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"444","VI_008_707",1388,1,"you picked them all up already","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"445","VI_003_405",544,1,"I know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"446","TD_449_716",178,1,"Oscar is green","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"447","VI_002_336",1172,1,"no he just calls it","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"448","TD_449_716",120,1,"yeah I usually l I mean I usually look","displaced","present","VerbForm=Fin"
-"449","TD_436_678",163,1,"are you thirsty","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"450","VI_014_242",119,1,"is stand up and Ill show you","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"451","TD_444_402",144,1,"I know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"452","TD_436_678",652,1,"I locked that door babe","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"453","VI_008_707",978,1,"can I read it","displaced","displaced","VerbForm=Fin"
-"454","VI_014_242",106,1,"no youd be so stuffed","uncategorized","displaced","VerbForm=Inf"
-"455","TD_449_716",179,1,"Grover loves blue","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"456","VI_015_195",510,1,"she is looking around","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"457","TD_467_433",337,1,"pants are too small now","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"458","VI_033_820",237,1,"well Ill tell you exactly what it ends up being but I think its supposed to be like a dollar twenty or xxx","displaced","displaced","VerbForm=Fin"
-"459","VI_047_440",519,1,"she got blue finger nails thats right","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"460","VI_012_562",1549,1,"hes gonna stop your presents right there","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"461","VI_008_707",1306,1,"and he was like","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"462","TD_474_966",401,1,"its a family tradition when they go away to buy some gifts to remember their stay","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"463","VI_005_411",1143,1,"are you smiling at Miles","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"464","TD_443_341",657,1,"then the girls are all gonna get older","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"465","VI_008_707",933,1,"=gasps trick or treat","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"466","TD_445_217",2249,1,"whered you put it","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"467","VI_002_336",477,1,"I know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"468","VI_003_405",25,1,"this is my favorite song she sings","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"469","VI_033_820",964,1,"play with the beans","uncategorized","uncategorized","VerbForm=Inf"
-"470","VI_008_707",674,1,"I mean really","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"471","VI_033_820",120,1,"but maybe when hes sixteen","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"472","TD_447_448",1180,1,"I wanna I want to xxx","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"473","VI_003_405",520,1,"I didnt bring her a surprise","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"474","TD_477_217",409,1,"<must be> = sings","displaced","displaced","VerbForm=Fin"
-"475","TD_444_402",533,1,"I like you","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"476","VI_008_707",716,1,"is the jab giant jumparee scary","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"477","VI_012_562",497,1,"yeah it should have been delivered","displaced","displaced","VerbForm=Fin"
-"478","VI_008_707",1364,1,"heres a bite of guacamole on the fork","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"479","TD_444_402",203,1,"he goes he goes do you think I can just tell Mom not to get me any Christmas presents and just get me a bottle of crown","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"480","VI_047_440",85,1,"gonna try this sausage","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"481","TD_464_188",381,1,"Mommy its not fair","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"482","TD_465_541",443,1,"we couldnt wait to feed you your first solid food baby","displaced","displaced","VerbForm=Fin"
-"483","TD_477_217",522,1,"maybe h her didnt have anything","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"484","TD_436_678",2266,1,"we won you Janey lose","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"485","TD_447_448",659,1,"yeah I lost my phone","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"486","VI_047_440",299,1,"shes like Im not missing it","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"487","VI_008_707",975,1,"do you say thank you","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"488","TD_449_716",333,1,"Mommy can you fall down","displaced","displaced","VerbForm=Fin"
-"489","TD_436_678",2282,1,"it dont see me","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"490","TD_443_341",699,2,"because I think her heads in a fog because","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"491","TD_447_448",917,1,"yeah they definitely are going to question a little","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"492","TD_467_433",81,1,"he bitedc his self","uncategorized","displaced","VerbForm=Inf"
-"493","VI_008_707",525,1,"and Im probably more tired than you are today","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"494","TD_449_716",458,1,"=cries","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"495","VI_003_405",987,1,"he took like a three hour nap today","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"496","VI_002_336",839,1,"nope were going to leave the wipes","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"497","VI_018_924",9,1,"well there is this one","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"498","TD_463_254",317,1,"do you know xxx on the ground","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"499","TD_477_217",745,1,"opened","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"500","VI_015_195",359,1,"and then as she gets older we can have somoene just like tucking it in her onesie","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"501","VI_014_242",118,1,"alright so what Id like you to do buddy","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"502","TD_445_217",1173,1,"we cant do Sunday mornings","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"503","TD_447_448",1057,1,"how were they","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"504","VI_008_707",895,1,"its up to eighty pounds is what it holds","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"505","VI_001_676",1623,1,"girl can I borrow that","displaced","present","VerbForm=Fin"
-"506","TD_447_448",610,1,"I love how she does more though","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"507","TD_443_341",244,1,"no its my turn now","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"508","VI_047_440",280,1,"are you getting sleepy","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"509","TD_465_541",125,1,"designing planning to do something some fixing or something","present","displaced","VerbForm=Ger"
-"510","TD_436_678",1461,1,"he doesnt like <anybody> = exclaims at all","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"511","VI_003_405",769,1,"alright well I dont have to leave for an hour","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"512","TD_465_541",312,1,"what are those hiding on the window sill","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"513","VI_002_336",46,2,"you know the diapers actually smell like soap now I can smell them","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"514","VI_012_562",515,1,"we have house numbers on our house =laughs","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"515","TD_445_217",215,1,"wants to go camping","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"516","VI_012_562",1113,1,"and hell just do this for hours","uncategorized","present","VerbForm=Inf"
-"517","TD_449_716",64,1,"did you do good listening Cottie did you do good listening","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"518","VI_012_562",1197,1,"no I think no","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"519","TD_463_254",387,1,"I know Bubba I know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"520","TD_447_448",320,1,"what are you doing","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"521","TD_463_254",752,1,"so they say","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"522","TD_445_217",462,1,"I want to start making the kids on I want to go on Sunday morning","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"523","VI_015_195",337,1,"xxx shes connected xxx","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"524","VI_013_206",1414,1,"all good they said","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"525","VI_012_562",512,1,"yeah but like that fire sign up","uncategorized","uncategorized","VerbForm=Inf"
-"526","TD_436_678",589,1,"xxx kids to nap","uncategorized","uncategorized","VerbForm=Inf"
-"527","VI_037_868",176,1,"does","present","uncategorized","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"528","VI_005_263",536,1,"<lovers they may cause you tears xxx my oh my> = sings","displaced","displaced","VerbForm=Fin"
-"529","VI_001_676",2128,1,"we got ten maybe sixteen gigabyte per month","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"530","TD_467_433",482,1,"well thats good","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"531","TD_477_217",567,1,"we just had to sing one song and then we go","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"532","TD_436_678",1337,1,"what do you want Polly","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"533","VI_015_195",423,1,"the first one says","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"534","VI_002_336",310,1,"no I would just rather call it terrible Sue","displaced","displaced","VerbForm=Fin"
-"535","TD_464_188",273,1,"how many siblings do you have on that side though","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"536","VI_004_415",71,1,"and you look very sleepy","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"537","TD_463_254",182,1,"well my xxx was saying that before he came out and I xxx","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"538","VI_047_440",219,1,"oh I have some","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"539","TD_477_217",206,1,"or what time Daddys gonna be home","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"540","TD_436_678",1340,1,"thats everything","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"541","VI_037_868",278,1,"Parenteau and illustrated by DavidWalker","displaced","displaced","Tense=Past|VerbForm=Part"
-"542","TD_443_341",453,1,"just say you know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"543","TD_436_678",1752,1,"I mean I would like this one but what one would you like","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"544","TD_447_448",818,1,"you cant touch","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"545","VI_014_242",373,1,"I want xxx go out","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"546","TD_477_217",66,1,"that makes me super self conscious actually but","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"547","TD_472_829",878,2,"isnt it","present","uncategorized","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"548","TD_445_217",1077,1,"but he doesnt have to be","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"549","TD_463_254",179,1,"you went swimming last June with her","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"550","TD_449_716",72,1,"thats what the recital is gonna be the dancing","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"551","TD_464_188",70,1,"she just runs around and kind of oh there goes the ball","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"552","VI_033_820",1018,1,"as you can see","displaced","present","VerbForm=Fin"
-"553","VI_015_195",92,1,"=gasps hi","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"554","VI_015_195",357,1,"but she likes to have that across her belly these xxx likes to lay","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"555","VI_033_820",1345,1,"its time to wave byebye for their <adventures> adventure is at an end","uncategorized","present","VerbForm=Inf"
-"556","VI_008_707",1910,1,"so like it kind of like does that sound","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"557","VI_033_820",1732,1,"Im going to get it cleaned up","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"558","VI_033_820",1843,1,"be then be thirsty","uncategorized","present","VerbForm=Inf"
-"559","VI_012_562",819,1,"should we go say hi","displaced","displaced","VerbForm=Fin"
-"560","VI_015_195",502,1,"three we were good and then when we were down at your moms for um chatting with Peg and stuff at like five o clock she like spit up a bunch of mucus but before I gave her her three o clock bottle I pulled off a bunch of hair xxx","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"561","VI_008_707",438,1,"I want Felix","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"562","VI_001_676",592,1,"I know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"563","TD_443_341",787,1,"I know xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"564","TD_436_678",2219,1,"what is it","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"565","VI_008_707",1529,1,"why dont you build a snow den says MommyPenguin","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"566","TD_448_304",361,1,"so like a cool like um corkboard or like whiteboard for his door would be cool","displaced","displaced","VerbForm=Fin"
-"567","TD_449_716",102,1,"we nibble grapes we watch the waves we take a little rest","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"568","TD_464_188",278,1,"have you talked to","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"569","VI_005_263",930,1,"well Im trying to go anyway","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"570","TD_449_716",446,1,"=cries","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"571","TD_473_844",13,1,"xxx say it does =giggles","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"572","TD_436_678",2288,1,"I wanna go in","displaced","displaced","Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin"
-"573","TD_473_844",539,1,"youre painting me","present","present","VerbForm=Ger"
-"574","VI_007_204",96,1,"<down the bough breaks the cradle will drop> =sings","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"575","TD_464_188",72,1,"get Mommy","uncategorized","uncategorized","VerbForm=Inf"
-"576","TD_447_448",1292,1,"I cant sit xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"577","TD_467_433",547,1,"can you can you close the j g door honey","displaced","present","VerbForm=Fin"
-"578","VI_008_707",82,1,"was she like its Marie not Maria","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"579","TD_444_402",633,1,"here you go","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"580","VI_033_820",502,1,"do you want some freeze dried strawberries","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"581","VI_012_562",485,1,"<so I like> = laughs I drive around and wait <til> until nobodys outside and <just go take <em>","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"582","TD_436_678",1681,1,"I need the xxx Mommy","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"583","TD_472_829",339,1,"we give that some seeds","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"584","VI_005_411",290,1,"studies particles the smallest","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"585","TD_474_966",22,1,"it youre gonna have to paint at the table","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"586","VI_012_562",1304,1,"were gonna drive to Grandma Grandpas","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"587","VI_005_411",401,1,"<Ive never been in love like this before> = sings","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"588","TD_443_341",570,1,"you know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"589","VI_005_411",31,1,"sure you want more","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"590","VI_005_411",1158,1,"where I gave him um I made these muffins today with broccoli and ham","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"591","VI_037_868",262,1,"they play some games they laugh and sing","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"592","VI_033_820",1402,1,"it wants to put you in a pot and eat you probably","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"593","VI_018_924",20,1,"yeah you think you think the other one huh","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"594","TD_443_341",1295,2,"Im singing xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"595","VI_012_562",130,1,"there we go thats what Im talking about","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"596","VI_012_562",1008,1,"Im gonna eat it =gobbles","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"597","VI_014_242",217,1,"down you go Ben","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"598","TD_464_188",212,1,"I do not want to be splashed","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"599","VI_014_242",198,1,"xxx not playing in my dessert","uncategorized","present","Tense=Pres|VerbForm=Part"
-"600","TD_467_433",584,1,"you know what","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"601","VI_033_820",1931,1,"oh I was like hes like a famous person","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"602","TD_448_304",226,1,"oh he just she just likes the","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"603","TD_436_678",1853,1,"but they used","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"604","VI_007_204",199,1,"whered she go","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"605","TD_436_678",1178,1,"wheres Janeys piggy bank","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"606","VI_037_868",285,1,"did you put the hat on your head","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"607","TD_444_402",189,1,"I mean uh well just make it work","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"608","TD_463_254",611,1,"well have to listen","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"609","VI_005_411",1202,1,"um when I go take him to bed you should go ahead and hop in the shower","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"610","VI_005_263",954,1,"while this one here is","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"611","VI_014_242",271,1,"<thats what youre gonna tell> = laughs","displaced","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"612","VI_002_336",383,1,"settle down","uncategorized","uncategorized","VerbForm=Inf"
-"613","TD_477_217",652,1,"are you my","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"614","VI_001_676",2117,1,"that would be best if xxx","displaced","displaced","VerbForm=Fin"
-"615","VI_003_405",1549,1,"I dont want to xxx","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"616","VI_047_440",623,1,"yall moved to Germantown right","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"617","TD_449_716",406,1,"xxx lets see lets see how about we do xxx","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"618","VI_033_820",1285,1,"shall we count","displaced","displaced","VerbForm=Fin"
-"619","VI_008_707",1236,1,"can you tell me","displaced","present","VerbForm=Fin"
-"620","TD_448_304",153,1,"although its not super max xxx","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"621","TD_449_716",502,1,"=cries","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"622","VI_014_242",398,1,"why dont they xxx","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"623","VI_001_676",362,1,"you ever had one of them","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"624","VI_015_195",72,1,"those are Nannys glasses","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"625","VI_047_440",137,1,"<we have to sit in our seat to eat> = sings","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"626","TD_443_341",763,1,"well what did you wear when you went outside","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"627","TD_477_217",19,1,"<do as Im doing> = sings","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"628","VI_002_336",519,1,"did you see the fish","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"629","VI_033_820",87,1,"I didnt realize xxx","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"630","TD_474_966",369,1,"what is that","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"631","TD_464_188",113,1,"they dont","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"632","TD_449_716",81,1,"and if were very quiet now shell say it right away","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"633","VI_005_263",791,1,"you can sell everything","displaced","displaced","VerbForm=Fin"
-"634","TD_445_217",2160,1,"I dont like this","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"635","TD_436_678",863,1,"I wouldnt put your mouth on it","displaced","present","VerbForm=Fin"
-"636","VI_008_707",1186,1,"dont want your beers xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"637","TD_472_829",752,1,"help","uncategorized","uncategorized","VerbForm=Inf"
-"638","TD_473_844",482,1,"if you get xxx use it dont you","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"639","VI_002_336",869,1,"so he looks like his dad","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"640","TD_436_678",16,1,"well they wanting your Ticketmaster or your blueprint","present","present","VerbForm=Ger"
-"641","VI_005_263",872,1,"should I give him his late meal early xxx","displaced","displaced","VerbForm=Fin"
-"642","TD_463_254",696,1,"where is it","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"643","VI_008_707",731,1,"theres a giant jumparee in my burrow","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"644","VI_012_562",1047,1,"you could tell he mos he um","displaced","displaced","VerbForm=Fin"
-"645","VI_015_195",360,1,"we have like a little little probe sticker","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"646","TD_444_402",26,1,"is she texting me","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"647","VI_033_820",925,1,"wanna feel the plants","displaced","present","Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin"
-"648","VI_033_820",1777,1,"I feel like my face is really I wanna go wash my face and","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"649","TD_473_844",744,1,"ah can you give Nanny Netty a kiss","displaced","present","VerbForm=Fin"
-"650","TD_445_217",1469,1,"Courtney honey wheres your shoes","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"651","TD_436_678",2074,1,"<me reading this book> = whines","present","present","VerbForm=Ger"
-"652","TD_472_829",68,1,"Ill be youre lucky yeah","displaced","present","VerbForm=Fin"
-"653","TD_465_541",22,1,"are you are you gonna take it downstairs for me","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"654","VI_005_411",583,1,"youve been so patient","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"655","VI_047_440",206,1,"so I think technically you have to sign for Nora <as well> = laughs","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"656","VI_005_411",1256,1,"<the chimney tops thats where> = sings","present","uncategorized","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"657","TD_477_217",490,1,"Ill check on the chair","displaced","displaced","VerbForm=Fin"
-"658","VI_013_206",1976,1,"<Gaga> grandpa hears the birds talking to Georgia","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"659","TD_473_844",1051,1,"is there something down there","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"660","VI_012_562",1666,1,"and theres Mama","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"661","TD_465_541",482,1,"Mommys gonna wash out her hair","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"662","TD_443_341",594,1,"I mean shes","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"663","VI_005_411",1044,1,"goat jumped over the fence of course","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"664","VI_047_440",274,1,"were ready","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"665","TD_444_402",80,1,"we can get some blocks out","displaced","displaced","VerbForm=Fin"
-"666","TD_467_433",257,1,"uh what are you doing","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"667","TD_436_678",964,1,"tell Daddy","uncategorized","uncategorized","VerbForm=Inf"
-"668","TD_436_678",1729,1,"I wanna see AlvinandtheChipmunks","displaced","displaced","Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin"
-"669","TD_464_188",12,1,"did you give a warning shes being recorded","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"670","VI_001_676",940,1,"did you say xxx","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"671","TD_464_188",644,1,"you have to touch","displaced","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"672","VI_004_415",47,2,"Im gonna put my guitar up","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"673","TD_467_433",575,1,"because I was like we have","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"674","VI_003_405",514,1,"thats the best huh","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"675","TD_463_254",335,1,"dont know how I feel about that Tess","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"676","TD_445_217",510,1,"well and they dont even o","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"677","VI_013_206",1567,1,"can you say bye bye","displaced","present","VerbForm=Fin"
-"678","VI_037_868",204,1,"he calls","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"679","TD_473_844",1125,1,"oh youve still got it","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"680","VI_007_204",229,1,"ah what are you doing","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"681","TD_444_402",483,1,"are you gonna sell the house","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"682","TD_477_217",72,1,"yeah its in the building where Jeff works","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"683","TD_443_341",1226,1,"but its better","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"684","TD_463_254",199,1,"I can hear though xxx","displaced","present","VerbForm=Fin"
-"685","TD_472_829",988,1,"can you say it","displaced","displaced","VerbForm=Fin"
-"686","VI_033_820",1159,2,"Im gonna pour the water in","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"687","TD_445_217",218,1,"because he wants a camp fire","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"688","TD_436_678",1897,1,"Ive only seen him like","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"689","VI_005_263",174,1,"hey lets go","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"690","VI_033_820",1000,1,"da da du du the drums","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"691","VI_004_415",99,1,"dont bite Mama","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"692","VI_033_820",2024,1,"come out","uncategorized","uncategorized","VerbForm=Inf"
-"693","VI_008_707",1839,1,"so and then he goes","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"694","VI_047_440",611,1,"oh thats funny","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"695","VI_008_707",1813,1,"did you throw your milk","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"696","TD_436_678",1060,1,"why are you in trouble","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"697","TD_473_844",359,1,"shouldnt it have gone off twenty minutes or so ago","displaced","displaced","VerbForm=Fin"
-"698","VI_008_707",752,1,"but just as she was about to slink inside","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"699","TD_463_254",706,1,"what do you think","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"700","VI_012_562",121,1,"and then you hold on to one","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"701","TD_464_188",426,1,"hey no you cant have a birthday","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"702","VI_033_820",1468,1,"theres the tiger","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"703","TD_474_966",175,1,"oh much better thank you","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"704","TD_448_304",400,1,"you wanna talk about constitution day","displaced","displaced","Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin"
-"705","VI_007_204",172,1,"of him catching the fish","present","present","VerbForm=Ger"
-"706","VI_003_405",166,1,"what are you doing xxx","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"707","TD_463_254",532,1,"so you havent had a baby in a while","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"708","TD_465_541",270,1,"spiders are scary","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"709","VI_003_405",1218,1,"hows that","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"710","TD_445_217",137,1,"there you go","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"711","TD_472_829",196,1,"theyre at the farm","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"712","TD_472_829",609,1,"<ere> there we go","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"713","TD_465_541",279,1,"what else is there","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"714","VI_033_820",1612,1,"were going to set it on the stool over there and put it back on after nap","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"715","VI_001_676",1732,1,"I drove xxx","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"716","VI_001_676",261,1,"I almost did get xxx up","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"717","VI_005_411",34,1,"hes intrigued but not","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"718","TD_463_254",42,1,"hes looking at you guys","present","present","VerbForm=Ger"
-"719","TD_467_433",625,1,"do you wanna use xxx today","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"720","VI_003_405",1375,1,"<where I go> = sings","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"721","VI_012_562",1158,1,"and I like tried helping him through the motions of it like thinking maybe it was just new and","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"722","VI_001_676",464,1,"xxx me the shoes last night","present","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"723","TD_464_188",32,1,"she goes outside for the most part","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"724","TD_474_966",359,1,"what shape is that","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"725","TD_444_402",279,1,"donny can help","displaced","displaced","VerbForm=Fin"
-"726","TD_477_217",223,1,"pepper oh lets get her a binkyc","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"727","TD_475_481",4,1,"you shop for bread","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"728","VI_047_440",66,1,"he looks like a cheetah","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"729","VI_047_440",49,1,"I think Im gonna take her sweater off","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"730","VI_015_195",538,1,"is she","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"731","VI_003_405",1215,1,"then I will get them with this towel","displaced","displaced","VerbForm=Fin"
-"732","VI_001_676",1984,1,"oh so I miss this","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"733","VI_033_820",2030,1,"there we go","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"734","TD_448_304",372,1,"I mean Granny was here Christmas morning last year too","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"735","VI_012_562",618,1,"what do you think Whitman wants to play with down here","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"736","TD_467_433",172,1,"why would Jasper be the captain of the car","displaced","displaced","VerbForm=Fin"
-"737","VI_014_242",323,1,"then you pull down in the front","uncategorized","present","VerbForm=Inf"
-"738","TD_436_678",1448,1,"oh youre done","displaced","present","Tense=Past|VerbForm=Part"
-"739","TD_472_829",809,1,"cant hear when its raining","uncategorized","displaced","VerbForm=Inf"
-"740","VI_005_411",607,1,"rain rain go away come again another day","uncategorized","displaced","VerbForm=Inf"
-"741","VI_001_676",1080,1,"I think Im gonna um","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"742","VI_001_676",1390,1,"tell Grams Grams Nana and Papaw thank you","uncategorized","uncategorized","VerbForm=Inf"
-"743","TD_464_188",441,1,"we had to","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"744","VI_047_440",95,1,"I hold you","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"745","TD_473_844",725,1,"not sing mister maker","present","present","VerbForm=Ger"
-"746","TD_463_254",668,1,"I know Bubba I know come on","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"747","VI_015_195",499,1,"yeah those are your toys","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"748","VI_005_263",957,1,"is pretty well nasty xxx","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"749","VI_001_676",190,1,"you gotta put that back on","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"750","TD_477_217",784,1,"and come forward","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"751","VI_002_336",279,1,"theres slices of cake that are this big","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"752","TD_463_254",544,1,"my husbands birthday is February twentieth","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"753","VI_001_676",16,1,"you dont remember when this little do you","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"754","VI_005_411",670,1,"<bluebirds fly> = sings","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"755","TD_464_188",311,1,"what howd you know that","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"756","VI_007_204",49,1,"do you want to xxx or Mommy xxx","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"757","TD_449_716",194,1,"thank you no no no","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"758","TD_436_678",1873,1,"hes a really small","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"759","VI_014_242",159,1,"yeah thats my coat yeah","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"760","VI_014_242",244,1,"the strings all soar the reeds in four the brasses roar with notes galore","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"761","TD_436_678",1036,1,"I dont think so","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"762","VI_004_415",33,1,"yeah you know whats funny is this time around I xxx he was always one of the more intriguing characters and this time around watching its like you realize that hes not a good actor","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"763","VI_033_820",2072,1,"she said xxx information","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"764","VI_012_562",1621,1,"Im a warrior","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"765","TD_472_829",327,1,"thats a gully","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"766","TD_477_217",9,2,"kind of harder to tell because","uncategorized","present","VerbForm=Inf"
-"767","VI_003_405",49,1,"<and my faith will be much stronger> = sings","displaced","displaced","VerbForm=Fin"
-"768","TD_477_217",166,1,"yes I yelled at you","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"769","TD_463_254",362,1,"I dont want you to get sick","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"770","VI_033_820",1180,1,"this smells nice","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"771","TD_448_304",319,1,"were super here in that water","displaced","present","Mood=Ind|Tense=Past|VerbForm=Fin"
-"772","VI_003_405",302,1,"what happened","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"773","TD_436_678",2111,1,"=cries","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"774","VI_005_263",961,1,"its been a while","displaced","displaced","Tense=Past|VerbForm=Part"
-"775","TD_447_448",34,1,"has no experience","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"776","TD_474_966",259,1,"the turtle can hide in its shell","displaced","present","VerbForm=Fin"
-"777","TD_449_716",469,1,"=cries","present",NA,"Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"778","TD_449_716",240,1,"Berts whistle goes","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"779","TD_448_304",182,1,"I know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"780","TD_449_716",321,1,"youll come over again youll come over again youll come over again","displaced","displaced","VerbForm=Fin"
-"781","TD_436_678",1414,1,"you dont","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"782","TD_472_829",606,2,"one is all gone yeah","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"783","VI_012_562",777,1,"so like for him like there wasnt really","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"784","TD_477_217",170,1,"what you were doing","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"785","TD_467_433",494,1,"well hopefully it wont be too bad","displaced","displaced","VerbForm=Fin"
-"786","VI_015_195",315,1,"but shes all prorportioned to like her head her height her weight you know shes all growing proportionally which is good","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"787","TD_465_541",437,1,"do you remember when you first sat up","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"788","TD_473_844",523,1,"Im just thinking she grew up in an xxx house","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"789","TD_443_341",404,1,"can I keep them on the shelves as I fall asleep","displaced","displaced","VerbForm=Fin"
-"790","TD_467_433",293,1,"but last year had","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"791","TD_436_678",891,1,"xxx shes playing","present","present","VerbForm=Ger"
-"792","TD_472_829",247,1,"not all ducks are <gonna>","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"793","TD_447_448",962,1,"thank you","present","uncategorized","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"794","TD_463_254",653,1,"if youre gonna be cranky why dont you just go to sleep","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"795","TD_444_402",479,1,"those kind of people you want working on your house","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"796","TD_447_448",604,1,"maybe it was when we you thought you were hitting the timer yeah","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin"
-"797","TD_465_541",484,1,"do you want something else to play with","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"798","VI_047_440",254,1,"I know","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"799","TD_477_217",251,1,"<do as Im doing> = sings","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"800","VI_003_405",1108,1,"why dont you take a bath so you have time to xxx before you gotta go to bed","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"801","TD_436_678",1317,1,"who put that kitty out","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"802","VI_015_195",437,1,"where are you <goin>","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"803","VI_008_707",136,1,"what do you wanna do again","displaced","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"804","VI_007_204",282,1,"do you know what that is","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"805","TD_436_678",2078,2,"Mommy you have it","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"806","VI_015_195",318,1,"we got a like a little mat","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"807","TD_465_541",36,1,"its she doesnt mind it but if she can have mine shell take mine","displaced","displaced","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"808","VI_003_405",836,1,"whyd you","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"809","TD_445_217",47,1,"xxx says","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"810","VI_001_676",912,1,"I <gotta> got to get mine to charge okay","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"811","TD_477_217",70,1,"compared to like a baby thats hearing impaired","displaced","uncategorized","Tense=Past|VerbForm=Part"
-"812","VI_001_676",1101,1,"her contacts been bothering her all day","displaced","displaced","Tense=Past|VerbForm=Part"
-"813","TD_477_217",209,1,"a good guess would be five thirty","displaced","displaced","VerbForm=Fin"
-"814","VI_012_562",1567,1,"or or or Jennas gonna be back when I w up","displaced","displaced","Abbr=Yes|Tense=Pres|VerbForm=Part"
-"815","VI_001_676",774,1,"you want the happy you want the six piece meal","present","displaced","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"816","VI_001_676",934,1,"Toms skiing","present","present","VerbForm=Ger"
-"817","TD_436_678",1051,1,"you taking the van","present","present","VerbForm=Ger"
-"818","TD_447_448",498,1,"I got one more thing I gotta do","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
-"819","VI_037_868",20,1,"are you so big","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"820","TD_464_188",102,1,"is the older one Mindys","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"821","TD_464_188",587,1,"dont try to hit me sissy","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"822","TD_436_678",706,1,"dont drink that milk","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"823","TD_473_844",414,1,"I love you sweetie","present","present","Mood=Ind|Tense=Pres|VerbForm=Fin"
-"824","TD_448_304",444,1,"xxx is all you","present","present","Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin"
-"825","VI_047_440",199,1,"I I took like a","displaced","displaced","Mood=Ind|Tense=Past|VerbForm=Fin"
+doc_id,paragraph_id,sentence_id,sentence,temporality,manual_temporality,feats
+VI_047_440,444,1,I even signed this yesterday,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,305,1,whos this old guy,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_443_341,672,1,you know,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,307,1,Mommy will close this for you there you go,displaced,present,VerbForm=Fin
+TD_467_433,544,1,were not going down there right now,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,456,1,there you go xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_037_868,248,1,yep you put things on your head,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,2103,1,=cries,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_467_433,586,1,can you just please just lay still for a second,displaced,uncategorized,VerbForm=Fin
+TD_445_217,2478,1,why are we go,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,1176,1,Mama does Landen xxx,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_474_966,377,1,what is that,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_015_195,269,1,her being well you might not be that blind but pretty close,present,displaced,VerbForm=Ger
+VI_015_195,537,1,shes growing like a weed,present,present,VerbForm=Ger
+VI_033_820,1222,1,bakerAker places the banana bread in a box and adds a purple ribbon,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_473_844,306,1,oh its easy,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,344,1,I promise this is the last time,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_013_206,714,1,okay Dad which color do you want,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,39,1,lets go lets go lets go lets go okay,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,225,1,what was that,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_001_676,1242,1,hey Im family,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,249,1,hey dont get his face,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,836,1,alright were going to leave the wipes nope going to leave the wipes there we go,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_033_820,1108,1,I forgot to do that before we started,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_474_966,233,1,what is that,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_444_402,574,1,I know <howda>,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,2110,1,=cries,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,49,1,Max is trying to fool us all isnt he Dad,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,1245,1,Im gonna play some keys,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_445_217,1345,1,I dont have to unpack them,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,425,1,the second one said the xxx in the air,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_477_217,534,1,I want,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1532,2,didnt you,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_448_304,68,1,and why do you xxx yourself,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_013_206,1450,1,yeah you hear Nana and <Gaga> grandpa,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_445_217,1083,1,you know with the the,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,99,1,walked into an Italian,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_003_405,532,1,alright well go walking,uncategorized,displaced,VerbForm=Inf
+VI_003_405,833,1,dont do it while Im there why you gotta do it like that,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,612,1,I dont know what to do with Whitman though,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_465_541,191,1,you did it,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_448_304,416,1,do,uncategorized,uncategorized,VerbForm=Inf
+TD_467_433,72,1,why did you toot at the table,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,264,1,it looks great thank you,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_002_336,851,1,it was like,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_012_562,1095,1,<they cant quite see it there> = whispers ready,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,164,1,my uncle Bill is like loves to tell stories,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_449_716,107,1,soon after dark upon the beach we sing our favorite oh sweetie,present,displaced,VerbForm=Ger
+TD_447_448,580,1,but in the middle of my half day off I had three lab visits,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_463_254,45,1,I want that,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,330,1,I love it,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,277,1,are you coming to find us Whitman,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,1813,1,he would want to get,displaced,displaced,VerbForm=Fin
+TD_443_341,994,1,I didnt really understand math until after I got out of school <cuz> because I started using it in the real world,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_014_242,263,1,there you are,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_445_217,1243,1,Mommy does not buy enough fruit for you guys,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_012_562,852,1,so we just had like another one on Saturday where he he uh,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,199,1,I found your hair,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_465_541,258,1,<the itsy bitsy spider went up the spout again> = sings,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_012_562,339,1,okay lets go,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_473_844,408,2,I love you sweetheart,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_008_707,462,1,I got his leg,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,22,1,here we go are you ready to see more animals,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,162,1,I know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,97,1,yeah you want a little xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,651,1,alright I Ill set an alarm for down here and then we gotta go back upstairs okay Henry,displaced,displaced,VerbForm=Fin
+TD_444_402,192,1,I dont think that I think Moms gonna work like a half day in the morning so any time in the afternoon will,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_013_206,1649,1,so are you planning on going to Laurenberg,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_013_206,1468,1,I go Wednesday,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_444_402,141,1,I think theyd be too big on her,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1669,1,he took my ball,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_477_217,697,1,xxx baby wants to xxx,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_473_844,921,1,that way youre not paying for the weight of the stalk that you,present,displaced,VerbForm=Ger
+TD_444_402,251,1,yeah <cus> because she yeah <cus> because her mom is selling their,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,1690,1,what did the baby do,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_445_217,1047,1,your swimming season is so much shorter unless you have a way to get to it,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_474_966,303,1,there you go,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,230,1,it sometimes it is,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_012_562,759,1,you did,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,1977,1,<Janeys eyes out> = sings,present,uncategorized,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,478,1,yeah that feels nice,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,1423,1,you should always hurry by,displaced,displaced,VerbForm=Fin
+VI_012_562,861,1,and he was doing that and the cabinet door um kind of closed abrubtly and um,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_037_868,267,1,those are the words,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,93,1,were actually going to the store right now,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_473_844,543,1,dont,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1732,1,Dad I want to see AlvinandtheChipmunks,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,404,1,<and I pray God to keep you from> = sings,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_018_924,52,1,<and RockyRaccoon checked into his room> = sings,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_445_217,2027,1,yes I do,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,710,1,I will,displaced,displaced,VerbForm=Fin
+VI_005_411,960,1,cluck said a chicken and a chick said peep,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_447_448,339,1,she might not understand you shes a little bit younger than you are,displaced,displaced,VerbForm=Fin
+VI_005_263,101,1,lets change that bottom,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1302,1,he loves that thing too,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_003_405,630,1,do you have anywhere idea what pl al cl yl is,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,1062,1,like he knows its coming so,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_467_433,588,1,thank you,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,509,1,Im making xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,415,1,you need to stop taking these out,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,1852,1,xxx runs over me,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_447_448,734,1,maybe we dont wanna play it just because shes here =laughs,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,789,1,you want to have an after dinner treat,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,77,1,been there its a straight shot,displaced,displaced,Tense=Past|VerbForm=Part
+TD_445_217,597,1,he slept better last night,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_467_433,174,1,we gonna put this coffee pot back,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+TD_447_448,407,1,bananas I think an hour and a half,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_474_966,55,1,dont do it,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,616,1,how come,uncategorized,uncategorized,VerbForm=Inf
+VI_015_195,79,1,theres my eyes,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,695,1,one of the sea lions is named Rona,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_444_402,557,1,um can we,displaced,present,VerbForm=Fin
+VI_007_204,158,1,have what,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,2,1,the way the record is going,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_436_678,2117,2,Ill never go to the library,displaced,displaced,VerbForm=Fin
+VI_047_440,632,1,you feel the wind,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,116,1,I do like her though shes uh shes an enigma,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_263,67,1,I dont know what channel it was though,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,512,1,yeah I kind of feel like that too,uncategorized,present,VerbForm=Inf
+TD_467_433,386,1,do you want some lunch,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,2144,1,I dont want to watch,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_007_204,117,1,is like this tall and fat,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_005_411,1116,1,my little bunny lets wriggle and jiggle,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_007_204,1,1,xxx is out there,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_018_924,78,1,because that that was just cicada killer and its not gonna hurt you,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+TD_467_433,148,1,Im gonna get you,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_003_405,682,1,what is it,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_443_341,1087,1,if I cant xxx and that on the hanger,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_008_707,800,1,xxx and then Im going to quit,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,539,1,she farted,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_013_206,938,1,I like yellow,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,570,2,Ill stay tomorrow,displaced,displaced,VerbForm=Fin
+VI_003_405,196,1,then I dont,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,419,1,we have to,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_447_448,833,1,what is she doing,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_013_206,1111,1,are those pants too small,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,495,1,they have cloth diapers theyve got lots of natural um teething stuff,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_037_868,86,1,thank you for telling me,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_007_204,204,1,you did,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_465_541,489,1,aw is some water getting in your eyes love,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_001_676,1032,1,thats right thats what you fill xxx,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,1946,1,I feel like xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,363,1,why didnt you bring it,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,504,1,well thats what I was just saying to her earlier,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_473_844,973,1,I dont know where its gone to visit xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,330,2,Im going to show you something,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,490,1,were gonna get some trouble right here,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_477_217,191,1,I need to,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,293,1,those are your toes xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,275,1,<do as Im doing> = sings,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,288,1,well maybe it depends,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_472_829,714,1,fancy day xxx to be silly with this,uncategorized,present,VerbForm=Inf
+TD_463_254,152,1,I twirled,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_467_433,258,1,hey hey hey what are you doing,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,367,1,he had,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_444_402,28,1,you do reward yourself,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,144,1,<twing twing> = imitatesguitar,present,uncategorized,VerbForm=Ger
+VI_012_562,615,1,where we gonna put him,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+VI_012_562,1692,1,oh my goodness what a great wave that was,displaced,present,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_005_411,1074,1,can I have a kiss,displaced,displaced,VerbForm=Fin
+VI_018_924,33,1,thank you,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,37,1,hes like I can see it Granny Ive seen it,displaced,present,VerbForm=Fin
+VI_033_820,448,1,hes got little bumps,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_477_217,125,1,you want your ball,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,189,1,I hear a shaker,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_474_966,129,1,<and I pick it back up> = sings,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,288,1,we were by everything outside,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_005_411,464,1,can you see the moon,displaced,present,VerbForm=Fin
+VI_001_676,294,1,xxx can be xxx,displaced,uncategorized,VerbForm=Fin
+TD_436_678,1490,1,you got spaghetti face you know that,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_008_707,1809,1,and then he comes back in and goes xxx,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_465_541,179,1,the word wait is not in his vocabulary anymore,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_467_433,335,1,hows that yeah,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_444_402,484,1,oh to do the work,uncategorized,uncategorized,VerbForm=Inf
+TD_436_678,628,1,trash can,displaced,uncategorized,VerbForm=Fin
+VI_012_562,945,2,Ty said hell take it,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_008_707,639,1,to look at him hes really full xxx,uncategorized,present,VerbForm=Inf
+VI_001_676,731,1,xxx getting xxx =laughs,present,uncategorized,VerbForm=Ger
+VI_005_411,443,1,<of my world is in Miles> = sings,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_003_405,1269,1,you didnt see her at school,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_012_562,586,1,we can try,displaced,present,VerbForm=Fin
+VI_033_820,1615,1,its going to be right here waiting for you right after the nap well put the vest right back on,displaced,displaced,Tense=Pres|VerbForm=Part
+VI_015_195,303,1,they just just avoiding the whole situation,present,present,VerbForm=Ger
+TD_474_966,400,1,oh wow theres a lot to look at here,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_463_254,783,1,xxx they also have a lot of baby care,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,494,1,because Brian had a bunch of stuff xxx,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_472_829,663,1,<how they run> = sings,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,733,1,we need to be leaving,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,732,1,and ye shall find,displaced,displaced,VerbForm=Fin
+VI_012_562,624,1,=groans okay baby,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_445_217,695,2,referring to Zachary,present,present,VerbForm=Ger
+VI_001_676,1179,1,we seen it walking around,displaced,displaced,Tense=Past|VerbForm=Part
+TD_474_966,404,1,not one friend will be missed,displaced,displaced,VerbForm=Fin
+TD_436_678,490,1,<wa> = imitatescrying,present,uncategorized,VerbForm=Ger
+TD_445_217,755,1,you go in there Danny honey,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_003_405,739,1,where you going eh eh eh eh eh eh,present,present,VerbForm=Ger
+TD_445_217,380,1,I dont know if he can like move it if him and his crew can move it or,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,882,1,seaturtles have flippers to help them swim,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_037_868,237,1,the frosting is spread,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_463_254,185,1,are you making a big mess,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,196,1,somehow I ended up on the death notice email list for local three ninety nine,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_473_844,300,1,that might work that youre xxx very quickly,displaced,displaced,VerbForm=Fin
+TD_463_254,319,1,wanna go xxx something kind,displaced,displaced,Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,475,1,start,uncategorized,uncategorized,VerbForm=Inf
+TD_449_716,365,1,if theyre having juice Im having juice,displaced,displaced,VerbForm=Ger
+TD_464_188,581,1,it was,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_033_820,952,1,you seem upset,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,387,1,I like that cookie,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_444_402,4,1,xxx you can go down,displaced,displaced,VerbForm=Fin
+VI_015_195,374,1,its done by Duke,displaced,displaced,Tense=Past|VerbForm=Part
+TD_473_844,407,1,can Daddy have a kiss my love,displaced,present,VerbForm=Fin
+TD_473_844,1011,1,lets see were gonna jump,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,315,1,and they played in the xxx,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_001_676,1760,1,can I have some coffee,displaced,displaced,VerbForm=Fin
+VI_047_440,655,1,this is Otto,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_005_411,227,1,he said nothing can go faster than the speed of light,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,7,1,because he has her putting a teaspoon every two ounces and they only eat forty to sixty milliliters right now,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_004_415,112,1,do we ever see,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1544,1,I dont think itll burn you any more,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_037_868,171,2,Im no expert but,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,489,1,ll ul,displaced,uncategorized,VerbForm=Fin
+TD_436_678,2171,1,<ra> = imitatescrying,present,uncategorized,VerbForm=Ger
+TD_445_217,2305,1,and UncleRobert could take me camp,displaced,displaced,VerbForm=Fin
+VI_008_707,1011,1,=gasps happy Halloween,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_003_405,422,1,I ate that xxx white,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_464_188,564,1,no it tastes like poop,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,193,1,hes just asleep,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_465_541,343,1,<were getting our xxx were following so long for now from Mickey Mouse> = sings,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_033_820,1903,1,we got a couple more hot days well keep the summer stuff out but,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_447_448,369,1,you know I can put <em>,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_473_844,1128,1,I bet they have xxx to go with it,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_263,710,1,oh yeah theres poop in this diaper,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,326,1,our one music toy always stays on our lap,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,514,1,just want hugs,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,199,1,xxx how we controlled it,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_005_411,95,1,did he love them,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,535,1,do you want um,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,500,1,I got it,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,705,1,were gonna make our way that way,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_037_868,147,1,there we go,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_472_829,486,1,you and Nana have ridden the horses at the xxx didnt you,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,335,1,you coming to xxx,present,present,VerbForm=Ger
+TD_436_678,7,1,<where is this> = whispers,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_015_195,431,1,the first one said,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,1188,1,we wanna see how much is in there,displaced,displaced,Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,487,1,are you getting hungry,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,951,1,Cow said moo,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_464_188,87,1,they claimed him as the father,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,1402,1,half dime its a half dime,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,815,1,Im <gon>,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_444_402,153,1,you are really silly monkeys today,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,369,1,I wanna xxx too,displaced,displaced,Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,167,1,we cant because xxx,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_436_678,2102,1,<uh huh> = cries,present,uncategorized,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,1261,1,do you smell it,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,2077,1,where you going,present,present,VerbForm=Ger
+TD_463_254,831,1,I have xxx now,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,319,1,its gonna be a quiet week anyway,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+TD_472_829,184,1,we go and find the tunnels,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,807,1,you wanna go,displaced,displaced,Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,192,1,whats going on,present,present,VerbForm=Ger
+VI_005_411,127,1,youre doing a good job,present,present,VerbForm=Ger
+VI_013_206,1390,1,shes just relaxing,present,present,VerbForm=Ger
+VI_015_195,451,1,is that a burp hiccup,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_004_415,29,1,so like there theres a reason why they killed her off,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_474_966,314,1,whered you put the yellow marker,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_448_304,131,1,hes just got that kind of you know that look of li of being in bars and uh respectable but not really,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_033_820,1192,1,we could shred some carrots in there too for extra veggies,displaced,displaced,VerbForm=Fin
+TD_444_402,412,1,how do I,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_445_217,1137,1,Im trying to remember what number my mother said,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_263,551,1,<BillieJean was not my lover oh> = sings,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_037_868,37,1,<I dont know what to do I> = sings,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_008_707,552,1,um did they fill it anyway,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_465_541,384,1,its time for you to close your eyes,uncategorized,present,VerbForm=Inf
+TD_473_844,1106,1,the farm raises farm animals there,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,1321,1,yeah heres a bite,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,591,1,all I did was grill them mm mm,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_448_304,108,1,are these uh n no extra larges,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1708,1,<I want to go> = cries,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_013_206,1102,1,after you get ready,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,917,1,rub a dub a dub in a tub,uncategorized,present,VerbForm=Inf
+TD_436_678,2197,1,need,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_472_829,1163,1,what is that xxx,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,1900,1,Jack I brought up your three tl clothes,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_463_254,503,1,theres also a really great carrier called an ergo el rl gl ol,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_037_868,226,1,big bears smells sugar and spice,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,289,1,what did you see,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,451,1,Im gonna lift you up baby,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,360,1,I didnt say anything,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,845,1,okay alright come on,displaced,displaced,VerbForm=Fin
+VI_012_562,801,1,=gasps,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_473_844,368,1,can you draw a star,displaced,displaced,VerbForm=Fin
+VI_008_707,1038,1,I thought you said you were tired,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_012_562,1618,1,Im a warrior Mama,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,397,2,going to eat your sopa okay,displaced,displaced,VerbForm=Ger
+TD_444_402,520,1,here eat my xxx,uncategorized,present,VerbForm=Inf
+VI_047_440,687,1,he has cool spots,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,1312,2,Im ready for bed now,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,1432,1,thats a five dollar bill,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_449_716,467,1,=cries,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_436_678,2173,1,<wa> = imitatescrying,present,uncategorized,VerbForm=Ger
+VI_012_562,1137,1,is that,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_015_195,569,1,anything thats gonna you know make it easier xxx,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_436_678,1935,1,=cries,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,326,1,there we go,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_003_405,1378,1,<long to be> = sings,uncategorized,displaced,VerbForm=Inf
+VI_003_405,1272,1,who went late,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_037_868,209,1,too soon to come in,uncategorized,displaced,VerbForm=Inf
+VI_003_405,966,1,yeah I know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,1483,2,you all need glasses,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,286,1,so I fed him about an hour ago,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_463_254,320,1,but thankfully its not too long bad for too long,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_448_304,273,1,flying baby,present,present,VerbForm=Ger
+VI_015_195,437,2,going,present,uncategorized,VerbForm=Ger
+TD_463_254,224,1,uh so we my husband and I were looking at each other like okay and then she,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_445_217,41,1,taking xxx Batman and Robin pull it right out from under Jokers feet,present,present,VerbForm=Ger
+TD_436_678,1286,1,we also have movies down in the childrens area,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,865,1,I dont know what you want,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_008_707,628,1,you picking it xxx,present,present,VerbForm=Ger
+TD_472_829,528,1,<nuh nuh> = makesnsound Nana,displaced,uncategorized,Tense=Past|VerbForm=Part
+TD_465_541,605,1,Id be on one end,uncategorized,displaced,VerbForm=Inf
+VI_033_820,724,1,did you go in your diaper,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_002_336,262,1,because its closest to here,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,191,1,gonna put your arm through,displaced,present,Abbr=Yes|Tense=Pres|VerbForm=Part
+VI_012_562,1358,1,is his diaper dirty or clean,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,123,1,and then were finished,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_004_415,150,1,theres nothing to be afraid of,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,1147,1,xxx to help you come in,uncategorized,uncategorized,VerbForm=Inf
+VI_005_263,40,1,alright well Ill Ill hold him til xxx,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_033_820,1555,1,<ah> = imitates you have a loud trumpet sound right,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,359,1,Mommy took away your fun its not cool,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_448_304,393,1,<whose name was Tiny Tim> = sings,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_033_820,1330,1,seven flowers growing in the ground,present,present,VerbForm=Ger
+TD_473_844,1005,1,shes getting a big girl,present,displaced,VerbForm=Ger
+TD_474_966,342,1,and what shape is it,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_001_676,1870,1,weve been trying it for years and then,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,372,1,but I bring up the dryer xxx,uncategorized,present,VerbForm=Inf
+VI_012_562,855,1,fell face forward and cut his lip on his his tooth cut his lip,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_012_562,1543,1,I put the present uh put them,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_005_411,1208,1,how does it look,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_448_304,134,1,looks a bit like a man whos like,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_448_304,322,1,I dont think so no <cuz>,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,405,1,there we go,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,457,1,were doing it all by ourself,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,227,1,I dont know where Cape,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_465_541,86,1,lets get your cup,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,1118,1,lets go check that diaper,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,428,1,its gonna be hard now,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+TD_465_541,444,1,can you remember discovering your favorite foods,displaced,displaced,VerbForm=Fin
+TD_474_966,206,2,because theres the baby that comes out of the eggs,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_445_217,1880,1,Mom I want more,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,598,1,and you dont like this to happen,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_465_541,77,1,theres no baby in there,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_477_217,73,1,so we can do it,displaced,displaced,VerbForm=Fin
+TD_474_966,368,1,and you heard what I said you must keep out of sight,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_013_206,1091,1,are you taking your socks off again,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_475_481,43,1,where you going,present,present,VerbForm=Ger
+TD_444_402,100,1,it bounced off her head and she went <eh> = imitates,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_005_263,43,1,=grunts there we go okay,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_477_217,708,1,mm over there is ours,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_467_433,128,1,Im gonna get you,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_473_844,392,1,you want all your rubber duckies,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,243,1,I its over here extra larges,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,1863,1,I dont think it xxx a private xxx,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1314,1,kitty theres a bad <ol>,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_444_402,231,1,xxx how you doing,uncategorized,present,Tense=Pres|VerbForm=Part
+VI_005_411,491,1,wow Venus is the hottest planet in the solar system,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_444_402,269,3,Im like,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_445_217,525,1,so we have the olive bread from Trader Joes,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_444_402,167,1,I mean it,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_472_829,1021,1,you say it,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,139,1,I think he wants his coat on now,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,819,1,you put JohnnyJohnny,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_012_562,1176,1,we could put his paciec there because he knows what that is,displaced,displaced,VerbForm=Fin
+TD_436_678,1547,1,that is still pretty hot,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_007_204,241,1,well at least you can go in late tomorrow,displaced,displaced,VerbForm=Fin
+TD_477_217,238,1,he pulled xxx the pork,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,383,1,that I was leaving =laughs,displaced,displaced,Mood=Ind|Number=Sing|Person=1|Tense=Past|VerbForm=Fin
+VI_015_195,418,1,like its definitely not cool enough yet to where you can you just have your doors open,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_013_206,1979,1,whoa I see,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_007_204,149,1,hey whats the problem,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_467_433,321,1,yeah I would like to have a tree and we like Christmas at our home,displaced,displaced,VerbForm=Fin
+VI_012_562,1828,1,so I know he can crawl xxx pick up triangles xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,370,1,who is that baby,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_443_341,456,1,I just wanna know maybe going forward,displaced,displaced,Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_004_415,73,1,I would love that,displaced,displaced,VerbForm=Fin
+TD_448_304,423,1,=gasps ah do ah do ah do ah do,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_037_868,257,1,he blows out the candle with a <pff> = makesblowingnoise of air,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_464_188,409,2,=crying,present,NA,VerbForm=Ger
+VI_015_195,424,1,my its getting late,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_003_405,535,1,xxx put it right here,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,185,1,I love you,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,252,1,yeah but Amelia didnt help xxx,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_472_829,1045,1,you need a tissue,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,398,1,oh are they,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_013_206,1833,1,<went up the spout again> = sings,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_465_541,78,1,thats a book,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_444_402,169,1,I mean it,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,79,1,<do do do do do> = sings,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,1100,1,she loves that,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,542,1,okay I havent put anything on,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,337,1,I have a lot of clothes but not as many as I once had,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_003_405,700,1,xxx is it <playin> playing,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_445_217,2030,1,I dont like xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,400,1,you can choose one,displaced,present,VerbForm=Fin
+TD_464_188,269,1,Sunny found out that she has wait or how many,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_445_217,516,1,have them,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,597,1,yeah theres some chippiesc in there,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_436_678,685,1,that doesnt help Jane,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_445_217,1044,1,because as weve discovered,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_263,153,1,thinking,present,present,VerbForm=Ger
+TD_465_541,380,1,your day has been so busy now its time for you to rest,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,381,1,its just its really not and I cant control what my boss says I cant control the fact that I gave you notice,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,188,1,or sounding terrible,present,present,VerbForm=Ger
+VI_008_707,1436,1,like so I put a al in it,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_033_820,1,1,what is that your new desk,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_467_433,225,1,is it I think its a cigar,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_013_206,998,1,<Mama loves her babies> = sings,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_464_188,262,1,you know sometimes shell even call me Mom,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,2142,1,dont say that,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_263,827,1,I can do two trees xxx,displaced,displaced,VerbForm=Fin
+TD_445_217,209,1,xxx theyre waiting for a xxx announcement,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_465_541,404,1,can you kick the ball,displaced,present,VerbForm=Fin
+TD_443_341,292,1,<well everyday you can> = sings,displaced,present,VerbForm=Fin
+VI_033_820,1955,1,Jack could you be hey hey hey,displaced,displaced,VerbForm=Fin
+TD_448_304,192,1,you only use xxx,uncategorized,present,VerbForm=Inf
+TD_463_254,148,1,Daddy how was your day,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_015_195,35,1,when shes in tummy time,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_447_448,55,1,theyve got experience theyre going to want to know why and really the test xxx,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,171,1,alright lets get your hair xxx and well go real quick hang on,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_013_206,345,1,so we can bounce bounce bounce,displaced,present,VerbForm=Fin
+VI_047_440,26,1,oh yeah I forgot about that,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_033_820,901,1,want toys,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,1133,1,whats going on here,present,present,VerbForm=Ger
+TD_443_341,534,1,and then we let everything in the past go,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_013_206,1040,1,and then we gotta figure out what youre gonna wear today um at lunch,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_474_966,375,1,whats that,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_447_448,24,1,he didnt really say much,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,492,1,so I got to hold her for a few minutes xxx and,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,276,1,um they usually have them closed more,uncategorized,displaced,VerbForm=Inf
+TD_465_541,100,1,would that fit there,displaced,displaced,VerbForm=Fin
+VI_012_562,603,1,did you lock us out,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_443_341,543,1,well I know that,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_008_707,1388,1,you picked them all up already,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_003_405,544,1,I know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,178,1,Oscar is green,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_002_336,1172,1,no he just calls it,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_449_716,120,1,yeah I usually l I mean I usually look,displaced,present,VerbForm=Fin
+TD_436_678,163,1,are you thirsty,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,119,1,is stand up and Ill show you,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_444_402,144,1,I know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,652,1,I locked that door babe,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_008_707,978,1,can I read it,displaced,displaced,VerbForm=Fin
+VI_014_242,106,1,no youd be so stuffed,uncategorized,displaced,VerbForm=Inf
+TD_449_716,179,1,Grover loves blue,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_015_195,510,1,she is looking around,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_467_433,337,1,pants are too small now,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,237,1,well Ill tell you exactly what it ends up being but I think its supposed to be like a dollar twenty or xxx,displaced,displaced,VerbForm=Fin
+VI_047_440,519,1,she got blue finger nails thats right,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_012_562,1549,1,hes gonna stop your presents right there,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+VI_008_707,1306,1,and he was like,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+TD_474_966,401,1,its a family tradition when they go away to buy some gifts to remember their stay,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,1143,1,are you smiling at Miles,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,657,1,then the girls are all gonna get older,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_008_707,933,1,=gasps trick or treat,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_445_217,2249,1,whered you put it,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_002_336,477,1,I know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_003_405,25,1,this is my favorite song she sings,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,964,1,play with the beans,uncategorized,uncategorized,VerbForm=Inf
+VI_008_707,674,1,I mean really,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,120,1,but maybe when hes sixteen,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_447_448,1180,1,I wanna I want to xxx,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_003_405,520,1,I didnt bring her a surprise,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_477_217,409,1,<must be> = sings,displaced,displaced,VerbForm=Fin
+TD_444_402,533,1,I like you,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_008_707,716,1,is the jab giant jumparee scary,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_012_562,497,1,yeah it should have been delivered,displaced,displaced,VerbForm=Fin
+VI_008_707,1364,1,heres a bite of guacamole on the fork,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_444_402,203,1,he goes he goes do you think I can just tell Mom not to get me any Christmas presents and just get me a bottle of crown,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,85,1,gonna try this sausage,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+TD_464_188,381,1,Mommy its not fair,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_465_541,443,1,we couldnt wait to feed you your first solid food baby,displaced,displaced,VerbForm=Fin
+TD_477_217,522,1,maybe h her didnt have anything,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,2266,1,we won you Janey lose,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_447_448,659,1,yeah I lost my phone,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,299,1,shes like Im not missing it,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_008_707,975,1,do you say thank you,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,333,1,Mommy can you fall down,displaced,displaced,VerbForm=Fin
+TD_436_678,2282,1,it dont see me,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,699,2,because I think her heads in a fog because,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_447_448,917,1,yeah they definitely are going to question a little,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,81,1,he bitedc his self,uncategorized,displaced,VerbForm=Inf
+VI_008_707,525,1,and Im probably more tired than you are today,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,458,1,=cries,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_003_405,987,1,he took like a three hour nap today,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_002_336,839,1,nope were going to leave the wipes,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_018_924,9,1,well there is this one,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_463_254,317,1,do you know xxx on the ground,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,745,1,opened,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,359,1,and then as she gets older we can have somoene just like tucking it in her onesie,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,118,1,alright so what Id like you to do buddy,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_445_217,1173,1,we cant do Sunday mornings,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_447_448,1057,1,how were they,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_008_707,895,1,its up to eighty pounds is what it holds,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_001_676,1623,1,girl can I borrow that,displaced,present,VerbForm=Fin
+TD_447_448,610,1,I love how she does more though,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,244,1,no its my turn now,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,280,1,are you getting sleepy,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_465_541,125,1,designing planning to do something some fixing or something,present,displaced,VerbForm=Ger
+TD_436_678,1461,1,he doesnt like <anybody> = exclaims at all,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_003_405,769,1,alright well I dont have to leave for an hour,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_465_541,312,1,what are those hiding on the window sill,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,46,2,you know the diapers actually smell like soap now I can smell them,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,515,1,we have house numbers on our house =laughs,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_445_217,215,1,wants to go camping,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_012_562,1113,1,and hell just do this for hours,uncategorized,present,VerbForm=Inf
+TD_449_716,64,1,did you do good listening Cottie did you do good listening,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_012_562,1197,1,no I think no,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,387,1,I know Bubba I know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_447_448,320,1,what are you doing,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,752,1,so they say,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_445_217,462,1,I want to start making the kids on I want to go on Sunday morning,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,337,1,xxx shes connected xxx,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_013_206,1414,1,all good they said,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_012_562,512,1,yeah but like that fire sign up,uncategorized,uncategorized,VerbForm=Inf
+TD_436_678,589,1,xxx kids to nap,uncategorized,uncategorized,VerbForm=Inf
+VI_037_868,176,1,does,present,uncategorized,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_005_263,536,1,<lovers they may cause you tears xxx my oh my> = sings,displaced,displaced,VerbForm=Fin
+VI_001_676,2128,1,we got ten maybe sixteen gigabyte per month,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_467_433,482,1,well thats good,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_477_217,567,1,we just had to sing one song and then we go,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,1337,1,what do you want Polly,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,423,1,the first one says,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_002_336,310,1,no I would just rather call it terrible Sue,displaced,displaced,VerbForm=Fin
+TD_464_188,273,1,how many siblings do you have on that side though,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_004_415,71,1,and you look very sleepy,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,182,1,well my xxx was saying that before he came out and I xxx,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_047_440,219,1,oh I have some,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,206,1,or what time Daddys gonna be home,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+TD_436_678,1340,1,thats everything,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_037_868,278,1,Parenteau and illustrated by DavidWalker,displaced,displaced,Tense=Past|VerbForm=Part
+TD_443_341,453,1,just say you know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1752,1,I mean I would like this one but what one would you like,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_447_448,818,1,you cant touch,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,373,1,I want xxx go out,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,66,1,that makes me super self conscious actually but,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_472_829,878,2,isnt it,present,uncategorized,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_445_217,1077,1,but he doesnt have to be,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_463_254,179,1,you went swimming last June with her,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_449_716,72,1,thats what the recital is gonna be the dancing,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,70,1,she just runs around and kind of oh there goes the ball,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,1018,1,as you can see,displaced,present,VerbForm=Fin
+VI_015_195,92,1,=gasps hi,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_015_195,357,1,but she likes to have that across her belly these xxx likes to lay,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,1345,1,its time to wave byebye for their <adventures> adventure is at an end,uncategorized,present,VerbForm=Inf
+VI_008_707,1910,1,so like it kind of like does that sound,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,1732,1,Im going to get it cleaned up,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,1843,1,be then be thirsty,uncategorized,present,VerbForm=Inf
+VI_012_562,819,1,should we go say hi,displaced,displaced,VerbForm=Fin
+VI_015_195,502,1,three we were good and then when we were down at your moms for um chatting with Peg and stuff at like five o clock she like spit up a bunch of mucus but before I gave her her three o clock bottle I pulled off a bunch of hair xxx,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_008_707,438,1,I want Felix,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,592,1,I know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,787,1,I know xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,2219,1,what is it,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,1529,1,why dont you build a snow den says MommyPenguin,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,361,1,so like a cool like um corkboard or like whiteboard for his door would be cool,displaced,displaced,VerbForm=Fin
+TD_449_716,102,1,we nibble grapes we watch the waves we take a little rest,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,278,1,have you talked to,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_263,930,1,well Im trying to go anyway,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,446,1,=cries,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_473_844,13,1,xxx say it does =giggles,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,2288,1,I wanna go in,displaced,displaced,Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_473_844,539,1,youre painting me,present,present,VerbForm=Ger
+VI_007_204,96,1,<down the bough breaks the cradle will drop> =sings,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_464_188,72,1,get Mommy,uncategorized,uncategorized,VerbForm=Inf
+TD_447_448,1292,1,I cant sit xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,547,1,can you can you close the j g door honey,displaced,present,VerbForm=Fin
+VI_008_707,82,1,was she like its Marie not Maria,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+TD_444_402,633,1,here you go,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,502,1,do you want some freeze dried strawberries,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,485,1,<so I like> = laughs I drive around and wait <til> until nobodys outside and <just go take <em>,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1681,1,I need the xxx Mommy,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_472_829,339,1,we give that some seeds,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,290,1,studies particles the smallest,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_474_966,22,1,it youre gonna have to paint at the table,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+VI_012_562,1304,1,were gonna drive to Grandma Grandpas,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_005_411,401,1,<Ive never been in love like this before> = sings,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,570,1,you know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,31,1,sure you want more,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,1158,1,where I gave him um I made these muffins today with broccoli and ham,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_037_868,262,1,they play some games they laugh and sing,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,1402,1,it wants to put you in a pot and eat you probably,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_018_924,20,1,yeah you think you think the other one huh,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,1295,2,Im singing xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,130,1,there we go thats what Im talking about,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,1008,1,Im gonna eat it =gobbles,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,217,1,down you go Ben,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,212,1,I do not want to be splashed,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_014_242,198,1,xxx not playing in my dessert,uncategorized,present,Tense=Pres|VerbForm=Part
+TD_467_433,584,1,you know what,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,1931,1,oh I was like hes like a famous person,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+TD_448_304,226,1,oh he just she just likes the,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_436_678,1853,1,but they used,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_007_204,199,1,whered she go,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,1178,1,wheres Janeys piggy bank,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_037_868,285,1,did you put the hat on your head,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_444_402,189,1,I mean uh well just make it work,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,611,1,well have to listen,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,1202,1,um when I go take him to bed you should go ahead and hop in the shower,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_263,954,1,while this one here is,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,271,1,<thats what youre gonna tell> = laughs,displaced,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_002_336,383,1,settle down,uncategorized,uncategorized,VerbForm=Inf
+TD_477_217,652,1,are you my,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,2117,1,that would be best if xxx,displaced,displaced,VerbForm=Fin
+VI_003_405,1549,1,I dont want to xxx,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,623,1,yall moved to Germantown right,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_449_716,406,1,xxx lets see lets see how about we do xxx,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,1285,1,shall we count,displaced,displaced,VerbForm=Fin
+VI_008_707,1236,1,can you tell me,displaced,present,VerbForm=Fin
+TD_448_304,153,1,although its not super max xxx,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_449_716,502,1,=cries,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,398,1,why dont they xxx,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,362,1,you ever had one of them,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,72,1,those are Nannys glasses,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,137,1,<we have to sit in our seat to eat> = sings,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,763,1,well what did you wear when you went outside,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_477_217,19,1,<do as Im doing> = sings,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,519,1,did you see the fish,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_033_820,87,1,I didnt realize xxx,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_474_966,369,1,what is that,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_464_188,113,1,they dont,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,81,1,and if were very quiet now shell say it right away,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_005_263,791,1,you can sell everything,displaced,displaced,VerbForm=Fin
+TD_445_217,2160,1,I dont like this,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,863,1,I wouldnt put your mouth on it,displaced,present,VerbForm=Fin
+VI_008_707,1186,1,dont want your beers xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_472_829,752,1,help,uncategorized,uncategorized,VerbForm=Inf
+TD_473_844,482,1,if you get xxx use it dont you,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,869,1,so he looks like his dad,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_436_678,16,1,well they wanting your Ticketmaster or your blueprint,present,present,VerbForm=Ger
+VI_005_263,872,1,should I give him his late meal early xxx,displaced,displaced,VerbForm=Fin
+TD_463_254,696,1,where is it,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,731,1,theres a giant jumparee in my burrow,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_012_562,1047,1,you could tell he mos he um,displaced,displaced,VerbForm=Fin
+VI_015_195,360,1,we have like a little little probe sticker,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_444_402,26,1,is she texting me,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,925,1,wanna feel the plants,displaced,present,Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,1777,1,I feel like my face is really I wanna go wash my face and,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_473_844,744,1,ah can you give Nanny Netty a kiss,displaced,present,VerbForm=Fin
+TD_445_217,1469,1,Courtney honey wheres your shoes,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_436_678,2074,1,<me reading this book> = whines,present,present,VerbForm=Ger
+TD_472_829,68,1,Ill be youre lucky yeah,displaced,present,VerbForm=Fin
+TD_465_541,22,1,are you are you gonna take it downstairs for me,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,583,1,youve been so patient,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,206,1,so I think technically you have to sign for Nora <as well> = laughs,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,1256,1,<the chimney tops thats where> = sings,present,uncategorized,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_477_217,490,1,Ill check on the chair,displaced,displaced,VerbForm=Fin
+VI_013_206,1976,1,<Gaga> grandpa hears the birds talking to Georgia,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_473_844,1051,1,is there something down there,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_012_562,1666,1,and theres Mama,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_465_541,482,1,Mommys gonna wash out her hair,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+TD_443_341,594,1,I mean shes,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,1044,1,goat jumped over the fence of course,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,274,1,were ready,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_444_402,80,1,we can get some blocks out,displaced,displaced,VerbForm=Fin
+TD_467_433,257,1,uh what are you doing,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,964,1,tell Daddy,uncategorized,uncategorized,VerbForm=Inf
+TD_436_678,1729,1,I wanna see AlvinandtheChipmunks,displaced,displaced,Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,12,1,did you give a warning shes being recorded,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_001_676,940,1,did you say xxx,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_464_188,644,1,you have to touch,displaced,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_004_415,47,2,Im gonna put my guitar up,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,575,1,because I was like we have,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+VI_003_405,514,1,thats the best huh,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_463_254,335,1,dont know how I feel about that Tess,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_445_217,510,1,well and they dont even o,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_013_206,1567,1,can you say bye bye,displaced,present,VerbForm=Fin
+VI_037_868,204,1,he calls,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_473_844,1125,1,oh youve still got it,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_007_204,229,1,ah what are you doing,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_444_402,483,1,are you gonna sell the house,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,72,1,yeah its in the building where Jeff works,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_443_341,1226,1,but its better,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_463_254,199,1,I can hear though xxx,displaced,present,VerbForm=Fin
+TD_472_829,988,1,can you say it,displaced,displaced,VerbForm=Fin
+VI_033_820,1159,2,Im gonna pour the water in,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_445_217,218,1,because he wants a camp fire,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_436_678,1897,1,Ive only seen him like,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_263,174,1,hey lets go,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,1000,1,da da du du the drums,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_004_415,99,1,dont bite Mama,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,2024,1,come out,uncategorized,uncategorized,VerbForm=Inf
+VI_008_707,1839,1,so and then he goes,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,611,1,oh thats funny,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_008_707,1813,1,did you throw your milk,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,1060,1,why are you in trouble,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_473_844,359,1,shouldnt it have gone off twenty minutes or so ago,displaced,displaced,VerbForm=Fin
+VI_008_707,752,1,but just as she was about to slink inside,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+TD_463_254,706,1,what do you think,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,121,1,and then you hold on to one,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,426,1,hey no you cant have a birthday,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,1468,1,theres the tiger,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_474_966,175,1,oh much better thank you,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,400,1,you wanna talk about constitution day,displaced,displaced,Abbr=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_007_204,172,1,of him catching the fish,present,present,VerbForm=Ger
+VI_003_405,166,1,what are you doing xxx,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,532,1,so you havent had a baby in a while,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_465_541,270,1,spiders are scary,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_003_405,1218,1,hows that,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_445_217,137,1,there you go,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_472_829,196,1,theyre at the farm,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_472_829,609,1,<ere> there we go,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_465_541,279,1,what else is there,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_033_820,1612,1,were going to set it on the stool over there and put it back on after nap,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_001_676,1732,1,I drove xxx,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_001_676,261,1,I almost did get xxx up,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_005_411,34,1,hes intrigued but not,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_463_254,42,1,hes looking at you guys,present,present,VerbForm=Ger
+TD_467_433,625,1,do you wanna use xxx today,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_003_405,1375,1,<where I go> = sings,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,1158,1,and I like tried helping him through the motions of it like thinking maybe it was just new and,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,464,1,xxx me the shoes last night,present,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_464_188,32,1,she goes outside for the most part,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_474_966,359,1,what shape is that,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_444_402,279,1,donny can help,displaced,displaced,VerbForm=Fin
+TD_477_217,223,1,pepper oh lets get her a binkyc,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_475_481,4,1,you shop for bread,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,66,1,he looks like a cheetah,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,49,1,I think Im gonna take her sweater off,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,538,1,is she,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_003_405,1215,1,then I will get them with this towel,displaced,displaced,VerbForm=Fin
+VI_001_676,1984,1,oh so I miss this,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,2030,1,there we go,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,372,1,I mean Granny was here Christmas morning last year too,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_012_562,618,1,what do you think Whitman wants to play with down here,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_467_433,172,1,why would Jasper be the captain of the car,displaced,displaced,VerbForm=Fin
+VI_014_242,323,1,then you pull down in the front,uncategorized,present,VerbForm=Inf
+TD_436_678,1448,1,oh youre done,displaced,present,Tense=Past|VerbForm=Part
+TD_472_829,809,1,cant hear when its raining,uncategorized,displaced,VerbForm=Inf
+VI_005_411,607,1,rain rain go away come again another day,uncategorized,displaced,VerbForm=Inf
+VI_001_676,1080,1,I think Im gonna um,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,1390,1,tell Grams Grams Nana and Papaw thank you,uncategorized,uncategorized,VerbForm=Inf
+TD_464_188,441,1,we had to,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_047_440,95,1,I hold you,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_473_844,725,1,not sing mister maker,present,present,VerbForm=Ger
+TD_463_254,668,1,I know Bubba I know come on,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,499,1,yeah those are your toys,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_263,957,1,is pretty well nasty xxx,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_001_676,190,1,you gotta put that back on,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_477_217,784,1,and come forward,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_002_336,279,1,theres slices of cake that are this big,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_463_254,544,1,my husbands birthday is February twentieth,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_001_676,16,1,you dont remember when this little do you,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_005_411,670,1,<bluebirds fly> = sings,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,311,1,what howd you know that,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_007_204,49,1,do you want to xxx or Mommy xxx,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,194,1,thank you no no no,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1873,1,hes a really small,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,159,1,yeah thats my coat yeah,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_014_242,244,1,the strings all soar the reeds in four the brasses roar with notes galore,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1036,1,I dont think so,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_004_415,33,1,yeah you know whats funny is this time around I xxx he was always one of the more intriguing characters and this time around watching its like you realize that hes not a good actor,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,2072,1,she said xxx information,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_012_562,1621,1,Im a warrior,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_472_829,327,1,thats a gully,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_477_217,9,2,kind of harder to tell because,uncategorized,present,VerbForm=Inf
+VI_003_405,49,1,<and my faith will be much stronger> = sings,displaced,displaced,VerbForm=Fin
+TD_477_217,166,1,yes I yelled at you,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_463_254,362,1,I dont want you to get sick,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_033_820,1180,1,this smells nice,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_448_304,319,1,were super here in that water,displaced,present,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_003_405,302,1,what happened,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,2111,1,=cries,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_005_263,961,1,its been a while,displaced,displaced,Tense=Past|VerbForm=Part
+TD_447_448,34,1,has no experience,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_474_966,259,1,the turtle can hide in its shell,displaced,present,VerbForm=Fin
+TD_449_716,469,1,=cries,present,NA,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_449_716,240,1,Berts whistle goes,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_448_304,182,1,I know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_449_716,321,1,youll come over again youll come over again youll come over again,displaced,displaced,VerbForm=Fin
+TD_436_678,1414,1,you dont,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_472_829,606,2,one is all gone yeah,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_012_562,777,1,so like for him like there wasnt really,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+TD_477_217,170,1,what you were doing,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_467_433,494,1,well hopefully it wont be too bad,displaced,displaced,VerbForm=Fin
+VI_015_195,315,1,but shes all prorportioned to like her head her height her weight you know shes all growing proportionally which is good,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_465_541,437,1,do you remember when you first sat up,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_473_844,523,1,Im just thinking she grew up in an xxx house,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_443_341,404,1,can I keep them on the shelves as I fall asleep,displaced,displaced,VerbForm=Fin
+TD_467_433,293,1,but last year had,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_436_678,891,1,xxx shes playing,present,present,VerbForm=Ger
+TD_472_829,247,1,not all ducks are <gonna>,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_447_448,962,1,thank you,present,uncategorized,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_463_254,653,1,if youre gonna be cranky why dont you just go to sleep,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+TD_444_402,479,1,those kind of people you want working on your house,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_447_448,604,1,maybe it was when we you thought you were hitting the timer yeah,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin
+TD_465_541,484,1,do you want something else to play with,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_047_440,254,1,I know,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_477_217,251,1,<do as Im doing> = sings,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_003_405,1108,1,why dont you take a bath so you have time to xxx before you gotta go to bed,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,1317,1,who put that kitty out,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_015_195,437,1,where are you <goin>,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_008_707,136,1,what do you wanna do again,displaced,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_007_204,282,1,do you know what that is,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,2078,2,Mommy you have it,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_015_195,318,1,we got a like a little mat,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_465_541,36,1,its she doesnt mind it but if she can have mine shell take mine,displaced,displaced,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_003_405,836,1,whyd you,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_445_217,47,1,xxx says,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_001_676,912,1,I <gotta> got to get mine to charge okay,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+TD_477_217,70,1,compared to like a baby thats hearing impaired,displaced,uncategorized,Tense=Past|VerbForm=Part
+VI_001_676,1101,1,her contacts been bothering her all day,displaced,displaced,Tense=Past|VerbForm=Part
+TD_477_217,209,1,a good guess would be five thirty,displaced,displaced,VerbForm=Fin
+VI_012_562,1567,1,or or or Jennas gonna be back when I w up,displaced,displaced,Abbr=Yes|Tense=Pres|VerbForm=Part
+VI_001_676,774,1,you want the happy you want the six piece meal,present,displaced,Mood=Ind|Tense=Pres|VerbForm=Fin
+VI_001_676,934,1,Toms skiing,present,present,VerbForm=Ger
+TD_436_678,1051,1,you taking the van,present,present,VerbForm=Ger
+TD_447_448,498,1,I got one more thing I gotta do,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
+VI_037_868,20,1,are you so big,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_464_188,102,1,is the older one Mindys,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+TD_464_188,587,1,dont try to hit me sissy,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_436_678,706,1,dont drink that milk,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_473_844,414,1,I love you sweetie,present,present,Mood=Ind|Tense=Pres|VerbForm=Fin
+TD_448_304,444,1,xxx is all you,present,present,Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin
+VI_047_440,199,1,I I took like a,displaced,displaced,Mood=Ind|Tense=Past|VerbForm=Fin
