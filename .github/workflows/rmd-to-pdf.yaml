@@ -1,0 +1,41 @@
+on:
+  workflow_dispatch
+  
+# This workflow only runs when you manually trigger it. This can be done from
+# the Actions tab on GitHub which takes unnecessarily many steps. A quicker way
+# is to use GitHub CLI (https://cli.github.com/):
+#
+# To run the workflow on the current branch (you can still use it if you don't
+# use branching):
+# gh workflow run -w rmd-to-pdf --ref `git branch --show-curent`
+#
+# To see the results of the last 5 runs, use
+# gh run list -w rmd-to-pdf -L 5
+#
+# Less useful, but still nice, is to delete all the run from GitHub and start
+# over:
+# gh run list -w rmd-to-pdf | awk '{print $1}' | xargs gh run delete
+
+
+name: rmd-to-pdf
+
+jobs:
+  rmd-to-pdf:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          
+      # - name: Clone a dataset to ~/BLAB_DATA
+      #   uses: bergelsonlab/public-files/clone-blab-data@main
+      #   with:
+      #     repository: bergelsonlab/<repository-name>
+      #     fetch-depth: 1
+      
+      - uses: bergelsonlab/public-files/knit-rmd-to-pdf@main
+        with:
+          rmd_path: manuscript/input_quality_manuscript.Rmd
