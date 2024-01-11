@@ -5,16 +5,19 @@
 \documentclass[
   man]{apa6}
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -106,9 +109,9 @@
 
 % Create new environments so endfloat can handle them
 % \newenvironment{ltable}
-%   {\begin{landscape}\begin{center}\begin{threeparttable}}
-%   {\end{threeparttable}\end{center}\end{landscape}}
-\newenvironment{lltable}{\begin{landscape}\begin{center}\begin{ThreePartTable}}{\end{ThreePartTable}\end{center}\end{landscape}}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
 
 % Enables adjusting longtable caption width to table width
 % Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
@@ -121,18 +124,40 @@
 % \setlength{\parindent}{0.5in}
 % \setlength{\parskip}{0pt plus 0pt minus 0pt}
 
-% \usepackage{etoolbox}
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
 \makeatletter
-\patchcmd{\HyOrg@maketitle}
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+\makeatletter
+\usepackage{etoolbox}
+\patchcmd{\maketitle}
   {\section{\normalfont\normalsize\abstractname}}
   {\section*{\normalfont\normalsize\abstractname}}
   {}{\typeout{Failed to patch abstract.}}
-\patchcmd{\HyOrg@maketitle}
+\patchcmd{\maketitle}
   {\section{\protect\normalfont{\@title}}}
   {\section*{\protect\normalfont{\@title}}}
   {}{\typeout{Failed to patch title.}}
 \makeatother
-\shorttitle{Language Input to Blind and Sighted}
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi\\: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
 \keywords{keywords\newline\indent Word count: X}
 \DeclareDelayedFloatFlavor{ThreePartTable}{table}
 \DeclareDelayedFloatFlavor{lltable}{table}
@@ -146,7 +171,7 @@
 \fi
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={Comparing Language Input in Homes of Blind and Sighted Children: Insights from Daylong Recordings},
   pdfauthor={Erin Campbell1, Lillianna Righter1, Eugenia Lukin1, \& Elika Bergelson1},
@@ -160,14 +185,22 @@
 \date{}
 
 
+\shorttitle{Language Input to Blind and Sighted}
+
+\authornote{
+
+Correspondence concerning this article should be addressed to Erin Campbell, 417 Chapel Drive, Box 90086, Durham, NC 27708. E-mail: \href{mailto:erin.e.campbell@duke.edu}{\nolinkurl{erin.e.campbell@duke.edu}}
+
+}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} Department of Psychology \& Neuroscience, Duke University, Durham, NC}
+
 \note{
 
 \textbf{Conflicts of Interest}: The authors have no conflicts of interest to report.
 \textbf{Funding}: This work was supported by the National Science Foundation CAREER grant (BCS-1844710) to EB and Graduate Research Fellowship (2019274952) to EC.
 
 }
-
-\affiliation{\vspace{0.5cm}\textsuperscript{1} Department of Psychology \& Neuroscience, Duke University, Durham, NC}
 
 \begin{document}
 \maketitle
@@ -283,7 +316,7 @@ For the recording portion of the study, caregivers of participating infants rece
 \hypertarget{processing}{%
 \subsection{Processing}\label{processing}}
 
-The audio recordings were first processed by the LENA proprietary software (Xu, Yapanel, \& Gray, 2009), creating algorithmic measures such as conversational turn count and adult word count. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context preceding the annotation clip and 1 minute of additional context following. Because these segments were sampled randomly, across participants roughly 27\% of the random 2-minute coding segments contained no speech at all. For questions of \emph{how much does a phenomenon occur}, random sampling schemes can help avoid overestimating speech in the input, but for questions of input \emph{content}, randomly selected samples may be too sparse (Pisani, Gautheron, \& Cristia, 2021).
+The audio recordings were first processed by the LENA proprietary software (Xu, Yapanel, \& Gray, 2009), creating algorithmic measures such as conversational turn count and adult word count. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context preceding the annotation clip and 1 minute of additional context following. Because these segments were sampled randomly, across participants roughly NA\% of the random 2-minute coding segments contained no speech at all. For questions of \emph{how much does a phenomenon occur}, random sampling schemes can help avoid overestimating speech in the input, but for questions of input \emph{content}, randomly selected samples may be too sparse (Pisani, Gautheron, \& Cristia, 2021).
 
 Therefore, we chose to annotate 5 additional segments specifically for their high density of speech. To select these segments of dense talk, we first conducted an automated analysis of the audio file using the voice type classifier for child-centered daylong recordings (Lavechin, Bousbib, Bredin, Dupoux, \& Cristia, 2021) which identified all human speech in the recording. The entire recording was divided into 2-minute chunks, each ranked highest to lowest by the total duration of speech contained within the chunk. We annotated the highest-ranked 5 segments of each recording. These high volubility segments allow us to more closely compare our findings to studies classifying the input during structured play sessions, which paint a denser and differently-proportioned makeup of the language input (Bergelson et al., 2019). In sum, 30 minutes of randomly sampled input and 10 minutes of high-volubility input (40 minutes total) were annotated per child.
 
@@ -365,7 +398,7 @@ In addition to this general measures of decontextualized language, we include on
 \hypertarget{measuring-properties-of-language-input}{%
 \subsection{Measuring Properties of Language Input}\label{measuring-properties-of-language-input}}
 
-Our study assesses whether language input to blind children is different from the language input to sighted children, along the dimensions of quantity, interaction, linguistic properties, and conceptual properties. We test for group differences using paired t-tests or non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed (summarized in Table \ref{tab:ps}). Because this analysis involves multiple tests against the null hypothesis (\emph{that there is no difference in the language input to blind vs.~sighted kids}), we use the Benjamini-Hochberg correction (Benjamini \& Hochberg, 1995) to control false discovery rate (Q = .05) for each set of analyses (quantity, interaction, linguistic, conceptual). Because each dimension's analysis consists of two statistical tests, our Benjamini-Hochberg critical values were \emph{p} \textless{} 0.03 for the smaller \emph{p} value and \emph{p} \textless{} 0.05 for the larger \emph{p} value. The results of these analyses are summarized in Table \ref{tab:ps}.
+Our study assesses whether language input to blind children is different from the language input to sighted children, along the dimensions of quantity, interaction, linguistic properties, and conceptual properties. We test for group differences using paired t-tests or non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed (summarized in Table \ref{tab:ps}). Because this analysis involves multiple tests against the null hypothesis (\emph{that there is no difference in the language input to blind vs.~sighted kids}), we use the Benjamini-Hochberg correction (Benjamini \& Hochberg, 1995) to control false discovery rate (Q = .05) for each set of analyses (quantity, interaction, linguistic, conceptual). Because each dimension's analysis consists of two statistical tests, our Benjamini-Hochberg critical values were \emph{p} \textless{} 0.02 for the smaller \emph{p} value and \emph{p} \textless{} 0.05 for the larger \emph{p} value. The results of these analyses are summarized in Table \ref{tab:ps}.
 
 \hypertarget{language-input-quantity}{%
 \subsubsection{Language Input Quantity}\label{language-input-quantity}}
@@ -510,13 +543,13 @@ Baird, S. M., Mayfield, P., \& Baker, P. (1997). Mothers' {Interpretations} of t
 Benjamini, Y., \& Hochberg, Y. (1995). Controlling the {False Discovery Rate}: {A Practical} and {Powerful Approach} to {Multiple Testing}. \emph{Journal of the Royal Statistical Society. Series B (Methodological)}, \emph{57}(1), 289--300. Retrieved from \url{https://www.jstor.org/stable/2346101}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bergelson2015a}{}}%
-Bergelson, E. (2015). Bergelson {Seedlings HomeBank Corpus}. {TalkBank}. \url{https://doi.org/10.21415/T5PK6D}
+Bergelson, E. (2015). \emph{Bergelson {Seedlings HomeBank Corpus}}. {TalkBank}. \url{https://doi.org/10.21415/T5PK6D}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bergelson2019}{}}%
 Bergelson, E., Amatuni, A., Dailey, S., Koorathota, S., \& Tor, S. (2019). Day by day, hour by hour: {Naturalistic} language input to infants. \emph{Developmental Science}, \emph{22}(1), e12715. \url{https://doi.org/10.1111/desc.12715}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bergelson2022a}{}}%
-Bergelson, E., Soderstrom, M., Schwarz, I.-C., Rowland, C., Ramirez-Esparza, N., Hamrick, L., \ldots{} Casillas, M. (2022). Everyday language input and production in 1001 children from 6 continents.
+Bergelson, E., Soderstrom, M., Schwarz, I.-C., Rowland, C., Ramirez-Esparza, N., Hamrick, L., \ldots{} Casillas, M. (2022). \emph{Everyday language input and production in 1001 children from 6 continents}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-bergelson2013}{}}%
 Bergelson, E., \& Swingley, D. (2013). The acquisition of abstract words by young infants. \emph{Cognition}, \emph{127}(3), 391--397. \url{https://doi.org/10.1016/j.cognition.2013.02.011}
@@ -531,7 +564,7 @@ Bigelow, A. (1987). Early words of blind children. \emph{Journal of Child Langua
 Bigelow, A. (1990). Relationship between the {Development} of {Language} and {Thought} in {Young Blind Children}. \emph{Journal of Visual Impairment \& Blindness}, \emph{84}(8), 414--419. \url{https://doi.org/10.1177/0145482X9008400805}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bratt2022}{}}%
-Bratt, J., Harmon, J., \& Learning, B. F. \&. W. P. G. L. D. M. (2022). Morphemepiece: {Morpheme Tokenization}.
+Bratt, J., Harmon, J., \& Learning, B. F. \&. W. P. G. L. D. M. (2022). \emph{Morphemepiece: {Morpheme Tokenization}}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-brugman2009}{}}%
 Brugman, H., \& Russel, A. (2009). Annotating {Multimedia} / {Multi-modal} resources with {ELAN}. \emph{Proceedings of the Fourth International Conference on Language Resources and Evaluation}.
@@ -543,7 +576,7 @@ Busch, T., Sangen, A., Vanpoucke, F., \& van Wieringen, A. (2018). Correlation a
 Campbell, E. E., \& Bergelson, E. (2022). Making sense of sensory language: {Acquisition} of sensory knowledge by individuals with congenital sensory impairments. \emph{Neuropsychologia}, \emph{174}, 108320. \url{https://doi.org/10.1016/j.neuropsychologia.2022.108320}
 
 \leavevmode\vadjust pre{\hypertarget{ref-campbellsubmitted}{}}%
-Campbell, E. E., Casillas, R., \& Bergelson, E. (submitted). The {Role} of {Vision} in the {Acquisition} of {Words}: {Vocabulary Development} in {Blind Toddlers}. \url{https://doi.org/10.17605/OSF.IO/UW6ZM}
+Campbell, E. E., Casillas, R., \& Bergelson, E. (submitted). \emph{The {Role} of {Vision} in the {Acquisition} of {Words}: {Vocabulary Development} in {Blind Toddlers}}. \url{https://doi.org/10.17605/OSF.IO/UW6ZM}
 
 \leavevmode\vadjust pre{\hypertarget{ref-campbell2003}{}}%
 Campbell, J. (2003). Maternal {Directives} to {Young Children} who are {Blind}. \emph{Journal of Visual Impairment \& Blindness}, \emph{97}(6), 355--365. \url{https://doi.org/10.1177/0145482X0309700604}
@@ -552,7 +585,7 @@ Campbell, J. (2003). Maternal {Directives} to {Young Children} who are {Blind}. 
 Casillas, M., Brown, P., \& Levinson, S. C. (2020). Early {Language Experience} in a {Tseltal Mayan Village}. \emph{Child Development}, \emph{91}(5), 1819--1835. \url{https://doi.org/10.1111/cdev.13349}
 
 \leavevmode\vadjust pre{\hypertarget{ref-chernyak}{}}%
-Chernyak, P. (n.d.). 3 {Ways} to {Teach Your Blind} or {Visually Impaired Child} to {Talk}. \emph{WikiHow}. https://www.wikihow.life/Teach-Your-Blind-or-Visually-Impaired-Child-to-Talk.
+Chernyak, P. (n.d.). 3 {Ways} to {Teach Your Blind} or {Visually Impaired Child} to {Talk}. https://www.wikihow.life/Teach-Your-Blind-or-Visually-Impaired-Child-to-Talk.
 
 \leavevmode\vadjust pre{\hypertarget{ref-chiesa2015}{}}%
 Chiesa, S., Galati, D., \& Schmidt, S. (2015). Communicative interactions between visually impaired mothers and their sighted children: Analysis of gaze, facial expressions, voice and physical contacts. \emph{Child: Care, Health and Development}, \emph{41}(6), 1040--1046. \url{https://doi.org/10.1111/cch.12274}
@@ -573,7 +606,7 @@ Donnellan, E., Bannard, C., McGillion, M. L., Slocombe, K. E., \& Matthews, D. (
 Dote-Kwan, J. (1995). Impact of {Mothers}' {Interactions} on the {Development} of {Their Young Visually Impaired Children}. \emph{Journal of Visual Impairment \& Blindness}, \emph{89}(1), 46--58. \url{https://doi.org/10.1177/0145482X9508900109}
 
 \leavevmode\vadjust pre{\hypertarget{ref-familyconnect}{}}%
-FamilyConnect. (n.d.). Understanding the {Stages} of {Language Development} for {Babies Who Are Blind}. \emph{FamilyConnect}.
+FamilyConnect. (n.d.). Understanding the {Stages} of {Language Development} for {Babies Who Are Blind}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-fenson1994}{}}%
 Fenson, L., Dale, P. S., Reznick, J. S., Bates, E., Thal, D. J., Pethick, S. J., \ldots{} Stiles, J. (1994). Variability in {Early Communicative Development}. \emph{Monographs of the Society for Research in Child Development}, \emph{59}(5), i. \url{https://doi.org/10.2307/1166093}
@@ -591,7 +624,7 @@ Fraiberg, S. (1975). The development of human attachments in infants blind from 
 Ganea, N., Hudry, K., Vernetti, A., Tucker, L., Charman, T., Johnson, M. H., \& Senju, A. (2018). Development of adaptive communication skills in infants of blind parents. \emph{Developmental Psychology}, \emph{54}(12), 2265--2273. \url{https://doi.org/10.1037/dev0000564}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ganek2016}{}}%
-Ganek, H., \& Eriks-Brophy, A. (2016). The {Language ENvironment Analysis} ({LENA}) system: {A} literature review. In \emph{Proceedings of the joint workshop on {NLP} for {Computer Assisted Language Learning} and {NLP} for {Language Acquisition}} (pp. 24--32). {Ume{å}, Sweden}: {LiU Electronic Press}.
+Ganek, H., \& Eriks-Brophy, A. (2016). The {Language ENvironment Analysis} ({LENA}) system: {A} literature review. \emph{Proceedings of the Joint Workshop on {NLP} for {Computer Assisted Language Learning} and {NLP} for {Language Acquisition}}, 24--32. {Ume{å}, Sweden}: {LiU Electronic Press}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-ganek2018}{}}%
 Ganek, H., \& Eriks-Brophy, A. (2018). Language {ENvironment} analysis ({LENA}) system investigation of day long recordings in children: {A} literature review. \emph{Journal of Communication Disorders}, \emph{72}, 77--85. \url{https://doi.org/10.1016/j.jcomdis.2017.12.005}
@@ -669,7 +702,7 @@ Kramer, J. A., Hill, K. T., \& Cohen, L. B. (1975). Infants' {Development} of {O
 Landau, B., \& Gleitman, L. R. (1985). \emph{Language and experience: {Evidence} from the blind child} (pp. xi, 250). {Cambridge, MA, US}: {Harvard University Press}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-lavechin2021}{}}%
-Lavechin, M., Bousbib, R., Bredin, H., Dupoux, E., \& Cristia, A. (2021). An open-source voice type classifier for child-centered daylong recordings. {arXiv}. \url{https://doi.org/10.48550/arXiv.2005.12656}
+Lavechin, M., Bousbib, R., Bredin, H., Dupoux, E., \& Cristia, A. (2021). \emph{An open-source voice type classifier for child-centered daylong recordings}. {arXiv}. \url{https://doi.org/10.48550/arXiv.2005.12656}
 
 \leavevmode\vadjust pre{\hypertarget{ref-lehet2021}{}}%
 Lehet, M., Arjmandi, M. K., Houston, D., \& Dilley, L. (2021). Circumspection in using automated measures: {Talker} gender and addressee affect error rates for adult speech detection in the {Language ENvironment Analysis} ({LENA}) system. \emph{Behavior Research Methods}, \emph{53}(1), 113--138. \url{https://doi.org/10.3758/s13428-020-01419-y}
@@ -690,7 +723,7 @@ Lucariello, J., \& Nelson, K. (1987). Remembering and planning talk between moth
 Lucca, K., \& Wilbourn, M. P. (2018). Communicating to {Learn}: {Infants}' {Pointing Gestures Result} in {Optimal Learning}. \emph{Child Development}, \emph{89}(3), 941--960. \url{https://doi.org/10.1111/cdev.12707}
 
 \leavevmode\vadjust pre{\hypertarget{ref-luchkina2020}{}}%
-Luchkina, E., Xu, F., Sobel, D., \& Morgan, J. (2020). \emph{Sixteen-month-olds comprehend unanchored absent reference} (Preprint). {Open Science Framework}. \url{https://doi.org/10.31219/osf.io/5tc6d}
+Luchkina, E., Xu, F., Sobel, D., \& Morgan, J. (2020). \emph{Sixteen-month-olds comprehend unanchored absent reference} {[}Preprint{]}. {Open Science Framework}. \url{https://doi.org/10.31219/osf.io/5tc6d}
 
 \leavevmode\vadjust pre{\hypertarget{ref-lynott2020}{}}%
 Lynott, D., Connell, L., Brysbaert, M., Brand, J., \& Carney, J. (2020). The {Lancaster Sensorimotor Norms}: Multidimensional measures of perceptual and action strength for 40,000 {English} words. \emph{Behavior Research Methods}, \emph{52}(3), 1271--1291. \url{https://doi.org/10.3758/s13428-019-01316-z}
@@ -699,7 +732,7 @@ Lynott, D., Connell, L., Brysbaert, M., Brand, J., \& Carney, J. (2020). The {La
 MacLeod, A. A. N., \& Demers, C. (2023). Transmitting white monolingual {Anglo-American} norms: {A} concept analysis of {``quality of language''} in parent-child interactions. \emph{Applied Psycholinguistics}, 1--29. \url{https://doi.org/10.1017/S014271642300005X}
 
 \leavevmode\vadjust pre{\hypertarget{ref-macwhinney2019}{}}%
-MacWhinney, B. (2019). {CHAT Manual}. \url{https://doi.org/10.21415/3MHN-0Z89}
+MacWhinney, B. (2019). \emph{{CHAT Manual}}. \url{https://doi.org/10.21415/3MHN-0Z89}
 
 \leavevmode\vadjust pre{\hypertarget{ref-magimairaj2022}{}}%
 Magimairaj, B., Nagaraj, N., Caballero, A., Munoz, K., \& White, K. (2022). A {Systematic Review} of the {Effects} of {LENA-based Feedback} on {Parent-Child Language Interactions} in {Families} with {Young Children}. \emph{Journal of Early Hearing Detection and Intervention}, \emph{7}(3), 47--60. \url{https://doi.org/10.26077/6c72-973b}
@@ -774,7 +807,7 @@ Rowe, M. L., \& Snow, C. E. (2020). Analyzing input quality along three dimensio
 Rowland, Charity. (1984). Preverbal {Communication} of {Blind Infants} and {Their Mothers}. \emph{Journal of Visual Impairment \& Blindness}, \emph{78}(7), 297--302. \url{https://doi.org/10.1177/0145482X8407800701}
 
 \leavevmode\vadjust pre{\hypertarget{ref-rowland2018}{}}%
-Rowland, Caroline, Durrant, S., Peter, M., Bidgood, A., Pine, J., \& Jago, L. S. (2018). The {Language} 0-5 {Project}. \url{https://doi.org/10.17605/OSF.IO/KAU5F}
+Rowland, Caroline, Durrant, S., Peter, M., Bidgood, A., Pine, J., \& Jago, L. S. (2018). \emph{The {Language} 0-5 {Project}}. \url{https://doi.org/10.17605/OSF.IO/KAU5F}
 
 \leavevmode\vadjust pre{\hypertarget{ref-rubio-fernandez2019}{}}%
 Rubio-Fernandez, P. (2019). Overinformative {Speakers Are Cooperative}: {Revisiting} the {Gricean Maxim} of {Quantity}. \emph{Cognitive Science}, \emph{43}(11), e12797. \url{https://doi.org/10.1111/cogs.12797}
@@ -819,13 +852,13 @@ Tröster, H., \& Brambring, M. (1992). Early social-emotional development in bli
 Uccelli, P., Demir-Lira, Ö. E., Rowe, M. L., Levine, S., \& Goldin-Meadow, S. (2019). Children's {Early Decontextualized Talk Predicts Academic Language Proficiency} in {Midadolescence}. \emph{Child Development}, \emph{90}(5), 1650--1663. \url{https://doi.org/10.1111/cdev.13034}
 
 \leavevmode\vadjust pre{\hypertarget{ref-urwin1983}{}}%
-Urwin, C. (1983). Dialogue and cognitive functioning in the early language development of three blind children: {Normal} and deficient, 142--161.
+Urwin, C. (1983). \emph{Dialogue and cognitive functioning in the early language development of three blind children: {Normal} and deficient}. 142--161.
 
 \leavevmode\vadjust pre{\hypertarget{ref-urwin1984}{}}%
 Urwin, C. (1984). Language for absent things: Learning from visually handicapped children. \emph{Topics in Language Disorders}, \emph{4}(4), 24.
 
 \leavevmode\vadjust pre{\hypertarget{ref-vanparidon2021}{}}%
-van Paridon, J., Liu, Q., \& Lupyan, G. (2021). How do blind people know that blue is cold? {Distributional} semantics encode color-adjective associations. {PsyArXiv}. \url{https://doi.org/10.31234/osf.io/vyxpq}
+van Paridon, J., Liu, Q., \& Lupyan, G. (2021). \emph{How do blind people know that blue is cold? {Distributional} semantics encode color-adjective associations.} {PsyArXiv}. \url{https://doi.org/10.31234/osf.io/vyxpq}
 
 \leavevmode\vadjust pre{\hypertarget{ref-vandam2015}{}}%
 VanDam, M., Oller, D. K., Ambrose, S. E., Gray, S., Richards, J. A., Xu, D., \ldots{} Moeller, M. P. (2015). Automated {Vocal Analysis} of {Children} with {Hearing Loss} and {Their Typical} and {Atypical Peers}. \emph{Ear and Hearing}, \emph{36}(4), e146--e152. \url{https://doi.org/10.1097/AUD.0000000000000138}
@@ -843,7 +876,7 @@ Wang, Y., Cooke, M., Reed, J., Dilley, L., \& Houston, D. M. (March/April 2022).
 Wang, Y., Williams, R., Dilley, L., \& Houston, D. M. (2020). A meta-analysis of the predictability of {LENA}{\texttrademark} automated measures for child language development. \emph{Developmental Review}, \emph{57}, 100921. \url{https://doi.org/10.1016/j.dr.2020.100921}
 
 \leavevmode\vadjust pre{\hypertarget{ref-warlaumont2016}{}}%
-Warlaumont, A. S., Pretzer, G. M., Mendoza, S., \& Walle, E. A. (2016). Warlaumont {HomeBank Corpus}. {TalkBank}. \url{https://doi.org/10.21415/T54S3C}
+Warlaumont, A. S., Pretzer, G. M., Mendoza, S., \& Walle, E. A. (2016). \emph{Warlaumont {HomeBank Corpus}}. {TalkBank}. \url{https://doi.org/10.21415/T54S3C}
 
 \leavevmode\vadjust pre{\hypertarget{ref-watkins1998}{}}%
 Watkins, S., Pittman, P., \& Walden, B. (1998). The {Deaf Mentor Experimental Project} for young children who are deaf and their families. \emph{American Annals of the Deaf}, \emph{143}(1), 29--34. \url{https://doi.org/10.1353/aad.2012.0098}
@@ -855,7 +888,7 @@ Weisleder, A., \& Fernald, A. (2013). Talking to {Children Matters}: {Early Lang
 Weizman, Z. O., \& Snow, C. E. (2001). Lexical input as related to children's vocabulary acquisition: Effects of sophisticated exposure and support for meaning. \emph{Developmental Psychology}, \emph{37}(2), 265--279. \url{https://doi.org/10.1037/0012-1649.37.2.265}
 
 \leavevmode\vadjust pre{\hypertarget{ref-wijffels2023}{}}%
-Wijffels, J. (2023). {UDPipe}.
+Wijffels, J. (2023). \emph{{UDPipe}}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-xu2009}{}}%
 Xu, D., Yapanel, U., \& Gray, S. (2009). \emph{Reliability of the {LENA Language Environment Analysis System} in {Young Children}'s {Natural Home Environment}} (pp. 1--16). {Boulder, CO}: {The LENA Foundation}.
