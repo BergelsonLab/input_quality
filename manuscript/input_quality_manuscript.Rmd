@@ -45,19 +45,25 @@ output            : papaja::apa6_pdf
 ```{r libraries, echo = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
-
-packages <- c("tidyverse","ggplot2", "plotrix", "see", "papaja", "stringr", "morphemepiece", "tidytext", "reshape2", "lubridate", "corrplot", "psych", "glue", "knitr", "kableExtra", "wordbankr", "profileR", "irr", "udpipe")
-
-package.check <- lapply(
-  packages,
-  FUN = function(x) {
-    if (!require(x, character.only = TRUE)) {
-      install.packages(x, dependencies = TRUE)
-      library(x, character.only = TRUE)
-    }
-  }
-)
-
+library(tidyverse)
+library(ggplot2)
+library(plotrix)
+library(see)
+library(papaja)
+library(stringr)
+library(morphemepiece)
+library(tidytext)
+library(reshape2)
+library(lubridate)
+library(corrplot)
+library(psych)
+library(glue)
+library(knitr)
+library(kableExtra)
+library(wordbankr)
+library(profileR)
+library(irr)
+library(udpipe)
 
 #function to convert things into percents
 percent <- function(x, digits = 1, format = "f", ...) {      # Create user-defined function
