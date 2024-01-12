@@ -7,6 +7,7 @@ author:
   - name          : "Erin Campbell"
     affiliation   : "1"
     corresponding : yes    
+    # chore: zhenya2erin: Reminder to update :-)
     email         : "erin.e.campbell@duke.edu"
     address       : "417 Chapel Drive, Box 90086, Durham, NC 27708"
   - name          : "Lillianna Righter"
@@ -42,7 +43,15 @@ classoption       : "man"
 output            : papaja::apa6_pdf
 ---
 
+<!-- praise: zhenya2erin: My general impression is that this document is very well organized and easy to follow. For 90% of the code it was clear what it did and why. There was also little repetition. -->
+
+<!-- suggestion: zhenya2erin: I highly recommend using `renv` instead of a list of packages. -->
+
+<!-- nitpick: zhenya2erin: Chunk names could be updated. For example, `libraries` does a lot more than installing/loading packages. -->
+
+
 ```{r libraries, echo = FALSE, message = FALSE, warning = FALSE}
+# note: zhenya2erin: I find it useful to run with `warning = TRUE` because some warnings are actually errors that don't stop the code from running. This can be done periodically instead of every time. Actually, I always use `warning=TRUE` and either deal with the warnings or silence them at the chunk level.
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 library(tidyverse)
@@ -74,16 +83,29 @@ seconds_to_length <- function(seconds, format = "f", ...) {
 }
 
 
+# suggestion: zhenya2erin: Global settings like this are easier to not miss if they're at the top of the file and maybe in a separate chunk.
+#  Another good place is the params section in the YAML header.
 preprocess <- FALSE
 new_graphs <- FALSE
 
 if (preprocess == TRUE) {source("input_quality_preprocessing.R")} else {
 
 # all properties together
-# issue: zh2ec: This file isn't in the repo and the dataframe doesn't seem to be used anywhere so I commented out the following line.
+# issue: zhenya2erin: This file isn't in the repo and the dataframe doesn't seem to be used anywhere so I commented out the following line.
 #  Can it be deleted?
 # lotta_data <- read_csv("../data/LENA/Transcripts/Derived/lotta_data.csv")  
-  
+
+# question: zhenya2erin: Are some of these files subsets of another bigger one?
+
+# praise: zhenya2erin: The READMEs in the data folders are very informative!
+# issue: zhenya2erin: It is hard to guess the contents of these tables from their names.
+#  Which is OK but at least a short description of the contents would be very helpful.
+#  Especially the aggregation level of each.
+#  I can deduce that information from the READMEs in the data folders but it is hard to consult them while reading the code.
+
+# suggestion: zhenya2erin: To avoid repetition and make this code easier to read, I would define the path to the Transcripts directory in the setup chunk and use it here.
+#  For even less repetition, I would define a function that does `read_csv(file.path(transcripts_folder, filename))`.
+
 # quantity
 LENA_counts <- read_csv("../data/LENA/Automated/LENA_counts.csv")
 manual_word_tokens <- read_csv("../data/LENA/Transcripts/Derived/manual_word_tokens.csv")
@@ -112,8 +134,9 @@ displacement_subset_for_agreement <- read_csv("../data/LENA/Transcripts/Derived/
 n_uncat<-sum(verbs_only$temporality == "uncategorized")
 
 #demo
+# note: zhenya2erin: Another - slightly different way to deal with the spaces is to use `trim_ws = TRUE` which removes spaces, tabs, etc. before parsing values.
 VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv", na = c("", "NA", " "))
-# TODO: zh2ec: This file isn't in the repo so I commented out the following line.
+# issue: zhenya2erin: This file isn't in the repo so I commented out the following line.
 #  This dataframe is used to calculate 
 # VIHI_transcripts_messy <- read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
 
@@ -122,6 +145,7 @@ VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv", na = c("
 
 ```{r get-data}
 
+# nitpick: zhenya2erin: Name `participant_summary` made me think that the table would contain summary statistics for each participant. I would rename it to participants_summary, for example.
 participant_summary <- LENA_counts %>%
   mutate(Age_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))),
          Age_months = Age_days * 0.0328767) %>%
@@ -184,7 +208,7 @@ If properties of language input influence the likelihood of language delays amon
 To control for the wide age range of the study, each blind participant was matched to a sighted participant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level), and number of siblings ($\pm$ 1 sibling). Sighted matches were drawn from the multiple existing corpora [@vandam2015; @vandam2016; @bergelson2015a; @bergelson2019; @ramirez-esparza2014; @warlaumont2016; @wang2022; @rowland2018], or when there was no recording available that matched a blind participant's demographic characteristics, collected de novo. See Table \@ref(tab:participant-characteristics) for sample characteristics.
 
 ```{r participant-characteristics, results="asis"}
-# issue: zh2ec: See comment above the commented out definition of VIHI_transcripts_messy.
+# issue: zhenya2erin: I set this variable to NA because I commented out code that creates VIHI_transcripts_messy. This should definitely not stay like that because this number is used in the text.
 perc_random_silent <- NA
   # ((
   #   VIHI_transcripts_messy %>% filter(
@@ -198,7 +222,11 @@ perc_random_silent <- NA
   # )
   # ) * 100
 
+# praise: zhenya2erin: I love the use of reporting functions.
+
 report_continuous <- function(vector, string,dig=1){
+  # suggestion: zhenya2erin: Create a nested function with the signature `my_apply(min, vector)` for readability.
+  # issue: zhenya2erin: na.rm=TRUE needs to be explained. I suggest making it a parameter that defaults to FALSE and leave a comment before every call that requires setting it to TRUE.
   range <- glue("{round(min(vector,na.rm=TRUE))}--{round(max(vector,na.rm=TRUE))}")
   mean <- glue("{round(mean(vector,na.rm=TRUE),dig)}")
   sd = glue("{round(sd(vector,na.rm=TRUE),dig)}")
@@ -220,6 +248,10 @@ report_factor <- function(vector) {
     str_c(collapse = ',\n')
 }
 
+# suggestion: zhenya2erin: I would move the reporting functions to a separate chunk.
+
+# nitpick: zhenya2erin: I understand that `_all` refers to not being split into blind and sighted, but the names make me think that VI_matches_demo_all has more data that VI_matches_demo.
+# nitpick: zhenya2erin: It might make this document cleaner if this was done in the preprocessing step.
 VI_matches_demo_all <- VI_matches_demo %>%
   mutate(match_group = as.factor(case_when(
     match_group == "VI_TD" ~ "Sighted (N=15)",
@@ -244,6 +276,8 @@ VI_matches_demo_sighted <- VI_matches_demo_all %>%
   filter(Group == "Sighted (N=15)")
 
 
+# issue: zhenya2erin: The code below is very hard to read which makes it easy to miss an error somewhere.
+#  A function that takes a label and a column name and returns a row of the table would make it very clear.
 as.data.frame(tribble(
   ~ Variable, ~ "Blind (N=15)", ~ "Sighted (N=15)",
   "Age (months)", report_continuous(VI_matches_demo_blind$Age_months, ""), report_continuous(VI_matches_demo_sighted$Age_months, ""), 
@@ -286,6 +320,7 @@ Recordings were annotated using the ELAN software [@brugman2009]. Trained annota
 To go from our dimensions of interest (quantity, interactiveness, linguistic, conceptual), to quantifiable properties, we used a combination of automated measures [generated by the proprietary LENA algorithm, @xu2009] and manual measures (generated from the transcriptions made by our trained annotators). Altogether, this corpus presently includes approximately `r round(sum(LENA_counts$total_time_dur) / 60 / 60)` hours of audio, `r nrow(VITD_transcripts)` utterances, and `r nrow(VITD_LENA_words)` words; see Figure \@ref(fig:corpus-size-plot). Quantity and interactiveness analyses were conducted on the random samples only, to capture a more representative estimate. Linguistic and conceptual analyses were conducted on all available annotations in order to maximize the amount of speech over which we could calculate them. These measures are described below and summarized in Table \@ref(tab:ps).
 
 ```{r corpus-size-plot, fig.cap="The amount of text that analyses are run over. Left panel shows the corpus size in words, and right panel shows the corpus size in utterances."}
+# issue: zhenya2erin: These two block have almost identical code. It is hard to say for sure though. A function would make the code more clear.
 word_counts_plot <- ggplot((VITD_LENA_words %>% filter(sampling_type == "random" | sampling_type == "high-volubility")), aes(x=fct_infreq(VIHI_ID), fill=sampling_type)) +
   geom_bar(position="stack") +
   theme_classic()+
@@ -339,6 +374,18 @@ As in previous work [e.g., @templin1957; @pancsofar2006; @montag2018], we calcul
 MLU_agreement <- icc(MLU_subset_for_agreement %>%
                        dplyr::select(manual_morpheme_count, morphemecount))
 # Calculate Percent Agreement
+# issue: zhenya2erin:
+#  1. This code is hard to read and needs to be refactored. E.g., like this (not tested):
+#
+#     ```
+#     displaced_agreement <-
+#       displacement_subset_for_agreement %>%
+#       filter(manual_temporality == "displaced") %>%
+#       {sum(.$temporality == .$manual_temporality) / nrow(.)}
+#     ```
+#  2. There needs to be a comment about what is in `*_subset_for_agreement` tables and what temporality is. The latter is defined in the text but it isn't clear that I need to look for it.
+#
+#  3. There needs to be a comment explaining what NAs mean and why it is OK to drop them.
 displacement_agreement <-
   sum(
     displacement_subset_for_agreement$temporality == displacement_subset_for_agreement$manual_temporality,
@@ -379,7 +426,14 @@ Our study assesses whether language input to blind children is different from th
 
 ### Language Input Quantity
 
+<!-- nitpick: eb2ec: AWC_check and compare_AWC sound like the same thing. I would use something like AWC_shapiro and AWC_paired_ttest. This applies to all the tests/summaries in the document. -->
+
 ```{r compare-AWC}
+# issue: eb2ec: There needs to be a comment describing AWC_stand and
+#  the contents of manual_word_tokens
+# praise: eb2ec: The code is short and clear so the repetition is not an issue.
+
+
 AWC_check <- shapiro.test(LENA_counts$AWC_stand)
 compare_AWC <- t.test(LENA_counts$AWC_stand ~ LENA_counts$group, paired=TRUE)
 AWC_stats <- LENA_counts %>%
@@ -397,7 +451,10 @@ MWC_stats <- manual_word_tokens %>%
             mean = mean(tokens))
 ```
 
+<!-- issue: eb2ec: Long inline code is very hard to read. I would suggest calculating all these numbers in an R chunk first. Could the `report_*` funcitons be used here? -->
 We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and our transcription-derived Manual Word Count. Despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~ by LENA count), along both measures of input quantity, blind and sighted children do not differ in language input quantity (Adult Word Count: *t*(`r compare_AWC$parameter`) = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`; Manual Word Count: *t*(`r compare_MWC$parameter`) = `r compare_MWC$statistic`, *p* `r printp(compare_MWC$p.value, add_equals=TRUE)`); see Figure \@ref(fig:quantity-plots).
+
+<!-- issue: eb2ec: This needs to be a function. It is very hard to tell whether there are any difference in the plots. This goes for every chunk with plots in the document. -->
 
 ```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.", fig.width=6,fig.height=3}
 AWC_plot <-
@@ -485,6 +542,7 @@ CDS_stats <- xds_props_wide %>%
 Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*t*(`r compare_CDS$parameter`) = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*W* = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
 
 ```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither interaction measure differed between groups. ", fig.width=7, fig.height=2.5}
+# issue: zhenya2erin: DRY
 CTC_plot <-
   ggplot(data = LENA_counts, aes(
     x = group,
@@ -573,6 +631,7 @@ cowplot::plot_grid(CTC_plot, CDS_prop_plot, addressee_props_plot, rel_widths = c
 ### Linguistic Features
 
 ```{r linguistic-plots, fig.cap="Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher.", fig.height=3, fig.width=4.5}
+# issue: zhenya2erin: DRY
 TTR_plot <-  ggplot(data = (TTR_calculations), aes(
     x = group,
     y = mean_ttr,
@@ -651,7 +710,7 @@ Both linguistic variables differed across groups: blind children had a significa
 ### Conceptual Features
 
 ```{r sensory-modality}
-
+# issue: zhenya2erin: DRY
 visual_plot <- ggplot(data = sensory_props_wide, aes(
     x = group,
     y = prop_Visual,
@@ -708,7 +767,7 @@ visual_test<- wilcox.test(sensory_props_wide$prop_Visual ~ sensory_props_wide$gr
 ```
 
 ```{r verb-tense}
-
+# issue: zhenya2erin: DRY
 hereandnow_plot <- ggplot(data = temporality_props_wide, aes(x = group,
     y = prop_displaced,
     color = group,
@@ -768,11 +827,17 @@ cowplot::plot_grid(hereandnow_plot,temporality_props_plot,visual_plot,sensory_pr
 Lastly, we compared two measures of the conceptual features of language input: the proportion of temporally displaced verbs and the proportion of highly visual words. We found that blind children hear a higher proportion of displaced verbs than sighted children (*t*(`r temporality_test$parameter`) = `r temporality_test$statistic`, *p* `r papaja::printp(temporality_test$p.value, add_equals=TRUE)`), which  on average equates to `r round(abs(temporality_test$estimate) * (mean(temporality_props_wide$verb_utt_count)) * (60/40))` more utterances about past, future, or hypothetical events per hour. We found no significant difference across groups in the proportion of highly visual words (*W* = `r visual_test$statistic`, *p* `r printp(visual_test$p.value, add_equals=TRUE)`), which constitute roughly `r round((mean(sensory_props_wide$prop_Visual))*100)`% of the input for both groups.
 
 ```{r ps, results='asis'}
-
 get_group_means <- function(data, column, subset, unit = "",adjust=1,digits=2) {
+  # issue: zhenya2erin: This function needs documentation.
   filtered_data <- data %>%
     filter({{ subset }})
   
+  # suggestion: zhenya2erin: Create a nested function with the signature `my_apply(min, vector)` for readability.
+  # issue: zhenya2erin: na.rm=TRUE needs to be explained. I would suggest making it
+  #  a parameter that defaults to FALSE and leave a comment before every call
+  #  that requires it to be set to TRUE.
+  # suggestion: zhenya2erin: Do the rounding outside of glue::glue() for readability
+  #  and consistency.
   mean_value <- mean(filtered_data[[column]], na.rm=TRUE)*adjust
   median_value <- median(filtered_data[[column]], na.rm=TRUE)*adjust
   min_value <- min(filtered_data[[column]], na.rm=TRUE)*adjust
@@ -780,6 +845,14 @@ get_group_means <- function(data, column, subset, unit = "",adjust=1,digits=2) {
   values_string <- glue::glue("{round(mean_value,digits)}, {round(median_value,digits)}, {round(min_value,digits)}-{round(max_value,digits)} {unit}")
   return(values_string)
 }
+
+# issue: zhenya2erin: Having multiple vectors that need to match each other is a recipe for disaster, in my opinion. This definitely needs to be refactored. One way to do this:
+#  - Instead of using adjust, convert LENA_counts to per hour during preprocessing/loading.
+#  - All the hard-coded values could be put into a single dataframe or a vector of named lists.
+#  - Test results could be put into a named list.
+#  - Calculate every calculated vector using that dataframe with map/apply/mutate, etc.
+#  - ps_df should be defined in a way that puts column names next to the corresponding vectors.
+
 
 vars <-
   c(
