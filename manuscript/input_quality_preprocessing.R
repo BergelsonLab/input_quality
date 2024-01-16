@@ -1,5 +1,14 @@
 # Input Quality Preprocessing
 
+# suggestion: zhenya2erin: I would add these library calls so that this script could be run/debugged independently. `library()` calls are cheap because each package only gets loaded during the first one. Conversely, I would remove `library` calls from the Rmd so that they aren't loaded unless this script is run.
+# library(dplyr)
+# library(readr)
+# library(stringr)
+# library(tidyr)
+# library(morphemepiece)
+# library(tidytext)
+# library(udpipe)
+
 ## demographics
 VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv")
 
@@ -8,6 +17,7 @@ lancaster_norms <-
   mutate(Word = tolower(Word)) # make the contents of the Word column lowercase (to align with our transcription style)
 
 ### list of TD matches
+# issue: zhenya2erin: There are sixteen pairs in VI_matches_demo but only fifteen matches in TD_matches. If that is intentional, I would add a comment explaining why. In any case, it would be more robust to create the list based on VI_matches_demo, possibly removing the extra match.
 TD_matches <-
   c(
     "TD_436_678",
@@ -36,13 +46,20 @@ LENA_counts <-
     AWC_stand = AWC / (total_time_dur / (30 * 60)), # change AWC to be per 30 minutes (so that it aligns with the length of time our random sample annotations span)
     CTC_stand = CTC / (total_time_dur / (30 * 60)) # change CTC to be per 30 minutes (so that it aligns with the length of time our random sample annotations span)
   ) %>%
+  # nitpick: znenya2erin: Unnecessary parentheses.
+  # issue: zhenya2erin: This join is repeated multiple times throughout the code. I would convert it into a function in this script or move higher up the pipeline.
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID") %>% # add a column that indicates which pair each child is a member of
+  # issue: zhenya2erin: This doesn't just remove duplicates. It removes rows with the same its_path even if they differ in every other column. In any case, I would deal with the duplication as it is a sign that someting went wrong earlier in the pipeline. Maybe that's not the case here, but at the minimum it requires a comment.
   distinct(its_path, .keep_all = TRUE) # remove duplicate rows
 write_csv(LENA_counts, "../data/LENA/Automated/LENA_counts.csv")
 
 
 ###read in data that has been mass exported via ELAN
 
+# issue: zhenya2erin: The current version of the code produces a different "../data/LENA/Transcripts/Derived/VITD_transcripts.csv" than the one in the repository. Some of the changes are probably due to inconsequential differences in the behaviors of write.csv and write_csv: row names being included or not and character values being quoted or not. However, there are at least two substantive differences:
+#  - column "X" got renamed to "...1",
+#  - columns "con.text" and "File.Path" became "con-text" and "File Path" respectively.
+#  I re-knitted the Rmd and got the same results so it's probably enough to simpply commit the updated version.
 VITD_transcripts <-
   read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-09-11.csv") %>% 
   mutate(VIHI_ID = as.factor(str_sub(VIHI_ID, 1, 10))) %>%
@@ -58,6 +75,17 @@ VITD_transcripts <-
   mutate(utt_num = 1:nrow(.)) # number the utterances
 write_csv(VITD_transcripts, "../data/LENA/Transcripts/Derived/VITD_transcripts.csv")
 
+# issue: zhenya2erin: I would avoid that hardcoded 70. The longest utterance is 51 words long which isn't that far from 70. So, however unlikely, it is possible for there to be a new utterance that is longer than 70. Since warnings are silenced in the manuscript, there would be no indications that something went wrong.
+#  An option:
+#    ```
+#    rename(Word = utterance_clean) %>%
+#      separate_wider_delim(
+#        Word,
+#        delim = ' ',
+#        too_few = 'align_start',  
+#        too_many = 'error',       
+#        names_sep = '')
+#    ```
 VITD_LENA_utterances_split <- VITD_transcripts %>%
   separate(utterance_clean,
            into = paste0("Word", 1:70),
@@ -65,6 +93,8 @@ VITD_LENA_utterances_split <- VITD_transcripts %>%
 
 VITD_LENA_words <- VITD_LENA_utterances_split %>%
   mutate(uttnum = seq(1, nrow(VITD_LENA_utterances_split), 1)) %>% #give each utterance a unique number
+  # issue: zhenya2erin: Why 46? I think this is out of date. I would avoid hardcoding a number altogether. Something like starts_with('Word') should work.
+  # suggestion: zhenya2erin: Use separate_longer_delim to skip the VITD_LENA_utterances_split step.
   pivot_longer(cols = Word1:Word46,
                #pivot the word columns into a single Word column
                names_to = "utt_loc",
@@ -103,6 +133,7 @@ manual_word_tokens <- VITD_LENA_words %>%
   summarise(tokens = n()) %>% # count the number of rows, grouped by child (VIHI_ID). each row is one word, so this should give us the token count.
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID") %>% # add pair info
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>% # add group (determined by VIHI_ID)
+  # issue: zhenya2erin: See the comment above the first `distinct` call.
   distinct(VIHI_ID, .keep_all = TRUE) 
 
 write_csv(manual_word_tokens,
@@ -115,6 +146,13 @@ xds_props_wide <- VITD_transcripts %>%
   filter(sampling_type == "random") %>% # for interaction measures, we're only looking at random samples (high-volume might overrepresent)
   group_by(group, VIHI_ID) %>%
   summarise( #calculate proportions by xds. erin2zhenya: it seems like there should be a less redundant way to do this
+    # zhenya2erin: Here is one way (not tested):
+    #  group_by(group, VIHI_ID, xds) %>%
+    #  summarize(count = n(), .groups = 'drop_last') %>%  # 'drop_last' would be used implicitly anyway, but I think in this case it is better to be explicit and possibly leave a comment about that.
+    #  mutate(prop = count / sum(count),
+    #         prop_name = paste0("prop_", xds, "DS")) %>%
+    #  pivot_wider(names_from = prop_name, values_from = prop)
+    # note: zhenya2erin: I would skip the wide version and use pivot_wider when creating lotta_data.csv. Same for the other *_wide table somewhere closer to the bottom of the script.
     total = n(), 
     prop_ADS = sum(xds == "A") / total,
     prop_CDS = sum(xds == "C") / total,
@@ -138,12 +176,23 @@ write_csv(xds_props, "../data/LENA/Transcripts/Derived/xds_props.csv")
 # linguistic quality ----
 ## TTR ----
 ### calculate type-token ratio in annotations
+# issue: zhenya2erin: 
+#  - The first word of each utterance is "" (empty string). There are also "xxx" words. They are being counted as tokens/types. If that is intentional, I would document it.
 TTR_calculations <- VITD_LENA_words %>%
   group_by(VIHI_ID) %>%
+  # issue: zhenya2erin: The sorting is potentially unpredictable because sorting within utterances is not defined. Unlikely to matter a lot, since at most two utterances per bin can have different words included between runs, but still.
   arrange(uttnum) %>%
+  # question: zhenya2erin: Why are "CHI" and "EE1" excluded? Might be worth documenting. Also, it might be worth explaining what "0" represents.
+  # suggestion: zhenya2erin: Move filtering before grouping so that it is clearer which expressions depend on grouping (mutate's) and which aren't (filter).
   filter(Word != "0",
          speaker != "CHI",
          speaker != "EE1") %>%
+  # issue: zhenya2erin: num_obs is a vector of duplicates of the same number. Only the first one is taken in `ceiling(num_obs)` and `[1:num_obs]` which works out in this case, but it is hard to guess what was intended and how R will handle the situation. Here are some alternatives:
+  #  mutate(bin = rep(1:ceiling(n() / 100), each = 100)[1:n()]) %>%
+  #  mutate(bin = (row_number() - 1) %/% 100 + 1) %>%
+  #  Note that both options get rid of the `mutate(num_obs = n()) %>%` step.
+  #  In any case, it is probably worth documenting what the bins are.
+  # suggestion: I am also curious why you are grouping words by bins. Might be worth documenting.
   mutate(num_obs = n()) %>%
   mutate(bin = rep(1:ceiling(num_obs / 100), each = 100)[1:num_obs]) %>%
   group_by(VIHI_ID, bin) %>%
@@ -160,6 +209,9 @@ TTR_calculations <- VITD_LENA_words %>%
 write_csv(TTR_calculations, "../data/LENA/Transcripts/Derived/TTR_calculations.csv")
 
 ## MLU ---- erin2zhenya: I don't like how I calculated MLU. Feels sloppy and open to errors, but I struggled with others. Do you have ideas?
+# suggestion: zhenya2erin: For less widely used packages, I would qualify function names - prepend them with the package name and two colons. Or just leave a comment saying where these functions came from. Likewise, I would
+# suggestion: zhenya2erin: For less widely used packages, I would leave a comment with the name of the package or use the <pkg>::<fun> syntax. For example, I had to do `??morphemepiece_tokenize` to figure out what package I needed to load.
+# suggestion: zhenya2erin: Since we switched to `renv`, the version of `morphemepiece` is fixed and it is unnecessary to list all the parameters with their default values.
 tokenized_VITD_transcripts <-
   morphemepiece_tokenize(
     VITD_transcripts$utterance_clean,
@@ -189,6 +241,8 @@ MLUs <- simple_morpheme_counts %>%
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
 write_csv(MLUs, "../data/LENA/Transcripts/Derived/MLUs.csv")
 
+
+# note: zhenya2erin: I would recommend setting random seed for reproducibility. Say, you realize you need to generate this samples in a different way and change the code. Without setting the seed, you won't be able to see the results of your changes. To avoid affecting any consequent randomizations, I would use `with::with_seed` that resets the seed after an expression is evaluated.
 #### get a random subset of utterances, and write out to a csv. DO NOT UNCOMMENT CODE AND RERUN THESE STEPS (risks overwriting previous csv)
 # random_MLU_subset <- simple_morpheme_counts%>%
 #     filter(!is.na(morphemecount) &!is.na(utterance)) %>%
@@ -227,6 +281,7 @@ write_csv(MLU_subset_for_agreement,"../data/LENA/Transcripts/Derived/MLU_subset_
 # conceptual quality ----
 ## sensory word props ----
 sensory_props_wide <- VITD_LENA_words %>%
+  # suggestion: zhenya2erin: It is unclear where `stop_words` came from. Using `tidytext::stop_words` would fix that.
   anti_join(stop_words, by = c("Word" = "word")) %>% # get rid of stop words
   filter(!is.na(Auditory.mean))  %>% # filter out words that don't have a perceptual rating
   mutate(
@@ -238,6 +293,7 @@ sensory_props_wide <- VITD_LENA_words %>%
       TRUE ~ Dominant.perceptual
     )
   ) %>%
+  # suggestion: zhenya2erin: I would recommend doing the same things as for prop_*DS in props_wide to avoid repetition and potentially missing Modality values.
   group_by(group, VIHI_ID) %>%
   summarise(
     total = n(), # calculate proportions of words by modality out of total word tokens
@@ -303,6 +359,7 @@ verbs_only <- annotated_utterances %>%
 write_csv(verbs_only, "../data/LENA/Transcripts/Derived/verbs_only.csv")
 
 
+# note: zhenya2erin: Same as for the random samples earlier in the script, I would recommend using `withr::with_random_seed` to keep the samples reproducible.
 # Randomly select a subset of the utterances for manual coding DO NOT UNCOMMENT CODE AND RERUN THESE STEPS (risks overwriting previous csv)
 #### this follows the same procedure as above ^ 
 # random_displacement_subset <- verbs_only %>%
@@ -392,6 +449,7 @@ write_csv(temporality_props,
 
 
 # join all input variables into one big dataframe
+# suggestion: zhenya2erin: You can commit lotta_data.csv: it is only a couple dozen KB.
 lotta_data <- LENA_counts %>%
   left_join(MLUs, by=c("VIHI_ID", "group"))  %>%
   left_join(TTR_calculations, by=c("VIHI_ID", "group")) %>%
