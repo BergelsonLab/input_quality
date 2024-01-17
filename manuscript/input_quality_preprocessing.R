@@ -348,9 +348,38 @@ write_csv(sensory_props,
           "../data/LENA/Transcripts/Derived/sensory_props.csv")
 
 ## tense/displacement---- erin2zhenya: take an extra hard look at this? I want to be super sure that this is working how we think it's working
+# zhenya2erin: I'll describe how *I* think it is working and how that might differ from what I understood from the manuscript.
+#
+# annotated_utterances:
+# - We split each utterance into rows with one word token per row and add tags to each token (e.g., part of speech, lemma, etc.).
+# - For each row/token, we retain the information about the recording it came from and the text of the utterance it came from. However, we lose the information about the id of the utterance it came from though it should be identical to paragraph_id so probably not a big deal.
+# - Each token is additionally assigned a sentence_id based on how `udpipe` split the utterance into sentences.
+#
+# verbs_only:
+# - We remove tokens that are not verbs or auxiliaries based on their xpos value implicitly excluding `xpos == 'NNS'` by not including it in the list of tags to keep. This implicitly removes all utterances that don't include such tokens at all and removes some of the sentences from further utterances.
+# - We remove "=!" and "xxx" tokens not trusting features inferred by udpipe for these tokens when they are tagged as verbs. This also implicitly removes whole utterances and individual sentences.
+# - From each of the remaining sentences (not utterances!), we keep only the first verb as identified by the conditions above (xpos in a special list, not "=!" or "xxx").
+# - Finally, we assign "temporality" based on the features extracted by `udpipe` and the sentence including certain word combinations.
+#
+# While the above is done in two steps, it could be done in one because we don't seem to use `annotated_utterances` anywhere.
+#
+# And here is what I understood from the manuscript:
+# - Each utterance is categorized as "displaced" or "present" or not categorized. This is done based on the first verb in the utterance. It is unclear how utterances without verbs are treated.
+# - The number of uncategorized utterances and the total number of utterances are reported.
+#
+# Here is how my understanding of code differs from my understanding of the manuscript:
+# - The code drops utterances without verbs and so the reported denominator is the number of utterances (really, sentences) with verbs, not the total number of utterances in the corpus and the reported numerator is the number of utterances (really, sentences) with verbs that are categorized as "displaced" or "present".
+# - The code's output contains sentence-level information and not the utterance-level and not the utterance-level information as it says in the manuscript.
+#
+# I believe that the code, the manuscript, or both should be updated to make the two consistent with each other.
+#
+# I've also added some comments to the code below.
+
+# question: zhenya2erin: There are utterances in Spanish, should they be processed using the model for Spanish?
 udpipe_english <- udpipe_download_model(language = "english") # download the udpipe english model
 udmodel_english <-
   udpipe_load_model(file = udpipe_english$file_model)
+# issue: zhenya2erin: I think it would be cleaner to use a compbination of VIHI_ID and utt_num as the doc_id. This would, for example, allow us to left-join temporalities to the utterances. Probably paragraph_id is identical to utt_num but why risk it?
 annotated_utterances <- udpipe_annotate(udmodel_english, # apply the udpipe model of english to the cleaned utterances. this should give us syntactical parsing (not perfect, but as we see later down, pretty similar to human raters)
                                         x = VITD_transcripts$utterance_clean,
                                         doc_id = VITD_transcripts$VIHI_ID) %>%
@@ -359,11 +388,14 @@ write_csv(annotated_utterances,
           "../data/LENA/Transcripts/Derived/annotated_utterances.csv")
 
 verbs_only <- annotated_utterances %>%
+  # issue: zhenya2erin: Why is the filtering done on xpos instead of upos? As far as I could tell, the only difference is that the current version doesn't count tokens with upos == 'VERB' *and* xpos == 'NNS' as verbs. Is that intentional? I would either switch to filtering based on upos or explain why the NNS tokens are excluded
   filter(
     xpos %in% c("VB", "VBD", "VBP", "VBN", "VBG", "VBZ", "AUX", "MD"), # filter to verbs only
     token != "=!" &
       token != "xxx"
   ) %>%
+  # suggestion: zhenya2erin: In this case, `distinct` keeping the first row is the point and since the order has most likely been maintained, it should work as expected. For clarity, however, I would explicitly sort verbs within each utterance by `sentence_id` and `token_id` and then select the first row (row_number() == 1).
+  # issue: zhenya2erin: I think parsing of the utterances into sentences is of no interest to us. Unless I am worng about that, I would drop `sentence_id` from the next line.
   distinct(doc_id, paragraph_id, sentence_id, .keep_all = TRUE) %>%
   mutate(
     temporality = case_when( # this is based on EC & LR's top-down judgments of how to categorize words based on tense
@@ -376,6 +408,7 @@ verbs_only <- annotated_utterances %>%
         grepl('going to', sentence) |
         grepl('got to', sentence) |
         grepl('want to', sentence) |
+        # note: zhenya2erin: I don't know if aperitifs and digestifs form the leitmotif of the corpus but grepl('if ') would match the singular forms of all three of these nouns :-)
         grepl('have to', sentence) | grepl('if ', sentence) ~ "displaced",
       grepl('Mood=Ind', feats) &
         grepl('Tense=Pres', feats) |
