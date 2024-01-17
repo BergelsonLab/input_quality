@@ -1,5 +1,11 @@
 # Input Quality Preprocessing
 
+# praise: zhenya2erin: While this code is less clean than the code in the manuscript, I still didn't need any help figuring out what happens here. So most of my comments below are about implementation details.
+
+# note: zhenya2erin: This script is quite long and does a lot of things, some of which I wouldn't call preprocessing. I would split it into several scripts. That would help to see the relationships between dataframes and decrease the RAM requirements.
+
+# note: zhenya2erin: It helps the readability when dataframes names are descriptive. What that means exactly is very subjective so this is just something to keep in mind. Another thing that helps is keeping the names consistent.
+
 # suggestion: zhenya2erin: I would add these library calls so that this script could be run/debugged independently. `library()` calls are cheap because each package only gets loaded during the first one. Conversely, I would remove `library` calls from the Rmd so that they aren't loaded unless this script is run.
 # library(dplyr)
 # library(readr)
