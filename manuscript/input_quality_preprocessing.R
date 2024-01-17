@@ -178,7 +178,7 @@ write_csv(xds_props, "../data/LENA/Transcripts/Derived/xds_props.csv")
 ## TTR ----
 ### calculate type-token ratio in annotations
 # issue: zhenya2erin: 
-#  - The first word of each utterance is "" (empty string). There are also "xxx" words. They are being counted as tokens/types. If that is intentional, I would document it.
+#  - The first word of ~300 utterances is "" (empty string). There are also "xxx" words. They are being counted as tokens/types. If that is intentional, I would document it.
 TTR_calculations <- VITD_LENA_words %>%
   group_by(VIHI_ID) %>%
   # issue: zhenya2erin: The sorting is potentially unpredictable because sorting within utterances is not defined. Unlikely to matter a lot, since at most two utterances per bin can have different words included between runs, but still.
@@ -393,7 +393,7 @@ verbs_only <- annotated_utterances %>%
     token != "=!" &
       token != "xxx"
   ) %>%
-  # suggestion: zhenya2erin: In this case, `distinct` keeping the first row is the point and since the order has most likely been maintained, it should work as expected. For clarity, however, I would explicitly sort verbs within each utterance by `sentence_id` and `token_id` and then select the first row (row_number() == 1).
+  # suggestion: zhenya2erin: In this case, `distinct` keeping the first row is the point and since the order has most likely been maintained, it should work as expected. For clarity, however, I would explicitly sort verbs within each utterance by `sentence_id` and `token_id` and then select the first row (`filter(row_number() == 1)` or `slice(1)`).
   # issue: zhenya2erin: I think parsing of the utterances into sentences is of no interest to us. Unless I am worng about that, I would drop `sentence_id` from the next line.
   distinct(doc_id, paragraph_id, sentence_id, .keep_all = TRUE) %>%
   mutate(
