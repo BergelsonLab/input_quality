@@ -183,8 +183,8 @@ TTR_calculations <- VITD_LENA_words %>%
   group_by(VIHI_ID) %>%
   # issue: zhenya2erin: The sorting is potentially unpredictable because sorting within utterances is not defined. Unlikely to matter a lot, since at most two utterances per bin can have different words included between runs, but still.
   arrange(uttnum) %>%
-  # question: zhenya2erin: Why are "CHI" and "EE1" excluded? Might be worth documenting. Also, it might be worth explaining what "0" represents.
-  # suggestion: zhenya2erin: Move filtering before grouping so that it is clearer which expressions depend on grouping (mutate's) and which aren't (filter).
+  # note: zhenya2erin: It might be worth explaining what "0" represents.
+  # suggestion: zhenya2erin: I would move filtering before grouping so that it is clearer which expressions depend on grouping (mutate's) and which aren't (filter).
   filter(Word != "0",
          speaker != "CHI",
          speaker != "EE1") %>%
