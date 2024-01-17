@@ -6,6 +6,8 @@
 
 # note: zhenya2erin: It helps the readability when dataframes names are descriptive. What that means exactly is very subjective so this is just something to keep in mind. Another thing that helps is keeping the names consistent.
 
+# issue: zhenya2erin: Distinct issue. Using `distinct(***, .keep_all=TRUE)` is a hard-to-notice error waiting to happen because you are silently dropping rows with potentially non-redundant information. It groups the dataframe by the variables in `***` and keeps the first row in each group. Even when that is exactly what one wants (like when picking the first verb for temporality judgment), the table should be sorted within groups first so that "the first" makes sense. And if you do that, you might as well use `filter(row_number() == 1` or `slice(1)` instead of `distinct(***, .keep_all=TRUE)`. In all other cases, the duplication should be investigated and avoided.
+
 # suggestion: zhenya2erin: I would add these library calls so that this script could be run/debugged independently. `library()` calls are cheap because each package only gets loaded during the first one. Conversely, I would remove `library` calls from the Rmd so that they aren't loaded unless this script is run.
 # library(dplyr)
 # library(readr)
@@ -55,7 +57,7 @@ LENA_counts <-
   # nitpick: znenya2erin: Unnecessary parentheses.
   # issue: zhenya2erin: This join is repeated multiple times throughout the code. I would convert it into a function in this script or move higher up the pipeline.
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID") %>% # add a column that indicates which pair each child is a member of
-  # issue: zhenya2erin: This doesn't just remove duplicates. It removes rows with the same its_path even if they differ in every other column. In any case, I would deal with the duplication as it is a sign that someting went wrong earlier in the pipeline. Maybe that's not the case here, but at the minimum it requires a comment.
+  # issue: zhenya2erin: See the "Distinct issue" at the top of the script.
   distinct(its_path, .keep_all = TRUE) # remove duplicate rows
 write_csv(LENA_counts, "../data/LENA/Automated/LENA_counts.csv")
 
@@ -140,7 +142,7 @@ manual_word_tokens <- VITD_LENA_words %>%
   summarise(tokens = n()) %>% # count the number of rows, grouped by child (VIHI_ID). each row is one word, so this should give us the token count.
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID") %>% # add pair info
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>% # add group (determined by VIHI_ID)
-  # issue: zhenya2erin: See the comment above the first `distinct` call.
+  # issue: zhenya2erin: See the "Distinct issue" at the top of the script.
   distinct(VIHI_ID, .keep_all = TRUE) 
 
 write_csv(manual_word_tokens,
@@ -295,6 +297,7 @@ manually_coded_MLU_subset <- #after manually counting morphemes (done by EC & LR
 # Calculate agreement between the manual coding and original data
 MLU_subset_for_agreement <-
   left_join((
+    # issue: zhenya2erin: See the "Distinct issue" at the top of the script.
     manually_coded_MLU_subset %>% distinct(utterance, utt_num, .keep_all = TRUE)
   ),
   random_MLU_subset,
@@ -523,5 +526,6 @@ lotta_data <- LENA_counts %>%
   left_join(temporality_props_wide, by=c("VIHI_ID", "group")) %>%
   mutate(ParticipantNumber = as.factor(str_sub(VIHI_ID, 1, 6))) %>%
   mutate(LENA_age_in_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))))%>%
+  # issue: zhenya2erin: See the "Distinct issue" at the top of the script.
   distinct(ParticipantNumber, .keep_all=TRUE)
 write_csv(lotta_data, "../data/LENA/Transcripts/Derived/lotta_data.csv")
