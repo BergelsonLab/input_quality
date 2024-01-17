@@ -193,7 +193,6 @@ TTR_calculations <- VITD_LENA_words %>%
   #  mutate(bin = (row_number() - 1) %/% 100 + 1) %>%
   #  Note that both options get rid of the `mutate(num_obs = n()) %>%` step.
   #  In any case, it is probably worth documenting what the bins are.
-  # suggestion: I am also curious why you are grouping words by bins. Might be worth documenting.
   mutate(num_obs = n()) %>%
   mutate(bin = rep(1:ceiling(num_obs / 100), each = 100)[1:num_obs]) %>%
   group_by(VIHI_ID, bin) %>%
