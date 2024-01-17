@@ -64,6 +64,7 @@ VITD_transcripts <-
   read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-09-11.csv") %>% 
   mutate(VIHI_ID = as.factor(str_sub(VIHI_ID, 1, 10))) %>%
   filter(VIHI_ID %in% TD_matches | group == "VI") %>% # only look at data from VI kids or their TD matches
+  # issue: zhenya2erin: This doesn't remove language tags like "[- spa]". I would go through the list of all minchat special tags and confirm that all of them are removed.
   mutate(
     utterance_clean = str_replace_all(utterance, "<\\w+>", ""), # Replace any substrings enclosed within angle brackets with an empty string (any of the slang)
     utterance_clean = str_replace_all(utterance_clean, "=!\\w+\\s*", ""), # Remove any substrings starting with "=!" followed by one or more word characters and optional whitespace (get rid of the style markers =!shrieks)
@@ -209,9 +210,32 @@ TTR_calculations <- VITD_LENA_words %>%
 write_csv(TTR_calculations, "../data/LENA/Transcripts/Derived/TTR_calculations.csv")
 
 ## MLU ---- erin2zhenya: I don't like how I calculated MLU. Feels sloppy and open to errors, but I struggled with others. Do you have ideas?
-# suggestion: zhenya2erin: For less widely used packages, I would qualify function names - prepend them with the package name and two colons. Or just leave a comment saying where these functions came from. Likewise, I would
+# zhenya2erin: Below is the code that I would use to calculate MLU. Note that it purposefully counts morpheme types, not tokens by applying `unique` to the output of `morphemepiece_tokenize` before counting morphemes. I did this to replicate the current behavior. I assume this needs to be changed but I wanted to divorce refactoring from any changes in behavior. I would first test whether the results are the same as before and only then deal with the token/type issue.
+#
+# simple_morpheme_counts <- 
+#   VITD_transcripts %>%
+#   # note: zhenya2erin: If you decide to switch to counting morpheme tokens, this can be simplified to
+#   # mutate(morphemecount = lengths(morphemepiece_tokenize(utterance_clean)) %>%
+#   mutate(
+#     morphemecount = purrr::map_int(
+#       morphemepiece_tokenize(utterance_clean),
+#       ~ length(unique(.x)))
+#   ) %>%
+#   left_join((VITD_transcripts %>% dplyr::select(-group,-code,-con))) %>% 
+#   select(VIHI_ID, utt_num, speaker, xds, utterance_clean, morphemecount) %>%
+#   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
+#   filter(!is.na(utterance_clean)) %>%
+#   group_by(group, VIHI_ID) %>%
+#   summarise(MLU = mean(morphemecount)) %>%
+#   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
+# 
+# write_csv(simple_morpheme_counts, "../data/LENA/Transcripts/Derived/MLUs.csv")
+
+
 # suggestion: zhenya2erin: For less widely used packages, I would leave a comment with the name of the package or use the <pkg>::<fun> syntax. For example, I had to do `??morphemepiece_tokenize` to figure out what package I needed to load.
 # suggestion: zhenya2erin: Since we switched to `renv`, the version of `morphemepiece` is fixed and it is unnecessary to list all the parameters with their default values.
+# suggestion: zhenya2erin: At least for me, tokenization doesn't automatically imply tokenization into morphemes. Also, later in the script we will do word tokenization adding an extra layer of ambiguity. I would use a more descriptive name that contains both "utterance" (since each row is an utterance) and "morphemes" (since each morpheme in the corpus is a column). Something like "utterance_morpheme_map".
+# issue: zhenya2erin: Are "##" morphemes counted intentionally? I would filter out or exlain.
 tokenized_VITD_transcripts <-
   morphemepiece_tokenize(
     VITD_transcripts$utterance_clean,
@@ -220,6 +244,7 @@ tokenized_VITD_transcripts <-
     unk_token = "[UNK]",
     max_chars = 100
   ) %>% #split utterances into morphemes (based on entries in the morphemepiece "dictionary"). each listing has its own number
+  # issue: zhenya2erin: The output of the next step contains at most 1 token of each morpheme per utterance. I don't think that's what was intended. I would update the code or comment on counting morpheme types.
   plyr::ldply(rbind) %>% # split each tokenized_VI, then bind each as rows in a dataframe 
   mutate_all(funs(ifelse(is.na(.), 0, 1)))
 
@@ -227,6 +252,7 @@ tokenized_VITD_transcripts_with_counts <-
   tokenized_VITD_transcripts %>%
   mutate(morphemecount = rowSums(tokenized_VITD_transcripts)) %>% #add up the number of morphemes in each utterance
   mutate(utt_num = 1:nrow(tokenized_VITD_transcripts)) # add utterance number back in. erin2zhenya: THIS STEP MAKES ME NERVOUS. it looks like it works properly (based on me checking it manually), but I don't feel like we have any great way to verify that the utt_num generated here perfectly matches with the utt_num generated above.
+  # zhenya2erin: If you go with the code I suggested above, this step won't be necessary. If you don't then let's come back to this.
 
 simple_morpheme_counts <-
   tokenized_VITD_transcripts_with_counts %>%
@@ -235,6 +261,7 @@ simple_morpheme_counts <-
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2)))
 
 MLUs <- simple_morpheme_counts %>%
+  # issue: zhenya2erin: This is an unexpected place to remove empty utterances.If they were already present in VITD_transcripts I would filter them out earlier. If they were introduced during the left join above then I would explain why this is not an error.
   filter(!is.na(utterance_clean)) %>%
   group_by(group, VIHI_ID) %>%
   summarise(MLU = mean(morphemecount)) %>%
