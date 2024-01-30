@@ -39,4 +39,3 @@ jobs:
       - uses: bergelsonlab/public-files/knit-rmd-to-pdf@main
         with:
           rmd-path: manuscript/input_quality_manuscript.Rmd
-          renv-directory: manuscript
