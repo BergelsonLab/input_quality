@@ -430,12 +430,12 @@ Our study assesses whether language input to blind children is different from th
 
 ### Language Input Quantity
 
-<!-- nitpick: eb2ec: AWC_check and compare_AWC sound like the same thing. I would use something like AWC_shapiro and AWC_paired_ttest. This applies to all the tests/summaries in the document. -->
+<!-- nitpick: zhenya2erin: AWC_check and compare_AWC sound like the same thing. I would use something like AWC_shapiro and AWC_paired_ttest. This applies to all the tests/summaries in the document. -->
 
 ```{r compare-AWC}
-# issue: eb2ec: There needs to be a comment describing AWC_stand and
+# issue: zhenya2erin: There needs to be a comment describing AWC_stand and
 #  the contents of manual_word_tokens
-# praise: eb2ec: The code is short and clear so the repetition is not an issue.
+# praise: zhenya2erin: The code is short and clear so the repetition is not an issue.
 
 
 AWC_check <- shapiro.test(LENA_counts$AWC_stand)
@@ -455,10 +455,10 @@ MWC_stats <- manual_word_tokens %>%
             mean = mean(tokens))
 ```
 
-<!-- issue: eb2ec: Long inline code is very hard to read. I would suggest calculating all these numbers in an R chunk first. Could the `report_*` funcitons be used here? -->
+<!-- issue: zhenya2erin: Long inline code is very hard to read. I would suggest calculating all these numbers in an R chunk first. Could the `report_*` funcitons be used here? -->
 We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and our transcription-derived Manual Word Count. Despite wide variability in the number of words children hear (Range: `r round((AWC_stats %>% filter(group=="VI"))$min)`--`r round((AWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((AWC_stats %>% filter(group=="TD"))$min)`--`r round((AWC_stats %>% filter(group=="TD"))$max)` words~sighted~ by LENA count), along both measures of input quantity, blind and sighted children do not differ in language input quantity (Adult Word Count: *t*(`r compare_AWC$parameter`) = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`; Manual Word Count: *t*(`r compare_MWC$parameter`) = `r compare_MWC$statistic`, *p* `r printp(compare_MWC$p.value, add_equals=TRUE)`); see Figure \@ref(fig:quantity-plots).
 
-<!-- issue: eb2ec: This needs to be a function. It is very hard to tell whether there are any difference in the plots. This goes for every chunk with plots in the document. -->
+<!-- issue: zhenya2erin: This needs to be a function. It is very hard to tell whether there are any difference in the plots. This goes for every chunk with plots in the document. -->
 
 ```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.", fig.width=6,fig.height=3}
 AWC_plot <-
