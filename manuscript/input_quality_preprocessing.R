@@ -9,13 +9,13 @@
 # issue: zhenya2erin: Distinct issue. Using `distinct(***, .keep_all=TRUE)` is a hard-to-notice error waiting to happen because you are silently dropping rows with potentially non-redundant information. It groups the dataframe by the variables in `***` and keeps the first row in each group. Even when that is exactly what one wants (like when picking the first verb for temporality judgment), the table should be sorted within groups first so that "the first" makes sense. And if you do that, you might as well use `filter(row_number() == 1` or `slice(1)` instead of `distinct(***, .keep_all=TRUE)`. In all other cases, the duplication should be investigated and avoided.
 
 # suggestion: zhenya2erin: I would add these library calls so that this script could be run/debugged independently. `library()` calls are cheap because each package only gets loaded during the first one. Conversely, I would remove `library` calls from the Rmd so that they aren't loaded unless this script is run.
-# library(dplyr)
-# library(readr)
-# library(stringr)
-# library(tidyr)
-# library(morphemepiece)
-# library(tidytext)
-# library(udpipe)
+library(dplyr)
+library(readr)
+library(stringr)
+library(tidyr)
+library(morphemepiece)
+library(tidytext)
+library(udpipe)
 
 ## demographics
 VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv")
