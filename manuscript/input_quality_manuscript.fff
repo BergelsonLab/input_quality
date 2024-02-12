@@ -17,7 +17,7 @@
 
 \centering
 \includegraphics{input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf}
-\caption{\label{fig:interaction-plots}Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither interaction measure differed between groups.}
+\caption{\label{fig:interaction-plots}Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}

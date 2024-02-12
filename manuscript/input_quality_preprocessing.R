@@ -8,7 +8,7 @@
 
 # issue: zhenya2erin: Distinct issue. Using `distinct(***, .keep_all=TRUE)` is a hard-to-notice error waiting to happen because you are silently dropping rows with potentially non-redundant information. It groups the dataframe by the variables in `***` and keeps the first row in each group. Even when that is exactly what one wants (like when picking the first verb for temporality judgment), the table should be sorted within groups first so that "the first" makes sense. And if you do that, you might as well use `filter(row_number() == 1` or `slice(1)` instead of `distinct(***, .keep_all=TRUE)`. In all other cases, the duplication should be investigated and avoided.
 
-# suggestion: zhenya2erin: I would add these library calls so that this script could be run/debugged independently. `library()` calls are cheap because each package only gets loaded during the first one. Conversely, I would remove `library` calls from the Rmd so that they aren't loaded unless this script is run.
+# suggestion: zhenya2erin: I would remove `library` calls from the Rmd so that they aren't loaded unless this script is run.
 library(dplyr)
 library(readr)
 library(stringr)
@@ -25,7 +25,7 @@ lancaster_norms <-
   mutate(Word = tolower(Word)) # make the contents of the Word column lowercase (to align with our transcription style)
 
 ### list of TD matches
-# issue: zhenya2erin: There are sixteen pairs in VI_matches_demo but only fifteen matches in TD_matches. If that is intentional, I would add a comment explaining why. In any case, it would be more robust to create the list based on VI_matches_demo, possibly removing the extra match.
+# issue: zhenya2erin: In any case, it would be more robust to create the list based on VI_matches_demo, possibly removing the extra match.
 TD_matches <-
   c(
     "TD_436_678",
@@ -44,6 +44,7 @@ TD_matches <-
     "TD_475_481",
     "TD_477_217"
   )
+# one recording in VI_matches_demo is not assigned a match here because it is a participant's second recording
 
 ## Load in transcripts and automated metrics
 
@@ -54,7 +55,6 @@ LENA_counts <-
     AWC_stand = AWC / (total_time_dur / (30 * 60)), # change AWC to be per 30 minutes (so that it aligns with the length of time our random sample annotations span)
     CTC_stand = CTC / (total_time_dur / (30 * 60)) # change CTC to be per 30 minutes (so that it aligns with the length of time our random sample annotations span)
   ) %>%
-  # nitpick: znenya2erin: Unnecessary parentheses.
   # issue: zhenya2erin: This join is repeated multiple times throughout the code. I would convert it into a function in this script or move higher up the pipeline.
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID") %>% # add a column that indicates which pair each child is a member of
   # issue: zhenya2erin: See the "Distinct issue" at the top of the script.
@@ -84,27 +84,24 @@ VITD_transcripts <-
   mutate(utt_num = 1:nrow(.)) # number the utterances
 write_csv(VITD_transcripts, "../data/LENA/Transcripts/Derived/VITD_transcripts.csv")
 
-# issue: zhenya2erin: I would avoid that hardcoded 70. The longest utterance is 51 words long which isn't that far from 70. So, however unlikely, it is possible for there to be a new utterance that is longer than 70. Since warnings are silenced in the manuscript, there would be no indications that something went wrong.
-#  An option:
-#    ```
-#    rename(Word = utterance_clean) %>%
-#      separate_wider_delim(
-#        Word,
-#        delim = ' ',
-#        too_few = 'align_start',  
-#        too_many = 'error',       
-#        names_sep = '')
-#    ```
+# issue: zhenya2erin: I would avoid that hardcoded 70. The longest utterance is 51 words long which isn't that far from 70. So, however unlikely, it is possible for there to be a new utterance that is longer than 70. Since warnings are silenced in the manuscript, there would be no indications that something went wrong.#    ```
+# VITD_LENA_utterances_split1 <- VITD_transcripts %>%
+#   separate(utterance_clean,
+#            into = paste0("Word", 1:70),
+#            sep = " ") #separate utterances into columns with 1 column per word
+
 VITD_LENA_utterances_split <- VITD_transcripts %>%
-  separate(utterance_clean,
-           into = paste0("Word", 1:70),
-           sep = " ") #separate utterances into columns with 1 column per word
+  rename(Word = utterance_clean) %>%
+  separate_wider_delim(
+    Word,
+    delim = ' ',
+    too_few = 'align_start',
+    too_many = 'error',
+    names_sep = '')
 
 VITD_LENA_words <- VITD_LENA_utterances_split %>%
   mutate(uttnum = seq(1, nrow(VITD_LENA_utterances_split), 1)) %>% #give each utterance a unique number
-  # issue: zhenya2erin: Why 46? I think this is out of date. I would avoid hardcoding a number altogether. Something like starts_with('Word') should work.
-  # suggestion: zhenya2erin: Use separate_longer_delim to skip the VITD_LENA_utterances_split step.
-  pivot_longer(cols = Word1:Word46,
+  pivot_longer(cols = starts_with('Word'),
                #pivot the word columns into a single Word column
                names_to = "utt_loc",
                #create another column that gives the location within utterance (ex:Word2)
@@ -155,13 +152,6 @@ xds_props_wide <- VITD_transcripts %>%
   filter(sampling_type == "random") %>% # for interaction measures, we're only looking at random samples (high-volume might overrepresent)
   group_by(group, VIHI_ID) %>%
   summarise( #calculate proportions by xds. erin2zhenya: it seems like there should be a less redundant way to do this
-    # zhenya2erin: Here is one way (not tested):
-    #  group_by(group, VIHI_ID, xds) %>%
-    #  summarize(count = n(), .groups = 'drop_last') %>%  # 'drop_last' would be used implicitly anyway, but I think in this case it is better to be explicit and possibly leave a comment about that.
-    #  mutate(prop = count / sum(count),
-    #         prop_name = paste0("prop_", xds, "DS")) %>%
-    #  pivot_wider(names_from = prop_name, values_from = prop)
-    # note: zhenya2erin: I would skip the wide version and use pivot_wider when creating lotta_data.csv. Same for the other *_wide table somewhere closer to the bottom of the script.
     total = n(), 
     prop_ADS = sum(xds == "A") / total,
     prop_CDS = sum(xds == "C") / total,
@@ -188,14 +178,13 @@ write_csv(xds_props, "../data/LENA/Transcripts/Derived/xds_props.csv")
 # issue: zhenya2erin: 
 #  - The first word of ~300 utterances is "" (empty string). There are also "xxx" words. They are being counted as tokens/types. If that is intentional, I would document it.
 TTR_calculations <- VITD_LENA_words %>%
+  filter(Word != "0",
+         speaker != "CHI",
+         speaker != "EE1") %>%
   group_by(VIHI_ID) %>%
   # issue: zhenya2erin: The sorting is potentially unpredictable because sorting within utterances is not defined. Unlikely to matter a lot, since at most two utterances per bin can have different words included between runs, but still.
   arrange(uttnum) %>%
   # note: zhenya2erin: It might be worth explaining what "0" represents.
-  # suggestion: zhenya2erin: I would move filtering before grouping so that it is clearer which expressions depend on grouping (mutate's) and which aren't (filter).
-  filter(Word != "0",
-         speaker != "CHI",
-         speaker != "EE1") %>%
   # issue: zhenya2erin: num_obs is a vector of duplicates of the same number. Only the first one is taken in `ceiling(num_obs)` and `[1:num_obs]` which works out in this case, but it is hard to guess what was intended and how R will handle the situation. Here are some alternatives:
   #  mutate(bin = rep(1:ceiling(n() / 100), each = 100)[1:n()]) %>%
   #  mutate(bin = (row_number() - 1) %/% 100 + 1) %>%
@@ -316,8 +305,7 @@ write_csv(MLU_subset_for_agreement,"../data/LENA/Transcripts/Derived/MLU_subset_
 # conceptual quality ----
 ## sensory word props ----
 sensory_props_wide <- VITD_LENA_words %>%
-  # suggestion: zhenya2erin: It is unclear where `stop_words` came from. Using `tidytext::stop_words` would fix that.
-  anti_join(stop_words, by = c("Word" = "word")) %>% # get rid of stop words
+  anti_join(tidytext::stop_words, by = c("Word" = "word")) %>% # get rid of stop words
   filter(!is.na(Auditory.mean))  %>% # filter out words that don't have a perceptual rating
   mutate(
     Modality = case_when( # create extra columns for Amodal and Multimodal. 
@@ -328,7 +316,6 @@ sensory_props_wide <- VITD_LENA_words %>%
       TRUE ~ Dominant.perceptual
     )
   ) %>%
-  # suggestion: zhenya2erin: I would recommend doing the same things as for prop_*DS in props_wide to avoid repetition and potentially missing Modality values.
   group_by(group, VIHI_ID) %>%
   summarise(
     total = n(), # calculate proportions of words by modality out of total word tokens
@@ -517,7 +504,6 @@ write_csv(temporality_props,
 
 
 # join all input variables into one big dataframe
-# suggestion: zhenya2erin: You can commit lotta_data.csv: it is only a couple dozen KB.
 lotta_data <- LENA_counts %>%
   left_join(MLUs, by=c("VIHI_ID", "group"))  %>%
   left_join(TTR_calculations, by=c("VIHI_ID", "group")) %>%
