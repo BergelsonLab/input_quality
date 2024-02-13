@@ -8,7 +8,6 @@
 
 # issue: zhenya2erin: Distinct issue. Using `distinct(***, .keep_all=TRUE)` is a hard-to-notice error waiting to happen because you are silently dropping rows with potentially non-redundant information. It groups the dataframe by the variables in `***` and keeps the first row in each group. Even when that is exactly what one wants (like when picking the first verb for temporality judgment), the table should be sorted within groups first so that "the first" makes sense. And if you do that, you might as well use `filter(row_number() == 1` or `slice(1)` instead of `distinct(***, .keep_all=TRUE)`. In all other cases, the duplication should be investigated and avoided.
 
-# suggestion: zhenya2erin: I would remove `library` calls from the Rmd so that they aren't loaded unless this script is run.
 library(dplyr)
 library(readr)
 library(stringr)
@@ -25,8 +24,7 @@ lancaster_norms <-
   mutate(Word = tolower(Word)) # make the contents of the Word column lowercase (to align with our transcription style)
 
 ### list of TD matches
-# issue: zhenya2erin: In any case, it would be more robust to create the list based on VI_matches_demo, possibly removing the extra match.
-TD_matches <-
+TD_matches <- # one recording in VI_matches_demo is not assigned a match here because it is a participant's second recording
   c(
     "TD_436_678",
     "TD_443_341",
@@ -44,7 +42,6 @@ TD_matches <-
     "TD_475_481",
     "TD_477_217"
   )
-# one recording in VI_matches_demo is not assigned a match here because it is a participant's second recording
 
 ## Load in transcripts and automated metrics
 
@@ -72,9 +69,10 @@ VITD_transcripts <-
   read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-09-11.csv") %>% 
   mutate(VIHI_ID = as.factor(str_sub(VIHI_ID, 1, 10))) %>%
   filter(VIHI_ID %in% TD_matches | group == "VI") %>% # only look at data from VI kids or their TD matches
-  # issue: zhenya2erin: This doesn't remove language tags like "[- spa]". I would go through the list of all minchat special tags and confirm that all of them are removed.
   mutate(
-    utterance_clean = str_replace_all(utterance, "<\\w+>", ""), # Replace any substrings enclosed within angle brackets with an empty string (any of the slang)
+    utterance_clean = str_replace_all(utterance, "&=\\w+", ""), # Remove substrings starting with &=
+    utterance_clean = str_replace_all(utterance_clean, "<[^[:space:]]+?\\b(?!: clarifier)>", ""), # Remove text enclosed in <> only if not followed by [: clarifier]
+    utterance_clean = str_replace_all(utterance_clean, "\\[-\\s[a-z]{3}\\]", ""), # Remove language tags like "[- spa]" or "[- ger]"
     utterance_clean = str_replace_all(utterance_clean, "=!\\w+\\s*", ""), # Remove any substrings starting with "=!" followed by one or more word characters and optional whitespace (get rid of the style markers =!shrieks)
     utterance_clean = str_replace_all(utterance_clean, "[[:punct:]&&[^']]", "") # Remove any punctuation, except for apostrophes
   ) %>%
@@ -83,12 +81,6 @@ VITD_transcripts <-
   filter(!grepl("utt@|inq@", speaker)) %>% # remove non-utterance info
   mutate(utt_num = 1:nrow(.)) # number the utterances
 write_csv(VITD_transcripts, "../data/LENA/Transcripts/Derived/VITD_transcripts.csv")
-
-# issue: zhenya2erin: I would avoid that hardcoded 70. The longest utterance is 51 words long which isn't that far from 70. So, however unlikely, it is possible for there to be a new utterance that is longer than 70. Since warnings are silenced in the manuscript, there would be no indications that something went wrong.#    ```
-# VITD_LENA_utterances_split1 <- VITD_transcripts %>%
-#   separate(utterance_clean,
-#            into = paste0("Word", 1:70),
-#            sep = " ") #separate utterances into columns with 1 column per word
 
 VITD_LENA_utterances_split <- VITD_transcripts %>%
   rename(Word = utterance_clean) %>%
