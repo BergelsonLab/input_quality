@@ -2,10 +2,6 @@
 
 # praise: zhenya2erin: While this code is less clean than the code in the manuscript, I still didn't need any help figuring out what happens here. So most of my comments below are about implementation details.
 
-# note: zhenya2erin: This script is quite long and does a lot of things, some of which I wouldn't call preprocessing. I would split it into several scripts. That would help to see the relationships between dataframes and decrease the RAM requirements.
-
-# note: zhenya2erin: It helps the readability when dataframes names are descriptive. What that means exactly is very subjective so this is just something to keep in mind. Another thing that helps is keeping the names consistent.
-
 # issue: zhenya2erin: Distinct issue. Using `distinct(***, .keep_all=TRUE)` is a hard-to-notice error waiting to happen because you are silently dropping rows with potentially non-redundant information. It groups the dataframe by the variables in `***` and keeps the first row in each group. Even when that is exactly what one wants (like when picking the first verb for temporality judgment), the table should be sorted within groups first so that "the first" makes sense. And if you do that, you might as well use `filter(row_number() == 1` or `slice(1)` instead of `distinct(***, .keep_all=TRUE)`. In all other cases, the duplication should be investigated and avoided.
 
 library(dplyr)
@@ -79,6 +75,7 @@ VITD_transcripts <-
   filter(speaker != "EE1", speaker != "CHI") %>% # remove CHI utts and electronic noise
   filter(!utterance == c("xxx.")) %>% #remove unintelligible utterances
   filter(!grepl("utt@|inq@", speaker)) %>% # remove non-utterance info
+  filter(!is.na(utterance_clean)) %>%
   mutate(utt_num = 1:nrow(.)) # number the utterances
 write_csv(VITD_transcripts, "../data/LENA/Transcripts/Derived/VITD_transcripts.csv")
 
@@ -143,7 +140,7 @@ write_csv(manual_word_tokens,
 xds_props_wide <- VITD_transcripts %>%
   filter(sampling_type == "random") %>% # for interaction measures, we're only looking at random samples (high-volume might overrepresent)
   group_by(group, VIHI_ID) %>%
-  summarise( #calculate proportions by xds. erin2zhenya: it seems like there should be a less redundant way to do this
+  summarise( #calculate proportions by xds. 
     total = n(), 
     prop_ADS = sum(xds == "A") / total,
     prop_CDS = sum(xds == "C") / total,
@@ -249,8 +246,6 @@ simple_morpheme_counts <-
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2)))
 
 MLUs <- simple_morpheme_counts %>%
-  # issue: zhenya2erin: This is an unexpected place to remove empty utterances.If they were already present in VITD_transcripts I would filter them out earlier. If they were introduced during the left join above then I would explain why this is not an error.
-  filter(!is.na(utterance_clean)) %>%
   group_by(group, VIHI_ID) %>%
   summarise(MLU = mean(morphemecount)) %>%
   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
