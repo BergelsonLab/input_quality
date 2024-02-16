@@ -2,8 +2,8 @@
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{input_quality_manuscript_files/figure-latex/corpus-size-plot-1.pdf}
-\caption{\label{fig:corpus-size-plot}The amount of text that analyses are run over. Left panel shows the corpus size in words, and right panel shows the corpus size in utterances.}
+\includegraphics{input_quality_manuscript_files/figure-latex/corpus-size-plots-1.pdf}
+\caption{\label{fig:corpus-size-plots}The amount of text that analyses are run over. Left panel shows the corpus size in words, and right panel shows the corpus size in utterances. Each bar shows the amount of speech in one child's recording, colored by whether the words/utterances were in random or high-volubility samples.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}

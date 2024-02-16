@@ -217,12 +217,11 @@ write_csv(TTR_calculations, "../data/LENA/Transcripts/Derived/TTR_calculations.c
 # write_csv(simple_morpheme_counts, "../data/LENA/Transcripts/Derived/MLUs.csv")
 
 
-# suggestion: zhenya2erin: For less widely used packages, I would leave a comment with the name of the package or use the <pkg>::<fun> syntax. For example, I had to do `??morphemepiece_tokenize` to figure out what package I needed to load.
 # suggestion: zhenya2erin: Since we switched to `renv`, the version of `morphemepiece` is fixed and it is unnecessary to list all the parameters with their default values.
 # suggestion: zhenya2erin: At least for me, tokenization doesn't automatically imply tokenization into morphemes. Also, later in the script we will do word tokenization adding an extra layer of ambiguity. I would use a more descriptive name that contains both "utterance" (since each row is an utterance) and "morphemes" (since each morpheme in the corpus is a column). Something like "utterance_morpheme_map".
 # issue: zhenya2erin: Are "##" morphemes counted intentionally? I would filter out or exlain.
 tokenized_VITD_transcripts <-
-  morphemepiece_tokenize(
+  morphemepiece::morphemepiece_tokenize(
     VITD_transcripts$utterance_clean,
     vocab = morphemepiece_vocab(),
     lookup = morphemepiece_lookup(),
@@ -252,7 +251,6 @@ MLUs <- simple_morpheme_counts %>%
 write_csv(MLUs, "../data/LENA/Transcripts/Derived/MLUs.csv")
 
 
-# note: zhenya2erin: I would recommend setting random seed for reproducibility. Say, you realize you need to generate this samples in a different way and change the code. Without setting the seed, you won't be able to see the results of your changes. To avoid affecting any consequent randomizations, I would use `with::with_seed` that resets the seed after an expression is evaluated.
 #### get a random subset of utterances, and write out to a csv. DO NOT UNCOMMENT CODE AND RERUN THESE STEPS (risks overwriting previous csv)
 # random_MLU_subset <- simple_morpheme_counts%>%
 #     filter(!is.na(morphemecount) &!is.na(utterance)) %>%
@@ -357,7 +355,6 @@ write_csv(sensory_props,
 #
 # I've also added some comments to the code below.
 
-# question: zhenya2erin: There are utterances in Spanish, should they be processed using the model for Spanish?
 udpipe_english <- udpipe_download_model(language = "english") # download the udpipe english model
 udmodel_english <-
   udpipe_load_model(file = udpipe_english$file_model)
@@ -401,7 +398,6 @@ verbs_only <- annotated_utterances %>%
 write_csv(verbs_only, "../data/LENA/Transcripts/Derived/verbs_only.csv")
 
 
-# note: zhenya2erin: Same as for the random samples earlier in the script, I would recommend using `withr::with_random_seed` to keep the samples reproducible.
 # Randomly select a subset of the utterances for manual coding DO NOT UNCOMMENT CODE AND RERUN THESE STEPS (risks overwriting previous csv)
 #### this follows the same procedure as above ^ 
 # random_displacement_subset <- verbs_only %>%

@@ -50,11 +50,10 @@ output            : papaja::apa6_pdf
 
 <!-- suggestion: zhenya2erin: I highly recommend using `renv` instead of a list of packages. -->
 
-<!-- nitpick: zhenya2erin: Chunk names could be updated -->
-
-
 ```{r preferences, echo = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+set.seed(553)
 
 preprocess <- FALSE
 new_graphs <- FALSE
@@ -134,20 +133,6 @@ VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv", na = c("
 # VIHI_transcripts_messy <- read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
 
 ```
-
-```{r get-data}
-
-participants_summary <- LENA_counts %>%
-  mutate(Age_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))),
-         Age_months = Age_days * 0.0328767) %>%
-  group_by(group) %>%
-  summarize(age = mean(Age_months,na.rm=TRUE),
-            min_age = min(Age_months),
-          max_age = max(Age_months),
-          N=n())
-
-```
-
 
 ```{r functions}
 # praise: zhenya2erin: I love the use of reporting functions.
@@ -240,6 +225,8 @@ cowplot_title <- function(title_text) {
 }
 
 ```
+
+
 # Abstract
 
 **Purpose:** This study compared language input to young blind children and their sighted peers in naturalistic home settings.
@@ -284,12 +271,6 @@ If properties of language input influence the likelihood of language delays amon
 
 # Methods
 
-## Participants
-
-`r LENA_counts %>% filter(group=="VI") %>% distinct(VIHI_ID, .keep_all =TRUE) %>% nrow()` blind infants and their families participated in this study. To be eligible, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Blind participants were recruited through ophthalmologist referral, preschools, early intervention programs, social media, and word of mouth. Blindness in our sample was caused by a range of conditions, including cataracts (n=`r VI_matches_demo %>% filter(Diagnosis == "Cataracts") %>% nrow()`), Leber's Congenital Amaurosis (n=`r VI_matches_demo %>% filter(Diagnosis == "Leber's Congenital Amaurosis ") %>% nrow()`), Microphthalmia (n=`r VI_matches_demo %>% filter(Diagnosis == "Microphthalmia ") %>% nrow()`), Ocular albinism (n=`r VI_matches_demo %>% filter(Diagnosis == "Ocular albinism") %>% nrow()`), Optic Nerve Hypoplasia (n=`r VI_matches_demo %>% filter(Diagnosis == "Optic Nerve Hypoplasia") %>% nrow()`), Retinal Detachments (n=`r VI_matches_demo %>% filter(Diagnosis == "Retinal Detachments") %>% nrow()`), and Retinopathy of Prematurity (n=`r VI_matches_demo %>% filter(Diagnosis == "Retinopathy of Prematurity") %>% nrow()`). Etiology was unknown in `r VI_matches_demo %>% filter(Diagnosis == "Not specified") %>% nrow()` participants, and `r VI_matches_demo %>% filter(Diagnosis == "Multiple") %>% nrow()` participants had multiple contributing conditions. Caregivers were also asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI, @fenson1994] within one week of the home language recording. 
-
-To control for the wide age range of the study, each blind participant was matched to a sighted participant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level), and number of siblings ($\pm$ 1 sibling). Sighted matches were drawn from the multiple existing corpora [@vandam2015; @vandam2016; @bergelson2015a; @bergelson2019; @ramirez-esparza2014; @warlaumont2016; @wang2022; @rowland2018], or when there was no recording available that matched a blind participant's demographic characteristics, collected *de novo*. See Table \@ref(tab:participant-characteristics) for sample characteristics.
-
 ```{r participant-characteristics, results="asis"}
 # issue: zhenya2erin: I set this variable to NA because I commented out code that creates VIHI_transcripts_messy. This should definitely not stay like that because this number is used in the text.
 perc_random_silent <- NA
@@ -306,7 +287,14 @@ perc_random_silent <- NA
   # ) * 100
 
 
-
+participants_summary <- LENA_counts %>%
+  mutate(Age_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))),
+         Age_months = Age_days * 0.0328767) %>%
+  group_by(group) %>%
+  summarize(age = mean(Age_months,na.rm=TRUE),
+            min_age = min(Age_months),
+          max_age = max(Age_months),
+          N=n())
 
 
 # nitpick: zhenya2erin: I understand that `_all` refers to not being split into blind and sighted, but the names make me think that VI_matches_demo_all has more data that VI_matches_demo.
@@ -360,6 +348,12 @@ kable(caption = "Demographic characteristics of the blind and sighted samples. F
    kable_styling(font_size = 8)
 ```
 
+## Participants
+
+`r LENA_counts %>% filter(group=="VI") %>% distinct(VIHI_ID, .keep_all =TRUE) %>% nrow()` blind infants and their families participated in this study. To be eligible, participants had to be 6--30 months old, have no additional disabilities (developmental delays; intellectual disabilities, or hearing loss), and be exposed to $\geq$ 75% English at home. Blind participants were recruited through ophthalmologist referral, preschools, early intervention programs, social media, and word of mouth. Blindness in our sample was caused by a range of conditions, including cataracts (n=`r VI_matches_demo %>% filter(Diagnosis == "Cataracts") %>% nrow()`), Leber's Congenital Amaurosis (n=`r VI_matches_demo %>% filter(Diagnosis == "Leber's Congenital Amaurosis ") %>% nrow()`), Microphthalmia (n=`r VI_matches_demo %>% filter(Diagnosis == "Microphthalmia ") %>% nrow()`), Ocular albinism (n=`r VI_matches_demo %>% filter(Diagnosis == "Ocular albinism") %>% nrow()`), Optic Nerve Hypoplasia (n=`r VI_matches_demo %>% filter(Diagnosis == "Optic Nerve Hypoplasia") %>% nrow()`), Retinal Detachments (n=`r VI_matches_demo %>% filter(Diagnosis == "Retinal Detachments") %>% nrow()`), and Retinopathy of Prematurity (n=`r VI_matches_demo %>% filter(Diagnosis == "Retinopathy of Prematurity") %>% nrow()`). Etiology was unknown in `r VI_matches_demo %>% filter(Diagnosis == "Not specified") %>% nrow()` participants, and `r VI_matches_demo %>% filter(Diagnosis == "Multiple") %>% nrow()` participants had multiple contributing conditions. Caregivers were also asked to complete a demographics survey and the MacArthur-Bates Communicative Development Inventory [CDI, @fenson1994] within one week of the home language recording. 
+
+To control for the wide age range of the study, each blind participant was matched to a sighted participant, based on age ($\pm$ 6 weeks), gender, maternal education ($\pm$ one education level), and number of siblings ($\pm$ 1 sibling). Sighted matches were drawn from the multiple existing corpora [@vandam2015; @vandam2016; @bergelson2015a; @bergelson2019; @ramirez-esparza2014; @warlaumont2016; @wang2022; @rowland2018], or when there was no recording available that matched a blind participant's demographic characteristics, collected *de novo*. See Table \@ref(tab:participant-characteristics) for sample characteristics.
+
 ## Recording Procedure
 
 For the recording portion of the study, caregivers of participating infants received a LENA wearable audio recorder and vest [@ganek2016; @gilkerson2008]. They were instructed to place the recorder in the vest on the day of their scheduled recording and put the vest on their child from the time they woke up until the recorder automatically shut off after 16 hours (setting the vest nearby during baths, naps, and car rides). Actual recording length ranged from `r seconds_to_length(min(LENA_counts$total_time_dur))` to `r seconds_to_length(max(LENA_counts$total_time_dur))` (Mean: `r seconds_to_length(mean(LENA_counts$total_time_dur, na.rm=TRUE))`).
@@ -376,10 +370,12 @@ Manual annotation of the selected segments was conducted using the ELAN software
 
 ## Extracting Measures of Language Input
 
-To go from our dimensions of interest (quantity, interactiveness, linguistic, conceptual), to quantifiable properties, we used a combination of automated measures [generated by the proprietary LENA algorithm, @xu2009] and manual measures (generated from the transcriptions made by our trained annotators). Altogether, this corpus presently includes approximately `r round(sum(LENA_counts$total_time_dur) / 60 / 60)` hours of audio, `r nrow(VITD_transcripts)` utterances, and `r nrow(VITD_LENA_words)` words; see Figure \@ref(fig:corpus-size-plot). Quantity and interactiveness analyses were conducted on the random samples only, to capture a more representative estimate. Linguistic and conceptual analyses were conducted on all available annotations in order to maximize the amount of speech over which we could calculate them. These measures are described below and summarized in Table \@ref(tab:ps).
+To go from our dimensions of interest (quantity, interactiveness, linguistic, conceptual), to quantifiable properties, we used a combination of automated measures [generated by the proprietary LENA algorithm, @xu2009] and manual measures (generated from the transcriptions made by our trained annotators). Altogether, this corpus presently includes approximately `r round(sum(LENA_counts$total_time_dur) / 60 / 60)` hours of audio, `r nrow(VITD_transcripts)` utterances, and `r nrow(VITD_LENA_words)` words; see Figure \@ref(fig:corpus-size-plot). Quantity and interactiveness analyses were conducted on the random samples only, to capture a more representative estimate. Linguistic and conceptual analyses were conducted on all available annotations in order to maximize the amount of speech over which we could calculate them. These measures are described below and summarized in Table \@ref(tab:analysis-summary-table).
 
-```{r corpus-size-plot, fig.cap="The amount of text that analyses are run over. Left panel shows the corpus size in words, and right panel shows the corpus size in utterances."}
-# issue: zhenya2erin: These two block have almost identical code. It is hard to say for sure though. A function would make the code more clear.
+```{r corpus-size-plots, fig.cap="The amount of text that analyses are run over. Left panel shows the corpus size in words, and right panel shows the corpus size in utterances. Each bar shows the amount of speech in one child's recording, colored by whether the words/utterances were in random or high-volubility samples."}
+
+#ec2eb: I don't actually know that we need to include these in the paper (which is why I haven't used the same color scheme, etc.) These plots just are in response to your question: how many words are actually in these analyses? Let me know if you want something like this in the paper
+
 word_counts_plot <- ggplot((VITD_LENA_words %>% filter(sampling_type == "random" | sampling_type == "high-volubility")), aes(x=fct_infreq(VIHI_ID), fill=sampling_type)) +
   geom_bar(position="stack") +
   theme_classic()+
@@ -480,7 +476,8 @@ To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions
 
 #### Proportion of highly visual words
 
-In addition to this general measure of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We first filter the input to only content words (excluding, for example: the, at, of), using tidytext's stop_words function. We then categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, ratings from typically-sighted adults about the extent to which a word evokes a visual/tactile/auditory/etc. experience [@lynott2020]. Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings across all modalities were re-categorized as *amodal*, and words whose ratings were distributed across modalities were re-categorized as *multimodal*[^3]. Using this system, each of the content words in children's input were categorized into their primary perceptual modality. For each child, we extracted the proportion of exclusively "visual" words in their language environment.
+In addition to this general measure of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We first filter the input to only content words (excluding, for example: the, at, of), using tidytext's stop_words function. We then categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, ratings from typically-sighted adults about the extent to which a word evokes a visual/tactile/auditory/etc. experience [@lynott2020]. Each word in the Lancaster Sensorimotor Norms 
+(~40,000 English words) get a score for each of 6 sensory modalities (auditory, haptic, gustatory, interoceptive, olfactory, visual). Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings across all modalities were re-categorized as *amodal*, and words whose ratings were distributed across modalities were re-categorized as *multimodal*[^3]. Using this system, each of the content words in children's input were categorized into their primary perceptual modality. For each child, we extracted the proportion of exclusively "visual" words in their language environment.
 
 [^3]: We used thresholds of \< 3.5/5 for the maximum perceptual rating, and \< 0.5/1 for perceptual exclusivity [calculated as a word's range of ratings across modalities divided by the sum of ratings across modalities, @lynott2020]. These specific values were chosen because they, for a subset of the words, best aligned with human judgments of which words referred to multimodal vs. amodal vs. visual phenomena. Note, however, that the results appear robust across a range of thresholds for categorization.
 
@@ -488,14 +485,13 @@ In addition to this general measure of decontextualized language, we include one
 
 ## Measuring Properties of Language Input
 
-Our study assesses whether language input to blind children is different from the language input to sighted children, along the dimensions of quantity, interaction, linguistic properties, and conceptual properties. We test for group differences using paired t-tests or non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed (summarized in Table \@ref(tab:ps)). Because this analysis involves multiple tests against the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the Benjamini-Hochberg correction [@benjamini1995] to control false discovery rate (Q = .05) for each set of analyses (quantity, interaction, linguistic, conceptual). Because each dimension's analysis consists of two statistical tests, our Benjamini-Hochberg critical values were *p* \< `r papaja::printnum((1/2 * .05),digits=3)` for the smaller *p* value and *p* \< `r papaja::printnum((2/2 * .05),digits=2)` for the larger *p* value. The results of these analyses are summarized in Table \@ref(tab:ps).
+Our study assesses whether language input to blind children is different from the language input to sighted children, along the dimensions of quantity, interaction, linguistic properties, and conceptual properties. We test for group differences using paired t-tests or non-parametric Wilcoxon signed rank tests, when a Shapiro-Wilks test indicates that the variable is not normally distributed (summarized in Table \@ref(tab:analysis-summary-table)). Because this analysis involves multiple tests against the null hypothesis (*that there is no difference in the language input to blind vs. sighted kids*), we use the Benjamini-Hochberg correction [@benjamini1995] to control false discovery rate (Q = .05) for each set of analyses (quantity, interaction, linguistic, conceptual). Because each dimension's analysis consists of two statistical tests, our Benjamini-Hochberg critical values were *p* \< `r papaja::printnum((1/2 * .05),digits=3)` for the smaller *p* value and *p* \< `r papaja::printnum((2/2 * .05),digits=2)` for the larger *p* value. The results of these analyses are summarized in Table \@ref(tab:analysis-summary-table).
 
 ### Language Input Quantity
 
-```{r compare-AWC}
+```{r compare-quantity}
 # issue: zhenya2erin: There needs to be a comment describing AWC_stand and
 #  the contents of manual_word_tokens
-# praise: zhenya2erin: The code is short and clear so the repetition is not an issue.
 
 
 AWC_shapiro <- shapiro.test(LENA_counts$AWC_stand)
@@ -745,10 +741,7 @@ cowplot::plot_grid(conceptual_title, conceptual_plots, rel_heights = c(0.1, 2), 
 
 Lastly, we compared two measures of the conceptual features of language input: the proportion of temporally displaced verbs and the proportion of highly visual words. We found that blind children hear a higher proportion of displaced verbs than sighted children (*t*(`r temporality_test$parameter`) = `r temporality_test$statistic`, *p* `r papaja::printp(temporality_test$p.value, add_equals=TRUE)`), which  on average equates to `r round(abs(temporality_test$estimate) * (mean(temporality_props_wide$verb_utt_count)) * (60/40))` more utterances about past, future, or hypothetical events per hour. We found no significant difference across groups in the proportion of highly visual words (*W* = `r visual_test$statistic`, *p* `r printp(visual_test$p.value, add_equals=TRUE)`), which constitute roughly `r round((mean(sensory_props_wide$prop_Visual))*100)`% of the input for both groups.
 
-```{r ps, results='asis'}
-
-  
-
+```{r analysis-summary-table, results='asis'}
 
 # issue: zhenya2erin: Having multiple vectors that need to match each other is a recipe for disaster, in my opinion. This definitely needs to be refactored. One way to do this:
 #  - Instead of using adjust, convert LENA_counts to per hour during preprocessing/loading.
