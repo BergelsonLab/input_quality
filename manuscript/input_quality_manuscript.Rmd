@@ -91,10 +91,6 @@ if (preprocess == TRUE) {source("input_quality_preprocessing.R")} else {
 # question: zhenya2erin: Are some of these files subsets of another bigger one?
 
 # praise: zhenya2erin: The READMEs in the data folders are very informative!
-# issue: zhenya2erin: It is hard to guess the contents of these tables from their names.
-#  Which is OK but at least a short description of the contents would be very helpful.
-#  Especially the aggregation level of each.
-#  I can deduce that information from the READMEs in the data folders but it is hard to consult them while reading the code.
 
 # suggestion: zhenya2erin: To avoid repetition and make this code easier to read, I would define the path to the Transcripts directory in the setup chunk and use it here.
 #  For even less repetition, I would define a function that does `read_csv(file.path(transcripts_folder, filename))`.
@@ -126,7 +122,6 @@ displacement_subset_for_agreement <- read_csv("../data/LENA/Transcripts/Derived/
 
 
 #demo
-# note: zhenya2erin: Another - slightly different way to deal with the spaces is to use `trim_ws = TRUE` which removes spaces, tabs, etc. before parsing values.
 VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv", na = c("", "NA", " "))
 # issue: zhenya2erin: This file isn't in the repo so I commented out the following line.
 #  This dataframe is used to calculate 

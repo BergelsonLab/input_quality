@@ -12,6 +12,12 @@ library(morphemepiece)
 library(tidytext)
 library(udpipe)
 
+# functions
+get_match_number <- function(df) { 
+  df %>%
+    left_join((VI_matches_demo %>% select(VIHI_ID,pair)), by = "VIHI_ID")
+}
+
 ## demographics
 VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv")
 
@@ -49,7 +55,7 @@ LENA_counts <-
     CTC_stand = CTC / (total_time_dur / (30 * 60)) # change CTC to be per 30 minutes (so that it aligns with the length of time our random sample annotations span)
   ) %>%
   # issue: zhenya2erin: This join is repeated multiple times throughout the code. I would convert it into a function in this script or move higher up the pipeline.
-  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID") %>% # add a column that indicates which pair each child is a member of
+  get_match_number() %>% # add a column that indicates which pair each child is a member of
   # issue: zhenya2erin: See the "Distinct issue" at the top of the script.
   distinct(its_path, .keep_all = TRUE) # remove duplicate rows
 write_csv(LENA_counts, "../data/LENA/Automated/LENA_counts.csv")
@@ -126,7 +132,7 @@ manual_word_tokens <- VITD_LENA_words %>%
   filter(sampling_type == "random") %>% # for quantity measures, we're only looking at random samples (high-volume might overrepresent)
   group_by(VIHI_ID) %>%
   summarise(tokens = n()) %>% # count the number of rows, grouped by child (VIHI_ID). each row is one word, so this should give us the token count.
-  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID") %>% # add pair info
+  get_match_number() %>% # add pair info
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>% # add group (determined by VIHI_ID)
   # issue: zhenya2erin: See the "Distinct issue" at the top of the script.
   distinct(VIHI_ID, .keep_all = TRUE) 
@@ -150,7 +156,7 @@ xds_props_wide <- VITD_transcripts %>%
     prop_UDS = sum(xds == "U") / total,
     prop_PDS = sum(xds == "P") / total 
   ) %>%
-  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
+get_match_number() 
 write_csv(xds_props_wide, "../data/LENA/Transcripts/Derived/xds_props_wide.csv")
 xds_props <- xds_props_wide %>%
   pivot_longer(
@@ -191,7 +197,7 @@ TTR_calculations <- VITD_LENA_words %>%
   summarise(num_bins = n(),
             mean_ttr = mean(ttr)) %>%
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
-  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
+  get_match_number()
 write_csv(TTR_calculations, "../data/LENA/Transcripts/Derived/TTR_calculations.csv")
 
 ## MLU ---- erin2zhenya: I don't like how I calculated MLU. Feels sloppy and open to errors, but I struggled with others. Do you have ideas?
@@ -212,7 +218,7 @@ write_csv(TTR_calculations, "../data/LENA/Transcripts/Derived/TTR_calculations.c
 #   filter(!is.na(utterance_clean)) %>%
 #   group_by(group, VIHI_ID) %>%
 #   summarise(MLU = mean(morphemecount)) %>%
-#   left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
+#   get_match_number()
 # 
 # write_csv(simple_morpheme_counts, "../data/LENA/Transcripts/Derived/MLUs.csv")
 
@@ -247,7 +253,7 @@ simple_morpheme_counts <-
 MLUs <- simple_morpheme_counts %>%
   group_by(group, VIHI_ID) %>%
   summarise(MLU = mean(morphemecount)) %>%
-  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
+get_match_number()
 write_csv(MLUs, "../data/LENA/Transcripts/Derived/MLUs.csv")
 
 
@@ -313,7 +319,7 @@ sensory_props_wide <- VITD_LENA_words %>%
     prop_Multimodal = sum(Modality == "Multimodal") / total,
     prop_Amodal = sum(Modality == "Amodal") / total
   ) %>%
-  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
+  get_match_number()
 write_csv(sensory_props_wide,
           "../data/LENA/Transcripts/Derived/sensory_props_wide.csv")
 sensory_props <- sensory_props_wide %>%
@@ -467,7 +473,7 @@ temporality_props_wide <- verbs_only %>%
                             verb_utt_count)
   ) %>%
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
-  left_join((VI_matches_demo %>% dplyr::select(VIHI_ID, pair)), by = "VIHI_ID")
+  get_match_number()
 write_csv(
   temporality_props_wide,
   "../data/LENA/Transcripts/Derived/temporality_props_wide.csv"
