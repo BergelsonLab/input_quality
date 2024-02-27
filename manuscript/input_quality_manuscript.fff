@@ -24,7 +24,7 @@
 
 \centering
 \includegraphics{input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf}
-\caption{\label{fig:linguistic-plots}Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher.}
+\caption{\label{fig:linguistic-plots}Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher. Note that the y-axis on the type-token ratio plot has been truncated.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}

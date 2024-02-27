@@ -77,6 +77,7 @@ library(kableExtra)
 library(irr)
 library(udpipe)
 library(cowplot)
+library(ggpubr)
 ```
 
 
@@ -88,12 +89,7 @@ if (preprocess == TRUE) {source("input_quality_preprocessing.R")} else {
 #  Can it be deleted?
 # lotta_data <- read_csv("../data/LENA/Transcripts/Derived/lotta_data.csv")  
 
-# question: zhenya2erin: Are some of these files subsets of another bigger one?
-
 # praise: zhenya2erin: The READMEs in the data folders are very informative!
-
-# suggestion: zhenya2erin: To avoid repetition and make this code easier to read, I would define the path to the Transcripts directory in the setup chunk and use it here.
-#  For even less repetition, I would define a function that does `read_csv(file.path(transcripts_folder, filename))`.
 
 # quantity
 LENA_counts <- read_csv("../data/LENA/Automated/LENA_counts.csv")
@@ -156,13 +152,8 @@ report_factor <- function(vector) {
 }
 
 get_group_means <- function(data, column, subset, unit = "",adjust=1,digits=2) {
-  # issue: zhenya2erin: This function needs documentation.
   filtered_data <- data %>%
     filter({{ subset }})
-  # suggestion: zhenya2erin: Create a nested function with the signature `my_apply(min, vector)` for readability.
-  # issue: zhenya2erin: na.rm=TRUE needs to be explained. I would suggest making it
-  #  a parameter that defaults to FALSE and leave a comment before every call
-  #  that requires it to be set to TRUE.
   mean_value <- mean(filtered_data[[column]], na.rm=TRUE)*adjust
   median_value <- median(filtered_data[[column]], na.rm=TRUE)*adjust
   min_value <- min(filtered_data[[column]], na.rm=TRUE)*adjust
@@ -178,7 +169,7 @@ seconds_to_length <- function(seconds, format = "f", ...) {
   paste0(hour(seconds_to_period(seconds)), " hours ", minute(seconds_to_period(seconds)), " minutes")
 }
 
-make_blind_sighted_violins <- function(data, x_var, y_var, group_var, y_label, title = NULL) {
+make_blind_sighted_violins <- function(data, x_var, y_var, group_var, y_label, sig_higher=NA,title = NULL, y_axis_start=0) {
   ggplot(data = data, aes_string(x = x_var, y = y_var, color = group_var, fill = group_var)) +
     geom_violinhalf(alpha = .5, trim = FALSE, flip=1) +
     geom_line(aes_string(group = "pair"), color = "grey10", alpha = .1) +
@@ -188,7 +179,10 @@ make_blind_sighted_violins <- function(data, x_var, y_var, group_var, y_label, t
       legend.title = element_blank(),
       legend.position = "none",
       axis.text.x = element_text(angle = 45, hjust = 1),
-      text = element_text(size = 10)
+      text = element_text(size = 10),
+      panel.background = element_rect(fill = case_when(sig_higher=="blind" ~ "#EDFAFD",
+                                                       sig_higher=="sighted" ~ "#F4EBFF",
+                                                       is.na(sig_higher)~ "white"))
     ) +
     scale_color_manual(
       breaks = c("TD", "VI"),
@@ -202,7 +196,8 @@ make_blind_sighted_violins <- function(data, x_var, y_var, group_var, y_label, t
     ) +
     stat_summary(fun.data = "mean_cl_boot", color = 'black') +
     scale_x_discrete(labels = c("VI" = "Blind", "TD" = "Sighted")) +
-    coord_cartesian(ylim = c(0, max(data[[y_var]] * 1.1)))
+    coord_cartesian(ylim = c(y_axis_start, max(data[[y_var]] * 1.1))) +
+    ggpubr::stat_compare_means(label =  "p.signif", paired=TRUE, label.x = 1.5)
 }
 
 cowplot_title <- function(title_text) {
@@ -291,18 +286,20 @@ participants_summary <- LENA_counts %>%
           max_age = max(Age_months),
           N=n())
 
-
-# nitpick: zhenya2erin: I understand that `_all` refers to not being split into blind and sighted, but the names make me think that VI_matches_demo_all has more data that VI_matches_demo.
 # nitpick: zhenya2erin: It might make this document cleaner if this was done in the preprocessing step.
-VI_matches_demo_all <- VI_matches_demo %>%
+VI_matches_demo_clean <- VI_matches_demo %>%
   mutate(match_group = as.factor(case_when(
     match_group == "VI_TD" ~ "Sighted (N=15)",
     match_group == "VI" ~ "Blind (N=15)")
   ),
   Race = if_else(Race == "Black or African American,White", "Mixed", Race),
+  MaternalEd = as.factor(case_when(
+    MaternalEd == "Doctoral degree" ~ "Graduate degree",
+    MaternalEd == "Master's degree" ~ "Graduate degree",
+    TRUE ~ MaternalEd
+  )),
 MaternalEd = factor(MaternalEd, levels = c("Some college", "Associate's degree",
- "Bachelor's degree", "Master's degree",
- "Doctoral degree"
+ "Bachelor's degree", "Graduate degree"
  )),
   Gender = recode(Gender, "F" = "Female", "M" = "Male"))  %>%
   dplyr::rename(Group = match_group) %>%
@@ -311,36 +308,72 @@ MaternalEd = factor(MaternalEd, levels = c("Some college", "Associate's degree",
            Gender = factor(Gender,levels=c("Female","Male")),
 ) 
 
-VI_matches_demo_blind <- VI_matches_demo_all %>%
+VI_matches_demo_blind <- VI_matches_demo_clean %>%
   filter(Group == "Blind (N=15)")
 
-VI_matches_demo_sighted <- VI_matches_demo_all %>%
+VI_matches_demo_sighted <- VI_matches_demo_clean %>%
   filter(Group == "Sighted (N=15)")
 
 
 # issue: zhenya2erin: The code below is very hard to read which makes it easy to miss an error somewhere.
 #  A function that takes a label and a column name and returns a row of the table would make it very clear.
-as.data.frame(tribble(
-  ~ Variable, ~ "Blind (N=15)", ~ "Sighted (N=15)",
-  "Age (months)", report_continuous(VI_matches_demo_blind$Age_months, ""), report_continuous(VI_matches_demo_sighted$Age_months, ""), 
-  "Sex", report_level(VI_matches_demo_blind$Gender, "Female"), report_level(VI_matches_demo_blind$Gender, "Female"),
-  "", report_level(VI_matches_demo_blind$Gender, "Male"), report_level(VI_matches_demo_blind$Gender, "Male"),
-  "Number of Older Siblings", report_continuous(VI_matches_demo_blind$OlderSiblings, ""), report_continuous(VI_matches_demo_sighted$OlderSiblings, ""),
-  "Race", report_level(VI_matches_demo_blind$Race, "American Indian or Alaska Native"), report_level(VI_matches_demo_blind$Race, "American Indian or Alaska Native"),
-  "", report_level(VI_matches_demo_blind$Race, "Black or African American"), report_level(VI_matches_demo_sighted$Race, "Black or African American"),
-   "", report_level(VI_matches_demo_blind$Race, "Mixed"), report_level(VI_matches_demo_sighted$Race, "Mixed"),
-  "", report_level(VI_matches_demo_blind$Race, "White"), report_level(VI_matches_demo_sighted$Race, "White"),
-  "", report_level(VI_matches_demo_blind$Race, "unknown"), report_level(VI_matches_demo_sighted$Race, "unknown"),
-  "Maternal Education", report_level(VI_matches_demo_blind$MaternalEd, "Some college"), report_level(VI_matches_demo_sighted$MaternalEd, "Some college"),
-  "", report_level(VI_matches_demo_blind$MaternalEd, "Associate's degree"), report_level(VI_matches_demo_sighted$MaternalEd, "Associate's degree"),
-  "", report_level(VI_matches_demo_blind$MaternalEd, "Bachelor's degree"), report_level(VI_matches_demo_sighted$MaternalEd, "Bachelor's degree"),
-  "", report_level(VI_matches_demo_blind$MaternalEd, "Master's degree"), report_level(VI_matches_demo_sighted$MaternalEd, "Master's degree"),
-  "", report_level(VI_matches_demo_blind$MaternalEd, "Doctoral degree"), report_level(VI_matches_demo_sighted$MaternalEd, "Doctoral degree"),
-  "Ethnicity", report_level(VI_matches_demo_blind$Ethnicity, "Hispanic or Latino"), report_level(VI_matches_demo_sighted$Ethnicity, "Hispanic or Latino"),
-  "", report_level(VI_matches_demo_blind$Ethnicity, "Not Hispanic or Latino"), report_level(VI_matches_demo_sighted$Ethnicity, "Not Hispanic or Latino"),
-))  %>%
-kable(caption = "Demographic characteristics of the blind and sighted samples. For continuous variables, range and mean are provided. For categorical variables, percentages by level are provided.") %>%
-   kable_styling(font_size = 8)
+as.data.frame(
+  tribble(
+    ~ Variable,
+    ~ "Blind (N=15)",
+    ~ "Sighted (N=15)",
+    "Age (months)",
+    report_continuous(VI_matches_demo_blind$Age_months, ""),
+    report_continuous(VI_matches_demo_sighted$Age_months, ""),
+    "Sex",
+    report_level(VI_matches_demo_blind$Gender, "Female"),
+    report_level(VI_matches_demo_sighted$Gender, "Female"),
+    "",
+    report_level(VI_matches_demo_blind$Gender, "Male"),
+    report_level(VI_matches_demo_sighted$Gender, "Male"),
+    "Number of Older Siblings",
+    report_continuous(VI_matches_demo_blind$OlderSiblings, ""),
+    report_continuous(VI_matches_demo_sighted$OlderSiblings, ""),
+    "Race",
+    report_level(VI_matches_demo_blind$Race, "American Indian or Alaska Native"),
+    report_level(VI_matches_demo_sighted$Race, "American Indian or Alaska Native"),
+    "",
+    report_level(VI_matches_demo_blind$Race, "Black or African American"),
+    report_level(VI_matches_demo_sighted$Race, "Black or African American"),
+    "",
+    report_level(VI_matches_demo_blind$Race, "Mixed"),
+    report_level(VI_matches_demo_sighted$Race, "Mixed"),
+    "",
+    report_level(VI_matches_demo_blind$Race, "White"),
+    report_level(VI_matches_demo_sighted$Race, "White"),
+    "",
+    report_level(VI_matches_demo_blind$Race, "unknown"),
+    report_level(VI_matches_demo_sighted$Race, "unknown"),
+    "Maternal Education",
+    report_level(VI_matches_demo_blind$MaternalEd, "Some college"),
+    report_level(VI_matches_demo_sighted$MaternalEd, "Some college"),
+    "",
+    report_level(VI_matches_demo_blind$MaternalEd, "Associate's degree"),
+    report_level(VI_matches_demo_sighted$MaternalEd, "Associate's degree"),
+    "",
+    report_level(VI_matches_demo_blind$MaternalEd, "Bachelor's degree"),
+    report_level(VI_matches_demo_sighted$MaternalEd, "Bachelor's degree"),
+    "",
+    report_level(VI_matches_demo_blind$MaternalEd, "Graduate degree"),
+    report_level(VI_matches_demo_sighted$MaternalEd, "Graduate degree"),
+    "Ethnicity",
+    report_level(VI_matches_demo_blind$Ethnicity, "Hispanic or Latino"),
+    report_level(VI_matches_demo_sighted$Ethnicity, "Hispanic or Latino"),
+    "",
+    report_level(VI_matches_demo_blind$Ethnicity, "Not Hispanic or Latino"),
+    report_level(VI_matches_demo_sighted$Ethnicity, "Not Hispanic or Latino"),
+    "",
+    report_level(VI_matches_demo_blind$Ethnicity, "unknown"),
+    report_level(VI_matches_demo_sighted$Ethnicity, "unknown"),
+  )
+)  %>%
+  kable(caption = "Demographic characteristics of the blind and sighted samples. For continuous variables, range and mean are provided. For categorical variables, percentages by level are provided.") %>%
+  kable_styling(font_size = 8)
 ```
 
 ## Participants
@@ -472,9 +505,9 @@ To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions
 #### Proportion of highly visual words
 
 In addition to this general measure of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We first filter the input to only content words (excluding, for example: the, at, of), using tidytext's stop_words function. We then categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, ratings from typically-sighted adults about the extent to which a word evokes a visual/tactile/auditory/etc. experience [@lynott2020]. Each word in the Lancaster Sensorimotor Norms 
-(~40,000 English words) get a score for each of 6 sensory modalities (auditory, haptic, gustatory, interoceptive, olfactory, visual). Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings across all modalities were re-categorized as *amodal*, and words whose ratings were distributed across modalities were re-categorized as *multimodal*[^3]. Using this system, each of the content words in children's input were categorized into their primary perceptual modality. For each child, we extracted the proportion of exclusively "visual" words in their language environment.
+(~40,000 English words) get a score for each of 6 sensory modalities (auditory, haptic, gustatory, interoceptive, olfactory, visual). Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings across all modalities (all modalities rated less than \<3.5./5) were re-categorized as *amodal*, and words whose ratings were distributed across modalities were re-categorized as *multimodal*[^3]. Using this system, each of the content words in children's input were categorized into their primary perceptual modality. For each child, we extracted the proportion of exclusively "visual" words in their language environment.
 
-[^3]: We used thresholds of \< 3.5/5 for the maximum perceptual rating, and \< 0.5/1 for perceptual exclusivity [calculated as a word's range of ratings across modalities divided by the sum of ratings across modalities, @lynott2020]. These specific values were chosen because they, for a subset of the words, best aligned with human judgments of which words referred to multimodal vs. amodal vs. visual phenomena. Note, however, that the results appear robust across a range of thresholds for categorization.
+[^3]: Words perceptual exclusivity scores of \< 0.5/1 [calculated as a word's range of ratings across modalities divided by the sum of ratings across modalities, @lynott2020] were re-categorized as multimodal. The cut-offs for classifying amodal and multimodal words were chosen based on authors’ intuitions regarding what thresholds seemed to classify the words well into amodal, multimodal, and visual phenomena. That said, results are robust across a range of thresholds, and all data are provided to interested readers should they be interested in considering other values.
 
 # Results
 
@@ -557,7 +590,7 @@ CDS_stats <- xds_props_wide %>%
 
 Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*t*(`r compare_CDS$parameter`) = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*W* = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
 
-```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups. ", fig.width=7, fig.height=3}
+```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.", fig.width=7, fig.height=3}
 
 CTC_plot <- make_blind_sighted_violins(
   data = LENA_counts,
@@ -608,14 +641,16 @@ cowplot::plot_grid(interaction_title, interaction_plots, rel_heights = c(0.1, 1.
 
 ### Linguistic Features
 
-```{r linguistic-plots, fig.cap="Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher.", fig.height=3, fig.width=4.5}
+```{r linguistic-plots, fig.cap="Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher. Note that the y-axis on the type-token ratio plot has been truncated.", fig.height=3, fig.width=4.5}
 
 TTR_plot <- make_blind_sighted_violins(
   data = TTR_calculations,
   x_var = "group",
   y_var = "mean_ttr",
   group_var = "group",
-  y_label = "Type-Token Ratio:\nUnique Words / Total Words"
+  y_label = "Type-Token Ratio:\nUnique Words / Total Words",
+  sig_higher = "blind", 
+  y_axis_start=0.4
 )
 
 
@@ -628,7 +663,8 @@ MLU_plot <- make_blind_sighted_violins(
   y_var = "MLU",
   group_var = "group",
   y_label = "Mean Length of Utterance\n(morphemes)",
-  title = NULL
+  title = NULL,
+  sig_higher="blind"
 )
 
 
@@ -697,7 +733,8 @@ hereandnow_plot <- make_blind_sighted_violins(
   x_var = "group",
   y_var = "prop_displaced",
   group_var = "group",
-  y_label = "Proportion of Displaced Verbs"
+  y_label = "Proportion of Displaced Verbs",
+  sig_higher = "blind"
 )
 
 
@@ -772,12 +809,12 @@ tests <-
   c(
     "t-test",
     "t-test",
-    "Wilcoxon",
+    "Wilcoxon test",
     "t-test",
     "t-test",
     "t-test",
     "t-test",
-    "Wilcoxon"
+    "Wilcoxon test"
   )
 MeanBlind <-
   c(
@@ -824,7 +861,7 @@ ps_df <- bind_cols(vars, Description, `Portion of Recording`, tests, MeanBlind, 
   ) %>%
   mutate(`p value` = case_when(`p value` < .05 ~ paste0(printp(`p value`), "*"),
                                TRUE ~ printp(`p value`)))
-kable(ps_df, caption = "Summary of, for language input variable: how the measure is calculated; what portion of the recording the measure was calculated over; whether a parametric or non-parametric test was used; the mean, median, and range for blind and sighted children, and the raw p-value of the test comparing groups.", align = c("l", "l", "l", "l", "l", "l","c")) %>%
+kable(ps_df, caption = "Summary of language input variables: how the measure is calculated; what portion of the recording the measure was calculated over; whether a parametric or non-parametric test was used; the mean, median, and range for blind and sighted children, and the raw (uncorrected) p-value of the test comparing groups.", align = c("l", "l", "l", "l", "l", "l","c")) %>%
   kable_styling(font_size = 9) %>%
   column_spec(1, width = ".82in") %>%
     column_spec(2, width = "2in") %>%

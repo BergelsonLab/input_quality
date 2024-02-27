@@ -17,28 +17,32 @@ i\'92d reread whole thing with tense streamlining in mind.
 
 \f1\fs32 \cf2 \expnd0\expndtw0\kerning0
 \
-Methods 
-\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \
-Table 1:\
-* some of these demo features seem a bit surprising so let\'92s double check:\
-* there\'92s one child who is an american indian or alaska native in each sample?\
-* we really have 44% unknown race for the sighted sample?\
-* 0% of sighted sample is doctoral degree?\
-* 50% of sighted sample is not Hispanic or latino but 0% IS hispanic or latino?\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 Table 1:\
+* we really have 44% unknown race for the sighted sample? ec2eb: unfortunately yes
+\f1\fs32 \cf2 \expnd0\expndtw0\kerning0
 \
-Table 2: part before the colon hard to parse\
-* Test: could be T or Wilcoxon but t-test seems unparalleled to Wilcoxon bc both are tests\
+\
+
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 Table 2: \
 * blind mean, median, range: if you\'92re gonna do at least 2 lines per cell then can it always be \
 mean, median\
 range\
 unit\
-* by \'91raw\'92 p-value in header do you mean uncorrected?\
+ec2eb: I would really love to, but I cannot figure out how to get a line break in there without her\
 \
-\
-Fig 2 through 5: \
-* you\'92re saying whether things differed in your matched comparisons which is great bu then that sparks the question of whether they do in your stacked bars, so should say for both\
-* fig 4:  i can\'92t see the error bars on the TTR very well, can the dot size be smaller? (you could also start y axis at .4 if you say you\'92re doing so imho)\
+Figures: \
  * for comparisons where values ARE significantly different can we do something visual to show that like e.g. red error bars instead of black or something that pops out?\
+ec2eb: I tried this but didn\'92t like how it looked, so I added two (redundant) other visual bits. 1) For all the violins, I added a significance marker with ggpubr. 2) I added an optional argument to the plotting function so that if there\'92s a significant difference, the plot\'92s background color changes to the color of the higher group. I don\'92t think this is easily explained in a caption though, so my vote is just the **s/ns option.\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\f1\fs32 \cf2 \expnd0\expndtw0\kerning0
+\
+\
+Methods 
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \
+\
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
@@ -83,18 +87,14 @@ Type-Token Ratio.:
 \f2\b \cf0 *
 \fs23\fsmilli11623 \cb3 \expnd0\expndtw0\kerning0
 Proportion of highly visual words:\
-*
-\f0\b0  this paragraph needs a little bit of tweaking for the naive reader to be able to follow.\
-*lets clarify how many of the words in our transcripts have a corresponding word in Lancaster. \
-* the link between your footnote 3 and the statement it\'92s clarifying needs a little more glue. The sentence says you categorize words as amodal or multimodal, but the footnote is talking about maximum perceptual ratings and exclusivity, and also modal, multimodal, and visual. So i think you probably want something in line like \'91low ratings across modalities (i.e. all scores <X for each sense),..multimodal(a score >Y for more than one sense)\'92 or something like that . then the footnote can clarify whatever you\'92re trying to say further. Does the \'91these values were chosen bc for a subset of words they aligned with human judgments\'92 part mean it was based on your intuitions from looking at it? that\'92s fine but you could just say it more simply: These values were chosen based on authors\'92 intuitions regarding what thresholds seemed to classify the words well into modal, multimodal, and visual phenomena. That said, results are robust across a range of thresholds, and all data are provided to interested readers should they be interested in considering other values.\'94 or something\
-\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f2\b \cf0 Results
+\f0\b0 \cf0 *lets clarify how many of the words in our transcripts have a corresponding word in Lancaster. \
+\
+
+\f2\b Results
 \f0\b0 \
 * i really like the intuitive units part for ling features and conceptual features and wanted something like that for input quant and interaction, i.e. not just the stats that they\'92re not different, but the means or medians or whatever\'92s appropriate for each (based on t vs. wilcoxon). \
-* are the p values you\'92re stating the uncorrected ones? if so then .027 is not <.025 for ttr for instance \
-\
 \
 
 \f2\b Discussion

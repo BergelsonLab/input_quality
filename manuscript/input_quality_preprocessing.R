@@ -54,7 +54,6 @@ LENA_counts <-
     AWC_stand = AWC / (total_time_dur / (30 * 60)), # change AWC to be per 30 minutes (so that it aligns with the length of time our random sample annotations span)
     CTC_stand = CTC / (total_time_dur / (30 * 60)) # change CTC to be per 30 minutes (so that it aligns with the length of time our random sample annotations span)
   ) %>%
-  # issue: zhenya2erin: This join is repeated multiple times throughout the code. I would convert it into a function in this script or move higher up the pipeline.
   get_match_number() %>% # add a column that indicates which pair each child is a member of
   # issue: zhenya2erin: See the "Distinct issue" at the top of the script.
   distinct(its_path, .keep_all = TRUE) # remove duplicate rows
@@ -63,10 +62,6 @@ write_csv(LENA_counts, "../data/LENA/Automated/LENA_counts.csv")
 
 ###read in data that has been mass exported via ELAN
 
-# issue: zhenya2erin: The current version of the code produces a different "../data/LENA/Transcripts/Derived/VITD_transcripts.csv" than the one in the repository. Some of the changes are probably due to inconsequential differences in the behaviors of write.csv and write_csv: row names being included or not and character values being quoted or not. However, there are at least two substantive differences:
-#  - column "X" got renamed to "...1",
-#  - columns "con.text" and "File.Path" became "con-text" and "File Path" respectively.
-#  I re-knitted the Rmd and got the same results so it's probably enough to simpply commit the updated version.
 VITD_transcripts <-
   read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-09-11.csv") %>% 
   mutate(VIHI_ID = as.factor(str_sub(VIHI_ID, 1, 10))) %>%
