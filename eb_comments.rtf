@@ -1,6 +1,6 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2709
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fswiss\fcharset0 Helvetica-Bold;
-}
+\f3\fnil\fcharset0 LucidaGrande;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;}
 \margl1440\margr1440\vieww10980\viewh7840\viewkind0
@@ -30,11 +30,29 @@ i\'92d reread whole thing with tense streamlining in mind.
 mean, median\
 range\
 unit\
-ec2eb: I would really love to, but I cannot figure out how to get a line break in there without her\
+ec2eb: I would really love to, but I cannot figure out how to get a line break in there without weird other issues popping up\
 \
 Figures: \
  * for comparisons where values ARE significantly different can we do something visual to show that like e.g. red error bars instead of black or something that pops out?\
 ec2eb: I tried this but didn\'92t like how it looked, so I added two (redundant) other visual bits. 1) For all the violins, I added a significance marker with ggpubr. 2) I added an optional argument to the plotting function so that if there\'92s a significant difference, the plot\'92s background color changes to the color of the higher group. I don\'92t think this is easily explained in a caption though, so my vote is just the **s/ns option.\
+\
+*
+\f2\b\fs23\fsmilli11623 \cb3 \expnd0\expndtw0\kerning0
+Type-Token Ratio.: 
+\f0\b0 hm i\'92m confused about the standardization you\'92re doing. i agree that TTR changes with sample length, but these are literally coming from the same number of minutes of language. scaling it by how many words are in those minutes seems like a bizarre transformation. i\'92m happy to be convinced otherwise, but my current view is that given that it\'92s over 30min for each recording, it should be just straight up Types/tokens. \
+- The reason I started doing this in the first place is that when I was looking for comparison values in the literature, I struggled to find recent papers that calculated it just as types/tokens. Nearly all were normalizing the  denominator in some way: either by subsampling (e.g., took the first 100 words in a play session) or by doing something like we do here. \
+- Additionally, 30 of our 40 minute samples are selected randomly throughout the day, which I do think is a good way to estimate quantity differences across groups, but I\'92m not sure that leaves us with a meaningful denominator for TTR, since there\'92s some noise generated in whose random segments fall during naps, etc. Since we compare quantity elsewhere in the paper, I think it makes sense to reduce noise that isn\'92t related to lexical diversity.\
+I\'92ve continued measuring it as standardized TTR, but I\'92ve edited the paragraph in the Methods to try to explain things more clearly.\
+\
+* glad to see that manual vs. udpipe MLU is so highly correlated! did udpipe under or overshoot significantly relative to manual in that 10? (not sure we need to add it to paper but i am curious)\
+
+\fs24 \cb1 \kerning1\expnd0\expndtw0 ec2eb: it\'92s really close to 50-50. To give two examples from the extreme ends: it underestimated by 4 morphemes on \'93
+\f3\fs22 \cb3 \expnd0\expndtw0\kerning0
+your\'a0seasoning\'a0is\'a0probably\'a0giving\'a0you\'a0I\'a0like\'a0the\'a0seasoning
+\f0\fs24 \cb1 \kerning1\expnd0\expndtw0 \'94 and it overestimated by 3 on \'93
+\f3\fs22 \cb3 \expnd0\expndtw0\kerning0
+take\'a0your\'a0laptop\'a0and\'a0watch\'a0something\'a0from\'a0Amazon\'a0Prime
+\f0\fs24 \cb1 \kerning1\expnd0\expndtw0 \'94\
 \
 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
 \f1\fs32 \cf2 \expnd0\expndtw0\kerning0
@@ -47,38 +65,28 @@ Methods
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f2\b \cf0 1/30/24 picked back up at start of methods\
-METHODS\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-
-\f0\b0 \cf0 * some micro edits \
+METHODS
+\f0\b0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \fs23\fsmilli11623 \cf0 \cb3 \expnd0\expndtw0\kerning0
-*  NA%\'94\
 * can you just confirm with Zhenya that the way you\'92re characterizing the high vol selection process is right? i thought there was some kind of consideration of who the talker was in the ranking but maybe i\'92m misremembering\
 * 
 \f2\b quantity: \
-* 
-\f0\b0 could also cite the new PNAS paper where we go into great depth about validation of things like (or derived from) AWC in the Si
-\f2\b \
 *
 \f0\b0 we had some back and forth over slack about some things that seemed weird with the word count numbers, please have a look. \
 *wrt footnote 2: i would express things per hour not per half an hour, it\'92s a more intuitive unit.\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 * terminology/detail point: adult word count vs. manual word count feels weirdly unparallel; what about aAWC or mAWC for automated/manual adult word count? Or does MWC include non-adults? either way some tweaks or clarification needed (i.e. if it\'92s not just adults you\'92ll want to say what percent is from other kids, i\'92m guessing it\'92s still vast majority from adults)\
-*
-\f2\b\fs23\fsmilli11623 \cb3 \expnd0\expndtw0\kerning0
-Type-Token Ratio.: 
-\f0\b0 hm i\'92m confused about the standardization you\'92re doing. i agree that TTR changes with sample length, but these are literally coming from the same number of minutes of language. scaling it by how many words are in those minutes seems like a bizarre transformation. i\'92m happy to be convinced otherwise, but my current view is that given that it\'92s over 30min for each recording, it should be just straight up Types/tokens. \
-* 
-\f2\b MLU calculation:
-\f0\b0  there\'92s a couple of missing details: once you calculated MLU per speaker did you then average that for the final MLU number, or?\
-* glad to see that manual vs. udpipe MLU is so highly correlated! did udpipe under or overshoot significantly relative to manual in that 10? (not sure we need to add it to paper but i am curious)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs23\fsmilli11623 \cf0 \cb3 \expnd0\expndtw0\kerning0
+\
+\
 * 
 \f2\b Proportion of temporally-displaced verbs
 \f0\b0 : \
-* \'93future hypothetical categories in\'85\'94 rendering errors in the refs with parenthesis i think you don\'92t intend\
 * hm, 15% of data being uncategorized for temporality isn\'92t such small potatoes. Can these 1423 utterances be manually tagged? should be quick work esp if it\'92s mostly fragments or lack of relevant features, should be essentially all non-displaced. 
 \fs24 \cb1 \kerning1\expnd0\expndtw0 \
 * similar comment to above but more critical here since its more errors: did the auto measure tend to OVER or UNDER estimate temporal-displacement? And for those 200ish utterances where there was disagreement, was it changed to the manual (i.e. much more likely to be correct) value for analysis? (i.e. you should definitely keep the 10% separate to calculate reliability but then in cases of disagreement there should be a clear statement of what was done, which in most cases i would guess is going with the human value not the automated one, but this in part depends on whether there\'92s systematicity in the error pattern)\
@@ -90,18 +98,4 @@ Proportion of highly visual words:\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f0\b0 \cf0 *lets clarify how many of the words in our transcripts have a corresponding word in Lancaster. \
-\
-
-\f2\b Results
-\f0\b0 \
-* i really like the intuitive units part for ling features and conceptual features and wanted something like that for input quant and interaction, i.e. not just the stats that they\'92re not different, but the means or medians or whatever\'92s appropriate for each (based on t vs. wilcoxon). \
-\
-
-\f2\b Discussion
-\f0\b0 \
-\pard\pardeftab720\partightenfactor0
-\cf0 * \'93Given that blind children frequently experience language delays,\'94 you can be more precise here, i\'92m not sure the surface-level interp of this sentence is a fair characterization and no need to raise the hackles that take L&G blind = sighted as gospel when we can say something more specific. suggestion; nix the first TWO sentences of this paragraph altogether, it\'92s a bit of a red herring to your main point. Start with \'91Our results uncover\'85\'92  Then in the next paragraph, start with something like \'93At the same time, recent results show that blind children have a roughly half-year delay in their productive vocabulary, relative to sighted peers. This naturally leads to the question of whether language input may play a role in this delay.\'94 and then pick back up with \'93In our predominantly pre-lexical\'85\'94\
-* some misplaced parens in that second discussion para\
-*  i think the in our predominantly para needs a bit of work: so one possibility as you say is that if it\'92s the same for blind and sighted kids, more of xyz should \'91benefit\'92 kids (this is vague, but i think you\'92re collapsing various skills beyond lang prod, but invoking ling structure feels a little out of place or needs a bit more said). If so, more xyz should help. then you say the alternative is input does something different so maybe they need less complex input, but we think not. But there are two other things on the table we should mention. One of that there\'92s a developmental dimension here: that complex input is good but that is usually comes in for older kids so younger kids (e.g. the blind kids here, who are younger than the ttr/displaced/mlu effects you sight in sighted kids, right? ) can\'92t leverage it as well and it takes them a little longer to break into the system. Another possibility is that the input works exactly the same for both groups, and the delay is something that works its way out, and is bc the early hard-earned initial vocab may indeed be a greater hurdle without the referential and social support often attained through vision. (you can think about the late talker literature in parallel, leslie rescorla etc, : something like half of late talker just end up catching up, no problem. it just comes out in the wash. that may be the case here\'94\
-anyway this is the place you get carte blanche to carefully spectulate, let\'92s take advantage!\
-\'97> relatedly, we might also want to say something an bit more overt about dev/age/etc., even though we can\'92t really look at it but have controlled for it.}
+}

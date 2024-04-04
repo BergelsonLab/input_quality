@@ -113,15 +113,13 @@ annotated_utterances <- read_csv("../data/LENA/Transcripts/Derived/annotated_utt
 verbs_only <- read_csv("../data/LENA/Transcripts/Derived/verbs_only.csv")
 displacement_subset_for_agreement <- read_csv("../data/LENA/Transcripts/Derived/displacement_subset_for_agreement.csv")
 
-
+perc_random_silent <- read_rds("../data/LENA/Transcripts/Derived/perc_random_silent.rds")
 }
 
 
 #demo
 VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv", na = c("", "NA", " "))
-# issue: zhenya2erin: This file isn't in the repo so I commented out the following line.
-#  This dataframe is used to calculate 
-# VIHI_transcripts_messy <- read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
+
 
 ```
 
@@ -263,19 +261,6 @@ If properties of language input influence the likelihood of language delays amon
 
 ```{r participant-characteristics, results="asis"}
 # issue: zhenya2erin: I set this variable to NA because I commented out code that creates VIHI_transcripts_messy. This should definitely not stay like that because this number is used in the text.
-perc_random_silent <- NA
-  # ((
-  #   VIHI_transcripts_messy %>% filter(
-  #     !is.na(sampling_type) &
-  #       sampling_type == "random" &
-  #       is_silent == "Y"
-  #   ) %>% nrow()
-  # ) / (
-  #   VIHI_transcripts_messy %>% filter(!is.na(sampling_type) &
-  #                                       sampling_type == "random") %>% nrow()
-  # )
-  # ) * 100
-
 
 participants_summary <- LENA_counts %>%
   mutate(Age_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))),
@@ -450,7 +435,7 @@ Our other measure of interaction is the proportion of utterances that are child-
 
 #### Type-Token Ratio
 
-As in previous work [e.g., @templin1957; @pancsofar2006; @montag2018], we calculated the lexical diversity of the input by dividing the number of unique words by the total number of words (i.e., the type-token ratio). Because the type-token ratio changes as a function of the size of the language sample [@richards1987; @montag2018], we first standardized the sample length by cutting children's input (from the manual annotations) in each recording into 100-word bins. We then calculated the type-token ratio within each of these bins by dividing the number of unique words in each bin by the number of total words (\~100) and then averaged the type-token ratio across bins for each child.
+As in previous work [e.g., @templin1957; @pancsofar2006; @montag2018], we calculated the lexical diversity of the input by dividing the number of unique words by the total number of words (i.e., the type-token ratio). Because the type-token ratio changes as a function of the number of words in a sample [@richards1987; @montag2018], we first standardized the size of the sample by cutting the manual annotations in each recording into 100-word bins. We then calculated the type-token ratio within each of these bins by dividing the number of unique words in each bin by the number of total words (\~100) and then averaged the type-token ratio across bins for each child. This provided a measure of lexical diversity: per 100 words, how many unique words are children exposed to? 
 
 ```{r agreement}
 # Calculate Intraclass Correlation
@@ -488,7 +473,7 @@ n_uncat<-sum(verbs_only$temporality == "uncategorized")
 
 #### MLU
 
-We also analyzed the syntactic complexity of children's language input, approximated as mean utterance length in morphemes. Both type-token ratio and mean length of utterance in speech to infants have been found to be consistent within individual caretakers, in and out of lab settings [@stevenson1986]. Each utterance was tokenized into morphemes using the 'morphemepiece' R package [@bratt2022]. We then calculated the mean length of utterance (number of morphemes) per speaker in each audio recording. We manually checked utterance length in a random subset of 10% of the utterances (n = `r nrow(MLU_subset_for_agreement)`), which yielded a intra-class correlation coefficient of `r MLU_agreement$value` agreement with the udpipe approach (*p* `r printp(MLU_agreement$p.value)`), indicating high consistency.
+We also analyzed the syntactic complexity of children's language input, approximated as mean utterance length in morphemes. Each utterance in a child's input was tokenized into morphemes using the 'morphemepiece' R package [@bratt2022]. We then calculated the mean length of utterance (number of morphemes) in each audio recording. We manually checked utterance length in a random subset of 10% of the utterances (n = `r nrow(MLU_subset_for_agreement)`), which yielded a intra-class correlation coefficient of `r MLU_agreement$value` agreement with the udpipe approach (*p* `r printp(MLU_agreement$p.value)`), indicating high consistency.
 
 ### Conceptual Features
 
@@ -498,7 +483,7 @@ Our analysis of the conceptual features aims to measure whether the extent to wh
 
 <!-- issue: zhenya2erin: `nrow(verbs_only)` is not the number of utterances but instead the number of sentence identified by `udpipe` in utterances that contain at least one verb or auxiliary. And `n_uncat` is thus the number of such sentences that were not categorized and not the number of utterances in the corpus that weren't categorized. -->
 
-We examined the displacement of events discussed in children's linguistic environment, via properties of the verbs in their input. Notably, we are attempting to highlight semantic features of the language environment. We do so here by categorizing utterances based the syntactic and morphological features of verbs, since these contain some time information in their surface forms. We assigned each utterance a **temporality** value: utterances tagged *displaced* describe events that take place in the past, future, or irrealis space, while utterances tagged *present* describe current, ongoing events. This coding scheme roughly aligns with both the temporal displacement and future hypothetical categories in [@grimminger2020; see also: @lucariello1987; @hudson2002]. 
+We examined the displacement of events discussed in children's linguistic environment, via properties of the verbs in their input. Notably, we are attempting to highlight semantic features of the language environment. We do so here by categorizing utterances based the syntactic and morphological features of verbs, since these contain some time information in their surface forms. We assigned each utterance a **temporality** value: utterances tagged *displaced* describe events that take place in the past, future, or irrealis space, while utterances tagged *present* describe current, ongoing events. This coding scheme roughly aligns with both the temporal displacement and future hypothetical categories in @grimminger2020 [see also:  @hudson2002; @lucariello1987]. 
 
 To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, a verb either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g. *you talking to Papa?*). Features that could mark an utterance as displaced included past tense, presence of a modal, presence of *if*, or presence of *gonna*/*going to*, *have to*, *wanna*/*want to*, or *gotta*/*got to*, since these typically indicate future events, belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance. A small number of utterances in our corpus were left *uncategorized* (n = `r n_uncat`/`r nrow(verbs_only)`), either because they were fragments or because the automated parser failed to tag any of the relevant features. We manually checked verb temporality in a random subset of 10% of the utterances (n = `r nrow(displacement_subset_for_agreement)`); human judgments of event temporality aligned with the automated tense tagger `r round(displacement_agreement,2) * 100`%, indicating reasonably high reliability of this measure.
 
@@ -588,7 +573,7 @@ CDS_stats <- xds_props_wide %>%
             mean = mean(prop_CDS))
 ```
 
-Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*t*(`r compare_CDS$parameter`) = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*W* = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`).
+Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*t*(`r compare_CDS$parameter`) = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*W* = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`). Across both groups, child-directed speech constituted approximately `r round(mean(xds_props_wide$prop_CDS) * 100,0)`% of the input, and children were involved in roughly `r round(mean(LENA_counts$CTC_stand),0)` conversational turns per hour.
 
 ```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.", fig.width=7, fig.height=3}
 
@@ -903,11 +888,13 @@ We wish to highlight again how much variability there is *within* groups and how
 
 ## Connecting to Language Outcomes
 
-Given that blind children frequently experience language delays, one might reasonably wonder if such delays are attributable to their language input, as well as their visual experience. We believe that parental language input is ***not*** to blame. Our results uncover no systematic group differences in the quantity of speech or the amount of language interaction parents provide to blind vs. sighted children. When we do see differences, language input to blind children looks more conceptually and linguistically complex. In other populations, complexity of this sort is linked with *more* sophisticated child language production, so it is not the case that blind children's language input is "impoverished".
+Our results uncover no systematic group differences in the quantity of speech or the amount of language interaction parents provide to blind vs. sighted children. When we do see differences, language input to blind children looks more conceptually and linguistically complex. In other populations, complexity of this sort is linked with *more* sophisticated child language production, so it is not the case that blind children's language input is "impoverished".
 
-In our predominantly pre-lexical sample, testing this hypothesis is not yet feasible, but prior literature allows us to speculate on the nature of the relationship between parental language input and child language outcomes. We explore two possibilities: First, if input effects pattern similarly for blind and sighted children, we would expect blind and sighted children alike to benefit from more input [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021], more interactive input [@goldstein2008; @donnellan2020; @hirsh-pasek2015; @romeo2018 @weisleder2013; @rowe2008; @shneidman2013], more linguistically complex input [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001; @hoff2003; @naigles1998; @devilliers1985; @hadley2017; @huttenlocher2002], and more conceptually complex input [@rowe2012; @demir2015; @uccelli2019]. If this is the case, then receiving more complex input might help blind children to learn linguistic structure. In turn, understanding linguistic structure [@gleitman1990] may support blind children's acquisition of word meanings in the absence of vision. Alternatively, what if language input affects acquisition *differently* for blind children than it does for sighted children? Is it possible that blind children actually need *less* complex language, and that differences in language input are responsible for early vocabulary delays?
+In our predominantly pre-lexical sample, linking language input to children's language outcomes is not yet feasible, but prior literature allows us to speculate on the nature of this relationship. We explore two possibilities: First, if input effects pattern similarly for blind and sighted children, we would expect blind and sighted children alike to benefit from more input [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021], more interactive input [@goldstein2008; @donnellan2020; @hirsh-pasek2015; @romeo2018 @weisleder2013; @rowe2008; @shneidman2013], more linguistically complex input [@rowe2012; @anderson2021; @huttenlocher2010; @hsu2017; @weizman2001; @hoff2003; @naigles1998; @devilliers1985; @hadley2017; @huttenlocher2002], and more conceptually complex input [@rowe2012; @demir2015; @uccelli2019]. 
 
-To show our cards, we are inclined to believe the former account: that blind children benefit from receiving more complex language input. Language regularly supports learning in the absence of direct sensory perception (e.g., reading a book about mythical creatures). Given the language skills of blind adults [@roder2000; @roder2003; @loiotile2020], it seems likely that language is a source of meaning for blind individuals as well [@lewis2019; @vanparidon2021; @campbell2022]. Testing each of these predictions awaits further research.
+At the same time, however, recent results show that blind children have a roughly half-year delay in their productive vocabulary, relative to sighted peers [@campbell2024]. This naturally leads to the question of whether language input may play a role in this delay: what if language input affects acquisition *differently* for blind children than it does for sighted children? Is it possible that blind children actually need *less* complex language, and that differences in the complexity of language input are responsible for early vocabulary delays?
+
+To show our cards, we are inclined to believe the former account: that blind children benefit from receiving more complex language input. Language regularly supports learning in the absence of direct sensory perception (e.g., reading a book about mythical creatures). Given the language skills of blind adults [@roder2000; @roder2003; @loiotile2020], it seems likely that language is a source of meaning for blind individuals as well [@lewis2019; @vanparidon2021; @campbell2022]. Testing each of these predictions--as well as whether links between language input and language outcomes change across developmental time--awaits further research.
 
 In either case, if properties of language input do influence blind children's language outcomes, attempting to train parents to talk differently may be unfruitful. Interventions where parents are trained to talk differently to their children often show short-term success [@roberts2019] but fail to change parental speech patterns in the long term [e.g., @mcgillion2017; @suskind2016].
 

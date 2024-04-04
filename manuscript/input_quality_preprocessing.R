@@ -61,6 +61,7 @@ write_csv(LENA_counts, "../data/LENA/Automated/LENA_counts.csv")
 
 
 ###read in data that has been mass exported via ELAN
+VIHI_transcripts_messy <- read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
 
 VITD_transcripts <-
   read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-09-11.csv") %>% 
@@ -117,7 +118,7 @@ VITD_LENA_words <- VITD_LENA_utterances_split %>%
     xds,
     speaker
   ) %>% #remove unwanted columns
-  filter(group != "HI" & speaker != "CHI")
+  filter(group != "HI" & speaker != "CHI" & Word != "")
 write_csv(VITD_LENA_words, "../data/LENA/Transcripts/Derived/VITD_LENA_words.csv")
 
 # quantity ----
@@ -166,22 +167,13 @@ write_csv(xds_props, "../data/LENA/Transcripts/Derived/xds_props.csv")
 ## TTR ----
 ### calculate type-token ratio in annotations
 # issue: zhenya2erin: 
-#  - The first word of ~300 utterances is "" (empty string). There are also "xxx" words. They are being counted as tokens/types. If that is intentional, I would document it.
 TTR_calculations <- VITD_LENA_words %>%
   filter(Word != "0",
          speaker != "CHI",
          speaker != "EE1") %>%
   group_by(VIHI_ID) %>%
-  # issue: zhenya2erin: The sorting is potentially unpredictable because sorting within utterances is not defined. Unlikely to matter a lot, since at most two utterances per bin can have different words included between runs, but still.
   arrange(uttnum) %>%
-  # note: zhenya2erin: It might be worth explaining what "0" represents.
-  # issue: zhenya2erin: num_obs is a vector of duplicates of the same number. Only the first one is taken in `ceiling(num_obs)` and `[1:num_obs]` which works out in this case, but it is hard to guess what was intended and how R will handle the situation. Here are some alternatives:
-  #  mutate(bin = rep(1:ceiling(n() / 100), each = 100)[1:n()]) %>%
-  #  mutate(bin = (row_number() - 1) %/% 100 + 1) %>%
-  #  Note that both options get rid of the `mutate(num_obs = n()) %>%` step.
-  #  In any case, it is probably worth documenting what the bins are.
-  mutate(num_obs = n()) %>%
-  mutate(bin = rep(1:ceiling(num_obs / 100), each = 100)[1:num_obs]) %>%
+   mutate(bin = rep(1:ceiling(n() / 100), each = 100)[1:n()]) %>%
   group_by(VIHI_ID, bin) %>%
   summarise(
     num_words_in_bin = n(),
@@ -195,60 +187,17 @@ TTR_calculations <- VITD_LENA_words %>%
   get_match_number()
 write_csv(TTR_calculations, "../data/LENA/Transcripts/Derived/TTR_calculations.csv")
 
-## MLU ---- erin2zhenya: I don't like how I calculated MLU. Feels sloppy and open to errors, but I struggled with others. Do you have ideas?
-# zhenya2erin: Below is the code that I would use to calculate MLU. Note that it purposefully counts morpheme types, not tokens by applying `unique` to the output of `morphemepiece_tokenize` before counting morphemes. I did this to replicate the current behavior. I assume this needs to be changed but I wanted to divorce refactoring from any changes in behavior. I would first test whether the results are the same as before and only then deal with the token/type issue.
-#
-# simple_morpheme_counts <- 
-#   VITD_transcripts %>%
-#   # note: zhenya2erin: If you decide to switch to counting morpheme tokens, this can be simplified to
-#   # mutate(morphemecount = lengths(morphemepiece_tokenize(utterance_clean)) %>%
-#   mutate(
-#     morphemecount = purrr::map_int(
-#       morphemepiece_tokenize(utterance_clean),
-#       ~ length(unique(.x)))
-#   ) %>%
-#   left_join((VITD_transcripts %>% dplyr::select(-group,-code,-con))) %>% 
-#   select(VIHI_ID, utt_num, speaker, xds, utterance_clean, morphemecount) %>%
-#   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
-#   filter(!is.na(utterance_clean)) %>%
-#   group_by(group, VIHI_ID) %>%
-#   summarise(MLU = mean(morphemecount)) %>%
-#   get_match_number()
-# 
-# write_csv(simple_morpheme_counts, "../data/LENA/Transcripts/Derived/MLUs.csv")
-
-
-# suggestion: zhenya2erin: Since we switched to `renv`, the version of `morphemepiece` is fixed and it is unnecessary to list all the parameters with their default values.
-# suggestion: zhenya2erin: At least for me, tokenization doesn't automatically imply tokenization into morphemes. Also, later in the script we will do word tokenization adding an extra layer of ambiguity. I would use a more descriptive name that contains both "utterance" (since each row is an utterance) and "morphemes" (since each morpheme in the corpus is a column). Something like "utterance_morpheme_map".
-# issue: zhenya2erin: Are "##" morphemes counted intentionally? I would filter out or exlain.
-tokenized_VITD_transcripts <-
-  morphemepiece::morphemepiece_tokenize(
-    VITD_transcripts$utterance_clean,
-    vocab = morphemepiece_vocab(),
-    lookup = morphemepiece_lookup(),
-    unk_token = "[UNK]",
-    max_chars = 100
-  ) %>% #split utterances into morphemes (based on entries in the morphemepiece "dictionary"). each listing has its own number
-  # issue: zhenya2erin: The output of the next step contains at most 1 token of each morpheme per utterance. I don't think that's what was intended. I would update the code or comment on counting morpheme types.
-  plyr::ldply(rbind) %>% # split each tokenized_VI, then bind each as rows in a dataframe 
-  mutate_all(funs(ifelse(is.na(.), 0, 1)))
-
-tokenized_VITD_transcripts_with_counts <-
-  tokenized_VITD_transcripts %>%
-  mutate(morphemecount = rowSums(tokenized_VITD_transcripts)) %>% #add up the number of morphemes in each utterance
-  mutate(utt_num = 1:nrow(tokenized_VITD_transcripts)) # add utterance number back in. erin2zhenya: THIS STEP MAKES ME NERVOUS. it looks like it works properly (based on me checking it manually), but I don't feel like we have any great way to verify that the utt_num generated here perfectly matches with the utt_num generated above.
-  # zhenya2erin: If you go with the code I suggested above, this step won't be necessary. If you don't then let's come back to this.
-
-simple_morpheme_counts <-
-  tokenized_VITD_transcripts_with_counts %>%
-  left_join((VITD_transcripts %>% dplyr::select(-group,-code,-con))) %>% 
-  dplyr::select(VIHI_ID, utt_num, speaker, xds, utterance_clean, morphemecount) %>%
-  mutate(group = as.factor(str_sub(VIHI_ID, 1, 2)))
-
-MLUs <- simple_morpheme_counts %>%
+## MLU ---- 
+MLUs <-
+  VITD_transcripts %>%
+  mutate(morphemecount = lengths(morphemepiece_tokenize(utterance_clean))) %>%
+  left_join((VITD_transcripts %>% dplyr::select(-group,-code,-con))) %>%
+  select(VIHI_ID, utt_num, speaker, xds, utterance_clean, morphemecount) %>%
+  mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
+  filter(!is.na(utterance_clean)) %>%
   group_by(group, VIHI_ID) %>%
   summarise(MLU = mean(morphemecount)) %>%
-get_match_number()
+  get_match_number()
 write_csv(MLUs, "../data/LENA/Transcripts/Derived/MLUs.csv")
 
 
@@ -499,3 +448,19 @@ lotta_data <- LENA_counts %>%
   # issue: zhenya2erin: See the "Distinct issue" at the top of the script.
   distinct(ParticipantNumber, .keep_all=TRUE)
 write_csv(lotta_data, "../data/LENA/Transcripts/Derived/lotta_data.csv")
+
+
+
+perc_random_silent <-
+  ((
+    VIHI_transcripts_messy %>% filter(
+      !is.na(sampling_type) &
+        sampling_type == "random" &
+        is_silent == "Y"
+    ) %>% nrow()
+  ) / (
+    VIHI_transcripts_messy %>% filter(!is.na(sampling_type) &
+                                        sampling_type == "random") %>% nrow()
+  )
+  ) * 100
+write_rds(perc_random_silent, "../data/LENA/Transcripts/Derived/perc_random_silent.rds")
