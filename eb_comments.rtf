@@ -54,48 +54,14 @@ your\'a0seasoning\'a0is\'a0probably\'a0giving\'a0you\'a0I\'a0like\'a0the\'a0seas
 take\'a0your\'a0laptop\'a0and\'a0watch\'a0something\'a0from\'a0Amazon\'a0Prime
 \f0\fs24 \cb1 \kerning1\expnd0\expndtw0 \'94\
 \
-\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
-\f1\fs32 \cf2 \expnd0\expndtw0\kerning0
-\
-\
-Methods 
-\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \
-\
-\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-
-\f2\b \cf0 1/30/24 picked back up at start of methods\
-METHODS
-\f0\b0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \fs23\fsmilli11623 \cf0 \cb3 \expnd0\expndtw0\kerning0
-* can you just confirm with Zhenya that the way you\'92re characterizing the high vol selection process is right? i thought there was some kind of consideration of who the talker was in the ranking but maybe i\'92m misremembering\
-* 
-\f2\b quantity: \
-*
+* can you just confirm with Zhenya that the way you\'92re characterizing the high vol selection process is right? i thought there was some kind of consideration of who the talker was in the ranking but maybe i\'92m misremembering \'97 ec2eb: confirmed with Zhenya!\
+\
+
+\f2\b *
 \f0\b0 we had some back and forth over slack about some things that seemed weird with the word count numbers, please have a look. \
-*wrt footnote 2: i would express things per hour not per half an hour, it\'92s a more intuitive unit.\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-
-\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 * terminology/detail point: adult word count vs. manual word count feels weirdly unparallel; what about aAWC or mAWC for automated/manual adult word count? Or does MWC include non-adults? either way some tweaks or clarification needed (i.e. if it\'92s not just adults you\'92ll want to say what percent is from other kids, i\'92m guessing it\'92s still vast majority from adults)\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-
-\fs23\fsmilli11623 \cf0 \cb3 \expnd0\expndtw0\kerning0
-\
-\
-* 
-\f2\b Proportion of temporally-displaced verbs
-\f0\b0 : \
-* hm, 15% of data being uncategorized for temporality isn\'92t such small potatoes. Can these 1423 utterances be manually tagged? should be quick work esp if it\'92s mostly fragments or lack of relevant features, should be essentially all non-displaced. 
+ec2eb: ok, I looked over the code for these values (and I also had Lilli and Max each step through the code with me as logic-checkers / rubber ducks). Code-wise, everything seems to be doing what it\'92s supposed to be. Moreover, the AWC and MWC word count values correlate strongly, with LENA fairly consistently underestimating for our sample. Looking through this paper of yours (https://pubs.asha.org/doi/full/10.1044/2020_JSLHR-19-00017), it seems like LENA sometimes overestimates and sometimes underestimates. In our sample, there are a few things that could contribute to underestimation: our MWC count includes several things that AWC does not: speech from other children, speech from segments that LENA might tag as overlap, and speech from segments that LENA might tag as Far (but were still intelligible to our annotators). 
 \fs24 \cb1 \kerning1\expnd0\expndtw0 \
-* similar comment to above but more critical here since its more errors: did the auto measure tend to OVER or UNDER estimate temporal-displacement? And for those 200ish utterances where there was disagreement, was it changed to the manual (i.e. much more likely to be correct) value for analysis? (i.e. you should definitely keep the 10% separate to calculate reliability but then in cases of disagreement there should be a clear statement of what was done, which in most cases i would guess is going with the human value not the automated one, but this in part depends on whether there\'92s systematicity in the error pattern)\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-
-\f2\b \cf0 *
-\fs23\fsmilli11623 \cb3 \expnd0\expndtw0\kerning0
-Proportion of highly visual words:\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-
-\f0\b0 \cf0 *lets clarify how many of the words in our transcripts have a corresponding word in Lancaster. \
 }

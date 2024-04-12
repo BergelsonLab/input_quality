@@ -46,10 +46,6 @@ classoption       : "man"
 output            : papaja::apa6_pdf
 ---
 
-<!-- praise: zhenya2erin: My general impression is that this document is very well organized and easy to follow. For 90% of the code it was clear what it did and why. There was also little repetition. -->
-
-<!-- suggestion: zhenya2erin: I highly recommend using `renv` instead of a list of packages. -->
-
 ```{r preferences, echo = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
@@ -84,11 +80,6 @@ library(ggpubr)
 ```{r loading-data}
 if (preprocess == TRUE) {source("input_quality_preprocessing.R")} else {
 
-# all properties together
-# issue: zhenya2erin: This file isn't in the repo and the dataframe doesn't seem to be used anywhere so I commented out the following line.
-#  Can it be deleted?
-# lotta_data <- read_csv("../data/LENA/Transcripts/Derived/lotta_data.csv")  
-
 # praise: zhenya2erin: The READMEs in the data folders are very informative!
 
 # quantity
@@ -109,11 +100,12 @@ sensory_props_wide <- read_csv("../data/LENA/Transcripts/Derived/sensory_props_w
 temporality_props <- read_csv("../data/LENA/Transcripts/Derived/temporality_props.csv")
 temporality_props_wide <- read_csv("../data/LENA/Transcripts/Derived/temporality_props_wide.csv")
 content_words_only <- read_csv("../data/LENA/Transcripts/Derived/content_words_only.csv")
-annotated_utterances <- read_csv("../data/LENA/Transcripts/Derived/annotated_utterances.csv")
 verbs_only <- read_csv("../data/LENA/Transcripts/Derived/verbs_only.csv")
 displacement_subset_for_agreement <- read_csv("../data/LENA/Transcripts/Derived/displacement_subset_for_agreement.csv")
 
 perc_random_silent <- read_rds("../data/LENA/Transcripts/Derived/perc_random_silent.rds")
+percentage_not_na_sensory <- read_rds("../data/LENA/Transcripts/Derived/percentage_not_na_sensory.rds")
+
 }
 
 
@@ -124,10 +116,7 @@ VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv", na = c("
 ```
 
 ```{r functions}
-# praise: zhenya2erin: I love the use of reporting functions.
-
 report_continuous <- function(vector, string,dig=1){
-  # issue: zhenya2erin: na.rm=TRUE needs to be explained. I suggest making it a parameter that defaults to FALSE and leave a comment before every call that requires setting it to TRUE.
   range <- glue("{round(min(vector,na.rm=TRUE))}--{round(max(vector,na.rm=TRUE))}")
   mean <- glue("{round(mean(vector,na.rm=TRUE),dig)}")
   sd = glue("{round(sd(vector,na.rm=TRUE),dig)}")
@@ -260,7 +249,6 @@ If properties of language input influence the likelihood of language delays amon
 # Methods
 
 ```{r participant-characteristics, results="asis"}
-# issue: zhenya2erin: I set this variable to NA because I commented out code that creates VIHI_transcripts_messy. This should definitely not stay like that because this number is used in the text.
 
 participants_summary <- LENA_counts %>%
   mutate(Age_days = as.numeric(str_sub(VIHI_ID, 8, length(VIHI_ID))),
@@ -271,7 +259,6 @@ participants_summary <- LENA_counts %>%
           max_age = max(Age_months),
           N=n())
 
-# nitpick: zhenya2erin: It might make this document cleaner if this was done in the preprocessing step.
 VI_matches_demo_clean <- VI_matches_demo %>%
   mutate(match_group = as.factor(case_when(
     match_group == "VI_TD" ~ "Sighted (N=15)",
@@ -299,9 +286,6 @@ VI_matches_demo_blind <- VI_matches_demo_clean %>%
 VI_matches_demo_sighted <- VI_matches_demo_clean %>%
   filter(Group == "Sighted (N=15)")
 
-
-# issue: zhenya2erin: The code below is very hard to read which makes it easy to miss an error somewhere.
-#  A function that takes a label and a column name and returns a row of the table would make it very clear.
 as.data.frame(
   tribble(
     ~ Variable,
@@ -375,7 +359,7 @@ For the recording portion of the study, caregivers of participating infants rece
 
 The audio recordings were first processed by the LENA proprietary software [@xu2009], creating algorithmic measures such as conversational turn count and adult word count. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context preceding the annotation clip and 1 minute of additional context following. Because these segments were sampled randomly, across participants roughly `r round(perc_random_silent)`% of the random 2-minute coding segments contained no speech at all. For questions of *how much does a phenomenon occur*, random sampling schemes can help avoid overestimating speech in the input, but for questions of input *content*, randomly selected samples may be too sparse [@pisani2021].
 
-Therefore, we chose to annotate 5 additional segments specifically for their high density of speech. To select these segments of dense talk, we first conducted an automated analysis of the audio file using the voice type classifier for child-centered daylong recordings [@lavechin2021] which identified all human speech in the recording. The entire recording was divided into 2-minute chunks, each ranked highest to lowest by the total duration of speech contained within the chunk. We annotated the highest-ranked 5 segments of each recording. These high volubility segments allow us to more closely compare our findings to studies classifying the input during structured play sessions, which paint a denser and differently-proportioned makeup of the language input [@bergelson2019]. In sum, 30 minutes of randomly sampled input and 10 minutes of high-volubility input (40 minutes total) were annotated per child.
+Therefore, we chose to annotate 5 additional (non-overlapping) segments specifically for their high density of speech. To select these segments of dense talk, we first conducted an automated analysis of the audio file using the voice type classifier for child-centered daylong recordings [@lavechin2021] which identified segments likely contain human speech. The entire recording was divided into 2-minute chunks, each ranked highest to lowest by the total duration of the speech segments contained within the chunk. We annotated the highest-ranked 5 segments of each recording. These high volubility segments allow us to more closely compare our findings to studies classifying the input during structured play sessions, which paint a denser and differently-proportioned makeup of the language input [@bergelson2019]. In sum, 30 minutes of randomly sampled input and 10 minutes of high-volubility input (40 minutes total) were annotated per child.
 
 ## Annotation
 
@@ -409,17 +393,17 @@ cowplot::plot_grid(word_counts_plot,utterance_counts_plot, rel_widths = c(1,1.5)
 
 ### Quantity
 
-#### Adult Word Count
+#### Automated Word Count
 
 To derive this count, the LENA algorithm segments the recording into clips which are then classified by speaker's gender (male/female), age (child/adult), and distance (near/far), as well as several non-human speaker categories (e.g., silence, electronic noise). Only segments that are classified as nearby male or female adult speech are included in the Adult Word Count estimation [@xu2009]. Validation work suggests that this automated count correlates strongly with word counts derived from manual annotations [r = .71 -- .92, @lehet2021], and meta-analytic work finds that AWC is associated with children's language outcomes across developmental contexts [e.g., autism, hearing loss, @wang2020]. Because the recordings varied in length (`r seconds_to_length(min(LENA_counts$total_time_dur))` to `r seconds_to_length(max(LENA_counts$total_time_dur))`), we normalized AWC by dividing by recording length[^2].
 
-[^2]: To make this comparable to the manual word count estimates, which are derived from the 30 minutes of randomly sampled annotation, we calculate AWC per half hour.
-
 #### Manual Word Count
 
-We also calculated a manual count of speech in the children's environment. Manual word count is simply the number of intelligible words in our transcriptions of each child's recording. Speech that was too far or muffled to be intelligible, as well as speech from the target child and electronic speech (TV, radio, toys) are excluded from this count.
+We also calculated a manual count of speech in the children's environment. Manual Word Count (MWC) is simply the number of intelligible words in our transcriptions of each child's recording. Speech that was too far or muffled to be intelligible, as well as speech from the target child and electronic speech (TV, radio, toys) are excluded from this count. Unlike LENA's AWC, MWC contains speech from other speakers in the child's environment (e.g., siblings), not just from adults.
 
-By using Adult Word Count and Manual Word Count, we hope to capture complementary estimates of the amount of speech children are exposed to. While AWC is considered less accurate than manual annotation (though highly correlated with it as noted above), it is commonly used, in part because of its strength in readily providing an estimate of the speech across the whole day. MWC, because it comes from human annotations, is the gold-standard for accurate speech estimates, but due to feasibility, is only derived from 30 minutes of the recording.
+By using automated *and* manual measures of quantity, we hope to capture complementary estimates of the amount of speech children are exposed to. While AWC is considered less accurate than manual annotation (though highly correlated with it as noted above), it is commonly used, in part because of its strength in readily providing an estimate of the adult speech across the whole day. MWC, because it comes from human annotations, is the gold-standard for accurate speech estimates, but due to feasibility, is only derived from 30 minutes of the recording.
+
+[^2]: To make these measures more comparable, we present both in terms of words per hour.
 
 ### Interaction
 
@@ -441,33 +425,13 @@ As in previous work [e.g., @templin1957; @pancsofar2006; @montag2018], we calcul
 # Calculate Intraclass Correlation
 MLU_agreement <- icc(MLU_subset_for_agreement %>%
                        dplyr::select(manual_morpheme_count, morphemecount))
-# Calculate Percent Agreement
-# issue: zhenya2erin:
-#  1. This code is hard to read and needs to be refactored. E.g., like this (not tested):
-#
-#     ```
-#     displaced_agreement <-
-#       displacement_subset_for_agreement %>%
-#       filter(manual_temporality == "displaced") %>%
-#       {sum(.$temporality == .$manual_temporality) / nrow(.)}
-#     ```
-#  2. There needs to be a comment about what is in `*_subset_for_agreement` tables and what temporality is. The latter is defined in the text but it isn't clear that I need to look for it.
-#
-#  3. There needs to be a comment explaining what NAs mean and why it is OK to drop them.
 displacement_agreement <-
   sum(
     displacement_subset_for_agreement$temporality == displacement_subset_for_agreement$manual_temporality,
     na.rm = TRUE
   ) / nrow(displacement_subset_for_agreement %>% filter(!is.na(manual_temporality)))
-displaced_agreement <-
-  sum((
-    displacement_subset_for_agreement %>% filter(manual_temporality == "displaced")
-  )$temporality == (
-    displacement_subset_for_agreement %>% filter(manual_temporality == "displaced")
-  )$manual_temporality
-  ) / nrow(displacement_subset_for_agreement %>% filter(manual_temporality == "displaced"))
 
-n_uncat<-sum(verbs_only$temporality == "uncategorized")
+n_uncat<-sum(verbs_only$temporality == "ambiguous")
 
 ```
 
@@ -481,16 +445,14 @@ Our analysis of the conceptual features aims to measure whether the extent to wh
 
 #### Proportion of temporally displaced verbs
 
-<!-- issue: zhenya2erin: `nrow(verbs_only)` is not the number of utterances but instead the number of sentence identified by `udpipe` in utterances that contain at least one verb or auxiliary. And `n_uncat` is thus the number of such sentences that were not categorized and not the number of utterances in the corpus that weren't categorized. -->
-
 We examined the displacement of events discussed in children's linguistic environment, via properties of the verbs in their input. Notably, we are attempting to highlight semantic features of the language environment. We do so here by categorizing utterances based the syntactic and morphological features of verbs, since these contain some time information in their surface forms. We assigned each utterance a **temporality** value: utterances tagged *displaced* describe events that take place in the past, future, or irrealis space, while utterances tagged *present* describe current, ongoing events. This coding scheme roughly aligns with both the temporal displacement and future hypothetical categories in @grimminger2020 [see also:  @hudson2002; @lucariello1987]. 
 
-To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, a verb either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g. *you talking to Papa?*). Features that could mark an utterance as displaced included past tense, presence of a modal, presence of *if*, or presence of *gonna*/*going to*, *have to*, *wanna*/*want to*, or *gotta*/*got to*, since these typically indicate future events, belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance. A small number of utterances in our corpus were left *uncategorized* (n = `r n_uncat`/`r nrow(verbs_only)`), either because they were fragments or because the automated parser failed to tag any of the relevant features. We manually checked verb temporality in a random subset of 10% of the utterances (n = `r nrow(displacement_subset_for_agreement)`); human judgments of event temporality aligned with the automated tense tagger `r round(displacement_agreement,2) * 100`%, indicating reasonably high reliability of this measure.
+To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, a verb either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g. *you talking to Papa?*). Features that could mark an utterance as displaced included past tense, presence of a modal, presence of *if*, or presence of *gonna*/*going to*, *have to*, *wanna*/*want to*, or *gotta*/*got to*, since these typically indicate future events, belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance. Utterances without verbs were excluded. A small number of verb-containing utterances in our corpus were left *ambiguous* (n = `r n_uncat`/`r nrow(verbs_only)`), either because they were fragments or because the automated parser failed to tag any of the relevant features. We manually checked verb temporality in a random subset of 10% of the utterances (n = `r nrow(displacement_subset_for_agreement)`); human judgments of event temporality aligned with the automated tense tagger `r round(displacement_agreement,2) * 100`% of the time (with the majority of discrepancies occurring on words the tagger categorized as ambiguous), indicating reasonably high reliability of this measure.
 
 #### Proportion of highly visual words
 
 In addition to this general measure of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We first filter the input to only content words (excluding, for example: the, at, of), using tidytext's stop_words function. We then categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, ratings from typically-sighted adults about the extent to which a word evokes a visual/tactile/auditory/etc. experience [@lynott2020]. Each word in the Lancaster Sensorimotor Norms 
-(~40,000 English words) get a score for each of 6 sensory modalities (auditory, haptic, gustatory, interoceptive, olfactory, visual). Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings across all modalities (all modalities rated less than \<3.5./5) were re-categorized as *amodal*, and words whose ratings were distributed across modalities were re-categorized as *multimodal*[^3]. Using this system, each of the content words in children's input were categorized into their primary perceptual modality. For each child, we extracted the proportion of exclusively "visual" words in their language environment.
+(~40,000 English words) get a score for each of 6 sensory modalities (auditory, haptic, gustatory, interoceptive, olfactory, visual). Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings across all modalities (all modalities rated less than \<3.5./5) were re-categorized as *amodal*, and words whose ratings were distributed across modalities were re-categorized as *multimodal*[^3]. Using this system, each of the content words in children's input were categorized into their primary perceptual modality; `r percentage_not_na_sensory`% of the words in our corpus had a corresponding word in the Lancaster ratings and could be categorized in this way. For each child, we extracted the proportion of exclusively "visual" words in their language environment.
 
 [^3]: Words perceptual exclusivity scores of \< 0.5/1 [calculated as a word's range of ratings across modalities divided by the sum of ratings across modalities, @lynott2020] were re-categorized as multimodal. The cut-offs for classifying amodal and multimodal words were chosen based on authors’ intuitions regarding what thresholds seemed to classify the words well into amodal, multimodal, and visual phenomena. That said, results are robust across a range of thresholds, and all data are provided to interested readers should they be interested in considering other values.
 
@@ -503,17 +465,14 @@ Our study assesses whether language input to blind children is different from th
 ### Language Input Quantity
 
 ```{r compare-quantity}
-# issue: zhenya2erin: There needs to be a comment describing AWC_stand and
-#  the contents of manual_word_tokens
 
-
-AWC_shapiro <- shapiro.test(LENA_counts$AWC_stand)
-compare_AWC <- t.test(LENA_counts$AWC_stand ~ LENA_counts$group, paired=TRUE)
+AWC_shapiro <- shapiro.test(LENA_counts$AWC_per_hour)
+compare_AWC <- t.test(LENA_counts$AWC_per_hour ~ LENA_counts$group, paired=TRUE)
 AWC_stats <- LENA_counts %>%
   group_by(group) %>%
-  summarise(min = min(AWC_stand),
-            max = max(AWC_stand),
-            mean = mean(AWC_stand))
+  summarise(min = min(AWC_per_hour),
+            max = max(AWC_per_hour),
+            mean = mean(AWC_per_hour))
 
 MWC_shapiro<-shapiro.test(manual_word_tokens$tokens)
 compare_MWC <- t.test(manual_word_tokens$tokens ~ manual_word_tokens$group, paired=TRUE)
@@ -533,7 +492,7 @@ We first compare the quantity of language input to blind and sighted children us
 AWC_plot <- make_blind_sighted_violins(
   data = LENA_counts,
   x_var = "group",
-  y_var = "AWC_stand",
+  y_var = "AWC_per_hour",
   group_var = "group",
   y_label = "Adult Word Count"
 )
@@ -556,13 +515,13 @@ cowplot::plot_grid(quantity_title, quantity_plots, rel_heights = c(0.1, 1), ncol
 ### Interaction
 
 ```{r compare-interaction}
-CTC_shapiro <- shapiro.test(LENA_counts$CTC_stand)
-compare_CTC <- wilcox.test(LENA_counts$CTC_stand ~ LENA_counts$group, paired=TRUE)
+CTC_shapiro <- shapiro.test(LENA_counts$CTC_per_hour)
+compare_CTC <- wilcox.test(LENA_counts$CTC_per_hour ~ LENA_counts$group, paired=TRUE)
 CTC_stats <- LENA_counts %>%
   group_by(group) %>%
-  summarise(min = min(CTC_stand),
-            max = max(CTC_stand),
-            mean = mean(CTC_stand))
+  summarise(min = min(CTC_per_hour),
+            max = max(CTC_per_hour),
+            mean = mean(CTC_per_hour))
 
 CDS_shapiro <- shapiro.test(xds_props_wide$prop_CDS)
 compare_CDS <- t.test(xds_props_wide$prop_CDS ~ xds_props_wide$group, paired=TRUE)
@@ -573,14 +532,14 @@ CDS_stats <- xds_props_wide %>%
             mean = mean(prop_CDS))
 ```
 
-Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*t*(`r compare_CDS$parameter`) = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*W* = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`). Across both groups, child-directed speech constituted approximately `r round(mean(xds_props_wide$prop_CDS) * 100,0)`% of the input, and children were involved in roughly `r round(mean(LENA_counts$CTC_stand),0)` conversational turns per hour.
+Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*t*(`r compare_CDS$parameter`) = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*W* = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`). Across both groups, child-directed speech constituted approximately `r round(mean(xds_props_wide$prop_CDS) * 100,0)`% of the input, and children were involved in roughly `r round(mean(LENA_counts$CTC_per_hour),0)` conversational turns per hour.
 
 ```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.", fig.width=7, fig.height=3}
 
 CTC_plot <- make_blind_sighted_violins(
   data = LENA_counts,
   x_var = "group",
-  y_var = "CTC_stand",
+  y_var = "CTC_per_hour",
   group_var = "group",
   y_label = "Conversational Turn Count",
   title = NULL
@@ -727,7 +686,7 @@ temporality_props_plot <- temporality_props %>%
   mutate(group=as.factor(str_sub(VIHI_ID,1,2))) %>%
   group_by(group, verb_temporality) %>%
   summarise(prop = mean(prop, na.rm = TRUE)) %>%
-  ggplot(aes(fill = factor(verb_temporality, levels=c("uncategorized","displaced","present")),
+  ggplot(aes(fill = factor(verb_temporality, levels=c("ambiguous","displaced","present")),
                                  y = prop,
                                  x = group)) +
   geom_bar(position = "stack", stat = "identity")  +
@@ -738,7 +697,7 @@ temporality_props_plot <- temporality_props %>%
   theme(text = element_text(size = 10),
         axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_manual(name="Verb Tense",
-                    labels=c("uncategorized", "displaced", "present"),
+                    labels=c("ambiguous", "displaced", "present"),
                     values=c("#A5ACA5","#FFF170","#BCE784"))+
   scale_x_discrete(labels =                                                   c("VI" = "Blind", "TD" = "Sighted")) +
   xlab(NULL)
@@ -759,14 +718,6 @@ cowplot::plot_grid(conceptual_title, conceptual_plots, rel_heights = c(0.1, 2), 
 Lastly, we compared two measures of the conceptual features of language input: the proportion of temporally displaced verbs and the proportion of highly visual words. We found that blind children hear a higher proportion of displaced verbs than sighted children (*t*(`r temporality_test$parameter`) = `r temporality_test$statistic`, *p* `r papaja::printp(temporality_test$p.value, add_equals=TRUE)`), which  on average equates to `r round(abs(temporality_test$estimate) * (mean(temporality_props_wide$verb_utt_count)) * (60/40))` more utterances about past, future, or hypothetical events per hour. We found no significant difference across groups in the proportion of highly visual words (*W* = `r visual_test$statistic`, *p* `r printp(visual_test$p.value, add_equals=TRUE)`), which constitute roughly `r round((mean(sensory_props_wide$prop_Visual))*100)`% of the input for both groups.
 
 ```{r analysis-summary-table, results='asis'}
-
-# issue: zhenya2erin: Having multiple vectors that need to match each other is a recipe for disaster, in my opinion. This definitely needs to be refactored. One way to do this:
-#  - Instead of using adjust, convert LENA_counts to per hour during preprocessing/loading.
-#  - All the hard-coded values could be put into a single dataframe or a vector of named lists.
-#  - Test results could be put into a named list.
-#  - Calculate every calculated vector using that dataframe with map/apply/mutate, etc.
-#  - ps_df should be defined in a way that puts column names next to the corresponding vectors.
-
 
 vars <-
   c(
@@ -803,22 +754,22 @@ tests <-
   )
 MeanBlind <-
   c(
-    get_group_means(LENA_counts, "AWC_stand", group == "VI", unit = "words/hour",adjust=2, digits=0),
-    get_group_means(manual_word_tokens, "tokens", group == "VI", unit = "words/hour", adjust=2, digits=0),
-    get_group_means(LENA_counts, "CTC_stand", group == "VI", unit = "turns/hour",adjust=2, digits=0),
+    get_group_means(LENA_counts, "AWC_per_hour", group == "VI", unit = "words/hour",adjust=2, digits=0),
+    get_group_means(manual_word_tokens, "MWC_per_hour", group == "VI", unit = "words/hour", adjust=2, digits=0),
+    get_group_means(LENA_counts, "CTC_per_hour", group == "VI", unit = "turns/hour",adjust=2, digits=0),
     get_group_means(xds_props_wide, "prop_CDS", group == "VI"),
-    get_group_means(TTR_calculations, "mean_ttr", group == "VI", unit = "words/hour"),
+    get_group_means(TTR_calculations, "mean_ttr", group == "VI", unit = "unique words/ 100 words"),
     get_group_means(MLUs, "MLU", group == "VI", unit = "morphemes"),
     get_group_means(temporality_props_wide, "prop_displaced", group == "VI"),
     get_group_means(sensory_props_wide, "prop_Visual", group == "VI")
   )
 MeanSighted <-
   c(
-    get_group_means(LENA_counts, "AWC_stand", group == "TD", unit = "words/hour",adjust=2, digits=0),
-    get_group_means(manual_word_tokens, "tokens", group == "TD", unit = "words/hour", adjust=2, digits=0),
-    get_group_means(LENA_counts, "CTC_stand", group == "TD", unit = "turns/hour",adjust=2, digits=0),
+    get_group_means(LENA_counts, "AWC_per_hour", group == "TD", unit = "words/hour",adjust=2, digits=0),
+    get_group_means(manual_word_tokens, "MWC_per_hour", group == "TD", unit = "words/hour", adjust=2, digits=0),
+    get_group_means(LENA_counts, "CTC_per_hour", group == "TD", unit = "turns/hour",adjust=2, digits=0),
     get_group_means(xds_props_wide, "prop_CDS", group == "TD"),
-    get_group_means(TTR_calculations, "mean_ttr", group == "TD", unit = "words/hour"),
+    get_group_means(TTR_calculations, "mean_ttr", group == "TD", unit = "unique words/ 100 words"),
     get_group_means(MLUs, "MLU", group == "TD", unit = "morphemes"),
     get_group_means(temporality_props_wide, "prop_displaced", group == "TD"),
     get_group_means(sensory_props_wide, "prop_Visual", group == "TD")

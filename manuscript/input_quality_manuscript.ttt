@@ -58,15 +58,15 @@ Ethnicity & Hispanic or Latino: 19\% & Hispanic or Latino: 0\%\\
 \hline
 Variable & Description & Portion of Recording & Test & Blind Mean, Median, Range & Sighted Mean, Median, Range & p value\\
 \hline
-Adult Word Count & Estimated number of words in recording categorized as nearby adult speech by LENA algorithm & Whole day & t-test & 1062, 904, 390-1984 words/hour & 1059, 1023, 475-1608 words/hour & .984\\
+Adult Word Count & Estimated number of words in recording categorized as nearby adult speech by LENA algorithm & Whole day & t-test & 2124, 1808, 779-3968 words/hour & 2117, 2047, 951-3216 words/hour & .984\\
 \hline
-Manual Word Count & Number of word tokens from speakers other than target child & Random & t-test & 2061, 2050, 602-3630 words/hour & 2313, 2170, 382-4178 words/hour & .387\\
+Manual Word Count & Number of word tokens from speakers other than target child & Random & t-test & 4122, 4100, 1204-7260 words/hour & 4626, 4340, 764-8356 words/hour & .387\\
 \hline
-Conversational Turn Count & Count of temporally close switches between adult and target-child vocalizations, divided by recording length & Whole day & Wilcoxon test & 33, 25, 13-90 turns/hour & 36, 32, 9-84 turns/hour & .946\\
+Conversational Turn Count & Count of temporally close switches between adult and target-child vocalizations, divided by recording length & Whole day & Wilcoxon test & 66, 49, 26-180 turns/hour & 71, 65, 18-169 turns/hour & .946\\
 \hline
 Prop. Child-Directed Speech & Number of utterances tagged with child addressee out of total number of utterances, from speakers other than target child & Random & t-test & 0.57, 0.61, 0.23-1 & 0.57, 0.57, 0.1-0.95 & .978\\
 \hline
-Type-Token Ratio & Average of the type-token ratios (number of unique words divided by number of total words) for each of the 100-word bins in their sample & Random + High Volume & t-test & 0.65, 0.65, 0.6-0.67 words/hour & 0.63, 0.62, 0.55-0.69 words/hour & .058\\
+Type-Token Ratio & Average of the type-token ratios (number of unique words divided by number of total words) for each of the 100-word bins in their sample & Random + High Volume & t-test & 0.65, 0.65, 0.6-0.67 unique words/ 100 words & 0.63, 0.62, 0.55-0.69 unique words/ 100 words & .058\\
 \hline
 Mean Length of Utterance & Average number of morphemes per utterance & Random + High Volume & t-test & 5.89, 5.64, 4.33-8.05 morphemes & 5.23, 5.39, 4.35-6.14 morphemes & .028*\\
 \hline

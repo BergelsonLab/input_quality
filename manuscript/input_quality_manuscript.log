@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  3 APR 2024 16:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  12 APR 2024 14:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -734,20 +734,14 @@ ine 301.
 \openout4 = `input_quality_manuscript.fff'.
 
 (input_quality_manuscript.fff) [11] [12] [13]
-Underfull \vbox (badness 2384) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[14] [15]
-Underfull \vbox (badness 4303) has occurred while \output is active []
+[14]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[16] [17]
-Underfull \vbox (badness 7308) has occurred while \output is active []
-
-[18] [19]
-Underfull \vbox (badness 4752) has occurred while \output is active []
-
-[20] [21] [22] [23]
+[15] [16] [17] [18] [19] [20] [21] [22] [23]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 5
-45.
+48.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -786,7 +780,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [34]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[35] AED endfloat: Processing end Figures and Tables [36] (./input_quality_manu
+[35]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[36] AED endfloat: Processing end Figures and Tables [37] (./input_quality_manu
 script.ttt
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9> on input line 57.
@@ -801,13 +798,13 @@ Overfull \hbox (58.21461pt too wide) in paragraph at lines 57--78
  []
 
 
-LaTeX Warning: Float too large for page by 21.17511pt on input line 78.
+LaTeX Warning: Float too large for page by 39.3801pt on input line 78.
 
-) [37
+) [38
 
 
-] [38] (./input_quality_manuscript.fff
-<input_quality_manuscript_files/figure-latex/corpus-size-plots-1.pdf, id=502, 4
+] [39] (./input_quality_manuscript.fff
+<input_quality_manuscript_files/figure-latex/corpus-size-plots-1.pdf, id=508, 4
 57.71pt x 303.1325pt>
 File: input_quality_manuscript_files/figure-latex/corpus-size-plots-1.pdf Graph
 ic file (type pdf)
@@ -815,7 +812,7 @@ ic file (type pdf)
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/corpus-siz
 e-plots-1.pdf  used on input line 5.
 (pdftex.def)             Requested size: 457.71587pt x 303.13638pt.
-<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=503, 427.
+<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=509, 427.
 5975pt x 205.76875pt>
 File: input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf Graphic 
 file (type pdf)
@@ -823,7 +820,7 @@ file (type pdf)
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/quantity-p
 lots-1.pdf  used on input line 12.
 (pdftex.def)             Requested size: 427.59645pt x 205.76823pt.
-<input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf, id=504, 4
+<input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf, id=510, 4
 93.845pt x 209.78375pt>
 File: input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf Graph
 ic file (type pdf)
@@ -831,7 +828,7 @@ ic file (type pdf)
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/interactio
 n-plots-1.pdf  used on input line 19.
 (pdftex.def)             Requested size: 469.75291pt x 199.5495pt.
-<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=505, 31
+<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=511, 31
 9.1925pt x 205.76875pt>
 File: input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf Graphi
 c file (type pdf)
@@ -839,7 +836,7 @@ c file (type pdf)
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/linguistic
 -plots-1.pdf  used on input line 26.
 (pdftex.def)             Requested size: 319.19171pt x 205.76823pt.
-<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=506, 49
+<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=512, 49
 3.845pt x 563.10374pt>
 File: input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf Graphi
 c file (type pdf)
@@ -851,26 +848,26 @@ Package pdftex.def Info: input_quality_manuscript_files/figure-latex/conceptual
 LaTeX Warning: Float too large for page by 63.18526pt on input line 35.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 880.
-[39
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 883.
+[40
 
- <./input_quality_manuscript_files/figure-latex/corpus-size-plots-1.pdf>] [40 <
-./input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>] [41 <./inp
-ut_quality_manuscript_files/figure-latex/interaction-plots-1.pdf>] [42 <./input
-_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>] [43 <./input_qu
+ <./input_quality_manuscript_files/figure-latex/corpus-size-plots-1.pdf>] [41 <
+./input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>] [42 <./inp
+ut_quality_manuscript_files/figure-latex/interaction-plots-1.pdf>] [43 <./input
+_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>] [44 <./input_qu
 ality_manuscript_files/figure-latex/conceptual-plots-1.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 880.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 883.
 (./input_quality_manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 880.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 880.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 883.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 883.
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 17197 strings out of 480608
- 258189 string characters out of 5903631
- 575294 words of memory out of 5000000
+ 17199 strings out of 480608
+ 258221 string characters out of 5903631
+ 575298 words of memory out of 5000000
  32375 multiletter control sequences out of 15000+600000
  623841 words of font info for 156 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -886,10 +883,10 @@ al/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2
 020/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2020/texmf-di
 st/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2020/texmf-dist/fonts/t
 ype1/public/lm/lmsy10.pfb>
-Output written on input_quality_manuscript.pdf (43 pages, 426544 bytes).
+Output written on input_quality_manuscript.pdf (44 pages, 426880 bytes).
 PDF statistics:
- 774 PDF objects out of 1000 (max. 8388607)
- 698 compressed objects within 7 object streams
- 256 named destinations out of 1000 (max. 500000)
+ 781 PDF objects out of 1000 (max. 8388607)
+ 703 compressed objects within 8 object streams
+ 258 named destinations out of 1000 (max. 500000)
  10514 words of extra memory for PDF output out of 12000 (max. 10000000)
 

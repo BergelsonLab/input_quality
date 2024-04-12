@@ -288,7 +288,7 @@ For the recording portion of the study, caregivers of participating infants rece
 
 The audio recordings were first processed by the LENA proprietary software (Xu, Yapanel, \& Gray, 2009), creating algorithmic measures such as conversational turn count and adult word count. Each recording was then run through an in-house automated sampler that selected 15- non-overlapping 5-minute segments, randomly distributed across the duration of the recording. Each segment consists of 2 core minutes of annotated time, with 2 minutes of listenable context preceding the annotation clip and 1 minute of additional context following. Because these segments were sampled randomly, across participants roughly 27\% of the random 2-minute coding segments contained no speech at all. For questions of \emph{how much does a phenomenon occur}, random sampling schemes can help avoid overestimating speech in the input, but for questions of input \emph{content}, randomly selected samples may be too sparse (Pisani, Gautheron, \& Cristia, 2021).
 
-Therefore, we chose to annotate 5 additional segments specifically for their high density of speech. To select these segments of dense talk, we first conducted an automated analysis of the audio file using the voice type classifier for child-centered daylong recordings (Lavechin, Bousbib, Bredin, Dupoux, \& Cristia, 2021) which identified all human speech in the recording. The entire recording was divided into 2-minute chunks, each ranked highest to lowest by the total duration of speech contained within the chunk. We annotated the highest-ranked 5 segments of each recording. These high volubility segments allow us to more closely compare our findings to studies classifying the input during structured play sessions, which paint a denser and differently-proportioned makeup of the language input (Bergelson et al., 2019). In sum, 30 minutes of randomly sampled input and 10 minutes of high-volubility input (40 minutes total) were annotated per child.
+Therefore, we chose to annotate 5 additional (non-overlapping) segments specifically for their high density of speech. To select these segments of dense talk, we first conducted an automated analysis of the audio file using the voice type classifier for child-centered daylong recordings (Lavechin, Bousbib, Bredin, Dupoux, \& Cristia, 2021) which identified segments likely contain human speech. The entire recording was divided into 2-minute chunks, each ranked highest to lowest by the total duration of the speech segments contained within the chunk. We annotated the highest-ranked 5 segments of each recording. These high volubility segments allow us to more closely compare our findings to studies classifying the input during structured play sessions, which paint a denser and differently-proportioned makeup of the language input (Bergelson et al., 2019). In sum, 30 minutes of randomly sampled input and 10 minutes of high-volubility input (40 minutes total) were annotated per child.
 
 \hypertarget{annotation}{%
 \subsection{Annotation}\label{annotation}}
@@ -309,17 +309,17 @@ To go from our dimensions of interest (quantity, interactiveness, linguistic, co
 \hypertarget{quantity}{%
 \subsubsection{Quantity}\label{quantity}}
 
-\hypertarget{adult-word-count}{%
-\paragraph{Adult Word Count}\label{adult-word-count}}
+\hypertarget{automated-word-count}{%
+\paragraph{Automated Word Count}\label{automated-word-count}}
 
-To derive this count, the LENA algorithm segments the recording into clips which are then classified by speaker's gender (male/female), age (child/adult), and distance (near/far), as well as several non-human speaker categories (e.g., silence, electronic noise). Only segments that are classified as nearby male or female adult speech are included in the Adult Word Count estimation (Xu et al., 2009). Validation work suggests that this automated count correlates strongly with word counts derived from manual annotations (r = .71 -- .92, Lehet, Arjmandi, Houston, \& Dilley, 2021), and meta-analytic work finds that AWC is associated with children's language outcomes across developmental contexts (e.g., autism, hearing loss, Wang, Williams, Dilley, \& Houston, 2020). Because the recordings varied in length (8 hours 17 minutes to 15 hours 59 minutes), we normalized AWC by dividing by recording length\footnote{To make this comparable to the manual word count estimates, which are derived from the 30 minutes of randomly sampled annotation, we calculate AWC per half hour.}.
+To derive this count, the LENA algorithm segments the recording into clips which are then classified by speaker's gender (male/female), age (child/adult), and distance (near/far), as well as several non-human speaker categories (e.g., silence, electronic noise). Only segments that are classified as nearby male or female adult speech are included in the Adult Word Count estimation (Xu et al., 2009). Validation work suggests that this automated count correlates strongly with word counts derived from manual annotations (r = .71 -- .92, Lehet, Arjmandi, Houston, \& Dilley, 2021), and meta-analytic work finds that AWC is associated with children's language outcomes across developmental contexts (e.g., autism, hearing loss, Wang, Williams, Dilley, \& Houston, 2020). Because the recordings varied in length (8 hours 17 minutes to 15 hours 59 minutes), we normalized AWC by dividing by recording length\footnote{To make these measures more comparable, we present both in terms of words per hour.}.
 
 \hypertarget{manual-word-count}{%
 \paragraph{Manual Word Count}\label{manual-word-count}}
 
-We also calculated a manual count of speech in the children's environment. Manual word count is simply the number of intelligible words in our transcriptions of each child's recording. Speech that was too far or muffled to be intelligible, as well as speech from the target child and electronic speech (TV, radio, toys) are excluded from this count.
+We also calculated a manual count of speech in the children's environment. Manual Word Count (MWC) is simply the number of intelligible words in our transcriptions of each child's recording. Speech that was too far or muffled to be intelligible, as well as speech from the target child and electronic speech (TV, radio, toys) are excluded from this count. Unlike LENA's AWC, MWC contains speech from other speakers in the child's environment (e.g., siblings), not just from adults.
 
-By using Adult Word Count and Manual Word Count, we hope to capture complementary estimates of the amount of speech children are exposed to. While AWC is considered less accurate than manual annotation (though highly correlated with it as noted above), it is commonly used, in part because of its strength in readily providing an estimate of the speech across the whole day. MWC, because it comes from human annotations, is the gold-standard for accurate speech estimates, but due to feasibility, is only derived from 30 minutes of the recording.
+By using automated \emph{and} manual measures of quantity, we hope to capture complementary estimates of the amount of speech children are exposed to. While AWC is considered less accurate than manual annotation (though highly correlated with it as noted above), it is commonly used, in part because of its strength in readily providing an estimate of the adult speech across the whole day. MWC, because it comes from human annotations, is the gold-standard for accurate speech estimates, but due to feasibility, is only derived from 30 minutes of the recording.
 
 \hypertarget{interaction}{%
 \subsubsection{Interaction}\label{interaction}}
@@ -357,13 +357,13 @@ Our analysis of the conceptual features aims to measure whether the extent to wh
 
 We examined the displacement of events discussed in children's linguistic environment, via properties of the verbs in their input. Notably, we are attempting to highlight semantic features of the language environment. We do so here by categorizing utterances based the syntactic and morphological features of verbs, since these contain some time information in their surface forms. We assigned each utterance a \textbf{temporality} value: utterances tagged \emph{displaced} describe events that take place in the past, future, or irrealis space, while utterances tagged \emph{present} describe current, ongoing events. This coding scheme roughly aligns with both the temporal displacement and future hypothetical categories in Grimminger, Rohlfing, Lüke, Liszkowski, and Ritterfeld (2020; see also: Hudson, 2002; Lucariello and Nelson, 1987).
 
-To do this, we used the udpipe package (Wijffels, 2023) to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, a verb either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g.~\emph{you talking to Papa?}). Features that could mark an utterance as displaced included past tense, presence of a modal, presence of \emph{if}, or presence of \emph{gonna}/\emph{going to}, \emph{have to}, \emph{wanna}/\emph{want to}, or \emph{gotta}/\emph{got to}, since these typically indicate future events, belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance. A small number of utterances in our corpus were left \emph{uncategorized} (n = 1436/9111), either because they were fragments or because the automated parser failed to tag any of the relevant features. We manually checked verb temporality in a random subset of 10\% of the utterances (n = 825); human judgments of event temporality aligned with the automated tense tagger 76\%, indicating reasonably high reliability of this measure.
+To do this, we used the udpipe package (Wijffels, 2023) to tag the transcriptions with parts of speech and other lexical features, such as tense, number agreement, or case inflection. To be marked as present, a verb either had to be marked with both present tense and indicative mood, or appear in the gerund form with no marked tense (e.g.~\emph{you talking to Papa?}). Features that could mark an utterance as displaced included past tense, presence of a modal, presence of \emph{if}, or presence of \emph{gonna}/\emph{going to}, \emph{have to}, \emph{wanna}/\emph{want to}, or \emph{gotta}/\emph{got to}, since these typically indicate future events, belief states and desires, rather than real-time events. In the case of utterances with multiple verbs, we selected the features from the first verb or auxiliary, as a proxy for hierarchical dominance. Utterances without verbs were excluded. A small number of verb-containing utterances in our corpus were left \emph{ambiguous} (n = 1436/9111), either because they were fragments or because the automated parser failed to tag any of the relevant features. We manually checked verb temporality in a random subset of 10\% of the utterances (n = 825); human judgments of event temporality aligned with the automated tense tagger 76\% of the time (with the majority of discrepancies occurring on words the tagger categorized as ambiguous), indicating reasonably high reliability of this measure.
 
 \hypertarget{proportion-of-highly-visual-words}{%
 \paragraph{Proportion of highly visual words}\label{proportion-of-highly-visual-words}}
 
 In addition to this general measure of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We first filter the input to only content words (excluding, for example: the, at, of), using tidytext's stop\_words function. We then categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, ratings from typically-sighted adults about the extent to which a word evokes a visual/tactile/auditory/etc. experience (Lynott, Connell, Brysbaert, Brand, \& Carney, 2020). Each word in the Lancaster Sensorimotor Norms
-(\textasciitilde40,000 English words) get a score for each of 6 sensory modalities (auditory, haptic, gustatory, interoceptive, olfactory, visual). Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings across all modalities (all modalities rated less than \textless3.5./5) were re-categorized as \emph{amodal}, and words whose ratings were distributed across modalities were re-categorized as \emph{multimodal}\footnote{Words perceptual exclusivity scores of \textless{} 0.5/1 (calculated as a word's range of ratings across modalities divided by the sum of ratings across modalities, Lynott et al., 2020) were re-categorized as multimodal. The cut-offs for classifying amodal and multimodal words were chosen based on authors' intuitions regarding what thresholds seemed to classify the words well into amodal, multimodal, and visual phenomena. That said, results are robust across a range of thresholds, and all data are provided to interested readers should they be interested in considering other values.}. Using this system, each of the content words in children's input were categorized into their primary perceptual modality. For each child, we extracted the proportion of exclusively ``visual'' words in their language environment.
+(\textasciitilde40,000 English words) get a score for each of 6 sensory modalities (auditory, haptic, gustatory, interoceptive, olfactory, visual). Words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality. A word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: words which received low ratings across all modalities (all modalities rated less than \textless3.5./5) were re-categorized as \emph{amodal}, and words whose ratings were distributed across modalities were re-categorized as \emph{multimodal}\footnote{Words perceptual exclusivity scores of \textless{} 0.5/1 (calculated as a word's range of ratings across modalities divided by the sum of ratings across modalities, Lynott et al., 2020) were re-categorized as multimodal. The cut-offs for classifying amodal and multimodal words were chosen based on authors' intuitions regarding what thresholds seemed to classify the words well into amodal, multimodal, and visual phenomena. That said, results are robust across a range of thresholds, and all data are provided to interested readers should they be interested in considering other values.}. Using this system, each of the content words in children's input were categorized into their primary perceptual modality; 74\% of the words in our corpus had a corresponding word in the Lancaster ratings and could be categorized in this way. For each child, we extracted the proportion of exclusively ``visual'' words in their language environment.
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -376,7 +376,7 @@ Our study assesses whether language input to blind children is different from th
 \hypertarget{language-input-quantity}{%
 \subsubsection{Language Input Quantity}\label{language-input-quantity}}
 
-We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and our transcription-derived Manual Word Count. Despite wide variability in the number of words children hear (Range: 195--992 words\textsubscript{blind}, 238--804 words\textsubscript{sighted} by LENA count), along both measures of input quantity, blind and sighted children do not differ in language input quantity (Adult Word Count: \emph{t}(14) = -0.02, \emph{p} = .984; Manual Word Count: \emph{t}(14) = 0.89, \emph{p} = .387); see Figure \ref{fig:quantity-plots}.
+We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and our transcription-derived Manual Word Count. Despite wide variability in the number of words children hear (Range: 390--1984 words\textsubscript{blind}, 475--1608 words\textsubscript{sighted} by LENA count), along both measures of input quantity, blind and sighted children do not differ in language input quantity (Adult Word Count: \emph{t}(14) = -0.02, \emph{p} = .984; Manual Word Count: \emph{t}(14) = 0.89, \emph{p} = .387); see Figure \ref{fig:quantity-plots}.
 
 \begin{figure}
 \centering
@@ -387,7 +387,7 @@ We first compare the quantity of language input to blind and sighted children us
 \hypertarget{interaction-1}{%
 \subsubsection{Interaction}\label{interaction-1}}
 
-Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (\emph{t}(14) = 0.07, \emph{p} = .946) or in conversational turn counts to blind children versus to sighted children (\emph{W} = 61, \emph{p} = .978). Across both groups, child-directed speech constituted approximately 57\% of the input, and children were involved in roughly 17 conversational turns per hour.
+Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (\emph{t}(14) = 0.07, \emph{p} = .946) or in conversational turn counts to blind children versus to sighted children (\emph{W} = 61, \emph{p} = .978). Across both groups, child-directed speech constituted approximately 57\% of the input, and children were involved in roughly 34 conversational turns per hour.
 
 \begin{figure}
 \centering
@@ -426,15 +426,15 @@ Lastly, we compared two measures of the conceptual features of language input: t
 \hline
 Variable & Description & Portion of Recording & Test & Blind Mean, Median, Range & Sighted Mean, Median, Range & p value\\
 \hline
-Adult Word Count & Estimated number of words in recording categorized as nearby adult speech by LENA algorithm & Whole day & t-test & 1062, 904, 390-1984 words/hour & 1059, 1023, 475-1608 words/hour & .984\\
+Adult Word Count & Estimated number of words in recording categorized as nearby adult speech by LENA algorithm & Whole day & t-test & 2124, 1808, 779-3968 words/hour & 2117, 2047, 951-3216 words/hour & .984\\
 \hline
-Manual Word Count & Number of word tokens from speakers other than target child & Random & t-test & 2061, 2050, 602-3630 words/hour & 2313, 2170, 382-4178 words/hour & .387\\
+Manual Word Count & Number of word tokens from speakers other than target child & Random & t-test & 4122, 4100, 1204-7260 words/hour & 4626, 4340, 764-8356 words/hour & .387\\
 \hline
-Conversational Turn Count & Count of temporally close switches between adult and target-child vocalizations, divided by recording length & Whole day & Wilcoxon test & 33, 25, 13-90 turns/hour & 36, 32, 9-84 turns/hour & .946\\
+Conversational Turn Count & Count of temporally close switches between adult and target-child vocalizations, divided by recording length & Whole day & Wilcoxon test & 66, 49, 26-180 turns/hour & 71, 65, 18-169 turns/hour & .946\\
 \hline
 Prop. Child-Directed Speech & Number of utterances tagged with child addressee out of total number of utterances, from speakers other than target child & Random & t-test & 0.57, 0.61, 0.23-1 & 0.57, 0.57, 0.1-0.95 & .978\\
 \hline
-Type-Token Ratio & Average of the type-token ratios (number of unique words divided by number of total words) for each of the 100-word bins in their sample & Random + High Volume & t-test & 0.65, 0.65, 0.6-0.67 words/hour & 0.63, 0.62, 0.55-0.69 words/hour & .058\\
+Type-Token Ratio & Average of the type-token ratios (number of unique words divided by number of total words) for each of the 100-word bins in their sample & Random + High Volume & t-test & 0.65, 0.65, 0.6-0.67 unique words/ 100 words & 0.63, 0.62, 0.55-0.69 unique words/ 100 words & .058\\
 \hline
 Mean Length of Utterance & Average number of morphemes per utterance & Random + High Volume & t-test & 5.89, 5.64, 4.33-8.05 morphemes & 5.23, 5.39, 4.35-6.14 morphemes & .028*\\
 \hline
@@ -474,7 +474,7 @@ Although there are many potential ways to measure the conceptual features of lan
 
 The extent to which blind children's language input is centered on the \emph{here-and-now} has been contested in the literature (Andersen et al., 1993; J. Campbell, 2003; Kekelis \& Andersen, 1984; Moore \& McConachie, 1994; Urwin, 1984). This aspect of language input is of particular interest because early reports suggest that blind children's own use of decontextualized language develops later than sighted children's (Bigelow, 1990; Urwin, 1984). Could this be related to an absence of decontextualized language in the input? Our sample says no: we find that blind children's input contains \emph{more} decontextualized language. Because children have less access to immediate visual cues, caregivers might more frequently refer to past or future events to engage with their child. To illustrate, while riding on a train, instead of describing the scenery passing outside the window, parents may choose to talk about what happened earlier in the day or their plans upon arriving home. Without further information about the social and perceptual context, it is difficult to determine the communicative function of the differences we find in conceptual features we find or how they might explain differences in children's decontextualized language use. As more dense annotation becomes available, we can explore the social and environmental contexts of conceptual information as it unfolds across discourse.
 
-We wish to highlight again how much variability there is \emph{within} groups and how much consistency there is \emph{between} groups. One could imagine a world in which the language environments of blind and sighted children are radically different from each other. Our data do not support that hypothesis. Rather, we find similarity in quantity and interaction, alongside modest differences in linguistic and conceptual properties. That is, in line with recent work highlighting immense \emph{within}-group variability across many different socio-cultural and linguistic contexts (\textbf{bergelson2023?}), our blind and sighted groups here have large within-group variability but very few between-group differences. Despite strikingly different visual experiences, young blind and sighted learners have at best modest differences in the speech environments that surrounded them.
+We wish to highlight again how much variability there is \emph{within} groups and how much consistency there is \emph{between} groups. One could imagine a world in which the language environments of blind and sighted children are radically different from each other. Our data do not support that hypothesis. Rather, we find similarity in quantity and interaction, alongside modest differences in linguistic and conceptual properties. That is, in line with recent work highlighting immense \emph{within}-group variability across many different socio-cultural and linguistic contexts (Bergelson et al., 2023), our blind and sighted groups here have large within-group variability but very few between-group differences. Despite strikingly different visual experiences, young blind and sighted learners have at best modest differences in the speech environments that surrounded them.
 
 \hypertarget{connecting-to-language-outcomes}{%
 \subsection{Connecting to Language Outcomes}\label{connecting-to-language-outcomes}}
@@ -518,16 +518,19 @@ Baird, S. M., Mayfield, P., \& Baker, P. (1997). Mothers' {Interpretations} of t
 Benjamini, Y., \& Hochberg, Y. (1995). Controlling the {False Discovery Rate}: {A Practical} and {Powerful Approach} to {Multiple Testing}. \emph{Journal of the Royal Statistical Society. Series B (Methodological)}, \emph{57}(1), 289--300. Retrieved from \url{https://www.jstor.org/stable/2346101}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bergelson2015a}{}}%
-Bergelson, E. (2015). Bergelson {Seedlings HomeBank Corpus}. {TalkBank}. \url{https://doi.org/10.21415/T5PK6D}
+Bergelson, E. (2015). Bergelson {Seedlings HomeBank Corpus}. TalkBank. \url{https://doi.org/10.21415/T5PK6D}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bergelson2019}{}}%
 Bergelson, E., Amatuni, A., Dailey, S., Koorathota, S., \& Tor, S. (2019). Day by day, hour by hour: {Naturalistic} language input to infants. \emph{Developmental Science}, \emph{22}(1), e12715. \url{https://doi.org/10.1111/desc.12715}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bergelson2023}{}}%
+Bergelson, E., Soderstrom, M., Schwarz, I.-C., Rowland, C. F., Ramírez-Esparza, N., R. Hamrick, L., \ldots{} Cristia, A. (2023). Everyday language input and production in 1,001 children from six continents. \emph{Proceedings of the National Academy of Sciences}, \emph{120}(52), e2300671120. \url{https://doi.org/10.1073/pnas.2300671120}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bergelson2013}{}}%
 Bergelson, E., \& Swingley, D. (2013). The acquisition of abstract words by young infants. \emph{Cognition}, \emph{127}(3), 391--397. \url{https://doi.org/10.1016/j.cognition.2013.02.011}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bernsteinratner1984}{}}%
-Bernstein Ratner, N. (1984). Patterns of vowel modification in mother{\textendash}child speech. \emph{Journal of Child Language}, \emph{11}, 557--578.
+Bernstein Ratner, N. (1984). Patterns of vowel modification in mother--child speech. \emph{Journal of Child Language}, \emph{11}, 557--578.
 
 \leavevmode\vadjust pre{\hypertarget{ref-bigelow1987}{}}%
 Bigelow, A. (1987). Early words of blind children. \emph{Journal of Child Language}, \emph{14}(1), 47--56. \url{https://doi.org/10.1017/S0305000900012721}
@@ -584,7 +587,7 @@ FamilyConnect. (n.d.). Understanding the {Stages} of {Language Development} for 
 Fenson, L., Dale, P. S., Reznick, J. S., Bates, E., Thal, D. J., Pethick, S. J., \ldots{} Stiles, J. (1994). Variability in {Early Communicative Development}. \emph{Monographs of the Society for Research in Child Development}, \emph{59}(5), i. \url{https://doi.org/10.2307/1166093}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ferjanramirez2021}{}}%
-Ferjan Ramírez, N., Hippe, D. S., \& Kuhl, P. K. (2021). Comparing {Automatic} and {Manual Measures} of {Parent}{\textendash}{Infant Conversational Turns}: {A Word} of {Caution}. \emph{Child Development}, \emph{92}(2), 672--681. \url{https://doi.org/10.1111/cdev.13495}
+Ferjan Ramírez, N., Hippe, D. S., \& Kuhl, P. K. (2021). Comparing {Automatic} and {Manual Measures} of {Parent}--{Infant Conversational Turns}: {A Word} of {Caution}. \emph{Child Development}, \emph{92}(2), 672--681. \url{https://doi.org/10.1111/cdev.13495}
 
 \leavevmode\vadjust pre{\hypertarget{ref-fernald1989}{}}%
 Fernald, A. (1989). \href{https://www.ncbi.nlm.nih.gov/pubmed/2612255}{Intonation and communicative intent in mothers' speech to infants: Is the melody the message?} \emph{Child Development}, \emph{60}(6), 1497--1510.
@@ -599,7 +602,7 @@ Fraiberg, S. (1975). The development of human attachments in infants blind from 
 Ganea, N., Hudry, K., Vernetti, A., Tucker, L., Charman, T., Johnson, M. H., \& Senju, A. (2018). Development of adaptive communication skills in infants of blind parents. \emph{Developmental Psychology}, \emph{54}(12), 2265--2273. \url{https://doi.org/10.1037/dev0000564}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ganek2016}{}}%
-Ganek, H., \& Eriks-Brophy, A. (2016). The {Language ENvironment Analysis} ({LENA}) system: {A} literature review. In \emph{Proceedings of the joint workshop on {NLP} for {Computer Assisted Language Learning} and {NLP} for {Language Acquisition}} (pp. 24--32). {Ume{å}, Sweden}: {LiU Electronic Press}.
+Ganek, H., \& Eriks-Brophy, A. (2016). The {Language ENvironment Analysis} ({LENA}) system: {A} literature review. In \emph{Proceedings of the joint workshop on {NLP} for {Computer Assisted Language Learning} and {NLP} for {Language Acquisition}} (pp. 24--32). Ume{å}, Sweden: LiU Electronic Press.
 
 \leavevmode\vadjust pre{\hypertarget{ref-ganek2018}{}}%
 Ganek, H., \& Eriks-Brophy, A. (2018). Language {ENvironment} analysis ({LENA}) system investigation of day long recordings in children: {A} literature review. \emph{Journal of Communication Disorders}, \emph{72}, 77--85. \url{https://doi.org/10.1016/j.jcomdis.2017.12.005}
@@ -608,7 +611,7 @@ Ganek, H., \& Eriks-Brophy, A. (2018). Language {ENvironment} analysis ({LENA}) 
 Gergle, D., Kraut, R. E., \& Fussell, S. R. (2004). Language {Efficiency} and {Visual Technology}: {Minimizing Collaborative Effort} with {Visual Information}. \emph{Journal of Language and Social Psychology}, \emph{23}(4), 491--517. \url{https://doi.org/10.1177/0261927X04269589}
 
 \leavevmode\vadjust pre{\hypertarget{ref-gilkerson2008}{}}%
-Gilkerson, J., \& Richards, J. A. (2008). \emph{The {LENA Natural Language Study}}. {Boulder, CO}: {LENA Foundation}.
+Gilkerson, J., \& Richards, J. A. (2008). \emph{The {LENA Natural Language Study}}. Boulder, CO: LENA Foundation.
 
 \leavevmode\vadjust pre{\hypertarget{ref-gilkerson2018}{}}%
 Gilkerson, J., Richards, J. A., Warren, S. F., Oller, D. K., Russo, R., \& Vohr, B. (2018). Language {Experience} in the {Second Year} of {Life} and {Language Outcomes} in {Late Childhood}. \emph{Pediatrics}, \emph{142}(4), e20174276. \url{https://doi.org/10.1542/peds.2017-4276}
@@ -620,7 +623,7 @@ Gleitman, L. (1990). The {Structural Sources} of {Verb Meanings}. \emph{Language
 Goldstein, M. H., \& Schwade, J. A. (2008). Social feedback to infants' babbling facilitates rapid phonological learning. \emph{Psychological Science}, \emph{19}(5), 515--523. \url{https://doi.org/10.1111/j.1467-9280.2008.02117.x}
 
 \leavevmode\vadjust pre{\hypertarget{ref-grice1975}{}}%
-Grice, H. P. (1975). {Logic and Conversation}. In \emph{{Syntax and semantics}}. {New York San Francisco London}: {Academic press, Harcourt Brace Jovanovich}.
+Grice, H. P. (1975). {Logic and Conversation}. In \emph{{Syntax and semantics}}. New York San Francisco London: Academic press, Harcourt Brace Jovanovich.
 
 \leavevmode\vadjust pre{\hypertarget{ref-grigoroglou2016}{}}%
 Grigoroglou, M., Edu, U., \& Papafragou, A. (2016). Are children flexible speakers? {Effects} of typicality and listener needs in children's event descriptions. \emph{Cognitive Science}, 6.
@@ -674,10 +677,10 @@ Kekelis, L. S., \& Andersen, E. S. (1984). Family {Communication Styles} and {La
 Kramer, J. A., Hill, K. T., \& Cohen, L. B. (1975). Infants' {Development} of {Object Permanence}: {A Refined Methodology} and {New Evidence} for {Piaget}'s {Hypothesized Ordinality}. \emph{Child Development}, \emph{46}(1), 149--155. \url{https://doi.org/10.2307/1128843}
 
 \leavevmode\vadjust pre{\hypertarget{ref-landau1985}{}}%
-Landau, B., \& Gleitman, L. R. (1985). \emph{Language and experience: {Evidence} from the blind child} (pp. xi, 250). {Cambridge, MA, US}: {Harvard University Press}.
+Landau, B., \& Gleitman, L. R. (1985). \emph{Language and experience: {Evidence} from the blind child} (pp. xi, 250). Cambridge, MA, US: Harvard University Press.
 
 \leavevmode\vadjust pre{\hypertarget{ref-lavechin2021}{}}%
-Lavechin, M., Bousbib, R., Bredin, H., Dupoux, E., \& Cristia, A. (2021). An open-source voice type classifier for child-centered daylong recordings. {arXiv}. \url{https://doi.org/10.48550/arXiv.2005.12656}
+Lavechin, M., Bousbib, R., Bredin, H., Dupoux, E., \& Cristia, A. (2021). An open-source voice type classifier for child-centered daylong recordings. arXiv. \url{https://doi.org/10.48550/arXiv.2005.12656}
 
 \leavevmode\vadjust pre{\hypertarget{ref-lehet2021}{}}%
 Lehet, M., Arjmandi, M. K., Houston, D., \& Dilley, L. (2021). Circumspection in using automated measures: {Talker} gender and addressee affect error rates for adult speech detection in the {Language ENvironment Analysis} ({LENA}) system. \emph{Behavior Research Methods}, \emph{53}(1), 113--138. \url{https://doi.org/10.3758/s13428-020-01419-y}
@@ -698,7 +701,7 @@ Lucariello, J., \& Nelson, K. (1987). Remembering and planning talk between moth
 Lucca, K., \& Wilbourn, M. P. (2018). Communicating to {Learn}: {Infants}' {Pointing Gestures Result} in {Optimal Learning}. \emph{Child Development}, \emph{89}(3), 941--960. \url{https://doi.org/10.1111/cdev.12707}
 
 \leavevmode\vadjust pre{\hypertarget{ref-luchkina2020}{}}%
-Luchkina, E., Xu, F., Sobel, D., \& Morgan, J. (2020). \emph{Sixteen-month-olds comprehend unanchored absent reference} (Preprint). {Open Science Framework}. \url{https://doi.org/10.31219/osf.io/5tc6d}
+Luchkina, E., Xu, F., Sobel, D., \& Morgan, J. (2020). \emph{Sixteen-month-olds comprehend unanchored absent reference} (Preprint). Open Science Framework. \url{https://doi.org/10.31219/osf.io/5tc6d}
 
 \leavevmode\vadjust pre{\hypertarget{ref-lynott2020}{}}%
 Lynott, D., Connell, L., Brysbaert, M., Brand, J., \& Carney, J. (2020). The {Lancaster Sensorimotor Norms}: Multidimensional measures of perceptual and action strength for 40,000 {English} words. \emph{Behavior Research Methods}, \emph{52}(3), 1271--1291. \url{https://doi.org/10.3758/s13428-019-01316-z}
@@ -716,7 +719,7 @@ Magimairaj, B., Nagaraj, N., Caballero, A., Munoz, K., \& White, K. (2022). A {S
 McGillion, M., Pine, J. M., Herbert, J. S., \& Matthews, D. (2017). A randomised controlled trial to test the effect of promoting caregiver contingent talk on language development in infants from diverse socioeconomic status backgrounds. \emph{Journal of Child Psychology and Psychiatry}, \emph{58}(10), 1122--1131. \url{https://doi.org/10.1111/jcpp.12725}
 
 \leavevmode\vadjust pre{\hypertarget{ref-mcrae2002}{}}%
-McRae, K. A. (2002). \emph{Attachment in blind infants : A systematic investigation using {Ainsworth}'s {Strange Situation}.} (PhD thesis). University of Toronto, {Toronto, Canada}.
+McRae, K. A. (2002). \emph{Attachment in blind infants : A systematic investigation using {Ainsworth}'s {Strange Situation}.} (PhD thesis). University of Toronto, Toronto, Canada.
 
 \leavevmode\vadjust pre{\hypertarget{ref-montag2018}{}}%
 Montag, J. L., Jones, M. N., \& Smith, L. B. (2018). Quantity and {Diversity}: {Simulating Early Word Learning Environments}. \emph{Cognitive Science}, \emph{42 Suppl 2}(Suppl 2), 375--412. \url{https://doi.org/10.1111/cogs.12592}
@@ -812,7 +815,7 @@ Suskind, D. L., Leffel, K. R., Graf, E., Hernandez, M. W., Gunderson, E. A., Sap
 Tadić, V., Pring, L., \& Dale, N. (2013). Story discourse and use of mental state language between mothers and school-aged children with and without visual impairment. \emph{International Journal of Language \& Communication Disorders}, \emph{48}(6), 679--688. \url{https://doi.org/10.1111/1460-6984.12040}
 
 \leavevmode\vadjust pre{\hypertarget{ref-templin1957}{}}%
-Templin, M. C. (1957). \emph{Certain language skills in children; their development and interrelationships} (pp. xviii, 183). {Minneapolis, MN, US}: {University of Minnesota Press}.
+Templin, M. C. (1957). \emph{Certain language skills in children; their development and interrelationships} (pp. xviii, 183). Minneapolis, MN, US: University of Minnesota Press.
 
 \leavevmode\vadjust pre{\hypertarget{ref-thiessen2005}{}}%
 Thiessen, E. D., Hill, E. A., \& Saffran, J. R. (2005). Infant-{Directed Speech Facilitates Word Segmentation}. \emph{Infancy: The Official Journal of the International Society on Infant Studies}, \emph{7}(1), 53--71. \url{https://doi.org/10.1207/s15327078in0701_5}
@@ -833,7 +836,7 @@ Urwin, C. (1983). Dialogue and cognitive functioning in the early language devel
 Urwin, C. (1984). Language for absent things: Learning from visually handicapped children. \emph{Topics in Language Disorders}, \emph{4}(4), 24.
 
 \leavevmode\vadjust pre{\hypertarget{ref-vanparidon2021}{}}%
-van Paridon, J., Liu, Q., \& Lupyan, G. (2021). How do blind people know that blue is cold? {Distributional} semantics encode color-adjective associations. {PsyArXiv}. \url{https://doi.org/10.31234/osf.io/vyxpq}
+van Paridon, J., Liu, Q., \& Lupyan, G. (2021). How do blind people know that blue is cold? {Distributional} semantics encode color-adjective associations. PsyArXiv. \url{https://doi.org/10.31234/osf.io/vyxpq}
 
 \leavevmode\vadjust pre{\hypertarget{ref-vandam2015}{}}%
 VanDam, M., Oller, D. K., Ambrose, S. E., Gray, S., Richards, J. A., Xu, D., \ldots{} Moeller, M. P. (2015). Automated {Vocal Analysis} of {Children} with {Hearing Loss} and {Their Typical} and {Atypical Peers}. \emph{Ear and Hearing}, \emph{36}(4), e146--e152. \url{https://doi.org/10.1097/AUD.0000000000000138}
@@ -842,7 +845,7 @@ VanDam, M., Oller, D. K., Ambrose, S. E., Gray, S., Richards, J. A., Xu, D., \ld
 VanDam, M., Warlaumont, A. S., Bergelson, E., Cristia, A., Soderstrom, M., Palma, P. D., \& MacWhinney, B. (2016). {HomeBank}: {An Online Repository} of {Daylong Child-Centered Audio Recordings}. \emph{Seminars in Speech and Language}, \emph{37}(02), 128--142. \url{https://doi.org/10.1055/s-0036-1580745}
 
 \leavevmode\vadjust pre{\hypertarget{ref-vygotsky1978}{}}%
-Vygotsky, L. S., \& Cole, M. (1978). \emph{Mind in {Society}: {Development} of {Higher Psychological Processes}}. {Harvard University Press}.
+Vygotsky, L. S., \& Cole, M. (1978). \emph{Mind in {Society}: {Development} of {Higher Psychological Processes}}. Harvard University Press.
 
 \leavevmode\vadjust pre{\hypertarget{ref-wang2022}{}}%
 Wang, Y., Cooke, M., Reed, J., Dilley, L., \& Houston, D. M. (2022). Home {Auditory Environments} of {Children With Cochlear Implants} and {Children With Normal Hearing}. \emph{Ear and Hearing}, \emph{43}(2), 592. \url{https://doi.org/10.1097/AUD.0000000000001124}
@@ -851,7 +854,7 @@ Wang, Y., Cooke, M., Reed, J., Dilley, L., \& Houston, D. M. (2022). Home {Audit
 Wang, Y., Williams, R., Dilley, L., \& Houston, D. M. (2020). A meta-analysis of the predictability of {LENA}™ automated measures for child language development. \emph{Developmental Review}, \emph{57}, 100921. \url{https://doi.org/10.1016/j.dr.2020.100921}
 
 \leavevmode\vadjust pre{\hypertarget{ref-warlaumont2016}{}}%
-Warlaumont, A. S., Pretzer, G. M., Mendoza, S., \& Walle, E. A. (2016). Warlaumont {HomeBank Corpus}. {TalkBank}. \url{https://doi.org/10.21415/T54S3C}
+Warlaumont, A. S., Pretzer, G. M., Mendoza, S., \& Walle, E. A. (2016). Warlaumont {HomeBank Corpus}. TalkBank. \url{https://doi.org/10.21415/T54S3C}
 
 \leavevmode\vadjust pre{\hypertarget{ref-watkins1998}{}}%
 Watkins, S., Pittman, P., \& Walden, B. (1998). The {Deaf Mentor Experimental Project} for young children who are deaf and their families. \emph{American Annals of the Deaf}, \emph{143}(1), 29--34. \url{https://doi.org/10.1353/aad.2012.0098}
@@ -866,7 +869,7 @@ Weizman, Z. O., \& Snow, C. E. (2001). Lexical input as related to children's vo
 Wijffels, J. (2023). {UDPipe}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-xu2009}{}}%
-Xu, D., Yapanel, U., \& Gray, S. (2009). \emph{Reliability of the {LENA Language Environment Analysis System} in {Young Children}'s {Natural Home Environment}} (pp. 1--16). {Boulder, CO}: {The LENA Foundation}.
+Xu, D., Yapanel, U., \& Gray, S. (2009). \emph{Reliability of the {LENA Language Environment Analysis System} in {Young Children}'s {Natural Home Environment}} (pp. 1--16). Boulder, CO: The LENA Foundation.
 
 \leavevmode\vadjust pre{\hypertarget{ref-yoshinaga-itano2020}{}}%
 Yoshinaga-Itano, C., Sedey, A. L., Mason, C. A., Wiggin, M., \& Chung, W. (2020). Early {Intervention}, {Parent Talk}, and {Pragmatic Language} in {Children With Hearing Loss}. \emph{Pediatrics}, \emph{146}(Supplement\_3), S270--S277. \url{https://doi.org/10.1542/peds.2020-0242F}
