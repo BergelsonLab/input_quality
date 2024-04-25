@@ -61,20 +61,25 @@ write_csv(LENA_counts, "../data/LENA/Automated/LENA_counts.csv")
 ###read in data that has been mass exported via ELAN
 VIHI_transcripts_messy <- read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
 
+# vihi_annotations <- get_vihi_annotations(subset = "VI+TD-VI", table = "merged")
+# write.csv(vihi_annotations, "../data/LENA/Transcripts/Raw/VIHI_annotations_4242024.csv")
 VITD_transcripts <-
-  read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_2023-09-11.csv") %>% 
-  mutate(VIHI_ID = as.factor(str_sub(VIHI_ID, 1, 10))) %>%
-  filter(VIHI_ID %in% TD_matches | group == "VI") %>% # only look at data from VI kids or their TD matches
+  read_csv("../data/LENA/Transcripts/Raw/vihi_annotations_4242024.csv") %>% 
+  select(eaf_filename, participant, transcription, transcription_id, xds, sampling_type, is_silent) %>%
+  mutate(VIHI_ID = as.factor(str_sub(eaf_filename, 1, 10)),
+         group = as.factor(str_sub(VIHI_ID,1,2))) %>%
+  filter(VIHI_ID %in% TD_matches | group == "VI",# only look at data from VI kids or their TD matches
+         VIHI_ID != "VI_005_411") %>% #don't include second recording from VI_005
+  filter(!transcription == c("xxx.")) %>% #remove unintelligible utterances
+  filter(participant != "EE1", participant != "CHI") %>% # remove CHI utts and electronic noise
+  filter(!grepl("utt@|inq@", participant)) %>% # remove non-utterance info
   mutate(
-    utterance_clean = str_replace_all(utterance, "&=\\w+", ""), # Remove substrings starting with &=
+    utterance_clean = str_replace_all(transcription, "&=\\w+", ""), # Remove substrings starting with &=
     utterance_clean = str_replace_all(utterance_clean, "<[^[:space:]]+?\\b(?!: clarifier)>", ""), # Remove text enclosed in <> only if not followed by [: clarifier]
     utterance_clean = str_replace_all(utterance_clean, "\\[-\\s[a-z]{3}\\]", ""), # Remove language tags like "[- spa]" or "[- ger]"
     utterance_clean = str_replace_all(utterance_clean, "=!\\w+\\s*", ""), # Remove any substrings starting with "=!" followed by one or more word characters and optional whitespace (get rid of the style markers =!shrieks)
     utterance_clean = str_replace_all(utterance_clean, "[[:punct:]&&[^']]", "") # Remove any punctuation, except for apostrophes
   ) %>%
-  filter(speaker != "EE1", speaker != "CHI") %>% # remove CHI utts and electronic noise
-  filter(!utterance == c("xxx.")) %>% #remove unintelligible utterances
-  filter(!grepl("utt@|inq@", speaker)) %>% # remove non-utterance info
   filter(!is.na(utterance_clean)) %>%
   mutate(utt_num = 1:nrow(.)) # number the utterances
 write_csv(VITD_transcripts, "../data/LENA/Transcripts/Derived/VITD_transcripts.csv")
@@ -89,7 +94,7 @@ VITD_LENA_utterances_split <- VITD_transcripts %>%
     names_sep = '')
 
 VITD_LENA_words <- VITD_LENA_utterances_split %>%
-  mutate(uttnum = seq(1, nrow(VITD_LENA_utterances_split), 1)) %>% #give each utterance a unique number
+  mutate(utt_num = seq(1, nrow(VITD_LENA_utterances_split), 1)) %>% #give each utterance a unique number
   pivot_longer(cols = starts_with('Word'),
                #pivot the word columns into a single Word column
                names_to = "utt_loc",
@@ -97,10 +102,11 @@ VITD_LENA_words <- VITD_LENA_utterances_split %>%
                values_to = "Word") %>%
   dplyr::select(VIHI_ID,
                 group,
-                speaker,
+                participant,
                 sampling_type,
                 xds,
-                uttnum,
+                transcription_id,
+                utt_num,
                 utt_loc,
                 Word) %>%
   filter(!is.na(Word)) %>% #filter out blank rows
@@ -112,11 +118,11 @@ VITD_LENA_words <- VITD_LENA_utterances_split %>%
     Auditory.mean:Dominant.sensorimotor,
     sampling_type,
     utt_loc,
-    uttnum,
+    utt_num,
     xds,
-    speaker
+    participant
   ) %>% #remove unwanted columns
-  filter(group != "HI" & speaker != "CHI" & Word != "")
+  filter(group != "HI" & participant != "CHI" & Word != "")
 write_csv(VITD_LENA_words, "../data/LENA/Transcripts/Derived/VITD_LENA_words.csv")
 
 # quantity ----
@@ -166,10 +172,10 @@ write_csv(xds_props, "../data/LENA/Transcripts/Derived/xds_props.csv")
 ### calculate type-token ratio in annotations
 TTR_calculations <- VITD_LENA_words %>%
   filter(Word != "0",
-         speaker != "CHI",
-         speaker != "EE1") %>%
+         participant != "CHI",
+         participant != "EE1") %>%
   group_by(VIHI_ID) %>%
-  arrange(uttnum) %>%
+  arrange(utt_num) %>%
    mutate(bin = rep(1:ceiling(n() / 100), each = 100)[1:n()]) %>%
   group_by(VIHI_ID, bin) %>%
   summarise(
@@ -188,8 +194,8 @@ write_csv(TTR_calculations, "../data/LENA/Transcripts/Derived/TTR_calculations.c
 MLUs <-
   VITD_transcripts %>%
   mutate(morphemecount = lengths(morphemepiece_tokenize(utterance_clean))) %>%
-  left_join((VITD_transcripts %>% dplyr::select(-group,-code,-con))) %>%
-  select(VIHI_ID, utt_num, speaker, xds, utterance_clean, morphemecount) %>%
+  left_join((VITD_transcripts %>% dplyr::select(-group))) %>%
+  select(VIHI_ID, utt_num, participant, xds, utterance_clean, morphemecount) %>%
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
   filter(!is.na(utterance_clean)) %>%
   group_by(group, VIHI_ID) %>%
@@ -204,7 +210,7 @@ write_csv(MLUs, "../data/LENA/Transcripts/Derived/MLUs.csv")
 #   sample_n(round(nrow(simple_morpheme_counts%>%filter(!is.na(morphemecount) &!is.na(utterance)))*.1))
 #### hide identifying information about participants
 # secret_random_MLU_subset <- random_MLU_subset %>%
-#   dplyr::select(utt_num, speaker, xds,utterance) %>%
+#   dplyr::select(utt_num, participant, xds,utterance) %>%
 #   mutate(manual_morpheme_count = "NA")
 # # # Export the random subset to a CSV file for manual coding in Excel
 # write_csv(secret_random_MLU_subset, "data/LENA/Transcripts/Derived/secret_random_MLU_subset.csv")
