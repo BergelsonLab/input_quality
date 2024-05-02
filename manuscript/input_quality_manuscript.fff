@@ -2,13 +2,6 @@
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{input_quality_manuscript_files/figure-latex/corpus-size-plots-1.pdf}
-\caption{\label{fig:corpus-size-plots}The amount of text that analyses are run over. Left panel shows the corpus size in words, and right panel shows the corpus size in utterances. Each bar shows the amount of speech in one child's recording, colored by whether the words/utterances were in random or high-volubility samples.}
-\end{figure*}
-\begin{figure*}[hbt]
-\ifnextchar[{\eatarg}{}
-
-\centering
 \includegraphics{input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf}
 \caption{\label{fig:quantity-plots}Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.}
 \end{figure*}
