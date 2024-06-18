@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.3.1",
+    "Version": "4.3.2",
     "Repositories": [
       {
         "Name": "P3M",
@@ -24,19 +24,9 @@
       ],
       "Hash": "b2866e62bab9378c3cc9476a1954226b"
     },
-    "DEoptimR": {
-      "Package": "DEoptimR",
-      "Version": "1.1-3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "stats"
-      ],
-      "Hash": "72f87e0092e39384aee16df8d67d7410"
-    },
     "MASS": {
       "Package": "MASS",
-      "Version": "7.3-60",
+      "Version": "7.3-60.0.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -47,7 +37,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "a56a6365b3fa73293ea8d084be0d9bb0"
+      "Hash": "b765b28387acc8ec9e9c1530713cb19c"
     },
     "Matrix": {
       "Package": "Matrix",
@@ -98,18 +88,6 @@
         "R"
       ],
       "Hash": "45f0398006e83a5b10b72a90663d8d8c"
-    },
-    "RMySQL": {
-      "Package": "RMySQL",
-      "Version": "0.10.27",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "DBI",
-        "R",
-        "methods"
-      ],
-      "Hash": "23f94b9f026a5baa667046bfbd17bc6e"
     },
     "Rcpp": {
       "Package": "Rcpp",
@@ -279,7 +257,7 @@
     },
     "boot": {
       "Package": "boot",
-      "Version": "1.3-28.1",
+      "Version": "1.3-30",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -287,7 +265,7 @@
         "graphics",
         "stats"
       ],
-      "Hash": "9a052fbcbe97a98ceb18dbfd30ebd96e"
+      "Hash": "96abeed416a286d4a0f52e550b612343"
     },
     "brio": {
       "Package": "brio",
@@ -1234,26 +1212,6 @@
       ],
       "Hash": "0b8a6d63c8770f02a8b5635f3c431e6b"
     },
-    "lavaan": {
-      "Package": "lavaan",
-      "Version": "0.6-17",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "MASS",
-        "R",
-        "graphics",
-        "methods",
-        "mnormt",
-        "numDeriv",
-        "pbivnorm",
-        "quadprog",
-        "stats",
-        "stats4",
-        "utils"
-      ],
-      "Hash": "993c0958431b2651438c360a070fd088"
-    },
     "lifecycle": {
       "Package": "lifecycle",
       "Version": "1.0.3",
@@ -1552,13 +1510,6 @@
       ],
       "Hash": "d6b15d1e41faf8951b59f5b3051ad3e3"
     },
-    "pbivnorm": {
-      "Package": "pbivnorm",
-      "Version": "0.6.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "643e16a7da6aac3e18cadc3e14abb94b"
-    },
     "pbkrtest": {
       "Package": "pbkrtest",
       "Version": "0.5.2",
@@ -1734,20 +1685,6 @@
       ],
       "Hash": "3efbd8ac1be0296a46c55387aeace0f3"
     },
-    "profileR": {
-      "Package": "profileR",
-      "Version": "0.3-5",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "RColorBrewer",
-        "ggplot2",
-        "lavaan",
-        "reshape"
-      ],
-      "Hash": "d0a8d681173b156eb0a3b4cca569ff93"
-    },
     "progress": {
       "Package": "progress",
       "Version": "1.2.2",
@@ -1804,16 +1741,6 @@
       ],
       "Hash": "1cba04a4e9414bdefc9dcaa99649a8dc"
     },
-    "quadprog": {
-      "Package": "quadprog",
-      "Version": "1.5-8",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "5f919ae5e7f83a6f91dcf2288943370d"
-    },
     "quantreg": {
       "Package": "quantreg",
       "Version": "5.97",
@@ -1831,20 +1758,6 @@
         "survival"
       ],
       "Hash": "1bbc97f7d637ab3917c514a69047b2c1"
-    },
-    "quantregGrowth": {
-      "Package": "quantregGrowth",
-      "Version": "1.7-0",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "SparseM",
-        "methods",
-        "quantreg",
-        "splines"
-      ],
-      "Hash": "b35df6247d1c19ebeee54b7afd8645c4"
     },
     "ragg": {
       "Package": "ragg",
@@ -1954,17 +1867,6 @@
       ],
       "Hash": "d66fe009d4c20b7ab1927eb405db9ee2"
     },
-    "reshape": {
-      "Package": "reshape",
-      "Version": "0.8.9",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "plyr"
-      ],
-      "Hash": "603d56041d7d4fa3ceb1864b3f6ee6b1"
-    },
     "reshape2": {
       "Package": "reshape2",
       "Version": "1.4.4",
@@ -2024,21 +1926,6 @@
         "utils"
       ],
       "Hash": "d2e1277195d221e6118d8a77dda2e877"
-    },
-    "robustbase": {
-      "Package": "robustbase",
-      "Version": "0.99-1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "DEoptimR",
-        "R",
-        "graphics",
-        "methods",
-        "stats",
-        "utils"
-      ],
-      "Hash": "3adb5cc6a5cc5650cb4569204a3209c3"
     },
     "rprojroot": {
       "Package": "rprojroot",
@@ -2591,30 +2478,6 @@
         "stats"
       ],
       "Hash": "c0e49a9760983e81e55cdd9be92e7182"
-    },
-    "wordbankr": {
-      "Package": "wordbankr",
-      "Version": "1.0.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "DBI",
-        "R",
-        "RMySQL",
-        "assertthat",
-        "dbplyr",
-        "dplyr",
-        "glue",
-        "jsonlite",
-        "lifecycle",
-        "purrr",
-        "quantregGrowth",
-        "rlang",
-        "robustbase",
-        "stringr",
-        "tidyr"
-      ],
-      "Hash": "81d59a12e71a7cab21a5c93e563b4a9a"
     },
     "xfun": {
       "Package": "xfun",
