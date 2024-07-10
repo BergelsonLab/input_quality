@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.27)  9 JUL 2024 23:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.27)  10 JUL 2024 13:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -629,9 +629,6 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [1{/Users/eec35/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/eec35/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 [2]
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -643,6 +640,9 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 
 [3]
+Underfull \vbox (badness 3977) has occurred while \output is active []
+
+
 
 [4]
 
@@ -654,11 +654,11 @@ Underfull \vbox (badness 7649) has occurred while \output is active []
 
 
 [7]
-
-[8]
 \openout3 = `input_quality_manuscript.ttt'.
 
 (input_quality_manuscript.ttt)
+
+[8]
 
 [9{/Users/eec35/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
 
@@ -699,7 +699,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [24]
 
 [25]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 577.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 576.
 (/Users/eec35/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -798,22 +798,22 @@ LaTeX Warning: Float too large for page by 63.37758pt on input line 78.
 ]
 
 [42] (./input_quality_manuscript.fff
-<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=536, 433.62pt x 216.81pt>
+<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=540, 433.62pt x 216.81pt>
 File: input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf Graphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf  used on input line 5.
 (pdftex.def)             Requested size: 433.63878pt x 216.81938pt.
-<input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf, id=537, 505.89pt x 216.81pt>
+<input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf, id=541, 505.89pt x 216.81pt>
 File: input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf Graphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf  used on input line 12.
 (pdftex.def)             Requested size: 469.76265pt x 201.32684pt.
-<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=538, 325.215pt x 216.81pt>
+<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=542, 325.215pt x 216.81pt>
 File: input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf Graphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf  used on input line 19.
 (pdftex.def)             Requested size: 325.22908pt x 216.81938pt.
-<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=539, 505.89pt x 578.16pt>
+<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=543, 505.89pt x 578.16pt>
 File: input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf Graphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>
 Package pdftex.def Info: input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf  used on input line 26.
@@ -838,18 +838,18 @@ L3 programming layer <2020/03/25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 16388 strings out of 475560
- 265207 string characters out of 5777225
+ 16392 strings out of 475560
+ 265300 string characters out of 5777225
  1946905 words of memory out of 5000000
- 38447 multiletter control sequences out of 15000+600000
+ 38449 multiletter control sequences out of 15000+600000
  643711 words of font info for 111 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  83i,12n,93p,2339b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on input_quality_manuscript.pdf (46 pages, 429937 bytes).
+Output written on input_quality_manuscript.pdf (46 pages, 431764 bytes).
 PDF statistics:
- 796 PDF objects out of 1000 (max. 8388607)
- 713 compressed objects within 8 object streams
- 268 named destinations out of 1000 (max. 500000)
- 261 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 803 PDF objects out of 1000 (max. 8388607)
+ 720 compressed objects within 8 object streams
+ 270 named destinations out of 1000 (max. 500000)
+ 269 words of extra memory for PDF output out of 10000 (max. 10000000)
 

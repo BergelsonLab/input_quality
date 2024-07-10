@@ -51,7 +51,7 @@ Ethnicity & Hispanic or Latino: 19\% & Hispanic or Latino: 0\%\\
 \ifnextchar[{\eatarg}{}
 
 
-\caption{\label{tab:analysis-summary-table}Summary of language input variables: how the measure is calculated; what portion of the recording the measure was calculated over; whether a parametric or non-parametric test was used; the mean, median, and range for blind and sighted children, and the raw (uncorrected) p-value of the test comparing groups. Only prop. displaced reached significance at our corrected *p*<.025 threshold for significance}
+\caption{\label{tab:analysis-summary-table}Summary of language input variables: how the measure is calculated; what portion of the recording the measure was calculated over; whether a parametric or non-parametric test was used; the mean, median, and range for blind and sighted children, and the raw (uncorrected) p-value of the test comparing groups. Only prop. displaced reached significance at our corrected p<.025 threshold for significance}
 \centering
 \fontsize{9}{11}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{.82in}|>{\raggedright\arraybackslash}p{2in}|>{\raggedright\arraybackslash}p{.76in}|>{\raggedright\arraybackslash}p{.6in}|>{\raggedright\arraybackslash}p{.7in}|>{\raggedright\arraybackslash}p{.8in}|>{\centering\arraybackslash}p{.43in}}
