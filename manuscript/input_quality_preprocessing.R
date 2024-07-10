@@ -18,10 +18,10 @@ get_match_number <- function(df) {
 }
 
 ## demographics
-VI_matches_demo <- read_csv("../data/Demographics/VI_matches_demo.csv")
+VI_matches_demo <- read_csv("./data/Demographics/VI_matches_demo.csv")
 
 lancaster_norms <-
-  read_csv("../data/Norms/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
+  read_csv("./data/Norms/Lancaster_sensorimotor_norms_for_39707_words.csv") %>%
   mutate(Word = tolower(Word)) # make the contents of the Word column lowercase (to align with our transcription style)
 
 ### list of TD matches
@@ -47,7 +47,7 @@ TD_matches <- # one recording in VI_matches_demo is not assigned a match here be
 ## Load in transcripts and automated metrics
 
 LENA_counts <-
-  read_csv("../data/LENA/Automated/VIHI_its_details.csv") %>%
+  read_csv("./data/LENA/Automated/VIHI_its_details.csv") %>%
   filter(match_type == "VI" | VIHI_ID %in% TD_matches) %>% # only look at data from VI kids or their TD matches
   mutate(
     AWC_per_hour = AWC / (total_time_dur / 3600), # change AWC to be per hour 
@@ -55,16 +55,16 @@ LENA_counts <-
   ) %>%
   get_match_number() %>% # add a column that indicates which pair each child is a member of
   distinct(its_path, .keep_all = TRUE)
-write_csv(LENA_counts, "../data/LENA/Automated/LENA_counts.csv")
+write_csv(LENA_counts, "./data/LENA/Automated/LENA_counts.csv")
 
 
 ###read in data that has been mass exported via ELAN
-VIHI_transcripts_messy <- read_csv("../data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
+VIHI_transcripts_messy <- read_csv("./data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
 
 # vihi_annotations <- get_vihi_annotations(subset = "VI+TD-VI", table = "merged")
-# write.csv(vihi_annotations, "../data/LENA/Transcripts/Raw/VIHI_annotations_4242024.csv")
+# write.csv(vihi_annotations, "./data/LENA/Transcripts/Raw/VIHI_annotations_4242024.csv")
 VITD_transcripts <-
-  read_csv("../data/LENA/Transcripts/Raw/vihi_annotations_4242024.csv") %>% 
+  read_csv("./data/LENA/Transcripts/Raw/vihi_annotations_4242024.csv") %>% 
   select(eaf_filename, participant, transcription, transcription_id, xds, sampling_type, is_silent) %>%
   mutate(VIHI_ID = as.factor(str_sub(eaf_filename, 1, 10)),
          group = as.factor(str_sub(VIHI_ID,1,2))) %>%
@@ -82,7 +82,7 @@ VITD_transcripts <-
   ) %>%
   filter(!is.na(utterance_clean)) %>%
   mutate(utt_num = 1:nrow(.)) # number the utterances
-write_csv(VITD_transcripts, "../data/LENA/Transcripts/Derived/VITD_transcripts.csv")
+write_csv(VITD_transcripts, "./data/LENA/Transcripts/Derived/VITD_transcripts.csv")
 
 VITD_LENA_utterances_split <- VITD_transcripts %>%
   rename(Word = utterance_clean) %>%
@@ -123,7 +123,7 @@ VITD_LENA_words <- VITD_LENA_utterances_split %>%
     participant
   ) %>% #remove unwanted columns
   filter(group != "HI" & participant != "CHI" & Word != "")
-write_csv(VITD_LENA_words, "../data/LENA/Transcripts/Derived/VITD_LENA_words.csv")
+write_csv(VITD_LENA_words, "./data/LENA/Transcripts/Derived/VITD_LENA_words.csv")
 
 # quantity ----
 
@@ -138,7 +138,7 @@ manual_word_tokens <- VITD_LENA_words %>%
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) # add group (determined by VIHI_ID)
 
 write_csv(manual_word_tokens,
-          "../data/LENA/Transcripts/Derived/manual_word_tokens.csv")
+          "./data/LENA/Transcripts/Derived/manual_word_tokens.csv")
 
 # interactiveness  ----
 ## CTC----
@@ -157,7 +157,7 @@ xds_props_wide <- VITD_transcripts %>%
     prop_PDS = sum(xds == "P") / total 
   ) %>%
 get_match_number() 
-write_csv(xds_props_wide, "../data/LENA/Transcripts/Derived/xds_props_wide.csv")
+write_csv(xds_props_wide, "./data/LENA/Transcripts/Derived/xds_props_wide.csv")
 xds_props <- xds_props_wide %>%
   pivot_longer(
     cols = prop_ADS:prop_PDS,
@@ -165,7 +165,7 @@ xds_props <- xds_props_wide %>%
     names_prefix = "prop_",
     values_to = "prop"
   )
-write_csv(xds_props, "../data/LENA/Transcripts/Derived/xds_props.csv")
+write_csv(xds_props, "./data/LENA/Transcripts/Derived/xds_props.csv")
 
 # linguistic quality ----
 ## TTR ----
@@ -188,7 +188,25 @@ TTR_calculations <- VITD_LENA_words %>%
             mean_ttr = mean(ttr)) %>%
   mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
   get_match_number()
-write_csv(TTR_calculations, "../data/LENA/Transcripts/Derived/TTR_calculations.csv")
+write_csv(TTR_calculations, "./data/LENA/Transcripts/Derived/TTR_calculations.csv")
+
+raw_TTR_calculations <- VITD_LENA_words %>%
+  filter(Word != "0",
+         participant != "CHI",
+         participant != "EE1") %>%
+  arrange(utt_num) %>%
+  group_by(VIHI_ID) %>%
+  summarise(
+    num_words_in_bin = n(),
+    num_unique_words = n_distinct(Word),
+    ttr = num_unique_words / num_words_in_bin
+  ) %>%
+  group_by(VIHI_ID) %>%
+  summarise(num_bins = n(),
+            mean_ttr = mean(ttr)) %>%
+  mutate(group = as.factor(str_sub(VIHI_ID, 1, 2))) %>%
+  get_match_number()
+write_csv(raw_TTR_calculations, "./data/LENA/Transcripts/Derived/raw_TTR_calculations.csv")
 
 ## MLU ---- 
 MLUs <-
@@ -201,7 +219,7 @@ MLUs <-
   group_by(group, VIHI_ID) %>%
   summarise(MLU = mean(morphemecount)) %>%
   get_match_number()
-write_csv(MLUs, "../data/LENA/Transcripts/Derived/MLUs.csv")
+write_csv(MLUs, "./data/LENA/Transcripts/Derived/MLUs.csv")
 
 
 #### get a random subset of utterances, and write out to a csv. DO NOT UNCOMMENT CODE AND RERUN THESE STEPS (risks overwriting previous csv)
@@ -216,9 +234,9 @@ write_csv(MLUs, "../data/LENA/Transcripts/Derived/MLUs.csv")
 # write_csv(secret_random_MLU_subset, "data/LENA/Transcripts/Derived/secret_random_MLU_subset.csv")
 
 random_MLU_subset <-
-  read_csv("../data/LENA/Transcripts/Derived/random_MLU_subset.csv")
+  read_csv("./data/LENA/Transcripts/Derived/random_MLU_subset.csv")
 manually_coded_MLU_subset <- #after manually counting morphemes (done by EC & LR), this gets read back in for validity
-  read_csv("../data/LENA/Transcripts/Derived/manually_coded_MLU_subset.csv")
+  read_csv("./data/LENA/Transcripts/Derived/manually_coded_MLU_subset.csv")
 
 
 # Calculate agreement between the manual coding and original data
@@ -235,7 +253,7 @@ MLU_subset_for_agreement <-
     morpheme_diff = morphemecount - manual_morpheme_count,
     abs_morpheme_diff = abs(morphemecount - manual_morpheme_count)
   )
-write_csv(MLU_subset_for_agreement,"../data/LENA/Transcripts/Derived/MLU_subset_for_agreement.csv")
+write_csv(MLU_subset_for_agreement,"./data/LENA/Transcripts/Derived/MLU_subset_for_agreement.csv")
 
 
 
@@ -267,7 +285,7 @@ sensory_props_wide <- VITD_LENA_words %>%
   ) %>%
   get_match_number()
 write_csv(sensory_props_wide,
-          "../data/LENA/Transcripts/Derived/sensory_props_wide.csv")
+          "./data/LENA/Transcripts/Derived/sensory_props_wide.csv")
 sensory_props <- sensory_props_wide %>%
   pivot_longer(
     cols = prop_Auditory:prop_Amodal,
@@ -277,7 +295,7 @@ sensory_props <- sensory_props_wide %>%
   )
 
 write_csv(sensory_props,
-          "../data/LENA/Transcripts/Derived/sensory_props.csv")
+          "./data/LENA/Transcripts/Derived/sensory_props.csv")
 
 content_words_only <- VITD_LENA_words %>%
   anti_join(tidytext::stop_words, by = c("Word" = "word")) # get rid of stop words
@@ -285,7 +303,7 @@ content_words_only <- VITD_LENA_words %>%
 percentage_na_sensory <- (sum(is.na(VITD_LENA_words$Auditory.mean)) / nrow(VITD_LENA_words)) * 100
 percentage_not_na_sensory <- round(100 - percentage_na_sensory)
 
-write_rds(percentage_not_na_sensory, "../data/LENA/Transcripts/Derived/percentage_not_na_sensory.rds")
+write_rds(percentage_not_na_sensory, "./data/LENA/Transcripts/Derived/percentage_not_na_sensory.rds")
 
 ## tense/displacement---- 
 
@@ -320,7 +338,7 @@ verbs_only <- udpipe_annotate(udmodel_english, # apply the udpipe model of engli
       TRUE ~ "ambiguous"
     )
   )
-write_csv(verbs_only, "../data/LENA/Transcripts/Derived/verbs_only.csv")
+write_csv(verbs_only, "./data/LENA/Transcripts/Derived/verbs_only.csv")
 
 
 # Randomly select a subset of the utterances for manual coding DO NOT UNCOMMENT CODE AND RERUN THESE STEPS (risks overwriting previous csv)
@@ -334,10 +352,10 @@ write_csv(verbs_only, "../data/LENA/Transcripts/Derived/verbs_only.csv")
 # write_csv(secret_random_displacement_subset, "data/LENA/Transcripts/Derived/secret_random_displacement_subset.csv")
 # Once manual coding is done in Excel, read the manually coded CSV file back into R
 random_displacement_subset <-
-  read_csv("../data/LENA/Transcripts/Derived/random_displacement_subset.csv")
+  read_csv("./data/LENA/Transcripts/Derived/random_displacement_subset.csv")
 
 manually_coded_displacement_subset <- # after manual utterance tagging by EC, LR, and GL, this gets read back in for validity
-  read_csv("../data/LENA/Transcripts/Derived/manually_coded_displacement_subset.csv")
+  read_csv("./data/LENA/Transcripts/Derived/manually_coded_displacement_subset.csv")
 # Calculate agreement between the manual coding and original data
 displacement_subset_for_agreement <-
   left_join(
@@ -364,7 +382,7 @@ displacement_subset_for_agreement <-
                 manual_temporality, 
                 feats) %>%
   filter(!grepl("Mood=Imp", feats))
-write_csv(displacement_subset_for_agreement, "../data/LENA/Transcripts/Derived/displacement_subset_for_agreement.csv")
+write_csv(displacement_subset_for_agreement, "./data/LENA/Transcripts/Derived/displacement_subset_for_agreement.csv")
 
 # Calculate Percent Agreement
 displacement_agreement <-
@@ -395,7 +413,7 @@ temporality_props_wide <- verbs_only %>%
   get_match_number()
 write_csv(
   temporality_props_wide,
-  "../data/LENA/Transcripts/Derived/temporality_props_wide.csv"
+  "./data/LENA/Transcripts/Derived/temporality_props_wide.csv"
 )
 temporality_props <- temporality_props_wide %>%
   pivot_longer(
@@ -405,7 +423,7 @@ temporality_props <- temporality_props_wide %>%
     values_to = "prop"
   )
 write_csv(temporality_props,
-          "../data/LENA/Transcripts/Derived/temporality_props.csv")
+          "./data/LENA/Transcripts/Derived/temporality_props.csv")
 
 
 perc_random_silent <-
@@ -420,4 +438,4 @@ perc_random_silent <-
                                         sampling_type == "random") %>% nrow()
   )
   ) * 100
-write_rds(perc_random_silent, "../data/LENA/Transcripts/Derived/perc_random_silent.rds")
+write_rds(perc_random_silent, "./data/LENA/Transcripts/Derived/perc_random_silent.rds")
