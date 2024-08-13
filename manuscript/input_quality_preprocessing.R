@@ -398,6 +398,7 @@ displaced_agreement <-
   )$manual_temporality
   ) / nrow(displacement_subset_for_agreement %>% filter(manual_temporality == "displaced"))
 
+displacement_kappa <- cohen.kappa(displacement_subset_for_agreement %>% select(temporality, manual_temporality))
 
 temporality_props_wide <- verbs_only %>%
   dplyr::rename(VIHI_ID = doc_id) %>%
