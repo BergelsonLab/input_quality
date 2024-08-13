@@ -1,7 +1,5 @@
 # Input Quality Preprocessing
 
-# praise: zhenya2erin: While this code is less clean than the code in the manuscript, I still didn't need any help figuring out what happens here. So most of my comments below are about implementation details.
-
 library(dplyr)
 library(readr)
 library(stringr)
@@ -78,6 +76,7 @@ VITD_transcripts <-
     utterance_clean = str_replace_all(utterance_clean, "<[^[:space:]]+?\\b(?!: clarifier)>", ""), # Remove text enclosed in <> only if not followed by [: clarifier]
     utterance_clean = str_replace_all(utterance_clean, "\\[-\\s[a-z]{3}\\]", ""), # Remove language tags like "[- spa]" or "[- ger]"
     utterance_clean = str_replace_all(utterance_clean, "=!\\w+\\s*", ""), # Remove any substrings starting with "=!" followed by one or more word characters and optional whitespace (get rid of the style markers =!shrieks)
+    utterance_clean = str_replace_all(utterance_clean, "xxx", ""), # Remove unintelligible words indicated by 'xxx'
     utterance_clean = str_replace_all(utterance_clean, "[[:punct:]&&[^']]", "") # Remove any punctuation, except for apostrophes
   ) %>%
   filter(!is.na(utterance_clean)) %>%
@@ -397,8 +396,6 @@ displaced_agreement <-
     displacement_subset_for_agreement %>% filter(manual_temporality == "displaced")
   )$manual_temporality
   ) / nrow(displacement_subset_for_agreement %>% filter(manual_temporality == "displaced"))
-
-displacement_kappa <- cohen.kappa(displacement_subset_for_agreement %>% select(temporality, manual_temporality))
 
 temporality_props_wide <- verbs_only %>%
   dplyr::rename(VIHI_ID = doc_id) %>%

@@ -51,7 +51,7 @@ Ethnicity & Hispanic or Latino: 19\% & Hispanic or Latino: 0\%\\
 \ifnextchar[{\eatarg}{}
 
 
-\caption{\label{tab:analysis-summary-table}Summary of language input variables: how the measure is calculated; what portion of the recording the measure was calculated over; whether a parametric or non-parametric test was used; the mean, median, and range for blind and sighted children, and the raw (uncorrected) p-value of the test comparing groups. Only prop. displaced reached significance at our corrected p<.025 threshold for significance}
+\caption{\label{tab:analysis-summary-table}Summary of language input variables: how the measure is calculated; what portion of the recording the measure was calculated over; whether a parametric or non-parametric test was used; the mean, median, and range for blind and sighted children, and the raw (uncorrected) p-value of the test comparing groups. Only prop. displaced reached significance at our corrected p<.025 threshold for significance.}
 \centering
 \fontsize{9}{11}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{.82in}|>{\raggedright\arraybackslash}p{2in}|>{\raggedright\arraybackslash}p{.76in}|>{\raggedright\arraybackslash}p{.6in}|>{\raggedright\arraybackslash}p{.7in}|>{\raggedright\arraybackslash}p{.8in}|>{\centering\arraybackslash}p{.43in}}
@@ -60,17 +60,17 @@ Variable & Description & Portion of Recording & Test & Blind Mean, Median, Range
 \hline
 Adult Word Count & Estimated number of words in recording categorized as nearby adult speech by LENA algorithm & Whole day & t-test & 2124, 1808, 779-3968 words/hour & 2117, 2047, 951-3216 words/hour & .984\\
 \hline
-Manual Word Count & Number of word tokens from speakers other than target child & Random & t-test & 4093, 3640, 1220-7464 words/hour & 4753, 4436, 784-8964 words/hour & .276\\
+Manual Word Count & Number of word tokens from speakers other than target child & Random & t-test & 3994, 3504, 1208-7288 words/hour & 4598, 4296, 780-8668 words/hour & .307\\
 \hline
 Conversational Turn Count & Count of temporally close switches between adult and target-child vocalizations, divided by recording length & Whole day & Wilcoxon test & 66, 49, 26-180 turns/hour & 71, 65, 18-169 turns/hour & .811\\
 \hline
 Prop. Child-Directed Speech & Number of utterances tagged with child addressee out of total number of utterances, from speakers other than target child & Random & t-test & 0.55, 0.6, 0.19-1 & 0.57, 0.57, 0.09-0.95 & .978\\
 \hline
-Type-Token Ratio & Average of the type-token ratios (number of unique words divided by number of total words) for each of the 100-word bins in their sample & Random + High Volume & t-test & 0.64, 0.63, 0.58-0.68 unique words/ 100 words & 0.62, 0.63, 0.53-0.69 unique words/ 100 words & .274\\
+Type-Token Ratio & Average of the type-token ratios (number of unique words divided by number of total words) for each of the 100-word bins in their sample & Random + High Volume & t-test & 0.64, 0.65, 0.58-0.67 unique words/ 100 words & 0.63, 0.63, 0.54-0.69 unique words/ 100 words & .353\\
 \hline
-Mean Length of Utterance & Average number of morphemes per utterance & Random + High Volume & t-test & 5.74, 5.55, 4.33-8.05 morphemes & 5.21, 5.37, 4.35-6.15 morphemes & .075\\
+Mean Length of Utterance & Average number of morphemes per utterance & Random + High Volume & t-test & 5.53, 5.28, 4.13-7.71 morphemes & 4.97, 5.11, 4.09-5.87 morphemes & .063\\
 \hline
-Prop. Displaced & Proportion of verbs that refer to past, future, or hypothetical events & Random + High Volume & t-test & 0.34, 0.34, 0.24-0.43 & 0.29, 0.3, 0.13-0.39 & .016*\\
+Prop. Displaced & Proportion of verbs that refer to past, future, or hypothetical events & Random + High Volume & t-test & 0.34, 0.33, 0.24-0.43 & 0.29, 0.3, 0.13-0.39 & .018*\\
 \hline
 Prop. Visual & Proportion of words in the input with high visual association ratings and low ratings for other perceptual modalities & Random + High Volume & Wilcoxon test & 0.1, 0.08, 0.04-0.21 & 0.11, 0.1, 0.06-0.22 & .421\\
 \hline

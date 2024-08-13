@@ -27,6 +27,7 @@ affiliation:
 note: |
   **Conflicts of Interest**: The authors have no conflicts of interest to report.
   **Funding**: This work was supported by the National Science Foundation CAREER grant (BCS-1844710) to EB and Graduate Research Fellowship (2019274952) to EC.
+  
 
 keywords          : "language input; blind children; LENA"
 
@@ -43,7 +44,6 @@ draft             : no
 documentclass     : "apa6"
 classoption       : "man"
 output            : papaja::apa6_pdf
-
 ---
 
 ```{r preferences, echo = FALSE, message = FALSE, warning = FALSE}
@@ -201,13 +201,7 @@ cowplot_title <- function(title_text) {
 
 # Abstract
 
-**Purpose:** We compared everyday language input to young congenitally-blind children with no additional disabilities (N=15, 6--30mo., M:16mo.) and demographically-matched sighted peers (N=15, 6--31mo., M:16mo.). By studying whether the language input of blind children differs from their sighted peers, we aimed to determine whether, in principle, the language acquisition patterns observed in blind and sighted children could be explained by aspects of the speech they hear.
-
-**Methods:** LENA recorders captured the auditory language environment in children's homes. Speech in these recordings was then analyzed with a mix of automated and manually-transcribed measures across various subsets and dimensions of language input. These included measures of quantity (adult words), interaction (conversational turns and child-directed speech), linguistic properties (lexical diversity and mean length of utterance), and conceptual features (talk centered around the here-and-now; talk focused on visual referents that would be inaccessible to the blind but not sighted children).
-
-**Results:** Overall, we found broad similarity across groups in speech quantity, interaction, and linguistic properties. The only exception was that blind children's language environments contained slightly but significantly more talk about past/future/hypothetical events than sighted children's input; both groups received equivalent quantities of "visual" speech input.
-
-**Conclusions:** The findings challenge the notion that blind children's language input diverges substantially from sighted children's in a way that would place them at a disadvantage. They suggest instead that blind children receive rich and complex language input that readily supports their language development, with open questions remaining regarding how this input may be differentially leveraged by language learners in early childhood.
+We compared everyday language input to young congenitally-blind children with no additional disabilities (N=15, 6--30mo., M:16mo.) and demographically-matched sighted peers (N=15, 6--31mo., M:16mo.). By studying whether the language input of blind children differs from their sighted peers, we aimed to determine whether, in principle, the language acquisition patterns observed in blind and sighted children could be explained by aspects of the speech they hear. LENA recorders captured the auditory language environment in children's homes. Speech in these recordings was then analyzed with a mix of automated and manually-transcribed measures across various subsets and dimensions of language input. These included measures of quantity (adult words), interaction (conversational turns and child-directed speech), linguistic properties (lexical diversity and mean length of utterance), and conceptual features (talk centered around the here-and-now; talk focused on visual referents that would be inaccessible to the blind but not sighted children). Overall, we found broad similarity across groups in speech quantity, interaction, and linguistic properties. The only exception was that blind children's language environments contained slightly but significantly more talk about past/future/hypothetical events than sighted children's input; both groups received equivalent quantities of "visual" speech input. The findings challenge the notion that blind children's language input diverges substantially from sighted children's in a way that would place them at a disadvantage. They suggest instead that blind children receive rich and complex language input that readily supports their language development, with open questions remaining regarding how this input may be differentially leveraged by language learners in early childhood.
 
 # Introduction
 
@@ -215,9 +209,9 @@ The early language skills of blind children are highly variable. Some children d
 
 ## Why would input matter?
 
-Among both typically-developing children and children with developmental differences, language input has been found to predict variability in language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021; @rowe2012; @anderson2021; @huttenlocher2010]. The many ways to operationalize language input tend to be grouped into **quantity** measures and **input characteristics** (often referred to as "quality" measures)[^1]. Quantity can be broadly construed as the number of words or utterances a child is exposed to. At a coarse level, children who are exposed to more speech [or sign, @watkins1998] tend to have stronger language outcomes and produce more speech themselves [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021; @bergelson2023]. 
+Among both typically-developing children and children with developmental differences, language input has been found to predict variability in language outcomes [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021; @rowe2012; @anderson2021; @huttenlocher2010]. The many ways to operationalize language input tend to be grouped into **quantity** measures and **input characteristics** (often referred to as "quality" measures)[^1]. Quantity can be broadly construed as the number of words or utterances a child is exposed to. At a coarse level, children who are exposed to more speech [or sign, @watkins1998] tend to have stronger language outcomes and produce more speech themselves [@gilkerson2018; @huttenlocher1991; @rowe2008; @anderson2021; @bergelson2023].
 
-[^1]: We avoid the term "quality" here as it carries potential biases regarding linguistic norms (MacLeod & Demers, 2023). 
+[^1]: We avoid the term "quality" here as it carries potential biases regarding linguistic norms (MacLeod & Demers, 2023).
 
 Previous research suggests that the specific characteristics of language input are perhaps even more influential than quantity measures alone [@rowe2012; @hirsh-pasek2015], although they are somewhat trickier to delineate and assess. Rowe and Snow (2020) categorized this space into three dimensions: interactive features (e.g., parent responsiveness, speech directed *to* child vs. overheard, conversational turn-taking), linguistic features (e.g., lexical diversity, grammatical complexity), and conceptual features (i.e., the extent to which input focuses on the *here-and-now*), which we adopt here.
 
@@ -227,7 +221,7 @@ Under the linguistic umbrella, we can measure the *kinds* of words used (often m
 
 Finally, the conceptual dimension of language input aims to capture the extent to which the language signal maps onto present objects and ongoing events in children's environments [@rowe2020]. As children develop, their ability to represent abstract referents improves [@luchkina2020; @kramer1975; @bergelson2013]. Decontextualized language input-- that is, talking about past, future, or hypothetical events, or people and items that are not currently present in the environment-- may be one contributing factor [@rowe2013]. Greater prevalence of decontextualized language in input to toddlers has been found to predict aspects of children's own language in kindergarten and beyond [@rowe2012; @demir2015; @uccelli2019].
 
-From this (necessarily abridged) review, it appears that many factors in the language input alone link to how sighted children learn about the world and language, but that children also learn from sensory, conceptual, and social knowledge. Many cues for word learning are visual: for example, empirical work finds that sighted children can leverage visual information like parental gaze, shared visual attention [@tomasello1986], pointing [@lucca2018], and the presence of salient objects in the visual field [@yu2012]. Because these visual cues are inaccessible to blind children, language input may take on a larger role in the discovery of word meaning [@campbell2022]. Syntactic structure in particular provides critical cues to word meaning, such as the relationship between two entities that aren't within reach, or are intrinsically unobservable or ambiguous [@gleitman1990]. But in order to evaluate whether language input plays a larger role for blind versus sighted children's learning, it is worth first establishing whether blind and sighted children's language input differs. That is, children with different sensory access could differentially make use of the same kind of language input, or they could apply the same learning mechanisms to input with different properties--a debate carried over from work with typically-sighted children [@newport1977]. Either way, characterizing the input across potentially relevant dimensions is a helpful first step. 
+From this (necessarily abridged) review, it appears that many factors in the language input alone link to how sighted children learn about the world and language, but that children also learn from sensory, conceptual, and social knowledge. Many cues for word learning are visual: for example, empirical work finds that sighted children can leverage visual information like parental gaze, shared visual attention [@tomasello1986], pointing [@lucca2018], and the presence of salient objects in the visual field [@yu2012]. Because these visual cues are inaccessible to blind children, language input may take on a larger role in the discovery of word meaning [@campbell2022]. Syntactic structure in particular provides critical cues to word meaning, such as the relationship between two entities that aren't within reach, or are intrinsically unobservable or ambiguous [@gleitman1990]. But in order to evaluate whether language input plays a larger role for blind versus sighted children's learning, it is worth first establishing whether blind and sighted children's language input differs. That is, children with different sensory access could differentially make use of the same kind of language input, or they could apply the same learning mechanisms to input with different properties--a debate carried over from work with typically-sighted children [@newport1977]. Either way, characterizing the input across potentially relevant dimensions is a helpful first step.
 
 ## Why would the input differ between blind and sighted children?
 
@@ -239,7 +233,7 @@ Taking these results into consideration, we might expect parents of blind childr
 
 ## The Present Study
 
-Children can and do learn language in a variety of input scenarios [@gleitman1995], but if language input differs systematically between blind infants and toddlers, capturing this variation may reveal a more nuanced picture of how infants use the input to learn language. In the present study, we examine daylong recordings of the naturalistic language environments of blind and sighted children in order to characterize the input to each group. Using both automated measures and manual transcription of these recordings, we measure input quantity (adult word count) and analyze several characteristics that have been previously suggested to be information-rich learning cues, including interaction (conversational turn count, proportion of child-directed speech), conceptual features (temporal displacement, sensory modality), and linguistic complexity (type-token ratio and mean length of utterance). Though the present study is largely exploratory, based on prior research [i.e.,  @andersen1993; @rowland1984; @perez-pereira2001; @moore1994; @kekelis1984; @preisler1991; @grumi2021; @campbell2003; @kekelis1984; @lorang2020; @dirks2020], we predict that blind vs. sighted children would have input featuring less interactivity (fewer conversational turns and less child-directed speech), less linguistic complexity (lower type-token ratio and shorter utterances), and conceptual content focused more on the child's locus of attention (more here-and-now speech and fewer visual words); we have no *a priori* hypotheses regarding language input quantity.
+Children can and do learn language in a variety of input scenarios [@gleitman1995], but if language input differs systematically between blind infants and toddlers, capturing this variation may reveal a more nuanced picture of how infants use the input to learn language. In the present study, we examine daylong recordings of the naturalistic language environments of blind and sighted children in order to characterize the input to each group. Using both automated measures and manual transcription of these recordings, we measure input quantity (adult word count) and analyze several characteristics that have been previously suggested to be information-rich learning cues, including interaction (conversational turn count, proportion of child-directed speech), conceptual features (temporal displacement, sensory modality), and linguistic complexity (type-token ratio and mean length of utterance). Though the present study is largely exploratory, based on prior research [i.e., @andersen1993; @rowland1984; @perez-pereira2001; @moore1994; @kekelis1984; @preisler1991; @grumi2021; @campbell2003; @kekelis1984; @lorang2020; @dirks2020], we predict that blind vs. sighted children would have input featuring less interactivity (fewer conversational turns and less child-directed speech), less linguistic complexity (lower type-token ratio and shorter utterances), and conceptual content focused more on the child's locus of attention (more here-and-now speech and fewer visual words); we have no *a priori* hypotheses regarding language input quantity.
 
 # Methods
 
@@ -360,13 +354,13 @@ Therefore, we chose to annotate 5 additional (non-overlapping) 2-minute segments
 
 ## Annotation
 
-Manual annotation of the selected segments was conducted using the ELAN software [@brugman2009]. Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the ACLEW annotation scheme [@soderstrom2021]. For more information about this scheme, see the [ACLEW homepage](https://sites.google.com/view/aclewdid/home "ACLEW homepage"). Speech by people other than the target child was transcribed using an adapted version of the CHAT transcription style [@macwhinney2019; @soderstrom2021]. Because the majority of target children in the project are pre-lexical, utterances (e.g. babble) produced by the target child are not yet transcribed. Speech was then further classified by the addressee of each utterance: child, adult, both an adult and a child, pets or other animals, unclear addressee, or a recipient that doesn't fit into another category (e.g., voice control of Siri or Alexa, prayer to a metaphysical entity). 
+Manual annotation of the selected segments was conducted using the ELAN software [@brugman2009]. Trained annotators listened through each 2-minute segment plus its surrounding context and coded it using the ACLEW annotation scheme [@soderstrom2021]. For more information about this scheme, see the [ACLEW homepage](https://sites.google.com/view/aclewdid/home "ACLEW homepage"). Speech by people other than the target child was transcribed using an adapted version of the CHAT transcription style [@macwhinney2019; @soderstrom2021]. Because the majority of target children in the project are pre-lexical, utterances (e.g. babble) produced by the target child are not yet transcribed. Speech was then further classified by the addressee of each utterance: child, adult, both an adult and a child, pets or other animals, unclear addressee, or a recipient that doesn't fit into another category (e.g., voice control of Siri or Alexa, prayer to a metaphysical entity).
 
-### Manual Annotation Training and Reliability  
+### Manual Annotation Training and Reliability
 
 All annotators are tested on the ACLEW scheme prior to beginning corpus annotation, until they reach 95% agreement or better with a "gold standard" coder for segmentation and utterance classification. Training often takes upwards of 20 hours of annotation practice. Following the first pass by annotators, all files were reviewed by a highly-trained "superchecker" to ensure consistency between coders and check for errors. Ten percent of clips were re-transcribed to assess reliability; further reliability data are provided in corresponding sections below.
 
-## Extracting Measures of Language Input 
+## Extracting Measures of Language Input
 
 To go from our dimensions of interest (quantity, interactiveness, linguistic, conceptual), to quantifiable properties, we used a combination of automated measures [generated by the proprietary LENA algorithm, @xu2009] and manual measures (generated from the transcriptions and classifications made by our trained annotators). Altogether, this corpus presently includes approximately `r round(sum(LENA_counts$total_time_dur) / 60 / 60)` hours of audio, `r nrow(VITD_transcripts)` utterances, and `r nrow(VITD_LENA_words)` words. LENA measures were calculated over the whole day, and then normalized by recording length. Transcription-based quantity and interactiveness analyses were conducted on the random samples only, to capture a more representative estimate. Linguistic and conceptual analyses were conducted on all available annotations in order to maximize the amount of speech over which we could calculate them. These measures are described below and summarized in Table \@ref(tab:analysis-summary-table).
 
@@ -402,7 +396,6 @@ As in previous work [e.g., @montag2018; @templin1957; @pancsofar2006], we calcul
 
 [^4]: Computing TTR over the entire sample instead of averaging over 100-word bins rendered the same pattern of results.
 
-
 ```{r agreement}
 # Calculate Intraclass Correlation
 MLU_agreement <- icc(MLU_subset_for_agreement %>%
@@ -436,9 +429,9 @@ To do this, we used the udpipe package [@wijffels2023] to tag the transcriptions
 
 #### Proportion of highly visual words
 
-In addition to this general measure of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We first filter the input to only content words (excluding, for example: *the*, *at*, *of*). We then categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, which are ratings from sighted adults noting the extent to which a word evokes a word evokes a sensory experience in a given modality  [@lynott2020]. Each of the approximately 40,000 words in the Lancaster Sensorimotor Norms  gets a score for each of 6 sensory modalities (auditory, haptic, gustatory, interoceptive, olfactory, visual). In this rating system, words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality, and a word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: we categorized content words that received relatively low ratings across all modalities (\<3.5./5) as predominantly *amodal*, and content words whose ratings were distributed across modalities were categorized as *multimodal*[^5]. Using this system, each of the content words in children's input were categorized into their primary perceptual modality; `r percentage_not_na_sensory`% of the words in our corpus had a corresponding word in the Lancaster ratings and could be categorized in this way. For each child, we extracted the proportion of exclusively "visual" words in their home speech sample.
+In addition to this general measure of decontextualized language, we include one measure that is uniquely decontextualized for blind children: the proportion of words in the input with referents that are highly and exclusively visual. We first filter the input to only content words (excluding, for example: *the*, *at*, *of*). We then categorize the perceptual modalities of words' referents using the Lancaster Sensorimotor Norms, which are ratings from sighted adults noting the extent to which a word evokes a word evokes a sensory experience in a given modality [@lynott2020]. Each of the approximately 40,000 words in the Lancaster Sensorimotor Norms gets a score for each of 6 sensory modalities (auditory, haptic, gustatory, interoceptive, olfactory, visual). In this rating system, words with higher ratings in a given modality are more strongly associated with perceptual experience in that modality, and a word's dominant perceptual modality is the modality which received the highest mean rating. We tweak this categorization in two ways: we categorized content words that received relatively low ratings across all modalities (\<3.5./5) as predominantly *amodal*, and content words whose ratings were distributed across modalities were categorized as *multimodal*[^5]. Using this system, each of the content words in children's input were categorized into their primary perceptual modality; `r percentage_not_na_sensory`% of the words in our corpus had a corresponding word in the Lancaster ratings and could be categorized in this way. For each child, we extracted the proportion of exclusively "visual" words in their home speech sample.
 
-[^5]: Words with perceptual exclusivity scores \< 0.5 [calculated as a word's range of ratings across modalities divided by the sum of ratings across modalities, @lynott2020] were re-categorized as multimodal. The cut-offs for classifying amodal and multimodal words were chosen based on authors’ intuitions regarding what thresholds seemed to classify the words well into amodal, multimodal, and visual phenomena. That said, results are robust across a range of thresholds, and all data are provided to interested readers should they be interested in considering other values.
+[^5]: Words with perceptual exclusivity scores \< 0.5 [calculated as a word's range of ratings across modalities divided by the sum of ratings across modalities, @lynott2020] were re-categorized as multimodal. The cut-offs for classifying amodal and multimodal words were chosen based on authors' intuitions regarding what thresholds seemed to classify the words well into amodal, multimodal, and visual phenomena. That said, results are robust across a range of thresholds, and all data are provided to interested readers should they be interested in considering other values.
 
 # Results
 
@@ -846,12 +839,20 @@ In summary, our study compared language input in homes of 15 blind and 15 sighte
 # trackdown::update_file(file="input_quality_manuscript.Rmd",gpath="trackdown/input_quality",hide_code=TRUE, path_output = "input_quality_manuscript.pdf")
 ```
 
+# Ethics
+
+This study received approval from the Duke University Institutional Review Board. All families consented to take part in this research.
+
+# Data, Code and Materials Availability
+
+LENA data, transcripts, and code for all analyses presented in this article are available on [OSF](https://osf.io/dcnq6/).
+
+# Authorship
+
+**Erin Campbell:** Conceptualization, Validation, Investigation, Analysis, Data Curation, Writing - Original Draft, Writing - Review & Editing, Visualization, Project Administration; **Lillianna Righter:** Validation, Analysis, Data Curation, Writing - Original Draft, Writing - Review & Editing, Project Administration; **Eugenia Lukin:** Validation, Writing - Review & Editing; **Elika Bergelson:** Conceptualization, Resources, Writing - Review & Editing, Visualization, Supervision, Funding Acquisition
+
 # Acknowledgements
 
 We wish to thank the following individuals who generously contributed recordings for the sighted matches: Anne Warlaumont, Derek Houston, Nairán Ramírez-Esparza, Mark VanDam, Caroline Rowland. We thank Zhenya Kalenkovich and Alex Emmert for careful code review.
-
-# Data Availability
-
-All data and code from this manuscript are available on OSF. 
 
 # References
