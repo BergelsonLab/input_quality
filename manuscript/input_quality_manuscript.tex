@@ -163,6 +163,8 @@
 \renewcommand{\efloat@iwrite}[1]{\immediate\expandafter\protected@write\csname efloat@post#1\endcsname{}}
 \makeatother
 \usepackage{csquotes}
+\usepackage{float}
+\floatplacement{figure}{H}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -205,7 +207,7 @@ Correspondence concerning this article should be addressed to Erin Campbell, 2 S
 \hypertarget{abstract}{%
 \section{Abstract}\label{abstract}}
 
-We compared everyday language input to young congenitally-blind children with no additional disabilities (N=15, 6--30mo., M:16mo.) and demographically-matched sighted peers (N=15, 6--31mo., M:16mo.). By studying whether the language input of blind children differs from their sighted peers, we aimed to determine whether, in principle, the language acquisition patterns observed in blind and sighted children could be explained by aspects of the speech they hear. LENA recorders captured the auditory language environment in children's homes. Speech in these recordings was then analyzed with a mix of automated and manually-transcribed measures across various subsets and dimensions of language input. These included measures of quantity (adult words), interaction (conversational turns and child-directed speech), linguistic properties (lexical diversity and mean length of utterance), and conceptual features (talk centered around the here-and-now; talk focused on visual referents that would be inaccessible to the blind but not sighted children). Overall, we found broad similarity across groups in speech quantity, interaction, and linguistic properties. The only exception was that blind children's language environments contained slightly but significantly more talk about past/future/hypothetical events than sighted children's input; both groups received equivalent quantities of ``visual'' speech input. The findings challenge the notion that blind children's language input diverges substantially from sighted children's in a way that would place them at a disadvantage. They suggest instead that blind children receive rich and complex language input that readily supports their language development, with open questions remaining regarding how this input may be differentially leveraged by language learners in early childhood.
+We compared everyday language input to young congenitally-blind children with no additional disabilities (N=15, 6--30mo., M:16mo.) and demographically-matched sighted peers (N=15, 6--31mo., M:16mo.). By studying whether the language input of blind children differs from their sighted peers, we aimed to determine whether, in principle, the language acquisition patterns observed in blind and sighted children could be explained by aspects of the speech they hear. Children wore LENA recorders to capture the auditory language environment in their homes. Speech in these recordings was then analyzed with a mix of automated and manually-transcribed measures across various subsets and dimensions of language input. These included measures of quantity (adult words), interaction (conversational turns and child-directed speech), linguistic properties (lexical diversity and mean length of utterance), and conceptual features (talk centered around the here-and-now; talk focused on visual referents that would be inaccessible to the blind but not sighted children). Overall, we found broad similarity across groups in speech quantity, interaction, and linguistic properties. The only exception was that blind children's language environments contained slightly but significantly more talk about past/future/hypothetical events than sighted children's input; both groups received equivalent quantities of ``visual'' speech input. The findings challenge the notion that blind children's language input diverges substantially from sighted children's; while the input is highly variable across children, it is not systematically so across groups, across nearly all measures. The findings suggest instead that blind children and sighted children alike receive input that readily supports their language development, with open questions remaining regarding how this input may be differentially leveraged by language learners in early childhood.
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -397,10 +399,8 @@ Our study assesses whether language input to blind children is different from th
 
 We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and our transcription-derived Manual Word Count. Despite wide variability in the number of words children hear (Range from Manual Word Count: 604--3644 words\textsubscript{blind}, 390--4334 words\textsubscript{sighted} per hour), along both measures of input quantity, blind and sighted children do not differ in language input quantity (Adult Word Count: \emph{t}(14) = -0.02, \emph{p} = .984; Manual Word Count: \emph{t}(14) = 1.06, \emph{p} = .307); see Figure \ref{fig:quantity-plots}.
 
-\begin{figure}
-\centering
-\includegraphics{input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf}
-\caption{\label{fig:quantity-plots}Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.}
+\begin{figure}[!H]
+\includegraphics{input_quality_manuscript_files/figure-latex/quantity-plots-1} \caption{Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.}\label{fig:quantity-plots}
 \end{figure}
 
 \hypertarget{interaction-1}{%
@@ -408,19 +408,15 @@ We first compare the quantity of language input to blind and sighted children us
 
 Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (\emph{t}(14) = 0.24, \emph{p} = .811) or in conversational turn counts to blind children versus to sighted children (\emph{W} = 61, \emph{p} = .978). Across both groups, child-directed speech constituted approximately 56\% of the input, and children were involved in roughly 34 conversational turns per hour; see Figure \ref{fig:interaction-plots}.
 
-\begin{figure}
-\centering
-\includegraphics{input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf}
-\caption{\label{fig:interaction-plots}Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.}
+\begin{figure}[H!]
+\includegraphics{input_quality_manuscript_files/figure-latex/interaction-plots-1} \caption{Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.}\label{fig:interaction-plots}
 \end{figure}
 
 \hypertarget{linguistic-features-1}{%
 \subsubsection{Linguistic Features}\label{linguistic-features-1}}
 
-\begin{figure}
-\centering
-\includegraphics{input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf}
-\caption{\label{fig:linguistic-plots}Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher. Note that the y-axis on the type-token ratio plot has been truncated.}
+\begin{figure}[H!]
+\includegraphics{input_quality_manuscript_files/figure-latex/linguistic-plots-1} \caption{Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher. Note that the y-axis on the type-token ratio plot has been truncated.}\label{fig:linguistic-plots}
 \end{figure}
 
 Similarly, neither linguistic variable differed across groups: blind and sighted children's input had comparable type-token ratios (\emph{t}(14) = -0.96, \emph{p} = .353) and utterance lengths (\emph{t}(14) = -2.02, \emph{p} = .063). Children in our samples hear on average 64 unique words per hundred words and 5.20 morphemes per utterance; see Figure \ref{fig:linguistic-plots}.
@@ -428,10 +424,8 @@ Similarly, neither linguistic variable differed across groups: blind and sighted
 \hypertarget{conceptual-features-1}{%
 \subsubsection{Conceptual Features}\label{conceptual-features-1}}
 
-\begin{figure}
-\centering
-\includegraphics{input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf}
-\caption{\label{fig:conceptual-plots}Left col: Comparing proportion of temporally displaced verbs (top) and proportion of highly visual words (bottom). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Right col: Full distribution of verb types (top) and sensory modality (bottom) by group, collapsing across participants. Blind children's input contained significantly more temporally displaced verbs. Notably, the groups did not differ in the proportion of highly visual words.}
+\begin{figure}[!H]
+\includegraphics{input_quality_manuscript_files/figure-latex/conceptual-plots-1} \caption{Left col: Comparing proportion of temporally displaced verbs (top) and proportion of highly visual words (bottom). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Right col: Full distribution of verb types (top)  and sensory modality (bottom) by group, collapsing across participants. Blind children's input contained significantly more temporally displaced verbs. Notably, the groups did not differ in the proportion of highly visual words.}\label{fig:conceptual-plots}
 \end{figure}
 
 Lastly, we compared two measures of the conceptual features of language input: the proportion of temporally displaced verbs and the proportion of highly visual words; see Figure \ref{fig:conceptual-plots}. We found that blind children hear a higher proportion of displaced verbs than sighted children (\emph{t}(14) = -2.68, \emph{p} = .018), which on average equates to 22 more utterances about past, future, or hypothetical events per hour. We found no significant difference across groups in the proportion of highly visual words (\emph{W} = 75, \emph{p} = .421), which constitute roughly 10\% of the input for both groups.
