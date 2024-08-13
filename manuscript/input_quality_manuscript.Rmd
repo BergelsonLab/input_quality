@@ -33,21 +33,24 @@ keywords          : "language input; blind children; LENA"
 
 bibliography      : ["VI_input_citations.bib"]
 
-floatsintext      : no
+floatsintext      : yes
 figurelist        : no
 tablelist         : no
 footnotelist      : no
-linenumbers       : no
+linenumbers       : yes
 mask              : no
 draft             : no
 
 documentclass     : "apa6"
 classoption       : "man"
 output            : papaja::apa6_pdf
+header-includes:
+  - \usepackage{float}
+
 ---
 
 ```{r preferences, echo = FALSE, message = FALSE, warning = FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, out.extra = "")
 
 set.seed(553)
 
@@ -201,7 +204,7 @@ cowplot_title <- function(title_text) {
 
 # Abstract
 
-We compared everyday language input to young congenitally-blind children with no additional disabilities (N=15, 6--30mo., M:16mo.) and demographically-matched sighted peers (N=15, 6--31mo., M:16mo.). By studying whether the language input of blind children differs from their sighted peers, we aimed to determine whether, in principle, the language acquisition patterns observed in blind and sighted children could be explained by aspects of the speech they hear. LENA recorders captured the auditory language environment in children's homes. Speech in these recordings was then analyzed with a mix of automated and manually-transcribed measures across various subsets and dimensions of language input. These included measures of quantity (adult words), interaction (conversational turns and child-directed speech), linguistic properties (lexical diversity and mean length of utterance), and conceptual features (talk centered around the here-and-now; talk focused on visual referents that would be inaccessible to the blind but not sighted children). Overall, we found broad similarity across groups in speech quantity, interaction, and linguistic properties. The only exception was that blind children's language environments contained slightly but significantly more talk about past/future/hypothetical events than sighted children's input; both groups received equivalent quantities of "visual" speech input. The findings challenge the notion that blind children's language input diverges substantially from sighted children's in a way that would place them at a disadvantage. They suggest instead that blind children receive rich and complex language input that readily supports their language development, with open questions remaining regarding how this input may be differentially leveraged by language learners in early childhood.
+We compared everyday language input to young congenitally-blind children with no additional disabilities (N=15, 6--30mo., M:16mo.) and demographically-matched sighted peers (N=15, 6--31mo., M:16mo.). By studying whether the language input of blind children differs from their sighted peers, we aimed to determine whether, in principle, the language acquisition patterns observed in blind and sighted children could be explained by aspects of the speech they hear. Children wore LENA recorders to capture the auditory language environment in their homes. Speech in these recordings was then analyzed with a mix of automated and manually-transcribed measures across various subsets and dimensions of language input. These included measures of quantity (adult words), interaction (conversational turns and child-directed speech), linguistic properties (lexical diversity and mean length of utterance), and conceptual features (talk centered around the here-and-now; talk focused on visual referents that would be inaccessible to the blind but not sighted children). Overall, we found broad similarity across groups in speech quantity, interaction, and linguistic properties. The only exception was that blind children's language environments contained slightly but significantly more talk about past/future/hypothetical events than sighted children's input; both groups received equivalent quantities of "visual" speech input. The findings challenge the notion that blind children's language input diverges substantially from sighted children's; while the input is highly variable across children, it is not systematically so across groups, across nearly all measures. The findings suggest instead that blind children and sighted children alike receive input that readily supports their language development, with open questions remaining regarding how this input may be differentially leveraged by language learners in early childhood.
 
 # Introduction
 
@@ -462,7 +465,7 @@ MWC_stats <- manual_word_tokens %>%
 
 We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and our transcription-derived Manual Word Count. Despite wide variability in the number of words children hear (Range from Manual Word Count: `r round((MWC_stats %>% filter(group=="VI"))$min)`--`r round((MWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((MWC_stats %>% filter(group=="TD"))$min)`--`r round((MWC_stats %>% filter(group=="TD"))$max)` words~sighted~ per hour), along both measures of input quantity, blind and sighted children do not differ in language input quantity (Adult Word Count: *t*(`r compare_AWC$parameter`) = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`; Manual Word Count: *t*(`r compare_MWC$parameter`) = `r compare_MWC$statistic`, *p* `r printp(compare_MWC$p.value, add_equals=TRUE)`); see Figure \@ref(fig:quantity-plots).
 
-```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.", fig.width=6,fig.height=3}
+```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.", fig.width=6,fig.height=3, position="HOLD!"}
 
 
 AWC_plot <- make_blind_sighted_violins(

@@ -1,28 +1,20 @@
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
-
-\centering
-\includegraphics{input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf}
-\caption{\label{fig:quantity-plots}Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.}
+[!H]
+\includegraphics{input_quality_manuscript_files/figure-latex/quantity-plots-1} \caption{Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.}\label{fig:quantity-plots}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
-
-\centering
-\includegraphics{input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf}
-\caption{\label{fig:interaction-plots}Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.}
+[H!]
+\includegraphics{input_quality_manuscript_files/figure-latex/interaction-plots-1} \caption{Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.}\label{fig:interaction-plots}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
-
-\centering
-\includegraphics{input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf}
-\caption{\label{fig:linguistic-plots}Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher. Note that the y-axis on the type-token ratio plot has been truncated.}
+[H!]
+\includegraphics{input_quality_manuscript_files/figure-latex/linguistic-plots-1} \caption{Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher. Note that the y-axis on the type-token ratio plot has been truncated.}\label{fig:linguistic-plots}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
-
-\centering
-\includegraphics{input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf}
-\caption{\label{fig:conceptual-plots}Left col: Comparing proportion of temporally displaced verbs (top) and proportion of highly visual words (bottom). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Right col: Full distribution of verb types (top) and sensory modality (bottom) by group, collapsing across participants. Blind children's input contained significantly more temporally displaced verbs. Notably, the groups did not differ in the proportion of highly visual words.}
+[!H]
+\includegraphics{input_quality_manuscript_files/figure-latex/conceptual-plots-1} \caption{Left col: Comparing proportion of temporally displaced verbs (top) and proportion of highly visual words (bottom). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Right col: Full distribution of verb types (top)  and sensory modality (bottom) by group, collapsing across participants. Blind children's input contained significantly more temporally displaced verbs. Notably, the groups did not differ in the proportion of highly visual words.}\label{fig:conceptual-plots}
 \end{figure*}
