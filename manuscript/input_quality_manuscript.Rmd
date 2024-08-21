@@ -465,7 +465,7 @@ MWC_stats <- manual_word_tokens %>%
 
 We first compare the quantity of language input to blind and sighted children using two measures of the number of words in their environment: LENA's automated Adult Word Count and our transcription-derived Manual Word Count. Despite wide variability in the number of words children hear (Range from Manual Word Count: `r round((MWC_stats %>% filter(group=="VI"))$min)`--`r round((MWC_stats %>% filter(group=="VI"))$max)` words~blind~, `r round((MWC_stats %>% filter(group=="TD"))$min)`--`r round((MWC_stats %>% filter(group=="TD"))$max)` words~sighted~ per hour), along both measures of input quantity, blind and sighted children do not differ in language input quantity (Adult Word Count: *t*(`r compare_AWC$parameter`) = `r compare_AWC$statistic`, *p* `r printp(compare_AWC$p.value, add_equals=TRUE)`; Manual Word Count: *t*(`r compare_MWC$parameter`) = `r compare_MWC$statistic`, *p* `r printp(compare_MWC$p.value, add_equals=TRUE)`); see Figure \@ref(fig:quantity-plots).
 
-```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.", fig.width=6,fig.height=3, position="HOLD!"}
+```{r quantity-plots, fig.cap="Comparing LENA-generated adult word counts (left) and transcription-based word counts in the input of blind and sighted children. Violin density represents the distribution of word counts for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Neither measure differed between groups.", fig.width=6,fig.height=3}
 
 
 AWC_plot <- make_blind_sighted_violins(
@@ -513,7 +513,7 @@ CDS_stats <- xds_props_wide %>%
 
 Our corpus also revealed no significant difference in amount of interaction with the child, measured as the proportion of child-directed speech (*t*(`r compare_CDS$parameter`) = `r compare_CDS$statistic`, *p* `r printp(compare_CDS$p.value, add_equals=TRUE)`) or in conversational turn counts to blind children versus to sighted children (*W* = `r compare_CTC$statistic`, *p* `r printp(compare_CTC$p.value, add_equals=TRUE)`). Across both groups, child-directed speech constituted approximately `r round(mean(xds_props_wide$prop_CDS) * 100,0)`% of the input, and children were involved in roughly `r round(mean(LENA_counts$CTC_per_hour),0)` conversational turns per hour; see Figure \@ref(fig:interaction-plots).
 
-```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.", fig.width=7, fig.height=3, fig.pos="H!", results="asis"}
+```{r interaction-plots, fig.cap="Comparing LENA-generated conversational turn counts (left) and proportion of utterances in child-directed speech (center).  Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. The full breakdown by addressee is shown in the rightmost panel. Neither conversational turn count nor proportion of child-directed speech differed between groups.", fig.width=7, fig.height=3, results="asis"}
 
 CTC_plot <- make_blind_sighted_violins(
   data = LENA_counts,
@@ -564,7 +564,7 @@ cowplot::plot_grid(interaction_title, interaction_plots, rel_heights = c(0.1, 1.
 
 ### Linguistic Features
 
-```{r linguistic-plots, fig.cap="Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher. Note that the y-axis on the type-token ratio plot has been truncated.", fig.height=3, fig.width=4.5, fig.pos="H!", results="asis"}
+```{r linguistic-plots, fig.cap="Comparing linguistic features: Mean length of utterance (left) and type-token ratio (right). Violin density represents the distribution of values for each group. Grey lines connect values from matched participants. Black dot and whiskers show standard error around the mean. Utterances in blind children's input were significantly longer, and type-token ratio was significantly higher. Note that the y-axis on the type-token ratio plot has been truncated.", fig.height=3, fig.width=4.5, results="asis"}
 
 TTR_plot <- make_blind_sighted_violins(
   data = TTR_calculations,
@@ -702,7 +702,7 @@ cowplot::plot_grid(conceptual_title, conceptual_plots, rel_heights = c(0.1, 2), 
 
 Lastly, we compared two measures of the conceptual features of language input: the proportion of temporally displaced verbs and the proportion of highly visual words; see Figure \@ref(fig:conceptual-plots). We found that blind children hear a higher proportion of displaced verbs than sighted children (*t*(`r temporality_test$parameter`) = `r temporality_test$statistic`, *p* `r papaja::printp(temporality_test$p.value, add_equals=TRUE)`), which on average equates to `r round(abs(temporality_test$estimate) * (mean(temporality_props_wide$verb_utt_count)) * (60/40))` more utterances about past, future, or hypothetical events per hour. We found no significant difference across groups in the proportion of highly visual words (*W* = `r visual_test$statistic`, *p* `r printp(visual_test$p.value, add_equals=TRUE)`), which constitute roughly `r round((mean(sensory_props_wide$prop_Visual))*100)`% of the input for both groups.
 
-```{r analysis-summary-table, results='asis', fig.pos="H!"}
+```{r analysis-summary-table, results='asis'}
 
 vars <-
   c(
@@ -848,7 +848,7 @@ This study received approval from the Duke University Institutional Review Board
 
 # Data, Code and Materials Availability
 
-LENA data, transcripts, and code for all analyses presented in this article are available on [OSF](https://osf.io/dcnq6/).
+LENA data, transcripts, and code for all analyses presented in this article are available on [OSF](https://osf.io/dcnq6/) ([https://osf.io/dcnq6/](https://osf.io/dcnq6/)).
 
 # Authorship
 
