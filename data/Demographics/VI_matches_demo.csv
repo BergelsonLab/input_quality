@@ -1,9 +1,9 @@
 pair,VIHI_ID,match_group,Age,Age_months,Gender,MaternalEd,OlderSiblings,Diagnosis,Race,Ethnicity
-1,TD_436_678,VI_TD,678,22.2904026,F,Bachelor's degree,2,NA,unknown,unknown
+1,TD_436_678,VI_TD,678,22.2904026,F,Bachelor's degree,2,NA,White,Not Hispanic or Latino
 14,TD_472_829,VI_TD,829,27.2547843,M,Bachelor's degree,0,NA,unknown,unknown
 15,TD_473_844,VI_TD,844,27.7479348,F,Bachelor's degree,0,NA,unknown,unknown
 13,TD_474_966,VI_TD,966,31.7588922,F,Bachelor's degree,1,NA,White,unknown
-10,TD_477_217,VI_TD,217,7.1342439,F,Bachelor's degree,2,NA,unknown,unknown
+10,TD_477_217,VI_TD,217,7.1342439,F,Bachelor's degree,2,NA,White,Not Hispanic or Latino
 5,TD_448_304,VI_TD,304,9.9945168,M,,NA,NA,unknown,unknown
 12,TD_464_188,VI_TD,188,6.1808196,F,,NA,NA,unknown,unknown
 6,TD_467_433,VI_TD,433,14.2356111,M,,NA,NA,unknown,unknown
