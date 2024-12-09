@@ -7,6 +7,7 @@ library(tidyr)
 library(morphemepiece)
 library(tidytext)
 library(udpipe)
+library(blabr)
 
 # functions
 get_match_number <- function(df) { 
@@ -59,8 +60,8 @@ write_csv(LENA_counts, "./data/LENA/Automated/LENA_counts.csv")
 ###read in data that has been mass exported via ELAN
 VIHI_transcripts_messy <- read_csv("./data/LENA/Transcripts/Raw/VI_LENA_and_TD_matches_messy2023-05-22.csv")
 
-# vihi_annotations <- get_vihi_annotations(subset = "VI+TD-VI", table = "merged")
-# write.csv(vihi_annotations, "./data/LENA/Transcripts/Raw/VIHI_annotations_4242024.csv")
+##vihi_annotations <- get_vihi_annotations(subset = "VI+TD-VI", table = "merged")
+##write.csv(vihi_annotations, "./data/LENA/Transcripts/Raw/VIHI_annotations_4242024.csv")
 VITD_transcripts <-
   read_csv("./data/LENA/Transcripts/Raw/vihi_annotations_4242024.csv") %>% 
   select(eaf_filename, participant, transcription, transcription_id, xds, sampling_type, is_silent) %>%
@@ -437,3 +438,10 @@ perc_random_silent <-
   )
   ) * 100
 write_rds(perc_random_silent, "./data/LENA/Transcripts/Derived/perc_random_silent.rds")
+
+
+#curious about embedded vs coordinate clauses, for responding to reviewer concerns
+number_and <- VITD_transcripts %>%
+  filter(grepl("\\s+and\\s+",utterance_clean))
+
+
