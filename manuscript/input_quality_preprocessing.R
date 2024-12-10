@@ -442,6 +442,26 @@ write_rds(perc_random_silent, "./data/LENA/Transcripts/Derived/perc_random_silen
 
 #curious about embedded vs coordinate clauses, for responding to reviewer concerns
 number_and <- VITD_transcripts %>%
-  filter(grepl("\\s+and\\s+",utterance_clean))
+  filter(grepl("\\s+and\\s+",utterance_clean) | grepl("\\s+but\\s+",utterance_clean))
 
 
+tagged_transc <- udpipe_annotate(udmodel_english, 
+                              x = VITD_transcripts$utterance_clean,
+                              doc_id = VITD_transcripts$VIHI_ID) %>%
+  as.data.frame() %>%
+  group_by(doc_id, sentence, paragraph_id)%>%
+  mutate(upos = paste(upos, sep = " ", collapse = " " ))
+
+tagged_and_CC <- tagged_transc %>%
+  filter(grepl("\\s+and\\s+", sentence) | grepl("\\s+but\\s+",sentence)) %>%
+  filter(token_id=="1") %>%
+  filter(grepl(".*VERB.*CCONJ.*VERB.*", upos))
+and_set <-tagged_and_CC$sentence
+
+tagged_subord <- tagged_transc %>%
+  filter(token_id=="1") %>%
+  filter(grepl(".* VERB.*VERB.*", upos)) %>%
+  filter(!sentence %in% and_set)
+
+coord_rate <- (nrow(tagged_and_CC))/(nrow(VITD_transcripts))*100
+subj_rate <- (nrow(tagged_subord))/(nrow(VITD_transcripts))*100
