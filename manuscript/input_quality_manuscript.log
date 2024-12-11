@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.21)  14 OCT 2024 09:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.21)  11 DEC 2024 11:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -665,17 +665,14 @@ Underfull \vbox (badness 4024) has occurred while \output is active []
 
 [2]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 216.
+(Font)              <10> on input line 218.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 216.
+(Font)              <7> on input line 218.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 216.
+(Font)              <5> on input line 218.
 
 
 [3]
-Underfull \vbox (badness 3977) has occurred while \output is active []
-
-
 
 [4]
 
@@ -687,21 +684,15 @@ Underfull \vbox (badness 7649) has occurred while \output is active []
 
 
 [7]
-Underfull \vbox (badness 1436) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [8]
 
 [9{/Users/eec35/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Underfull \vbox (badness 3758) has occurred while \output is active []
-
-
 
 [10]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 [11]
 
@@ -710,101 +701,337 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [13]
 
 [14]
+Underfull \vbox (badness 3724) has occurred while \output is active []
+
+
 
 [15]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 [16]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 2189) has occurred while \output is active []
 
 
 
 [17]
-<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=156, 433.62pt x 216.81pt>
-File: input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf Graphic file (type pdf)
-<use input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>
-Package pdftex.def Info: input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf  used on input line 399.
-(pdftex.def)             Requested size: 433.63878pt x 216.81938pt.
-
 
 [18]
-<input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf, id=170, 505.89pt x 216.81pt>
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 393.
+(/Users/eec35/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+Overfull \hbox (42.77023pt too wide) in paragraph at lines 435--435
+[]\T1/lmtt/m/n/12 ## NHST: don't reject null significance hypothesis that the effect is equal to zero[] 
+ []
+
+
+
+[19]
+Overfull \hbox (36.59523pt too wide) in paragraph at lines 435--435
+[]\T1/lmtt/m/n/12 ## Note: SMD confidence intervals are an approximation. See vignette("SMD_calcs").[] 
+ []
+
+
+
+[20]
+Overfull \hbox (42.77023pt too wide) in paragraph at lines 479--479
+[]\T1/lmtt/m/n/12 ## NHST: don't reject null significance hypothesis that the effect is equal to zero[] 
+ []
+
+
+Overfull \hbox (36.59523pt too wide) in paragraph at lines 479--479
+[]\T1/lmtt/m/n/12 ## Note: SMD confidence intervals are an approximation. See vignette("SMD_calcs").[] 
+ []
+
+
+
+[21]
+<input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf, id=182, 433.62pt x 216.81pt>
+File: input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf Graphic file (type pdf)
+<use input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>
+Package pdftex.def Info: input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf  used on input line 500.
+(pdftex.def)             Requested size: 433.63878pt x 216.81938pt.
+<input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf, id=184, 505.89pt x 216.81pt>
 File: input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf Graphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf>
-Package pdftex.def Info: input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf  used on input line 408.
+Package pdftex.def Info: input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf  used on input line 509.
 (pdftex.def)             Requested size: 469.76265pt x 201.32684pt.
-<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=171, 325.215pt x 216.81pt>
+<input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf, id=185, 325.215pt x 216.81pt>
 File: input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf Graphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>
-Package pdftex.def Info: input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf  used on input line 415.
+Package pdftex.def Info: input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf  used on input line 516.
 (pdftex.def)             Requested size: 325.22908pt x 216.81938pt.
-<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=173, 505.89pt x 578.16pt>
+
+
+[22]
+Overfull \hbox (5.72021pt too wide) in paragraph at lines 544--544
+[]\T1/lmtt/m/n/12 ## NHST: reject null significance hypothesis that the effect is equal to zero[] 
+ []
+
+
+
+[23 <./input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>]
+Overfull \hbox (36.59523pt too wide) in paragraph at lines 544--544
+[]\T1/lmtt/m/n/12 ## Note: SMD confidence intervals are an approximation. See vignette("SMD_calcs").[] 
+ []
+
+<input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf, id=214, 505.89pt x 578.16pt>
 File: input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf Graphic file (type pdf)
 <use input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>
-Package pdftex.def Info: input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf  used on input line 424.
+Package pdftex.def Info: input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf  used on input line 547.
 (pdftex.def)             Requested size: 469.76265pt x 536.87161pt.
 
-LaTeX Warning: Float too large for page by 64.42397pt on input line 425.
+LaTeX Warning: Float too large for page by 64.42397pt on input line 548.
 
 
-Underfull \vbox (badness 1442) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[19 <./input_quality_manuscript_files/figure-latex/quantity-plots-1.pdf>]
+[24 <./input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 434.
+(Font)              <9> on input line 557.
 
-Overfull \hbox (0.68182pt too wide) in paragraph at lines 442--442
+Overfull \hbox (0.68182pt too wide) in paragraph at lines 565--565
 []|\T1/lmr/m/n/9 Conversational 
  []
 
 
-Overfull \hbox (58.21461pt too wide) in paragraph at lines 434--455
+Overfull \hbox (58.21461pt too wide) in paragraph at lines 557--578
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 63.37758pt on input line 455.
+LaTeX Warning: Float too large for page by 63.37758pt on input line 578.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[20 <./input_quality_manuscript_files/figure-latex/interaction-plots-1.pdf>]
-Underfull \vbox (badness 1596) has occurred while \output is active []
+[25 <./input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>]
 
-
-
-[21 <./input_quality_manuscript_files/figure-latex/linguistic-plots-1.pdf>]
-
-[22 <./input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>]
-Underfull \vbox (badness 1688) has occurred while \output is active []
-
-
-
-[23]
-
-[24]
-
-[25]
-
-[26]
-Underfull \vbox (badness 3977) has occurred while \output is active []
-
-
+[26 <./input_quality_manuscript_files/figure-latex/conceptual-plots-1.pdf>]
 
 [27]
 
 [28]
 
 [29]
+
+[30]
+
+[31]
+Overfull \hbox (5.72021pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## lm(formula = prop ~ Modality * group * Age_months, data = visual_agediffs)[] 
+ []
+
+
+
+[32]
+Overfull \hbox (30.42023pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ##                                           Estimate Std. Error t value Pr(>|t|)[] 
+ []
+
+
+Overfull \hbox (30.39221pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## (Intercept)                               0.448045   0.019510  22.965  < 2e-16[] 
+ []
+
+
+Overfull \hbox (30.39221pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityAuditory                         -0.393454   0.027591 -14.260  < 2e-16[] 
+ []
+
+
+Overfull \hbox (30.39221pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityGustatory                        -0.447431   0.027591 -16.216  < 2e-16[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityHaptic                           -0.447274   0.027591 -16.211  < 2e-16[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityInteroceptive                    -0.444342   0.027591 -16.104  < 2e-16[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityMultimodal                       -0.012717   0.027591  -0.461  0.64535[] 
+ []
+
+
+Overfull \hbox (30.39221pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityOlfactory                        -0.446538   0.027591 -16.184  < 2e-16[] 
+ []
+
+
+Overfull \hbox (30.38521pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityVisual                           -0.392602   0.027591 -14.229  < 2e-16[] 
+ []
+
+
+Overfull \hbox (30.38521pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## groupVI                                  -0.026779   0.027291  -0.981  0.32763[] 
+ []
+
+
+Overfull \hbox (30.40622pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## Age_months                               -0.003915   0.001072  -3.651  0.00033[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityAuditory:groupVI                  0.050253   0.038596   1.302  0.19435[] 
+ []
+
+
+Overfull \hbox (30.38521pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityGustatory:groupVI                 0.026553   0.038596   0.688  0.49223[] 
+ []
+
+
+Overfull \hbox (30.3782pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityHaptic:groupVI                    0.029599   0.038596   0.767  0.44401[] 
+ []
+
+
+Overfull \hbox (30.39221pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityInteroceptive:groupVI             0.028294   0.038596   0.733  0.46433[] 
+ []
+
+
+Overfull \hbox (30.39221pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityMultimodal:groupVI                0.002205   0.038596   0.057  0.95449[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityOlfactory:groupVI                 0.028313   0.038596   0.734  0.46403[] 
+ []
+
+
+Overfull \hbox (30.39221pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityVisual:groupVI                    0.049010   0.038596   1.270  0.20556[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityAuditory:Age_months               0.003564   0.001516   2.350  0.01971[] 
+ []
+
+
+Overfull \hbox (30.40622pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityGustatory:Age_months              0.003905   0.001516   2.575  0.01072[] 
+ []
+
+
+Overfull \hbox (30.40622pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityHaptic:Age_months                 0.004010   0.001516   2.645  0.00880[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityInteroceptive:Age_months          0.003940   0.001516   2.598  0.01004[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityMultimodal:Age_months             0.004764   0.001516   3.142  0.00192[] 
+ []
+
+
+Overfull \hbox (30.40622pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityOlfactory:Age_months              0.003905   0.001516   2.575  0.01071[] 
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[30]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 575.
+[33]
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityVisual:Age_months                 0.007234   0.001516   4.770 3.46e-06[] 
+ []
+
+
+Overfull \hbox (30.40622pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## groupVI:Age_months                        0.002642   0.001512   1.747  0.08206[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityAuditory:groupVI:Age_months      -0.003587   0.002139  -1.677  0.09503[] 
+ []
+
+
+Overfull \hbox (30.3782pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityGustatory:groupVI:Age_months     -0.002649   0.002139  -1.239  0.21690[] 
+ []
+
+
+Overfull \hbox (30.38521pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityHaptic:groupVI:Age_months        -0.002690   0.002139  -1.258  0.20986[] 
+ []
+
+
+Overfull \hbox (30.39922pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityInteroceptive:groupVI:Age_months -0.002706   0.002139  -1.265  0.20720[] 
+ []
+
+
+Overfull \hbox (30.39221pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityMultimodal:groupVI:Age_months    -0.001990   0.002139  -0.930  0.35325[] 
+ []
+
+
+Overfull \hbox (30.40622pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityOlfactory:groupVI:Age_months     -0.002674   0.002139  -1.250  0.21254[] 
+ []
+
+
+Overfull \hbox (30.40622pt too wide) in paragraph at lines 828--828
+[]\T1/lmtt/m/n/12 ## ModalityVisual:groupVI:Age_months        -0.004843   0.002139  -2.265  0.02457[] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[34]
+
+[35]
+
+[36]
+
+[37]
+
+[38]
+
+[39]
+
+[40]
+
+[41]
+Underfull \vbox (badness 3977) has occurred while \output is active []
+
+
+
+[42]
+
+[43]
+
+[44]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[45]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 955.
 (/Users/eec35/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -812,89 +1039,89 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[31{/Users/eec35/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+[46{/Users/eec35/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[32]
+[47]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[33]
+[48]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[34]
+[49]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[35]
+[50]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[36]
+[51]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[37]
+[52]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[38]
+[53]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[39]
+[54]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[40]
+[55]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[41]
+[56]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[42]
+[57]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[43] AED endfloat: Processing end Figures and Tables
+[58] AED endfloat: Processing end Figures and Tables
 
-[44]
+[59]
 
-[45] (./input_quality_manuscript.aux)
+[60] (./input_quality_manuscript.aux)
  ***********
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2020/03/25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 16739 strings out of 475539
- 271499 string characters out of 5776751
- 1949957 words of memory out of 5000000
- 38807 multiletter control sequences out of 15000+600000
- 646482 words of font info for 112 fonts, out of 8000000 for 9000
+ 16807 strings out of 475539
+ 272485 string characters out of 5776751
+ 1956957 words of memory out of 5000000
+ 38849 multiletter control sequences out of 15000+600000
+ 651063 words of font info for 114 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 83i,11n,93p,2353b,606s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on input_quality_manuscript.pdf (45 pages, 453636 bytes).
+ 83i,11n,93p,2519b,693s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/eec35/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
+Output written on input_quality_manuscript.pdf (60 pages, 522782 bytes).
 PDF statistics:
- 825 PDF objects out of 1000 (max. 8388607)
- 741 compressed objects within 8 object streams
- 274 named destinations out of 1000 (max. 500000)
+ 913 PDF objects out of 1000 (max. 8388607)
+ 809 compressed objects within 9 object streams
+ 295 named destinations out of 1000 (max. 500000)
  293 words of extra memory for PDF output out of 10000 (max. 10000000)
 
