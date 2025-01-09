@@ -42,37 +42,126 @@ VI_matches_demo <- read_csv("./data/Demographics/VI_matches_demo.csv", na = c(""
 ```
 
 
+# Equivalence Testing
+
+```{r equivalence-tests, echo=TRUE}
+# Adult Word Count: d=0.3
+TOSTER::t_TOST(AWC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .3, eqbound_type = "SMD", alpha = .05)
+# Adult Word Count: d=0.5
+TOSTER::t_TOST(AWC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .5, eqbound_type = "SMD", alpha = .05)
+# Adult Word Count: d=0.7
+TOSTER::t_TOST(AWC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
+
+# Manual Word Count: d=0.3
+TOSTER::t_TOST(MWC_per_hour ~ group, data = manual_word_tokens, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .3, eqbound_type = "SMD",alpha = .05)
+# Manual Word Count: d=0.5
+TOSTER::t_TOST(MWC_per_hour ~ group, data = manual_word_tokens, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .5, eqbound_type = "SMD",alpha = .05)
+# Manual Word Count: d=0.7
+TOSTER::t_TOST(MWC_per_hour ~ group, data = manual_word_tokens, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .7, eqbound_type = "SMD",alpha = .05)
+
+
+# Conversational Turn Count: d=0.3
+TOSTER::t_TOST(CTC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .3, eqbound_type = "SMD",alpha = .05)
+# Conversational Turn Count: d=0.5
+TOSTER::t_TOST(CTC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .5, eqbound_type = "SMD",alpha = .05)
+# Conversational Turn Count: d=0.7
+TOSTER::t_TOST(CTC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .7, eqbound_type = "SMD",alpha = .05)
+
+
+# Proportion of Child-Directed Speech: d=0.3
+TOSTER::t_TOST(prop_CDS ~ group, data = xds_props_wide, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .3, eqbound_type = "SMD", alpha = .05)
+# Proportion of Child-Directed Speech: d=0.5
+TOSTER::t_TOST(prop_CDS ~ group, data = xds_props_wide, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .5, eqbound_type = "SMD", alpha = .05)
+# Proportion of Child-Directed Speech: d=0.7
+TOSTER::t_TOST(prop_CDS ~ group, data = xds_props_wide, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
+
+
+# Type-Token Ratio: d=0.3
+TOSTER::t_TOST(mean_ttr ~ group, data = TTR_calculations, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .3, eqbound_type = "SMD",alpha = .05)
+# Type-Token Ratio: d=0.5
+TOSTER::t_TOST(mean_ttr ~ group, data = TTR_calculations, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .5, eqbound_type = "SMD",alpha = .05)
+# Type-Token Ratio: d=0.7
+TOSTER::t_TOST(mean_ttr ~ group, data = TTR_calculations, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .7, eqbound_type = "SMD",alpha = .05)
+
+# Proportion of Highly Visual Words: d=0.3
+TOSTER::t_TOST(prop_Visual ~ group, data = sensory_props_wide, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
+# Proportion of Highly Visual Words: d=0.5
+TOSTER::t_TOST(prop_Visual ~ group, data = sensory_props_wide, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
+# Proportion of Highly Visual Words, d=0.7
+TOSTER::t_TOST(prop_Visual ~ group, data = sensory_props_wide, hypothesis = "EQU", paired = TRUE, 
+               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
+
+```
+
 # Age Interactions
 
 ```{r age-differences, include=FALSE}
 LENA_agediffs <- LENA_counts %>%
-  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))
+  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID)) %>%
+  mutate(group = as.factor(case_when(group == "VI" ~ "Blind",
+                   group == "TD" ~ "Sighted")),
+         group = fct_relevel(group, "Sighted"))
 AWC_agediffs_model <- lm(AWC_per_hour ~ group*Age_months, data = LENA_agediffs)
 CTC_agediffs_model <- lm(CTC_per_hour ~ group*Age_months, data = LENA_agediffs)
 
 MWC_agediffs <- manual_word_tokens %>% 
-  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))
+  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID)) %>%
+  mutate(group = as.factor(case_when(group == "VI" ~ "Blind",
+                   group == "TD" ~ "Sighted")),
+         group = fct_relevel(group, "Sighted"))
 MWC_agediffs_model <- lm(MWC_per_hour ~ group*Age_months, data = MWC_agediffs)
 
 xds_agediffs <- xds_props_wide %>%
-  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))
+  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))  %>%
+  mutate(group = as.factor(case_when(group == "VI" ~ "Blind",
+                   group == "TD" ~ "Sighted")),
+         group = fct_relevel(group, "Sighted"))
 CDS_agediffs_model <- lm(prop_CDS ~ group*Age_months, data = xds_agediffs)
 
 TTR_agediffs <- TTR_calculations %>%
-  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))
+  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))  %>%
+  mutate(group = as.factor(case_when(group == "VI" ~ "Blind",
+                   group == "TD" ~ "Sighted")),
+         group = fct_relevel(group, "Sighted"))
 TTR_agediffs_model <- lm(mean_ttr ~ group*Age_months, data = TTR_agediffs)
 
-MLU_agediffs <- MLUs %>%
-  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))
+MLU_agediffs <- MLUs %>% 
+  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))  %>%
+  mutate(group = as.factor(case_when(group == "VI" ~ "Blind",
+                   group == "TD" ~ "Sighted")),
+         group = fct_relevel(group, "Sighted"))
 MLU_agediffs_model <- lm(MLU ~ group*Age_months, data = MLU_agediffs)
 
 temporality_agediffs <- temporality_props %>%
   filter(verb_temporality == "displaced") %>%
-  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))
+  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))  %>%
+  mutate(group = as.factor(case_when(group == "VI" ~ "Blind",
+                   group == "TD" ~ "Sighted")),
+         group = fct_relevel(group, "Sighted"))
 temporality_agediffs_model <- lm(prop ~ group*Age_months, data = temporality_agediffs)
 
 visual_agediffs <- sensory_props %>%
-  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID))
+  left_join(VI_matches_demo %>% select(Age_months, VIHI_ID)) %>%
+  mutate(group = as.factor(case_when(group == "VI" ~ "Blind",
+                   group == "TD" ~ "Sighted")),
+         group = fct_relevel(group, "Sighted"))
 summary(lm(prop ~ Modality*group*Age_months, data = visual_agediffs))
 sensory_agediffs_model <- lm(prop ~ Modality*group*Age_months, data = visual_agediffs)
 
@@ -86,12 +175,12 @@ ggplot(LENA_agediffs, aes(x = Age_months, y=AWC_per_hour, color=group,fill=group
   geom_point() +
   geom_smooth(method="lm") +
     scale_color_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
     scale_fill_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
@@ -115,12 +204,12 @@ ggplot(MWC_agediffs, aes(x = Age_months, y=MWC_per_hour, color=group,fill=group)
   geom_point() +
   geom_smooth(method="lm") +
     scale_color_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
     scale_fill_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
@@ -145,12 +234,12 @@ ggplot(LENA_agediffs, aes(x = Age_months, y=CTC_per_hour, color=group,fill=group
   geom_point() +
   geom_smooth(method="lm") +
     scale_color_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
     scale_fill_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
@@ -172,12 +261,12 @@ ggplot(xds_agediffs, aes(x = Age_months, y=prop_CDS, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
     scale_color_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
     scale_fill_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
@@ -202,12 +291,12 @@ ggplot(TTR_agediffs, aes(x = Age_months, y=mean_ttr, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
     scale_color_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
     scale_fill_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
@@ -229,12 +318,12 @@ ggplot(MLU_agediffs, aes(x = Age_months, y=MLU, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
     scale_color_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
     scale_fill_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
@@ -253,24 +342,24 @@ MLU_agediffs_model %>%
 
 ## Conceptual
 
-```{r lancaster}
+```{r lancaster, fig.height=8}
 ggplot(visual_agediffs, aes(x = Age_months, y=prop, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
     scale_color_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
     scale_fill_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
   theme_classic() +
   xlab("Age (months)") +
   ylab("Proportion of Content Words") +
-  facet_wrap(.~Modality, scales = "free")
+  facet_wrap(.~Modality, scales = "free", nrow = 4)
 
 sensory_agediffs_model %>%
   tidy() %>%
@@ -287,12 +376,12 @@ ggplot(temporality_agediffs, aes(x = Age_months, y=prop, color=group,fill=group)
   geom_point() +
   geom_smooth(method="lm") +
     scale_color_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
     scale_fill_manual(
-      breaks = c("TD", "VI"),
+      breaks = c("Sighted", "Blind"),
       labels = c("Sighted", "Blind"),
       values = c("#b16fff", "#ade7f5")
     ) +
