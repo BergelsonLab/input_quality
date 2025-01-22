@@ -46,7 +46,11 @@ VI_matches_demo <- read_csv("./data/Demographics/VI_matches_demo.csv", na = c(""
 
 # Equivalence Testing
 
+<<<<<<< HEAD
 To assess whether a lack of statistically significant group differences could be interpreted as genuine equivalence (i.e., that blind and sighted children’s input did not differ), we performed two one-sided equivalence tests (TOSTs; Lakens, 2017) for each measure that was non-significant in our primary analyses. Specifically, we tested adult word count, manual word count, conversational turn count, proportion of child-directed speech, type-token ratio, MLU, and proportion of visual words against small (\(|d| < 0.3\)), moderate (\(|d| < 0.5\)), and large (\(|d| < 0.7\)) effect size bounds. 
+=======
+To assess whether a lack of statistically significant group differences could be interpreted as genuine equivalence (i.e., that blind and sighted children’s input did not differ), we performed two one-sided equivalence tests (Lakens, 2017) for each measure that was non-significant in our primary analyses. Specifically, we tested adult word count, manual word count, conversational turn count, proportion of child-directed speech, type-token ratio, MLU, and proportion of visual words against small (\(|d| < 0.3\)), moderate (\(|d| < 0.5\)), and large (\(|d| < 0.7\)) effect size bounds. 
+>>>>>>> 4697fb9c30703e57dd99cf101cd74e2c2ed41e15
 
 
 ```{r make-eq-table}
@@ -430,7 +434,11 @@ MLU_agediffs_model %>%
          std.error = print_num(std.error),
          statistic = print_num(statistic),
          p.value = print_p(p.value)) %>%
+<<<<<<< HEAD
   kable(caption = "Model summary for the linear model predicting MLU from Age, Group, and their interaction. Estimate and standard error depict the unstandardized effect size (i.e., number of morphemes / utterance). We did not find differences by group, across age, or in an age * group interaction.")
+=======
+  kable(caption = "Model summary for the linear model predicting MLU from Age, Group, and their interaction. Estimate and standard error depict the unstandardized effect size (i.e., number of morphemes / utterance).")
+>>>>>>> 4697fb9c30703e57dd99cf101cd74e2c2ed41e15
 ```
 
 ```{r MLU-fig, fig.height=4, fig.width=6, fig.cap="Interaction between age and group on the mean length of utterance. Each dot represents one child's recording."}
