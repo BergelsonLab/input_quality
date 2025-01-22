@@ -1,8 +1,10 @@
 ---
-title: "VI LENA Supplement"
+title: "Supplemental Materials: Comparing Language Input in Homes of Young Blind and Sighted Children"
 author: "Erin Campbell"
 date: "`r Sys.Date()`"
-output: pdf_document
+output: 
+  pdf_document:
+    toc: true
 ---
 
 ```{r libraries-and-data, include=FALSE}
@@ -40,77 +42,137 @@ VI_matches_demo <- read_csv("./data/Demographics/VI_matches_demo.csv", na = c(""
 
 
 ```
-
+\newpage
 
 # Equivalence Testing
 
-```{r equivalence-tests, echo=TRUE}
-# Adult Word Count: d=0.3
-TOSTER::t_TOST(AWC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .3, eqbound_type = "SMD", alpha = .05)
-# Adult Word Count: d=0.5
-TOSTER::t_TOST(AWC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .5, eqbound_type = "SMD", alpha = .05)
-# Adult Word Count: d=0.7
-TOSTER::t_TOST(AWC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
-
-# Manual Word Count: d=0.3
-TOSTER::t_TOST(MWC_per_hour ~ group, data = manual_word_tokens, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .3, eqbound_type = "SMD",alpha = .05)
-# Manual Word Count: d=0.5
-TOSTER::t_TOST(MWC_per_hour ~ group, data = manual_word_tokens, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .5, eqbound_type = "SMD",alpha = .05)
-# Manual Word Count: d=0.7
-TOSTER::t_TOST(MWC_per_hour ~ group, data = manual_word_tokens, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .7, eqbound_type = "SMD",alpha = .05)
+To assess whether a lack of statistically significant group differences could be interpreted as genuine equivalence (i.e., that blind and sighted children’s input did not differ), we performed two one-sided equivalence tests (Lakens, 2017) for each measure that was non-significant in our primary analyses. Specifically, we tested adult word count, manual word count, conversational turn count, proportion of child-directed speech, type-token ratio, MLU, and proportion of visual words against small (\(|d| < 0.3\)), moderate (\(|d| < 0.5\)), and large (\(|d| < 0.7\)) effect size bounds. 
 
 
-# Conversational Turn Count: d=0.3
-TOSTER::t_TOST(CTC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .3, eqbound_type = "SMD",alpha = .05)
-# Conversational Turn Count: d=0.5
-TOSTER::t_TOST(CTC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .5, eqbound_type = "SMD",alpha = .05)
-# Conversational Turn Count: d=0.7
-TOSTER::t_TOST(CTC_per_hour ~ group, data = LENA_counts, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .7, eqbound_type = "SMD",alpha = .05)
+```{r make-eq-table}
+extract_tost_row <- function(
+  data, 
+  formula, 
+  measure_name, 
+  eqb, 
+  alpha = 0.05
+) {
+  # 1. Run TOST
+  res <- TOSTER::t_TOST(
+    formula       = formula,
+    data          = data,
+    hypothesis    = "EQU",
+    paired        = TRUE,
+    var.equal     = TRUE,
+    eqb           = eqb,
+    eqbound_type  = "SMD",
+    alpha         = alpha
+  )
+  
+  # 2. The $TOST component typically has 3 rows:
+  #    row 1 => lower bound test,
+  #    row 2 => upper bound test,
+  #    row 3 => classical t-test for zero difference
+  TOST_tab <- res$TOST
+  
+  # If there's an error or not enough rows, return NAs
+  if (nrow(TOST_tab) < 2) {
+    return(data.frame(
+      Variable           = measure_name,
+      Lower.Bound.Test   = "t=NA, p=NA",
+      Upper.Bound.Test   = "t=NA, p=NA",
+      TOST.Significant   = "No data"
+    ))
+  }
+  
+  # 3. Extract lower test (row 1) and upper test (row 2)
+  # Lower
+  t_lower <- round(TOST_tab$t[2], 2)
+  p_lower <- formatC(TOST_tab$p.value[2], format = "f", digits = 3)
+  lower_str <- paste0("t=", t_lower, ", p=", p_lower)
+  
+  # Upper
+  t_upper <- round(TOST_tab$t[3], 2)
+  p_upper <- formatC(TOST_tab$p.value[3], format = "f", digits = 3)
+  upper_str <- paste0("t=", t_upper, ", p=", p_upper)
+  
+  # 4. Check TOST significance: 
+  # For equivalence, BOTH p-values for the lower/upper test must be < alpha
+  both_sig <- (TOST_tab$p.value[2] < alpha) && (TOST_tab$p.value[3] < alpha)
+  tost_sig <- if (both_sig) "Yes" else "No"
+  
+  data.frame(
+    `Variable`         = measure_name,
+    `Lower Bound Test` = lower_str,
+    `Upper Bound Test` = upper_str,
+    `TOST Significant?` = tost_sig
+  )
+}
 
 
-# Proportion of Child-Directed Speech: d=0.3
-TOSTER::t_TOST(prop_CDS ~ group, data = xds_props_wide, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .3, eqbound_type = "SMD", alpha = .05)
-# Proportion of Child-Directed Speech: d=0.5
-TOSTER::t_TOST(prop_CDS ~ group, data = xds_props_wide, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .5, eqbound_type = "SMD", alpha = .05)
-# Proportion of Child-Directed Speech: d=0.7
-TOSTER::t_TOST(prop_CDS ~ group, data = xds_props_wide, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
+build_tost_table <- function(eqb) {
+  dplyr::bind_rows(
+    extract_tost_row(LENA_counts, AWC_per_hour ~ group, 
+                     "Adult Word Count", eqb = eqb),
+    extract_tost_row(manual_word_tokens, MWC_per_hour ~ group, 
+                     "Manual Word Count", eqb = eqb),
+    extract_tost_row(LENA_counts, CTC_per_hour ~ group, 
+                     "Conversational Turn Count", eqb = eqb),
+    extract_tost_row(xds_props_wide, prop_CDS ~ group, 
+                     "Prop. Child-Directed Speech", eqb = eqb),
+    extract_tost_row(TTR_calculations, mean_ttr ~ group, 
+                     "Type-Token Ratio", eqb = eqb),
+    extract_tost_row(sensory_props_wide, prop_Visual ~ group, 
+                     "Prop. Highly Visual Words", eqb = eqb)
+    # Add more measures as needed
+  )
+}
 
 
-# Type-Token Ratio: d=0.3
-TOSTER::t_TOST(mean_ttr ~ group, data = TTR_calculations, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .3, eqbound_type = "SMD",alpha = .05)
-# Type-Token Ratio: d=0.5
-TOSTER::t_TOST(mean_ttr ~ group, data = TTR_calculations, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .5, eqbound_type = "SMD",alpha = .05)
-# Type-Token Ratio: d=0.7
-TOSTER::t_TOST(mean_ttr ~ group, data = TTR_calculations, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .7, eqbound_type = "SMD",alpha = .05)
+table_d03 <- build_tost_table(eqb = 0.3)
+table_d05 <- build_tost_table(eqb = 0.5)
+table_d07 <- build_tost_table(eqb = 0.7)
 
-# Proportion of Highly Visual Words: d=0.3
-TOSTER::t_TOST(prop_Visual ~ group, data = sensory_props_wide, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
-# Proportion of Highly Visual Words: d=0.5
-TOSTER::t_TOST(prop_Visual ~ group, data = sensory_props_wide, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
-# Proportion of Highly Visual Words, d=0.7
-TOSTER::t_TOST(prop_Visual ~ group, data = sensory_props_wide, hypothesis = "EQU", paired = TRUE, 
-               var.equal = TRUE, eqb = .7, eqbound_type = "SMD", alpha = .05)
+
+
+
 
 ```
 
+At |d| = 0.3, all TOSTs were inconclusive. We do not have evidence for equivalence at this level and cannot rule out effects of |d|=0.3 or smaller for any of our variables.
+
+At |d| = 0.5, most TOSTs were inconclusive, but we did find a significant TOST for Adult Word Count. This suggests that there is unlikely to be a group difference of |d|$\geq$=0.5 in the number of words that blind and sighted children are exposed to. 
+
+At |d| = 0.7, the TOSTs were significant for all but Manual Word Count and Type-Token Ratio. This suggests that there is unlikely to be a difference between blind and sighted children of |d|$\geq$=0.7 in Adult Word Count, Child Vocalization Count, the Proportion of Child-Directed Speech, and the Proportion of Highly Visual Words. We cannot rule out effects of |d|$\leq$=0.7 for Manual Word Count or Type-Token Ratio.
+
+```{r eq-tost-03, results='asis'}
+table_d03 %>%
+  knitr::kable(
+    caption = "Two One-Sided Equivalence Tests at |d|=0.3"
+  ) %>%
+  kableExtra::kable_styling(full_width = FALSE, latex_options = c("HOLD_position"))
+```
+
+```{r eq-tost-05, results='asis'}
+table_d05 %>%
+  knitr::kable(
+    caption = "Two One-Sided Equivalence Tests at |d|=0.5"
+  ) %>%
+  kableExtra::kable_styling(latex_options = c("HOLD_position"),full_width = FALSE)
+```
+
+```{r eq-tost-07}
+table_d07 %>%
+  knitr::kable(
+    caption = "Two One-Sided Equivalence Tests at |d|=0.7"
+  ) %>%
+  kableExtra::kable_styling(latex_options = c("HOLD_position"),full_width = FALSE)
+```
+\newpage
+
 # Age Interactions
+
+To explore potential developmental trends in children's language input, we fit a series of linear models (each predicting one of our input variables) to investigate whether input characteristics varied by age for blind versus sighted children. We emphasize that these analyses are highly exploratory and should be interpreted with caution. 
 
 ```{r age-differences, include=FALSE}
 LENA_agediffs <- LENA_counts %>%
@@ -170,7 +232,21 @@ sensory_agediffs_model <- lm(prop ~ Modality*group*Age_months, data = visual_age
 
 ## Quantity
 
-```{r awc}
+$$
+\text{Adult Word Count} \sim \text{Age (months)} \times \text{Group (Blind vs. Sighted)}
+$$
+
+```{r awc, fig.height=4, fig.width=6, fig.cap="Interaction between age and group on the Adult Word Count (LENA automated measure). Each dot represents the number of words in one child's input.", results = 'asis'}
+
+AWC_agediffs_model %>%
+  tidy() %>%
+  mutate(estimate = print_num(estimate),
+         std.error = print_num(std.error),
+         statistic = print_num(statistic),
+         p.value = print_p(p.value)) %>%
+  kable(caption = "Model summary for the linear model predicting Adult Word Count from Age, Group, and their interaction. Estimate and standard error depict the unstandardized effect size (i.e., the number of LENA-estimated adult words/hour). We did not find that Adult Word Count differed significantly across age, by group, or in an age * group interaction.")%>%
+  kableExtra::kable_styling(full_width = FALSE, latex_options = c("HOLD_position"))
+
 ggplot(LENA_agediffs, aes(x = Age_months, y=AWC_per_hour, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
@@ -188,18 +264,25 @@ ggplot(LENA_agediffs, aes(x = Age_months, y=AWC_per_hour, color=group,fill=group
   xlab("Age (months)") +
   ylab("Adult Word Count (per hour)")
 
+```
 
-AWC_agediffs_model %>%
+\newpage
+
+$$
+\text{Manual Word Count} \sim \text{Age (months)} \times \text{Group (Blind vs. Sighted)}
+$$
+
+```{r mwc, fig.height=4, fig.width=6, fig.cap="Interaction between age and group on the Manual Word Count (from human annotations). Each dot represents the number of words in one child's input.", results = 'asis'}
+
+MWC_agediffs_model %>%
   tidy() %>%
   mutate(estimate = print_num(estimate),
          std.error = print_num(std.error),
          statistic = print_num(statistic),
          p.value = print_p(p.value)) %>%
-  kable()
+  kable(caption = "Model summary for the linear model predicting Manual Word Count from Age, Group, and their interaction. Estimate and standard error depict the unstandardized effect size (i.e., the number of words/hour in the manual annotations). We did not find that Manual Word Count differed significantly across age, by group, or in an age * group interaction.")%>%
+  kableExtra::kable_styling(full_width = FALSE, latex_options = c("HOLD_position"))
 
-```
-
-```{r mwc}
 ggplot(MWC_agediffs, aes(x = Age_months, y=MWC_per_hour, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
@@ -217,19 +300,27 @@ ggplot(MWC_agediffs, aes(x = Age_months, y=MWC_per_hour, color=group,fill=group)
   xlab("Age (months)") +
   ylab("Manual Word Count (per hour)")
 
+```
 
-MWC_agediffs_model %>%
+\newpage
+
+## Interaction
+
+$$
+\text{Conversational Turn Count} \sim \text{Age (months)} \times \text{Group (Blind vs. Sighted)}
+$$
+
+```{r ctc, fig.height=4, fig.width=6, fig.cap="Interaction between age and group on the Conversational Turn Count (LENA automated measure). Each dot represents the number of conversational turns in one child's recording.", results = 'asis'}
+
+CTC_agediffs_model %>%
   tidy() %>%
   mutate(estimate = print_num(estimate),
          std.error = print_num(std.error),
          statistic = print_num(statistic),
          p.value = print_p(p.value)) %>%
-  kable()
-```
+  kable(caption = "Model summary for the linear model predicting Conversational Turn Count from Age, Group, and their interaction. Estimate and standard error depict the unstandardized effect size (i.e., the number of LENA-estimated conversational turns / hour). Conversational Turn Count increased across age for both groups.") %>%
+  kableExtra::kable_styling(full_width = FALSE, latex_options = c("HOLD_position"))
 
-## Interaction
-
-```{r ctc}
 ggplot(LENA_agediffs, aes(x = Age_months, y=CTC_per_hour, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
@@ -247,16 +338,25 @@ ggplot(LENA_agediffs, aes(x = Age_months, y=CTC_per_hour, color=group,fill=group
   xlab("Age (months)") +
   ylab("Conversational Turn Count (per hour)")
 
-CTC_agediffs_model %>%
+
+```
+
+\newpage
+
+$$
+\text{Proportion of Child-Directed Speech} \sim \text{Age (months)} \times \text{Group (Blind vs. Sighted)}
+$$
+
+```{r cds, fig.height=4, fig.width=6, fig.cap="Interaction between age and group on the proportion of child-directed speech. Each dot represents one child's recording.", results = 'asis'}
+CDS_agediffs_model %>%
   tidy() %>%
   mutate(estimate = print_num(estimate),
          std.error = print_num(std.error),
          statistic = print_num(statistic),
          p.value = print_p(p.value)) %>%
-  kable()
-```
+  kable(caption = "Model summary for the linear model predicting Proportion of Child-Directed Speech from Age, Group, and their interaction. Estimate and standard error depict the unstandardized effect size (i.e., the proportion of child-directed speech). We did not find differences by group, across age, or in an age * group interaction.")%>%
+  kableExtra::kable_styling(full_width = FALSE, latex_options = c("HOLD_position"))
 
-```{r cds}
 ggplot(xds_agediffs, aes(x = Age_months, y=prop_CDS, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
@@ -274,19 +374,29 @@ ggplot(xds_agediffs, aes(x = Age_months, y=prop_CDS, color=group,fill=group)) +
   xlab("Age (months)") +
   ylab("Proportion of Child-Directed Speech")
 
-CDS_agediffs_model %>%
+```
+
+\newpage
+
+## Linguistic
+
+$$
+\text{Type Token Ratio} \sim \text{Age (months)} \times \text{Group (Blind vs. Sighted)}
+$$
+
+```{r ttr, results='asis'}
+TTR_agediffs_model %>%
   tidy() %>%
   mutate(estimate = print_num(estimate),
          std.error = print_num(std.error),
          statistic = print_num(statistic),
          p.value = print_p(p.value)) %>%
-  kable()
-
+  kable(caption = "Model summary for the linear model predicting Type-Token Ratio from Age, Group, and their interaction. Estimate and standard error depict the unstandardized effect size (i.e., the ratio of unique words : total words). We did not find differences by group, across age, or in an age * group interaction.") %>%
+  kableExtra::kable_styling(full_width = FALSE, latex_options = c("HOLD_position"))
 ```
 
-## Linguistic
+```{r TTR-fig, fig.height=4, fig.width=6, fig.cap="Interaction between age and group on the type-token ratio. Each dot represents one child's recording."}
 
-```{r ttr}
 ggplot(TTR_agediffs, aes(x = Age_months, y=mean_ttr, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
@@ -304,16 +414,26 @@ ggplot(TTR_agediffs, aes(x = Age_months, y=mean_ttr, color=group,fill=group)) +
   xlab("Age (months)") +
   ylab("Type-Token Ratio")
 
-TTR_agediffs_model %>%
+
+```
+
+\newpage
+
+$$
+\text{Mean Length of Utterance} \sim \text{Age (months)} \times \text{Group (Blind vs. Sighted)}
+$$
+
+```{r mlu, results = 'asis'}
+MLU_agediffs_model %>%
   tidy() %>%
   mutate(estimate = print_num(estimate),
          std.error = print_num(std.error),
          statistic = print_num(statistic),
          p.value = print_p(p.value)) %>%
-  kable()
+  kable(caption = "Model summary for the linear model predicting MLU from Age, Group, and their interaction. Estimate and standard error depict the unstandardized effect size (i.e., number of morphemes / utterance).")
 ```
 
-```{r mlu}
+```{r MLU-fig, fig.height=4, fig.width=6, fig.cap="Interaction between age and group on the mean length of utterance. Each dot represents one child's recording."}
 ggplot(MLU_agediffs, aes(x = Age_months, y=MLU, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
@@ -331,18 +451,70 @@ ggplot(MLU_agediffs, aes(x = Age_months, y=MLU, color=group,fill=group)) +
   xlab("Age (months)") +
   ylab("Mean Length of Utterance\n(Morphemes)")
 
-MLU_agediffs_model %>%
-  tidy() %>%
-  mutate(estimate = print_num(estimate),
-         std.error = print_num(std.error),
-         statistic = print_num(statistic),
-         p.value = print_p(p.value)) %>%
-  kable()
 ```
+
+\newpage
 
 ## Conceptual
 
-```{r lancaster, fig.height=8}
+$$
+\text{Proportion of Content Words} \sim \text{Age (months)} \times \text{Group (Blind vs. Sighted)} \times \text{Sensory Modality }
+$$
+
+```{r lancaster-table, results = 'asis'}
+
+model_df <- sensory_agediffs_model %>%
+  tidy() %>%
+  mutate(
+    estimate   = print_num(estimate, digits = 3),
+    std.error  = print_num(std.error),
+    statistic  = print_num(statistic),
+    p.value    = print_p(p.value),
+    # Classify each row (term) by searching for ":" in the term name
+    EffectType = case_when(
+      str_count(term, ":") == 2 ~ "Three-Way Interaction",  # Two colons => three-way interaction
+      str_count(term, ":") == 1 ~ "Two-Way Interaction",    # One colon => two-way interaction
+      TRUE                      ~ "Main Effects"            # No colon => main effect
+    )
+  ) %>%
+  # Reorder so that Main Effects come first, then 2-way, then 3-way
+  mutate(
+    EffectType = factor(EffectType, 
+                        levels = c("Main Effects", 
+                                   "Two-Way Interaction", 
+                                   "Three-Way Interaction"))
+  ) %>%
+  arrange(EffectType)
+
+# Build the table
+# 1) first store the grouped data
+main_effects <- model_df %>% filter(EffectType == "Main Effects")
+two_way     <- model_df %>% filter(EffectType == "Two-Way Interaction")
+three_way   <- model_df %>% filter(EffectType == "Three-Way Interaction")
+
+table <- bind_rows(main_effects, two_way, three_way) %>%
+  select(term, estimate, std.error, statistic, p.value)  # choose columns
+
+# 2) kable it, then group_rows for visual breaks
+table %>%
+  kable(
+    caption = "Model summary for the linear model predicting the Proportion of Content Words from Age, Group, Word Modality, and their interactions. Estimate and standard error depict the unstandardized effect size (i.e., the proportion of content words). The reference level for Word Modality is Amodal, and the reference level for Group is Sighted. For the main effects, we find no difference between groups, but that some modalities are more common than others. There were no significant interactions between group and modality, however, we did find several two-way interactions between modality and age: the proportions of auditory, gustatory, haptic, interoceptive, multimodal, and olfactory words increased slightly across age for both groups. Most tantalizingly, we observed three-way interactions. Among sighted children, the proportion of visual words in the input increases significantly more across age than among blind children. The opposite is true for amodal words: which decrease for sighted children across age, but not for blind children. "
+  ) %>%
+  # group_rows(label, start_row, end_row)
+  group_rows("Main Effects", 1, nrow(main_effects)) %>%
+  group_rows("Two-Way Interactions", 
+             nrow(main_effects) + 1, 
+             nrow(main_effects) + nrow(two_way)) %>%
+  group_rows("Three-Way Interactions", 
+             nrow(main_effects) + nrow(two_way) + 1, 
+             nrow(main_effects) + nrow(two_way) + nrow(three_way)) %>%
+  kable_styling(
+    full_width = FALSE,
+    latex_options = c("HOLD_position")
+  )
+```
+
+```{r lancaster-fig, fig.height=8, fig.cap="Interaction between age and group on the proportion of words by sensory modality (Lynott & Connell, 2020; see main text for details). Each dot represents one child's recording.", results='asis'}
 ggplot(visual_agediffs, aes(x = Age_months, y=prop, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
@@ -361,17 +533,28 @@ ggplot(visual_agediffs, aes(x = Age_months, y=prop, color=group,fill=group)) +
   ylab("Proportion of Content Words") +
   facet_wrap(.~Modality, scales = "free", nrow = 4)
 
-sensory_agediffs_model %>%
+
+```
+
+\newpage
+
+$$
+\text{Proportion of Temporally Displaced Verbs} \sim \text{Age (months)} \times \text{Group (Blind vs. Sighted)}
+$$
+
+```{r displaced-table, results='asis'}
+temporality_agediffs_model %>%
   tidy() %>%
   mutate(estimate = print_num(estimate),
          std.error = print_num(std.error),
          statistic = print_num(statistic),
          p.value = print_p(p.value)) %>%
-  kable()
-
+  kable(caption = "Model summary for the linear model predicting the Proportion of Temporally Displaced Words from Age, Group, and their interaction. Estimate and standard error depict the unstandardized effect size (i.e., the proportion of verbs). We did not find differences in this proportion by group, across age, or in an age * group interaction.") %>%
+  kableExtra::kable_styling(full_width = FALSE, latex_options = c("HOLD_position"))
 ```
 
-```{r displaced}
+```{r displaced-fig, fig.height=4, fig.width=6, fig.cap="Interaction between age and group on the proportion of temporally-displaced verbs. Each dot represents one child's recording.", results = 'asis'}
+
 ggplot(temporality_agediffs, aes(x = Age_months, y=prop, color=group,fill=group)) +
   geom_point() +
   geom_smooth(method="lm") +
@@ -389,11 +572,6 @@ ggplot(temporality_agediffs, aes(x = Age_months, y=prop, color=group,fill=group)
   xlab("Age (months)") +
   ylab("Proportion of Temporally Displaced Verbs")
 
-temporality_agediffs_model %>%
-  tidy() %>%
-  mutate(estimate = print_num(estimate),
-         std.error = print_num(std.error),
-         statistic = print_num(statistic),
-         p.value = print_p(p.value)) %>%
-  kable()
+
+
 ```
